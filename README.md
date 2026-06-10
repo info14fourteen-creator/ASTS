@@ -36,6 +36,7 @@
 ## Структура
 
 - `docs/` - продуктовая и техническая спецификация.
+- `workdesk/` - статический рабочий стол проекта для GitHub Pages.
 - `apps/web/` - будущий frontend.
 - `apps/api/` - будущий backend.
 - `packages/shared/` - общие схемы и generated-клиенты позже.
@@ -49,6 +50,19 @@
 - `docs/00-project-brief-ru.md`
 - `docs/13-b2g-rtb-analysis-ru.md`
 - `docs/14-ai-rebuild-roadmap-ru.md`
+- `docs/15-primary-source-policy-ru.md`
+
+## Workdesk
+
+Командный рабочий стол лежит в `workdesk/` и публикуется через GitHub Pages после merge в `main`.
+
+Он нужен, чтобы участники быстро видели:
+
+- текущий этап проекта;
+- ссылки на roadmap issues и PR;
+- очищенную воронку старой B2G-логики;
+- правило: только первоисточники данных;
+- правила объединения работы через PR.
 
 ## Следующий шаг
 
