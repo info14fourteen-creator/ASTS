@@ -47,6 +47,8 @@
 Начинать чтение отсюда:
 
 - `docs/00-project-brief-ru.md`
+- `docs/13-b2g-rtb-analysis-ru.md`
+- `docs/14-ai-rebuild-roadmap-ru.md`
 
 ## Следующий шаг
 
