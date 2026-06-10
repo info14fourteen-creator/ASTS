@@ -51,6 +51,7 @@
 - `docs/13-b2g-rtb-analysis-ru.md`
 - `docs/14-ai-rebuild-roadmap-ru.md`
 - `docs/15-primary-source-policy-ru.md`
+- `docs/16-b2g-mind-map-registry-ru.md`
 
 ## Workdesk
 
@@ -61,6 +62,7 @@
 - текущий этап проекта;
 - ссылки на roadmap issues и PR;
 - очищенную воронку старой B2G-логики;
+- контрольный реестр восстановления mind map;
 - правило: только первоисточники данных;
 - правила объединения работы через PR.
 
