@@ -1,0 +1,23 @@
+#!/bin/sh
+
+protected_branch='refs/heads/main'
+legacy_protected_branch='refs/heads/master'
+
+while read local_ref local_sha remote_ref remote_sha
+do
+  if [ "$remote_ref" = "$protected_branch" ] || [ "$remote_ref" = "$legacy_protected_branch" ]; then
+    cat <<'MSG'
+
+Blocked: direct push to main/master is disabled for this working copy.
+
+Use the team workflow:
+  git checkout -b codex/<short-task-name>
+  git push -u origin codex/<short-task-name>
+  gh pr create --base main --head codex/<short-task-name>
+
+MSG
+    exit 1
+  fi
+done
+
+exit 0
