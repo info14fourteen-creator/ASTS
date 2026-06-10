@@ -1,0 +1,37 @@
+# OS
+.DS_Store
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+.next/
+dist/
+build/
+coverage/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# Local services
+.minio/
+.postgres/
+.redis/
+
+# Generated files
+exports/
+uploads/
+tmp/
+
+# IDE
+.idea/
+.vscode/
