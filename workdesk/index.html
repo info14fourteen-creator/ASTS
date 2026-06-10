@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ASTS Workdesk</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">ASTS / B2G AI rebuild</p>
+        <h1>Рабочий стол проекта</h1>
+      </div>
+      <nav aria-label="Основные ссылки">
+        <a href="https://github.com/info14fourteen-creator/ASTS">GitHub</a>
+        <a href="https://github.com/info14fourteen-creator/ASTS/pulls">PR</a>
+        <a href="https://github.com/info14fourteen-creator/ASTS/issues">Issues</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="status-grid" aria-label="Текущий статус">
+        <article>
+          <span class="label">Текущий этап</span>
+          <strong>Фиксация логики и проектирование MVP</strong>
+          <p>Старая B2G-карта разобрана, этапы сделки перенесены в документы, готовим ядро данных и workflow.</p>
+        </article>
+        <article>
+          <span class="label">Правило данных</span>
+          <strong>Только первоисточники</strong>
+          <p>ЕИС, ФНС и официальные ЭТП. Агрегаторы допустимы только как импорт старых файлов или сверка.</p>
+        </article>
+        <article>
+          <span class="label">Как работаем</span>
+          <strong>Ветки + PR, без push в main</strong>
+          <p>Каждая задача в отдельной ветке <code>codex/...</code>. Объединяем только после проверки и понятного PR.</p>
+        </article>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <p class="eyebrow">Roadmap</p>
+          <h2>Этапы проекта</h2>
+        </div>
+        <div class="phase-list">
+          <a class="phase done" href="https://github.com/info14fourteen-creator/ASTS/issues/4">
+            <span>0</span>
+            <strong>Зафиксировать B2G/АСТС-логику</strong>
+            <small>PDF, RTB, роли, статусы, причины отказов, экономика.</small>
+          </a>
+          <a class="phase active" href="https://github.com/info14fourteen-creator/ASTS/issues/5">
+            <span>1</span>
+            <strong>Backend foundation и модели ядра</strong>
+            <small>FastAPI, PostgreSQL, статусы сделки, источники, документы.</small>
+          </a>
+          <a class="phase" href="https://github.com/info14fourteen-creator/ASTS/issues/6">
+            <span>2</span>
+            <strong>Официальные источники данных</strong>
+            <small>ЕИС, ФНС, ЭТП, raw layer, контрольные суммы.</small>
+          </a>
+          <a class="phase" href="https://github.com/info14fourteen-creator/ASTS/issues/7">
+            <span>3</span>
+            <strong>AI вместо ручного разбора</strong>
+            <small>Документы, позиции, требования, риски, вопросы.</small>
+          </a>
+          <a class="phase" href="https://github.com/info14fourteen-creator/ASTS/issues/8">
+            <span>4</span>
+            <strong>Поставщики и КП</strong>
+            <small>Запросы, публичные страницы, чтение ответов, аналоги.</small>
+          </a>
+          <a class="phase" href="https://github.com/info14fourteen-creator/ASTS/issues/9">
+            <span>5</span>
+            <strong>Top-3 и рентабельность</strong>
+            <small>Min/mid/max, НМЦК, затраты, ручной режим.</small>
+          </a>
+          <a class="phase" href="https://github.com/info14fourteen-creator/ASTS/issues/10">
+            <span>6</span>
+            <strong>Web MVP кабинет</strong>
+            <small>Inbox, карточка процедуры, задачи, решение.</small>
+          </a>
+          <a class="phase" href="https://github.com/info14fourteen-creator/ASTS/issues/11">
+            <span>7</span>
+            <strong>Telegram Bot и Mini App</strong>
+            <small>Уведомления, approvals, мобильный быстрый доступ.</small>
+          </a>
+          <a class="phase" href="https://github.com/info14fourteen-creator/ASTS/issues/12">
+            <span>8</span>
+            <strong>Mobile app</strong>
+            <small>Менеджерский контроль, push, офлайн-заметки.</small>
+          </a>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <p class="eyebrow">Source policy</p>
+          <h2>Откуда берем данные</h2>
+        </div>
+        <div class="source-grid">
+          <article>
+            <h3>ЕИС</h3>
+            <p>Закупки, карточки извещений, документы, реестры контрактов, КТРУ, РНП, организации.</p>
+          </article>
+          <article>
+            <h3>ФНС</h3>
+            <p>ЕГРЮЛ/ЕГРИП, официальные открытые данные, проверка юридических лиц и адресов.</p>
+          </article>
+          <article>
+            <h3>ЭТП</h3>
+            <p>Только официальные API, выгрузки или разрешенные кабинеты площадок из перечня ЕИС.</p>
+          </article>
+          <article class="warning">
+            <h3>Не источник истины</h3>
+            <p>Tenderland, Seldon, Контур и другие агрегаторы: только миграция, сверка или ручной импорт.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <p class="eyebrow">Mind map cleanup</p>
+          <h2>Старая логика в упорядоченном виде</h2>
+        </div>
+        <div class="workflow" aria-label="Воронка сделки">
+          <div class="lane">
+            <h3>Вход</h3>
+            <p>Формирование условий</p>
+            <p>Выгружена из базы</p>
+            <p>Оценка возможности участия</p>
+          </div>
+          <div class="lane">
+            <h3>Позиции и КП</h3>
+            <p>Генерация запроса КП</p>
+            <p>Ожидание поставщиков</p>
+            <p>Анализ предложения</p>
+            <p>Внесение цен</p>
+          </div>
+          <div class="lane">
+            <h3>Решение</h3>
+            <p>Оферта</p>
+            <p>Акцептирование</p>
+            <p>Расчет рентабельности</p>
+          </div>
+          <div class="lane">
+            <h3>Подача</h3>
+            <p>Подача документов</p>
+            <p>Договор, спецификация, счет</p>
+            <p>Счет и оплата</p>
+          </div>
+          <div class="lane">
+            <h3>Исполнение</h3>
+            <p>Закупка у поставщика</p>
+            <p>Исполнение</p>
+            <p>Закрывающие документы</p>
+            <p>Финальный расчет</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section two-columns">
+        <article>
+          <div class="section-head compact">
+            <p class="eyebrow">Documents</p>
+            <h2>Где смотреть детали</h2>
+          </div>
+          <ul class="links">
+            <li><a href="https://github.com/info14fourteen-creator/ASTS/blob/main/docs/13-b2g-rtb-analysis-ru.md">Анализ старой B2G-карты</a></li>
+            <li><a href="https://github.com/info14fourteen-creator/ASTS/blob/main/docs/14-ai-rebuild-roadmap-ru.md">План восстановления с AI</a></li>
+            <li><a href="https://github.com/info14fourteen-creator/ASTS/blob/main/docs/15-primary-source-policy-ru.md">Политика первоисточников</a></li>
+            <li><a href="https://github.com/info14fourteen-creator/ASTS/blob/main/docs/16-b2g-mind-map-registry-ru.md">Реестр восстановления mind map</a></li>
+            <li><a href="https://github.com/info14fourteen-creator/ASTS/blob/main/docs/12-team-workflow-ru.md">Правила параллельной работы</a></li>
+          </ul>
+        </article>
+        <article>
+          <div class="section-head compact">
+            <p class="eyebrow">Merge rules</p>
+            <h2>Когда объединяем</h2>
+          </div>
+          <ul class="checks">
+            <li>PR описывает, что изменилось и почему.</li>
+            <li>Нет прямого push в <code>main</code>.</li>
+            <li>Задача связана с issue или этапом roadmap.</li>
+            <li>Документация обновлена, если изменилась логика.</li>
+            <li>Второй участник посмотрел PR, если изменение влияет на общий workflow.</li>
+          </ul>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
