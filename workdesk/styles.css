@@ -240,8 +240,33 @@ main {
 
 .workflow {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
+}
+
+.workflow + .funnel-head {
+  margin-top: 22px;
+}
+
+.funnel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
+  margin: 0 0 12px;
+}
+
+.funnel-head h3 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: 0;
+}
+
+.funnel-head p {
+  max-width: 620px;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.45;
 }
 
 .lane {
@@ -313,6 +338,14 @@ main {
   .workflow,
   .two-columns {
     grid-template-columns: 1fr;
+  }
+
+  .funnel-head {
+    display: block;
+  }
+
+  .funnel-head p {
+    margin-top: 7px;
   }
 
   .lane {
