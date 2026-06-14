@@ -19,6 +19,7 @@
 - Файлы: S3-compatible storage, локально MinIO.
 - AI: отдельный слой для структурного извлечения, классификации, кратких выводов и Q&A по документам.
 - Интеграции: сначала Telegram и email, потом Bitrix24/AmoCRM и 1C.
+- Каналы доступа: публичный сайт, полный web app через `app.site.ru`, mobile web, Telegram Mini App, iOS/Android apps.
 - Локальный запуск: Docker Compose для Postgres, Redis, MinIO.
 
 ## Первый MVP
@@ -52,6 +53,7 @@
 - `docs/14-ai-rebuild-roadmap-ru.md`
 - `docs/15-primary-source-policy-ru.md`
 - `docs/16-b2g-mind-map-registry-ru.md`
+- `docs/17-platform-delivery-and-integrations-ru.md`
 
 ## Workdesk
 
@@ -61,8 +63,9 @@
 
 - текущий этап проекта;
 - ссылки на roadmap issues и PR;
-- очищенную воронку старой B2G-логики;
+- две очищенные воронки старой B2G-логики: до победы и после победы;
 - контрольный реестр восстановления mind map;
+- план каналов доступа и CRM-интеграций;
 - правило: только первоисточники данных;
 - правила объединения работы через PR.
 
