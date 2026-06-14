@@ -678,6 +678,78 @@ dd {
   font-weight: 850;
 }
 
+.ai-review-list {
+  display: grid;
+  gap: 10px;
+}
+
+.ai-review-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 72px;
+  gap: 12px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfcfd;
+}
+
+.ai-review-row strong,
+.ai-review-row span {
+  display: block;
+}
+
+.ai-review-row p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.ai-review-row span {
+  justify-self: end;
+  border-radius: 8px;
+  padding: 7px 9px;
+  background: rgba(18, 106, 113, 0.1);
+  color: var(--accent-dark);
+  font-weight: 850;
+}
+
+.ai-review-row.ok span {
+  background: rgba(40, 122, 82, 0.1);
+  color: var(--green);
+}
+
+.ai-review-row.warning span,
+.ai-review-row.review span {
+  background: #fff7e8;
+  color: var(--amber);
+}
+
+.quality-grid,
+.ai-step-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.quality-card {
+  min-height: 118px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfcfd;
+}
+
+.quality-card strong {
+  display: block;
+}
+
+.quality-card p {
+  margin: 7px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
 .settings-list {
   display: grid;
   gap: 10px;
@@ -877,8 +949,8 @@ dd {
   }
 
   .sidebar nav {
-    grid-template-columns: repeat(5, minmax(120px, 1fr));
-    overflow-x: auto;
+    grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));
+    overflow-x: visible;
   }
 
   .tenant {
@@ -935,6 +1007,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .ai-step-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .setting-row {
     grid-template-columns: 1fr;
     gap: 6px;
@@ -965,6 +1041,16 @@ dd {
 
   .source-card {
     display: grid;
+  }
+
+  .ai-review-row,
+  .quality-grid,
+  .ai-step-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-review-row span {
+    justify-self: start;
   }
 
   .source-grid {
