@@ -1,74 +1,326 @@
-const outputs = [
-  "Карточка тендера",
-  "Карточка решения",
-  "Реестр требований",
-  "Таблица позиций",
-  "Запрос поставщику",
-  "Сравнение КП",
-  "Расчет рентабельности",
-  "Задачи и дедлайны",
+type Tender = {
+  id: string;
+  title: string;
+  source: string;
+  customer: string;
+  nmck: string;
+  deadline: string;
+  region: string;
+  status: string;
+  risk: "low" | "medium" | "high";
+  match: number;
+};
+
+type Task = {
+  title: string;
+  owner: string;
+  due: string;
+  tone: "neutral" | "warning" | "danger";
+};
+
+const tenders: Tender[] = [
+  {
+    id: "03731000426-26",
+    title: "Поставка светотехнического оборудования для учреждения",
+    source: "ЕИС",
+    customer: "ГБУ Жилищник района",
+    nmck: "18.4 млн ₽",
+    deadline: "18 июня, 14:00",
+    region: "Москва",
+    status: "AI-разбор",
+    risk: "medium",
+    match: 86,
+  },
+  {
+    id: "32211984571",
+    title: "Комплексное обслуживание инженерных систем",
+    source: "223-ФЗ",
+    customer: "АО Теплосеть",
+    nmck: "42.8 млн ₽",
+    deadline: "21 июня, 09:00",
+    region: "Татарстан",
+    status: "Поставщики",
+    risk: "low",
+    match: 78,
+  },
+  {
+    id: "01622000118-26",
+    title: "Закупка расходных материалов и комплектующих",
+    source: "ЭТП",
+    customer: "Минздрав региона",
+    nmck: "7.9 млн ₽",
+    deadline: "16 июня, 11:30",
+    region: "Свердловская область",
+    status: "Срок близко",
+    risk: "high",
+    match: 64,
+  },
 ];
 
-const stack = [
-  ["Web", "Next.js, TypeScript, React"],
-  ["API", "Python, FastAPI, Pydantic"],
-  ["Data", "PostgreSQL + pgvector"],
-  ["Jobs", "Redis + Celery/RQ"],
-  ["Files", "S3/MinIO"],
-  ["AI", "структурный разбор документов и КП"],
+const participationStages = [
+  "Входящие",
+  "Оценка",
+  "Позиции",
+  "КП",
+  "Top-3",
+  "Экономика",
+  "Подача",
+  "Результат",
+];
+
+const executionStages = [
+  "Договор",
+  "Оплата",
+  "Закупка",
+  "Исполнение",
+  "Закрывающие",
+  "Финальный расчет",
+];
+
+const tasks: Task[] = [
+  {
+    title: "Проверить 3 low-confidence позиции",
+    owner: "Закупщик",
+    due: "сегодня, 16:00",
+    tone: "warning",
+  },
+  {
+    title: "Подтвердить список поставщиков",
+    owner: "Менеджер",
+    due: "сегодня, 18:00",
+    tone: "neutral",
+  },
+  {
+    title: "Срок подачи меньше 10 часов",
+    owner: "B2G специалист",
+    due: "критично",
+    tone: "danger",
+  },
+];
+
+const integrations = [
+  ["Bitrix24", "первая очередь"],
+  ["amoCRM", "первая очередь"],
+  ["1C", "обмен/импорт"],
+  ["Telegram", "bot + mini app"],
+  ["ЕИС", "primary source"],
+  ["ФНС", "primary source"],
 ];
 
 export default function Home() {
+  const selectedTender = tenders[0];
+
   return (
-    <main className="shell">
-      <section className="header">
-        <div>
-          <p className="eyebrow">ASTS MVP blueprint</p>
-          <h1>AI-диспетчер тендерного отдела</h1>
-          <p className="lead">
-            От разбора закупочной документации до сбора КП, сравнения цен,
-            расчета маржи и контроля задач.
-          </p>
+    <main className="app-shell">
+      <aside className="sidebar" aria-label="Основная навигация">
+        <div className="brand">
+          <span>ASTS</span>
+          <strong>app.site.ru</strong>
         </div>
-        <div className="status">
-          <span>Локальный проект создан</span>
-          <strong>Blueprint</strong>
-        </div>
-      </section>
 
-      <section className="grid two">
-        <div className="panel">
-          <h2>На чем пишем</h2>
-          <div className="rows">
-            {stack.map(([name, value]) => (
-              <div className="row" key={name}>
-                <span>{name}</span>
-                <strong>{value}</strong>
+        <nav>
+          <a href="#inbox" className="active">
+            Тендеры
+          </a>
+          <a href="#deal">Карточка</a>
+          <a href="#tasks">Задачи</a>
+          <a href="#integrations">Интеграции</a>
+          <a href="#settings">Настройки</a>
+        </nav>
+
+        <div className="tenant">
+          <span>Компания</span>
+          <strong>АО “СВЕТ”</strong>
+          <p>Профиль заполнен на 68%</p>
+        </div>
+      </aside>
+
+      <section className="workspace">
+        <header className="topline">
+          <div>
+            <p className="eyebrow">AI tender operations platform</p>
+            <h1>Рабочий кабинет тендерного отдела</h1>
+          </div>
+          <div className="top-actions" aria-label="Быстрые действия">
+            <button type="button">Импорт</button>
+            <button type="button" className="primary">
+              Новая процедура
+            </button>
+          </div>
+        </header>
+
+        <section className="kpi-grid" aria-label="Операционные показатели">
+          <div className="metric">
+            <span>Новые процедуры</span>
+            <strong>42</strong>
+            <small>из ЕИС и ЭТП за сутки</small>
+          </div>
+          <div className="metric">
+            <span>В работе</span>
+            <strong>18</strong>
+            <small>7 ждут поставщиков</small>
+          </div>
+          <div className="metric">
+            <span>Срок &lt; 10 часов</span>
+            <strong>3</strong>
+            <small>нужна реакция менеджера</small>
+          </div>
+          <div className="metric">
+            <span>Средний match</span>
+            <strong>81%</strong>
+            <small>по профилю компании</small>
+          </div>
+        </section>
+
+        <section className="layout-grid">
+          <section className="panel span-7" id="inbox">
+            <div className="panel-head">
+              <div>
+                <p className="eyebrow">Tender Inbox</p>
+                <h2>Процедуры из первоисточников</h2>
               </div>
-            ))}
-          </div>
-        </div>
+              <div className="filters" aria-label="Фильтры">
+                <span>ЕИС</span>
+                <span>ФНС</span>
+                <span>ЭТП</span>
+              </div>
+            </div>
 
-        <div className="panel">
-          <h2>Как выдаем данные</h2>
-          <div className="chips">
-            {outputs.map((item) => (
-              <span key={item}>{item}</span>
-            ))}
-          </div>
-        </div>
-      </section>
+            <div className="tender-table" role="table" aria-label="Список тендеров">
+              <div className="table-row table-head" role="row">
+                <span>Процедура</span>
+                <span>НМЦК</span>
+                <span>Срок</span>
+                <span>Match</span>
+              </div>
+              {tenders.map((tender) => (
+                <article className="table-row tender-row" key={tender.id} role="row">
+                  <div>
+                    <strong>{tender.title}</strong>
+                    <small>
+                      {tender.source} · {tender.id} · {tender.region}
+                    </small>
+                  </div>
+                  <span>{tender.nmck}</span>
+                  <span>{tender.deadline}</span>
+                  <span className={`risk ${tender.risk}`}>{tender.match}%</span>
+                </article>
+              ))}
+            </div>
+          </section>
 
-      <section className="panel">
-        <h2>Первый продаваемый MVP</h2>
-        <ol className="steps">
-          <li>Импорт тендера из XLSX или создание по ссылке.</li>
-          <li>Загрузка PDF/DOCX/XLSX документации.</li>
-          <li>AI-разбор требований, сроков, рисков и позиций.</li>
-          <li>Решение: участвовать, отказаться или проверить вручную.</li>
-          <li>Сбор КП поставщиков по публичной ссылке.</li>
-          <li>Сравнение цен и расчет предварительной рентабельности.</li>
-        </ol>
+          <section className="panel span-5">
+            <div className="panel-head compact">
+              <div>
+                <p className="eyebrow">Onboarding</p>
+                <h2>Профиль компании</h2>
+              </div>
+            </div>
+            <div className="progress">
+              <div style={{ width: "68%" }} />
+            </div>
+            <div className="checklist">
+              <p className="done">ИНН/ОГРН и регионы</p>
+              <p className="done">ОКПД2/ОКВЭД интересов</p>
+              <p>Порог маржинальности</p>
+              <p>CRM и роли сотрудников</p>
+            </div>
+          </section>
+        </section>
+
+        <section className="panel" id="deal">
+          <div className="panel-head">
+            <div>
+              <p className="eyebrow">Карточка процедуры</p>
+              <h2>{selectedTender.title}</h2>
+            </div>
+            <span className="status-pill">AI рекомендует: ручная проверка</span>
+          </div>
+
+          <div className="deal-grid">
+            <div className="decision-card">
+              <h3>AI Decision Card</h3>
+              <dl>
+                <div>
+                  <dt>Заказчик</dt>
+                  <dd>{selectedTender.customer}</dd>
+                </div>
+                <div>
+                  <dt>НМЦК</dt>
+                  <dd>{selectedTender.nmck}</dd>
+                </div>
+                <div>
+                  <dt>Риск</dt>
+                  <dd>срок подачи близко, 3 позиции требуют проверки</dd>
+                </div>
+                <div>
+                  <dt>Следующий шаг</dt>
+                  <dd>подтвердить позиции и отправить КП 8 поставщикам</dd>
+                </div>
+              </dl>
+            </div>
+
+            <div className="funnels">
+              <div>
+                <h3>Воронка 1: до победы</h3>
+                <div className="stage-line">
+                  {participationStages.map((stage, index) => (
+                    <span className={index < 4 ? "complete" : index === 4 ? "current" : ""} key={stage}>
+                      {stage}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3>Воронка 2: исполнение</h3>
+                <div className="stage-line muted">
+                  {executionStages.map((stage) => (
+                    <span key={stage}>{stage}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="layout-grid bottom-grid">
+          <section className="panel span-6" id="tasks">
+            <div className="panel-head compact">
+              <div>
+                <p className="eyebrow">Tasks</p>
+                <h2>Задачи и эскалации</h2>
+              </div>
+            </div>
+            <div className="task-list">
+              {tasks.map((task) => (
+                <article className={`task ${task.tone}`} key={task.title}>
+                  <strong>{task.title}</strong>
+                  <span>
+                    {task.owner} · {task.due}
+                  </span>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="panel span-6" id="integrations">
+            <div className="panel-head compact">
+              <div>
+                <p className="eyebrow">CRM hub</p>
+                <h2>Интеграции</h2>
+              </div>
+            </div>
+            <div className="integration-grid">
+              {integrations.map(([name, status]) => (
+                <div className="integration" key={name}>
+                  <strong>{name}</strong>
+                  <span>{status}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+        </section>
       </section>
     </main>
   );

@@ -1,8 +1,8 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "ASTS",
-  description: "AI tender operations platform",
+  title: "ASTS App",
+  description: "AI tender operations workspace for app.site.ru",
 };
 
 export default function RootLayout({
