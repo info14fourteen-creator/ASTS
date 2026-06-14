@@ -678,6 +678,106 @@ dd {
   font-weight: 850;
 }
 
+.execution-stage-line {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.execution-stage-line span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px;
+  background: var(--surface-soft);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 850;
+  text-align: center;
+}
+
+.execution-stage-line span.complete {
+  border-color: rgba(40, 122, 82, 0.24);
+  background: rgba(40, 122, 82, 0.09);
+  color: var(--green);
+}
+
+.execution-stage-line span.current {
+  border-color: rgba(18, 106, 113, 0.36);
+  background: rgba(18, 106, 113, 0.12);
+  color: var(--accent-dark);
+}
+
+.execution-list {
+  display: grid;
+  gap: 10px;
+}
+
+.execution-item {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfcfd;
+}
+
+.execution-item strong,
+.execution-item span {
+  display: block;
+}
+
+.execution-item span {
+  margin-top: 5px;
+  color: var(--muted);
+}
+
+.execution-item.done {
+  border-color: rgba(40, 122, 82, 0.22);
+  background: rgba(40, 122, 82, 0.08);
+}
+
+.execution-item.current {
+  border-color: rgba(18, 106, 113, 0.28);
+  background: rgba(18, 106, 113, 0.07);
+}
+
+.payment-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.payment-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfcfd;
+}
+
+.payment-card span,
+.payment-card p {
+  color: var(--muted);
+}
+
+.payment-card span {
+  display: block;
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.payment-card strong {
+  display: block;
+  margin: 7px 0;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.payment-card p {
+  margin: 0;
+}
+
 .ai-review-list {
   display: grid;
   gap: 10px;
@@ -989,6 +1089,11 @@ dd {
 
   .stage-line.muted {
     grid-template-columns: repeat(6, minmax(110px, 1fr));
+  }
+
+  .execution-stage-line {
+    grid-template-columns: repeat(6, minmax(110px, 1fr));
+    overflow-x: auto;
   }
 
   .table-head {

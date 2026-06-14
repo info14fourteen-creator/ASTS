@@ -4,6 +4,7 @@ const navItems = [
   ["sources", "/sources", "Источники"],
   ["ai-review", "/ai-review", "AI разбор"],
   ["deal", "/tenders/demo", "Карточка"],
+  ["execution", "/execution", "Исполнение"],
   ["tasks", "/tasks", "Задачи"],
   ["integrations", "/integrations", "Интеграции"],
   ["settings", "/settings", "Настройки"],
