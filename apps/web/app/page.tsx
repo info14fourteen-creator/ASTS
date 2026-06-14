@@ -1,3 +1,5 @@
+import { Sidebar } from "./app-shell";
+
 type Tender = {
   id: string;
   title: string;
@@ -112,28 +114,7 @@ export default function Home() {
 
   return (
     <main className="app-shell">
-      <aside className="sidebar" aria-label="Основная навигация">
-        <div className="brand">
-          <span>ASTS</span>
-          <strong>app.site.ru</strong>
-        </div>
-
-        <nav>
-          <a href="#inbox" className="active">
-            Тендеры
-          </a>
-          <a href="#deal">Карточка</a>
-          <a href="#tasks">Задачи</a>
-          <a href="#integrations">Интеграции</a>
-          <a href="#settings">Настройки</a>
-        </nav>
-
-        <div className="tenant">
-          <span>Компания</span>
-          <strong>АО “СВЕТ”</strong>
-          <p>Профиль заполнен на 68%</p>
-        </div>
-      </aside>
+      <Sidebar active="overview" />
 
       <section className="workspace">
         <header className="topline">
