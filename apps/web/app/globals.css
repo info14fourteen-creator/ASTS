@@ -828,6 +828,45 @@ dd {
   margin: 0;
 }
 
+.document-table {
+  display: grid;
+  gap: 8px;
+}
+
+.document-row {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) 130px 120px 100px 120px;
+  gap: 10px;
+  align-items: center;
+  min-height: 54px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: #fbfcfd;
+}
+
+.document-row strong {
+  line-height: 1.3;
+}
+
+.document-row span {
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.document-head {
+  min-height: 36px;
+  border-color: transparent;
+  background: var(--surface-soft);
+}
+
+.document-head span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
 .ai-review-list {
   display: grid;
   gap: 10px;
@@ -1129,6 +1168,14 @@ dd {
   .table-row {
     grid-template-columns: 1fr;
     gap: 7px;
+  }
+
+  .document-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .document-head {
+    display: none;
   }
 
   .stage-line,

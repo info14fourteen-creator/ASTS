@@ -2,6 +2,7 @@ const navItems = [
   ["overview", "/", "Обзор"],
   ["tenders", "/tenders", "Тендеры"],
   ["sources", "/sources", "Источники"],
+  ["documents", "/documents", "Файлы"],
   ["ai-review", "/ai-review", "AI разбор"],
   ["deal", "/tenders/demo", "Карточка"],
   ["execution", "/execution", "Исполнение"],
