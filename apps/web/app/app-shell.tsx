@@ -4,6 +4,7 @@ const navItems = [
   ["deal", "/tenders/demo", "Карточка"],
   ["tasks", "/tasks", "Задачи"],
   ["integrations", "/integrations", "Интеграции"],
+  ["settings", "/settings", "Настройки"],
   ["onboarding", "/onboarding", "Onboarding"],
 ];
 
