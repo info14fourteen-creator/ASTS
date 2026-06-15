@@ -1646,6 +1646,40 @@ dd {
   line-height: 1.35;
 }
 
+.evidence-gate-panel {
+  margin-bottom: 14px;
+}
+
+.evidence-gate-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.evidence-gate-card {
+  min-height: 118px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 13px;
+  background: #fbfcfd;
+}
+
+.evidence-gate-card strong,
+.evidence-gate-card p {
+  display: block;
+}
+
+.evidence-gate-card strong {
+  color: var(--accent-dark);
+  line-height: 1.25;
+}
+
+.evidence-gate-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
 .ai-review-row {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 72px;
@@ -2400,6 +2434,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .evidence-gate-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .guardrail-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2525,6 +2563,10 @@ dd {
   }
 
   .ai-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .evidence-gate-grid {
     grid-template-columns: 1fr;
   }
 

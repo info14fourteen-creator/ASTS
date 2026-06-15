@@ -28,6 +28,13 @@ const reviewStats = [
   ["Средний confidence", "81%", "по текущей пачке"],
 ];
 
+const evidenceGate = [
+  ["Source link", "каждый вывод ведет к ЕИС, ФНС, ЭТП или локальному файлу"],
+  ["OCR/file", "текст AI сверяется с оригиналом документа и версией OCR"],
+  ["Confidence", "ниже 75% не проходит в авто-решение и создает задачу"],
+  ["Fallback", "ответственный подтверждает риск, цену и финальное действие"],
+];
+
 const evidence = [
   ["ТЗ", "Файл: tz_lighting_v4.pdf", "позиции 12-14", "manual"],
   ["Контракт", "ЕИС / проект контракта", "штрафы и сроки", "ok"],
@@ -58,6 +65,24 @@ export default function AiReviewPage() {
               <small>{text}</small>
             </article>
           ))}
+        </section>
+
+        <section className="panel evidence-gate-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Evidence gate</p>
+              <h2>Что должно быть до AI-вывода</h2>
+            </div>
+            <span className="status-pill green">source-linked</span>
+          </div>
+          <div className="evidence-gate-grid">
+            {evidenceGate.map(([title, text]) => (
+              <article className="evidence-gate-card" key={title}>
+                <strong>{title}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="layout-grid">
