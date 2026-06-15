@@ -1681,6 +1681,56 @@ dd {
   line-height: 1.4;
 }
 
+.raw-custody-panel {
+  margin-top: 14px;
+}
+
+.raw-custody-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.raw-custody-card {
+  display: grid;
+  min-height: 146px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 13px;
+  background: #fbfcfd;
+}
+
+.raw-custody-card strong,
+.raw-custody-card p,
+.raw-custody-card em {
+  display: block;
+}
+
+.raw-custody-card strong {
+  color: var(--accent-dark);
+  line-height: 1.25;
+}
+
+.raw-custody-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.raw-custody-card em {
+  align-self: end;
+  width: fit-content;
+  margin-top: 12px;
+  border: 1px solid rgba(40, 122, 82, 0.22);
+  border-radius: 8px;
+  padding: 5px 8px;
+  background: rgba(40, 122, 82, 0.08);
+  color: var(--green);
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 850;
+}
+
 .access-ledger-panel {
   margin-top: 14px;
 }
@@ -3415,6 +3465,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .raw-custody-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .access-ledger-row {
     grid-template-columns: 1fr 1fr;
     align-items: start;
@@ -3618,6 +3672,10 @@ dd {
   }
 
   .evidence-gate-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .raw-custody-grid {
     grid-template-columns: 1fr;
   }
 

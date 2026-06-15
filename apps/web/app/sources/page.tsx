@@ -79,6 +79,13 @@ const storageRules = [
   ["Audit log", "кто и когда принял AI-рекомендацию или изменил этап"],
 ];
 
+const rawCustody = [
+  ["Raw payload", "оригинальный XML/JSON ответа API", "нельзя перезаписывать"],
+  ["Source timestamp", "время получения из ЕИС, ФНС или ЭТП", "нужно для freshness SLA"],
+  ["Checksum", "sha256 для файла и ответа коннектора", "связь с AI доказательством"],
+  ["Quarantine", "ошибка схемы, дубль или низкое доверие", "ждет ручного решения"],
+];
+
 export default function SourcesPage() {
   return (
     <main className="app-shell">
@@ -191,6 +198,25 @@ export default function SourcesPage() {
                 <span>{rule}</span>
                 <strong>{title}</strong>
                 <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel raw-custody-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Raw data custody</p>
+              <h2>Что сохраняем до нормализации</h2>
+            </div>
+            <span className="status-pill green">audit-safe</span>
+          </div>
+          <div className="raw-custody-grid">
+            {rawCustody.map(([title, text, rule]) => (
+              <article className="raw-custody-card" key={title}>
+                <strong>{title}</strong>
+                <p>{text}</p>
+                <em>{rule}</em>
               </article>
             ))}
           </div>
