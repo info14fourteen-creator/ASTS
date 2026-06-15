@@ -30,6 +30,13 @@ const runStats = [
   ["Ошибок API", "2", "повтор через 15 мин"],
 ];
 
+const connectorRunbook = [
+  ["ЕИС", "Data", "raw XML/JSON + файлы", "retry 3x / quarantine"],
+  ["ФНС", "Legal", "ответ проверки ИНН", "ручное подтверждение при расхождении"],
+  ["ЭТП", "Ops", "статус подачи + площадочные файлы", "AI блокируется без статуса площадки"],
+  ["Файлы", "Docs", "оригинал, OCR, версия", "AI вывод только с file hash"],
+];
+
 const freshnessRules = [
   ["ЕИС", "15 мин", "извещения, протоколы и документы не старше окна синхронизации"],
   ["ФНС", "по событию", "проверка ИНН запускается при новой процедуре или поставщике"],
@@ -86,6 +93,28 @@ export default function SourcesPage() {
               <small>{text}</small>
             </article>
           ))}
+        </section>
+
+        <section className="panel connector-runbook-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Connector runbook</p>
+              <h2>Кто отвечает за первоисточник</h2>
+            </div>
+            <span className="status-pill green">no aggregator</span>
+          </div>
+          <div className="connector-runbook-grid">
+            {connectorRunbook.map(([source, owner, artifact, guard]) => (
+              <article className="connector-runbook-card" key={source}>
+                <div>
+                  <strong>{source}</strong>
+                  <span>{owner}</span>
+                </div>
+                <p>{artifact}</p>
+                <em>{guard}</em>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="panel freshness-panel">
