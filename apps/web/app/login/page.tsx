@@ -13,6 +13,13 @@ const sessionGuards = [
   ["Audit", "вход, экспорт и смена стадии пишутся в журнал"],
 ];
 
+const recoveryReceipt = [
+  ["Owner approve", "восстановление доступа подтверждает владелец"],
+  ["2FA reset", "смена второго фактора идет через отдельный audit event"],
+  ["Device revoke", "старые сессии закрываются перед выдачей нового входа"],
+  ["Partner notify", "партнер получает уведомление о смене доступа"],
+];
+
 export default function LoginPage() {
   return (
     <main className="auth-shell">
@@ -57,6 +64,14 @@ export default function LoginPage() {
             <div className="session-guard-list">
               {sessionGuards.map(([title, text]) => (
                 <article className="session-guard" key={title}>
+                  <strong>{title}</strong>
+                  <small>{text}</small>
+                </article>
+              ))}
+            </div>
+            <div className="recovery-receipt-list" aria-label="Контроль восстановления доступа">
+              {recoveryReceipt.map(([title, text]) => (
+                <article className="recovery-receipt" key={title}>
                   <strong>{title}</strong>
                   <small>{text}</small>
                 </article>
