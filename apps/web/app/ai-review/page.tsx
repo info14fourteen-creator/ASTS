@@ -56,6 +56,13 @@ const decisionMatrix = [
   ["Логировать", "каждый вывод, источник, версия файла и решение", "audit trail"],
 ];
 
+const auditReceipt = [
+  ["AI output", "короткий вывод, версия промпта и модель", "в карточку процедуры"],
+  ["Evidence", "source URL, file hash, OCR version и timestamp", "до решения"],
+  ["Human action", "кто подтвердил, изменил или заблокировал рекомендацию", "обязательно"],
+  ["Rollback", "предыдущий вывод и причина пересчета", "при повторном разборе"],
+];
+
 export default function AiReviewPage() {
   return (
     <main className="app-shell">
@@ -132,6 +139,25 @@ export default function AiReviewPage() {
                 <span>{gate}</span>
                 <strong>{mode}</strong>
                 <p>{scope}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel ai-audit-receipt-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI audit receipt</p>
+              <h2>Что сохраняем у каждого AI-вывода</h2>
+            </div>
+            <span className="status-pill green">traceable decision</span>
+          </div>
+          <div className="ai-audit-receipt-grid">
+            {auditReceipt.map(([title, text, gate]) => (
+              <article className="ai-audit-receipt-card" key={title}>
+                <span>{gate}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>
