@@ -30,6 +30,13 @@ const runStats = [
   ["Ошибок API", "2", "повтор через 15 мин"],
 ];
 
+const connectorReadiness = [
+  ["P0", "ЕИС / zakupki.gov.ru", "определить официальный формат выгрузки, ключи и лимиты", "можно начинать"],
+  ["P0", "ФНС", "зафиксировать метод проверки ИНН и хранение ответа", "нужен доступ"],
+  ["P1", "ЭТП", "разделить площадки по API, webhook и ручному импорту", "карта коннекторов"],
+  ["P1", "File vault", "хеш, OCR, версии и связь файла с процедурой", "прототип"],
+];
+
 const connectorRunbook = [
   ["ЕИС", "Data", "raw XML/JSON + файлы", "retry 3x / quarantine"],
   ["ФНС", "Legal", "ответ проверки ИНН", "ручное подтверждение при расхождении"],
@@ -107,6 +114,26 @@ export default function SourcesPage() {
               <small>{text}</small>
             </article>
           ))}
+        </section>
+
+        <section className="panel connector-readiness-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Connector readiness</p>
+              <h2>Что должно быть готово до автоматического забора</h2>
+            </div>
+            <span className="status-pill green">primary source gate</span>
+          </div>
+          <div className="connector-readiness-grid">
+            {connectorReadiness.map(([priority, source, task, status]) => (
+              <article className="connector-readiness-card" key={source}>
+                <span>{priority}</span>
+                <strong>{source}</strong>
+                <p>{task}</p>
+                <em>{status}</em>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="panel connector-runbook-panel">

@@ -1351,6 +1351,62 @@ dd {
   line-height: 1.35;
 }
 
+.connector-readiness-panel {
+  margin-top: 14px;
+}
+
+.connector-readiness-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.connector-readiness-card {
+  min-height: 154px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 13px;
+  background: #fbfcfd;
+}
+
+.connector-readiness-card span,
+.connector-readiness-card strong,
+.connector-readiness-card p,
+.connector-readiness-card em {
+  display: block;
+}
+
+.connector-readiness-card span {
+  width: fit-content;
+  border: 1px solid rgba(18, 106, 113, 0.22);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: rgba(18, 106, 113, 0.08);
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.connector-readiness-card strong {
+  margin-top: 10px;
+  line-height: 1.25;
+}
+
+.connector-readiness-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.connector-readiness-card em {
+  margin-top: 12px;
+  color: var(--green);
+  font-style: normal;
+  font-weight: 850;
+  line-height: 1.35;
+}
+
 .connector-runbook-panel {
   margin-top: 14px;
 }
@@ -3081,6 +3137,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .connector-readiness-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .connector-runbook-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -3267,6 +3327,10 @@ dd {
   }
 
   .source-health-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .connector-readiness-grid {
     grid-template-columns: 1fr;
   }
 
