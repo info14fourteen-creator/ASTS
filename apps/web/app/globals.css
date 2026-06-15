@@ -1503,6 +1503,54 @@ dd {
   line-height: 1.38;
 }
 
+.crm-sandbox-panel {
+  margin-top: 14px;
+}
+
+.crm-sandbox-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.crm-sandbox-card {
+  min-height: 142px;
+  border: 1px solid rgba(36, 90, 141, 0.18);
+  border-radius: 8px;
+  padding: 13px;
+  background: #f3f8fc;
+}
+
+.crm-sandbox-card span,
+.crm-sandbox-card strong,
+.crm-sandbox-card p {
+  display: block;
+}
+
+.crm-sandbox-card span {
+  width: fit-content;
+  border: 1px solid rgba(36, 90, 141, 0.22);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: rgba(36, 90, 141, 0.08);
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.crm-sandbox-card strong {
+  margin-top: 10px;
+  color: var(--accent-dark);
+  line-height: 1.25;
+}
+
+.crm-sandbox-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
 .integration-matrix {
   display: grid;
   gap: 8px;
@@ -4157,6 +4205,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .crm-sandbox-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .integration-matrix-row {
     grid-template-columns: 1fr 1fr;
     align-items: start;
@@ -4360,6 +4412,10 @@ dd {
   }
 
   .export-gates-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .crm-sandbox-grid {
     grid-template-columns: 1fr;
   }
 

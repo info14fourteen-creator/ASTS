@@ -40,6 +40,13 @@ const exportGates = [
   ["Rollback path", "CRM запись можно найти и отключить sync", "ready"],
 ];
 
+const sandboxChecklist = [
+  ["Sandbox tenant", "отдельный портал/база без боевых клиентов и платежей", "до токена"],
+  ["Test procedure", "одна демо-процедура проходит pre-win и execution export", "до wave 1"],
+  ["Rate limits", "лимиты API, retry и backoff записаны в runbook", "до scheduler"],
+  ["Rollback drill", "удаляем связь CRM и оставляем локальные данные ASTS", "до production"],
+];
+
 const launchMatrix = [
   ["Волна 1", "Bitrix24 + amoCRM", "сделки, компании, задачи", "утвердить поля и стадии"],
   ["Волна 2", "1C + Telegram", "счета, платежи, статусы, уведомления", "собрать sandbox и bot token"],
@@ -138,6 +145,25 @@ export default function IntegrationsPage() {
                 <span>{state}</span>
                 <strong>{title}</strong>
                 <p>{rule}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel crm-sandbox-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">CRM sandbox gate</p>
+              <h2>Что должно быть готово до боевого sync</h2>
+            </div>
+            <span className="status-pill green">no production first</span>
+          </div>
+          <div className="crm-sandbox-grid">
+            {sandboxChecklist.map(([title, text, gate]) => (
+              <article className="crm-sandbox-card" key={title}>
+                <span>{gate}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>
