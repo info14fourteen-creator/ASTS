@@ -28,6 +28,13 @@ const queues = [
   ["Ручная проверка", "2 вывода ниже confidence 85%", "закупщик"],
 ];
 
+const integrityChain = [
+  ["Original", "PDF/DOCX/XLSX", "храним без изменений"],
+  ["OCR", "text layer", "версия связана с оригиналом"],
+  ["Hash", "sha256", "AI вывод ссылается на file hash"],
+  ["AI-ready", "fields + evidence", "только после source link"],
+];
+
 const intakeRules = [
   ["Первоисточник", "сохраняем исходный файл, API id, дату получения и хэш"],
   ["Распознавание", "OCR складывает текст рядом с оригиналом и не меняет PDF"],
@@ -125,6 +132,25 @@ export default function DocumentsPage() {
               ))}
             </div>
           </article>
+        </section>
+
+        <section className="panel document-integrity-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Integrity chain</p>
+              <h2>Как не теряем связь оригинала и AI-вывода</h2>
+            </div>
+            <span className="status-pill green">hash-linked</span>
+          </div>
+          <div className="document-integrity-grid">
+            {integrityChain.map(([title, format, rule]) => (
+              <article className="document-integrity-card" key={title}>
+                <span>{format}</span>
+                <strong>{title}</strong>
+                <p>{rule}</p>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="panel">

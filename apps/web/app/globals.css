@@ -1617,6 +1617,48 @@ dd {
   line-height: 1.4;
 }
 
+.document-integrity-panel {
+  margin-top: 14px;
+}
+
+.document-integrity-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.document-integrity-card {
+  min-height: 120px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #f7faf8;
+}
+
+.document-integrity-card span,
+.document-integrity-card strong,
+.document-integrity-card p {
+  display: block;
+}
+
+.document-integrity-card span {
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.document-integrity-card strong {
+  margin-top: 8px;
+  line-height: 1.25;
+}
+
+.document-integrity-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.38;
+}
+
 .economics-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2461,7 +2503,8 @@ dd {
   }
 
   .document-stat-grid,
-  .document-flow-grid {
+  .document-flow-grid,
+  .document-integrity-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -2687,7 +2730,8 @@ dd {
   }
 
   .document-stat-grid,
-  .document-flow-grid {
+  .document-flow-grid,
+  .document-integrity-grid {
     grid-template-columns: 1fr;
   }
 
