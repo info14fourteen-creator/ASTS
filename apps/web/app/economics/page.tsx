@@ -21,6 +21,12 @@ const checks = [
   ["Нужна ручная проверка", "логистика", "warning"],
 ];
 
+const accessPlans = [
+  ["Pilot", "1 команда", "ЕИС, AI разбор, 2 воронки", "проверить ценность на 20 процедурах"],
+  ["Team", "тендерный отдел", "CRM, роли, задачи, документы", "подключить Bitrix24/amoCRM"],
+  ["Enterprise", "несколько юрлиц", "1C, аудит, SSO, SLA, API", "описать договор и поддержку"],
+];
+
 export default function EconomicsPage() {
   return (
     <main className="app-shell">
@@ -132,6 +138,26 @@ export default function EconomicsPage() {
                 <strong>Зафиксировать цену поставщика</strong>
                 <span>срок действия КП должен покрыть подачу</span>
               </article>
+            </div>
+          </article>
+
+          <article className="panel span-12">
+            <div className="panel-head compact">
+              <div>
+                <p className="eyebrow">Access revenue</p>
+                <h2>Контур продажи доступов</h2>
+              </div>
+              <span className="status-pill">pricing draft</span>
+            </div>
+            <div className="pricing-grid">
+              {accessPlans.map(([name, scope, includes, next]) => (
+                <article className="pricing-card" key={name}>
+                  <span>{name}</span>
+                  <strong>{scope}</strong>
+                  <p>{includes}</p>
+                  <em>{next}</em>
+                </article>
+              ))}
             </div>
           </article>
         </section>
