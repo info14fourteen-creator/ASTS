@@ -6,6 +6,13 @@ const accessModes = [
 
 const accessChecks = ["2FA", "роль", "организация", "audit log"];
 
+const sessionGuards = [
+  ["IP/device", "новое устройство открывает только read-only preview"],
+  ["Secrets", "источники, API ключи и тариф требуют повторного 2FA"],
+  ["Role scope", "доступ к воронкам и файлам зависит от роли"],
+  ["Audit", "вход, экспорт и смена стадии пишутся в журнал"],
+];
+
 export default function LoginPage() {
   return (
     <main className="auth-shell">
@@ -42,6 +49,14 @@ export default function LoginPage() {
             <div className="access-mode-list">
               {accessModes.map(([title, text]) => (
                 <article className="access-mode" key={title}>
+                  <strong>{title}</strong>
+                  <small>{text}</small>
+                </article>
+              ))}
+            </div>
+            <div className="session-guard-list">
+              {sessionGuards.map(([title, text]) => (
+                <article className="session-guard" key={title}>
                   <strong>{title}</strong>
                   <small>{text}</small>
                 </article>
