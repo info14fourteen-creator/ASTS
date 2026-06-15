@@ -1,8 +1,26 @@
 import "./globals.css";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "ASTS App",
-  description: "AI tender operations workspace for app.site.ru",
+export const metadata: Metadata = {
+  metadataBase: new URL("https://app.site.ru"),
+  title: {
+    default: "ASTS app.site.ru",
+    template: "%s | ASTS app.site.ru",
+  },
+  description:
+    "AI tender operations workspace for primary-source procurement, pre-win funnel, and post-win execution.",
+  applicationName: "ASTS",
+  openGraph: {
+    title: "ASTS app.site.ru",
+    description:
+      "AI tender operations workspace for primary-source procurement, pre-win funnel, and post-win execution.",
+    siteName: "ASTS",
+    type: "website",
+  },
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function RootLayout({
