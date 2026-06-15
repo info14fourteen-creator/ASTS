@@ -22,6 +22,13 @@ const accessRules = [
   ["Партнер", "работает в отдельной ветке и через PR"],
 ];
 
+const approvalMatrix = [
+  ["Источники", "Владелец", "добавление API ключей и смена канала импорта"],
+  ["AI вывод", "B2G менеджер", "подтверждение допуска процедуры к КП"],
+  ["Победа", "Владелец + исполнение", "перевод карточки во вторую воронку"],
+  ["Merge", "reviewer", "объединение веток только после build и smoke"],
+];
+
 const guardrails = [
   ["GitHub Secrets", "пароли и API ключи не попадают в код, только в секреты репозитория"],
   ["Audit trail", "логируем импорт, AI выводы, загрузку файлов, смену стадии и экспорт в CRM"],
@@ -142,6 +149,30 @@ export default function SettingsPage() {
                 <div className="setting-row" key={role}>
                   <span>{role}</span>
                   <strong>{text}</strong>
+                </div>
+              ))}
+            </div>
+          </article>
+
+          <article className="panel span-12 access-approval-panel">
+            <div className="panel-head compact">
+              <div>
+                <p className="eyebrow">Approval matrix</p>
+                <h2>Кто подтверждает критичные действия</h2>
+              </div>
+              <span className="status-pill">no silent changes</span>
+            </div>
+            <div className="approval-matrix">
+              <div className="approval-row approval-head">
+                <span>Зона</span>
+                <span>Ответственный</span>
+                <span>Что нельзя менять без следа</span>
+              </div>
+              {approvalMatrix.map(([area, owner, action]) => (
+                <div className="approval-row" key={area}>
+                  <strong>{area}</strong>
+                  <span>{owner}</span>
+                  <em>{action}</em>
                 </div>
               ))}
             </div>
