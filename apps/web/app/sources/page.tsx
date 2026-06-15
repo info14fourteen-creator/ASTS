@@ -86,6 +86,13 @@ const rawCustody = [
   ["Quarantine", "ошибка схемы, дубль или низкое доверие", "ждет ручного решения"],
 ];
 
+const evidenceLedger = [
+  ["Ingest event", "коннектор, время, источник, статус ответа", "пишется до нормализации"],
+  ["Artifact link", "raw payload, файл, OCR и checksum", "связь не редактируется"],
+  ["Decision gate", "freshness, confidence, quarantine reason", "AI видит только прошедшее"],
+  ["Human override", "кто снял блокировку или принял риск", "обязательно в audit log"],
+];
+
 export default function SourcesPage() {
   return (
     <main className="app-shell">
@@ -214,6 +221,25 @@ export default function SourcesPage() {
           <div className="raw-custody-grid">
             {rawCustody.map(([title, text, rule]) => (
               <article className="raw-custody-card" key={title}>
+                <strong>{title}</strong>
+                <p>{text}</p>
+                <em>{rule}</em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel evidence-ledger-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Evidence ledger</p>
+              <h2>Какие следы оставляет каждый забор данных</h2>
+            </div>
+            <span className="status-pill green">traceable AI</span>
+          </div>
+          <div className="evidence-ledger-grid">
+            {evidenceLedger.map(([title, text, rule]) => (
+              <article className="evidence-ledger-card" key={title}>
                 <strong>{title}</strong>
                 <p>{text}</p>
                 <em>{rule}</em>
