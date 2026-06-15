@@ -44,6 +44,13 @@ const handoffLoop = [
   ["PR note", "короткий статус", "что изменилось, что проверено, что дальше"],
 ];
 
+const automationMonitor = [
+  ["Heartbeat", "12 мин", "следующий инкремент запускается без ручного пинка", "running"],
+  ["Build", "npm run build", "каждая правка должна собрать 16 static routes", "required"],
+  ["Smoke", "changed route", "DOM проверка desktop/mobile и чистая консоль", "required"],
+  ["PR update", "codex/app-site-shell", "push только в PR ветку, main не трогаем", "safe"],
+];
+
 const mergeChecklist = [
   ["Build", "npm run build прошел на ветке"],
   ["Smoke", "проверены desktop и mobile ключевого маршрута"],
@@ -86,6 +93,25 @@ export default function TasksPage() {
               </div>
             </article>
           ))}
+        </section>
+
+        <section className="panel automation-monitor-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Automation monitor</p>
+              <h2>Что проверяет 12-минутный цикл</h2>
+            </div>
+            <span className="status-pill green">asts-app-site-ru-12</span>
+          </div>
+          <div className="automation-monitor-grid">
+            {automationMonitor.map(([title, cadence, rule, tone]) => (
+              <article className={`automation-monitor-card ${tone}`} key={title}>
+                <span>{cadence}</span>
+                <strong>{title}</strong>
+                <p>{rule}</p>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="panel collaboration-panel">

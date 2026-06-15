@@ -786,6 +786,66 @@ dd {
   color: var(--red);
 }
 
+.automation-monitor-panel {
+  margin-top: 14px;
+}
+
+.automation-monitor-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.automation-monitor-card {
+  min-height: 128px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfcfd;
+}
+
+.automation-monitor-card span,
+.automation-monitor-card strong,
+.automation-monitor-card p {
+  display: block;
+}
+
+.automation-monitor-card span {
+  width: fit-content;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: var(--surface-soft);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.automation-monitor-card strong {
+  margin-top: 10px;
+  line-height: 1.25;
+}
+
+.automation-monitor-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.automation-monitor-card.running span,
+.automation-monitor-card.safe span {
+  border-color: rgba(40, 122, 82, 0.22);
+  background: rgba(40, 122, 82, 0.08);
+  color: var(--green);
+}
+
+.automation-monitor-card.required span {
+  border-color: rgba(18, 106, 113, 0.22);
+  background: rgba(18, 106, 113, 0.08);
+  color: var(--accent-dark);
+}
+
 .collaboration-panel {
   margin-top: 14px;
 }
@@ -2741,6 +2801,10 @@ dd {
     grid-template-columns: 1fr;
   }
 
+  .automation-monitor-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .collaboration-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2873,6 +2937,10 @@ dd {
   }
 
   .collaboration-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .automation-monitor-grid {
     grid-template-columns: 1fr;
   }
 
