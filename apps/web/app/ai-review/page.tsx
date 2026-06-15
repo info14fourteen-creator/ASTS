@@ -35,6 +35,13 @@ const evidenceGate = [
   ["Fallback", "ответственный подтверждает риск, цену и финальное действие"],
 ];
 
+const confidenceBands = [
+  ["85-100%", "авто-сводка и подготовка действия", "логируем"],
+  ["75-84%", "предложить решение ответственному", "review"],
+  ["60-74%", "создать задачу ручной проверки", "manual"],
+  ["< 60%", "заблокировать вывод до новых данных", "blocked"],
+];
+
 const evidence = [
   ["ТЗ", "Файл: tz_lighting_v4.pdf", "позиции 12-14", "manual"],
   ["Контракт", "ЕИС / проект контракта", "штрафы и сроки", "ok"],
@@ -87,6 +94,25 @@ export default function AiReviewPage() {
               <article className="evidence-gate-card" key={title}>
                 <strong>{title}</strong>
                 <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel confidence-policy-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Confidence policy</p>
+              <h2>Что делает система при разной уверенности</h2>
+            </div>
+            <span className="status-pill">no blind AI</span>
+          </div>
+          <div className="confidence-policy-grid">
+            {confidenceBands.map(([band, action, state]) => (
+              <article className={`confidence-policy-card ${state}`} key={band}>
+                <span>{band}</span>
+                <strong>{action}</strong>
+                <p>{state}</p>
               </article>
             ))}
           </div>

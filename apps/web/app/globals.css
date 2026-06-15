@@ -2973,6 +2973,66 @@ dd {
   line-height: 1.4;
 }
 
+.confidence-policy-panel {
+  margin-bottom: 14px;
+}
+
+.confidence-policy-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.confidence-policy-card {
+  min-height: 132px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 13px;
+  background: #fbfcfd;
+}
+
+.confidence-policy-card span,
+.confidence-policy-card strong,
+.confidence-policy-card p {
+  display: block;
+}
+
+.confidence-policy-card span {
+  width: fit-content;
+  border: 1px solid rgba(18, 106, 113, 0.22);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: rgba(18, 106, 113, 0.08);
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.confidence-policy-card.manual span,
+.confidence-policy-card.review span {
+  border-color: rgba(154, 100, 27, 0.24);
+  background: #fff7e8;
+  color: var(--amber);
+}
+
+.confidence-policy-card.blocked span {
+  border-color: rgba(180, 35, 24, 0.24);
+  background: #fff3f1;
+  color: var(--red);
+}
+
+.confidence-policy-card strong {
+  margin-top: 10px;
+  line-height: 1.3;
+}
+
+.confidence-policy-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.38;
+}
+
 .ai-decision-matrix-panel {
   margin-bottom: 14px;
 }
@@ -4107,6 +4167,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .confidence-policy-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .ai-decision-matrix-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -4346,6 +4410,10 @@ dd {
   }
 
   .evidence-gate-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .confidence-policy-grid {
     grid-template-columns: 1fr;
   }
 
