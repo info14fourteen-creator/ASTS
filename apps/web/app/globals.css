@@ -1064,6 +1064,62 @@ dd {
   color: var(--amber);
 }
 
+.field-mapping-panel {
+  margin-top: 14px;
+}
+
+.field-mapping-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.field-mapping-card {
+  min-height: 164px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfcfd;
+}
+
+.field-mapping-card span,
+.field-mapping-card strong,
+.field-mapping-card p,
+.field-mapping-card em {
+  display: block;
+}
+
+.field-mapping-card span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.field-mapping-card strong {
+  margin-top: 8px;
+  line-height: 1.25;
+}
+
+.field-mapping-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.field-mapping-card em {
+  width: fit-content;
+  margin-top: 10px;
+  border: 1px solid rgba(18, 106, 113, 0.22);
+  border-radius: 8px;
+  padding: 5px 8px;
+  background: rgba(18, 106, 113, 0.08);
+  color: var(--accent-dark);
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 850;
+}
+
 .integration-matrix {
   display: grid;
   gap: 8px;
@@ -2856,6 +2912,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .field-mapping-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .integration-matrix-row {
     grid-template-columns: 1fr 1fr;
     align-items: start;
@@ -3005,6 +3065,10 @@ dd {
   }
 
   .integration-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .field-mapping-grid {
     grid-template-columns: 1fr;
   }
 

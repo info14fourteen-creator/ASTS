@@ -19,6 +19,13 @@ const syncRules = [
   ["Файлы", "ссылки на ТЗ, протоколы, договоры и закрывающие"],
 ];
 
+const fieldMapping = [
+  ["Procedure", "id, source, НМЦК, заказчик", "CRM deal fields", "обязательно"],
+  ["Pre-win funnel", "этап до победы, дедлайн, match", "CRM pipeline stage", "обязательно"],
+  ["Execution funnel", "договор, оплата, поставка, закрывающие", "project/status fields", "после победы"],
+  ["Evidence", "source link, file hash, AI confidence", "notes/files", "без этого AI не экспортируем"],
+];
+
 const accessChecklist = [
   ["OAuth/API", "токен или приложение хранится в GitHub Secrets"],
   ["Scopes", "только сделки, компании, задачи и файлы"],
@@ -88,6 +95,26 @@ export default function IntegrationsPage() {
               <span>{status}</span>
             </article>
           ))}
+        </section>
+
+        <section className="panel field-mapping-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Field mapping</p>
+              <h2>Минимальный контракт данных для CRM</h2>
+            </div>
+            <span className="status-pill">deal contract</span>
+          </div>
+          <div className="field-mapping-grid">
+            {fieldMapping.map(([title, asts, target, rule]) => (
+              <article className="field-mapping-card" key={title}>
+                <span>{target}</span>
+                <strong>{title}</strong>
+                <p>{asts}</p>
+                <em>{rule}</em>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="layout-grid bottom-grid">
