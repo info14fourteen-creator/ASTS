@@ -2561,6 +2561,53 @@ dd {
   line-height: 1.4;
 }
 
+.ai-decision-matrix-panel {
+  margin-bottom: 14px;
+}
+
+.ai-decision-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.ai-decision-matrix-card {
+  min-height: 136px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 13px;
+  background: #f7faf8;
+}
+
+.ai-decision-matrix-card span,
+.ai-decision-matrix-card strong,
+.ai-decision-matrix-card p {
+  display: block;
+}
+
+.ai-decision-matrix-card span {
+  width: fit-content;
+  border: 1px solid rgba(40, 122, 82, 0.22);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: rgba(40, 122, 82, 0.08);
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.ai-decision-matrix-card strong {
+  margin-top: 10px;
+  line-height: 1.25;
+}
+
+.ai-decision-matrix-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
 .ai-review-row {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 72px;
@@ -3510,6 +3557,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .ai-decision-matrix-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .guardrail-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -3715,6 +3766,10 @@ dd {
   }
 
   .evidence-gate-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-decision-matrix-grid {
     grid-template-columns: 1fr;
   }
 

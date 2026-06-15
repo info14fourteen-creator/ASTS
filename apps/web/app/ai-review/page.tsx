@@ -42,6 +42,13 @@ const evidence = [
   ["Протокол", "zakupki.gov.ru", "победитель и цена", "ok"],
 ];
 
+const decisionMatrix = [
+  ["Авто", "суммаризация, поиск требований, извлечение сроков", "source + confidence"],
+  ["Предложить", "маржа, риск, следующий шаг, задача ответственному", "review required"],
+  ["Блокировать", "подача заявки, цена, отказ, смена стадии", "human approval"],
+  ["Логировать", "каждый вывод, источник, версия файла и решение", "audit trail"],
+];
+
 export default function AiReviewPage() {
   return (
     <main className="app-shell">
@@ -80,6 +87,25 @@ export default function AiReviewPage() {
               <article className="evidence-gate-card" key={title}>
                 <strong>{title}</strong>
                 <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel ai-decision-matrix-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Decision rights</p>
+              <h2>Где AI помогает, а где нужен человек</h2>
+            </div>
+            <span className="status-pill green">human final</span>
+          </div>
+          <div className="ai-decision-matrix-grid">
+            {decisionMatrix.map(([mode, scope, gate]) => (
+              <article className="ai-decision-matrix-card" key={mode}>
+                <span>{gate}</span>
+                <strong>{mode}</strong>
+                <p>{scope}</p>
               </article>
             ))}
           </div>
