@@ -16,6 +16,13 @@ const readiness = [
   ["CRM", "не подключено"],
 ];
 
+const companyDataContract = [
+  ["Юрлицо", "ИНН, ОГРН, КПП, НДС", "без этого не запускаем ФНС-проверку"],
+  ["Профиль работ", "ОКПД2, бренды, аналоги", "без этого AI не ранжирует тендер"],
+  ["Экономика", "маржа, НМЦК, логистика", "без этого нет авто-рекомендации цены"],
+  ["Ограничения", "регионы, стоп-заказчики, сроки", "без этого тендер уходит человеку"],
+];
+
 const fitRules = [
   ["Берем в работу", "44-ФЗ / 223-ФЗ, светотехника, НМЦК от 2 до 60 млн ₽"],
   ["Отсечь сразу", "срок подачи меньше 10 часов без готового КП, маржа ниже 8%"],
@@ -62,6 +69,25 @@ export default function OnboardingPage() {
               <strong>{value}</strong>
             </article>
           ))}
+        </section>
+
+        <section className="panel company-contract-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Company data contract</p>
+              <h2>Какие данные нужны AI для подбора</h2>
+            </div>
+            <span className="status-pill green">profile-gated</span>
+          </div>
+          <div className="company-contract-grid">
+            {companyDataContract.map(([title, data, rule]) => (
+              <article className="company-contract-card" key={title}>
+                <span>{data}</span>
+                <strong>{title}</strong>
+                <p>{rule}</p>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="layout-grid bottom-grid">

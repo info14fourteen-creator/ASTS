@@ -2302,6 +2302,49 @@ dd {
   line-height: 1.08;
 }
 
+.company-contract-panel {
+  margin-top: 14px;
+}
+
+.company-contract-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.company-contract-card {
+  min-height: 132px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #f7faf8;
+}
+
+.company-contract-card span,
+.company-contract-card strong,
+.company-contract-card p {
+  display: block;
+}
+
+.company-contract-card span {
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 850;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.company-contract-card strong {
+  margin-top: 8px;
+  line-height: 1.25;
+}
+
+.company-contract-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.38;
+}
+
 .fit-rule-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2642,7 +2685,8 @@ dd {
   }
 
   .onboarding-summary,
-  .fit-rule-grid {
+  .fit-rule-grid,
+  .company-contract-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -2794,7 +2838,8 @@ dd {
   }
 
   .onboarding-summary,
-  .fit-rule-grid {
+  .fit-rule-grid,
+  .company-contract-grid {
     grid-template-columns: 1fr;
   }
 
