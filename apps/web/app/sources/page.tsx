@@ -44,6 +44,13 @@ const freshnessRules = [
   ["ЭТП", "webhook/API", "статусы подачи и площадочные файлы требуют подтверждения коннектора"],
 ];
 
+const evidenceGates = [
+  ["Source URL", "ссылка на карточку ЕИС, ФНС или ЭТП", "обязательно"],
+  ["File hash", "оригинал документа и версия OCR", "обязательно"],
+  ["Freshness", "попадание в SLA первоисточника", "перед AI"],
+  ["Confidence", "порог доверия и причина ручной проверки", "audit"],
+];
+
 const accessLedger = [
   ["ЕИС API", "GitHub Secret", "Owner", "синхронизация процедур"],
   ["ФНС", "личный ключ/контракт", "Legal", "проверка ИНН и ЕГРЮЛ"],
@@ -136,6 +143,25 @@ export default function SourcesPage() {
             {freshnessRules.map(([title, cadence, text]) => (
               <article className="freshness-card" key={title}>
                 <span>{cadence}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel evidence-gate-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI evidence gate</p>
+              <h2>Без каких доказательств AI не делает вывод</h2>
+            </div>
+            <span className="status-pill">source-backed only</span>
+          </div>
+          <div className="evidence-gate-grid">
+            {evidenceGates.map(([title, text, rule]) => (
+              <article className="evidence-gate-card" key={title}>
+                <span>{rule}</span>
                 <strong>{title}</strong>
                 <p>{text}</p>
               </article>
