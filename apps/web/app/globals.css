@@ -842,6 +842,48 @@ dd {
   font-weight: 850;
 }
 
+.handoff-loop-panel {
+  margin-top: 14px;
+}
+
+.handoff-loop-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.handoff-loop-card {
+  min-height: 118px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #f7faf8;
+}
+
+.handoff-loop-card span,
+.handoff-loop-card strong,
+.handoff-loop-card p {
+  display: block;
+}
+
+.handoff-loop-card span {
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.handoff-loop-card strong {
+  margin-top: 8px;
+  line-height: 1.25;
+}
+
+.handoff-loop-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.38;
+}
+
 .merge-readiness-panel {
   margin-top: 14px;
 }
@@ -2453,6 +2495,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .handoff-loop-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .merge-checklist {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2555,6 +2601,10 @@ dd {
   }
 
   .collaboration-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .handoff-loop-grid {
     grid-template-columns: 1fr;
   }
 

@@ -37,6 +37,13 @@ const collaboration = [
   ["Backlog", "mind map parity", "следующий крупный слой", "сверить старую логику"],
 ];
 
+const handoffLoop = [
+  ["Branch", "работаем в codex/* ветках", "main не трогаем напрямую"],
+  ["Build", "каждые 12 минут", "фиксируем npm run build или причину блокера"],
+  ["Smoke", "desktop + mobile", "проверяем маршрут, который изменяли"],
+  ["PR note", "короткий статус", "что изменилось, что проверено, что дальше"],
+];
+
 const mergeChecklist = [
   ["Build", "npm run build прошел на ветке"],
   ["Smoke", "проверены desktop и mobile ключевого маршрута"],
@@ -96,6 +103,25 @@ export default function TasksPage() {
                 <strong>{title}</strong>
                 <p>{state}</p>
                 <em>{rule}</em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel handoff-loop-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">12-minute loop</p>
+              <h2>Как передаем работу без потерь</h2>
+            </div>
+            <span className="status-pill green">safe handoff</span>
+          </div>
+          <div className="handoff-loop-grid">
+            {handoffLoop.map(([title, cadence, rule]) => (
+              <article className="handoff-loop-card" key={title}>
+                <span>{cadence}</span>
+                <strong>{title}</strong>
+                <p>{rule}</p>
               </article>
             ))}
           </div>
