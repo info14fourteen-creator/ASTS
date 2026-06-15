@@ -30,6 +30,13 @@ const lanes = [
   },
 ];
 
+const collaboration = [
+  ["PR #17", "codex/app-site-shell", "готов к review", "не мержить без второго взгляда"],
+  ["Партнер", "своя ветка", "ждет первый пуш", "работать через Pull Request"],
+  ["Merge window", "после smoke", "утреннее объединение", "main только после проверки"],
+  ["Backlog", "mind map parity", "следующий крупный слой", "сверить старую логику"],
+];
+
 export default function TasksPage() {
   return (
     <main className="app-shell">
@@ -65,6 +72,26 @@ export default function TasksPage() {
               </div>
             </article>
           ))}
+        </section>
+
+        <section className="panel collaboration-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Collaboration</p>
+              <h2>Параллельная работа и объединение</h2>
+            </div>
+            <span className="status-pill">PR workflow</span>
+          </div>
+          <div className="collaboration-grid">
+            {collaboration.map(([title, scope, state, rule]) => (
+              <article className="collaboration-card" key={title}>
+                <span>{scope}</span>
+                <strong>{title}</strong>
+                <p>{state}</p>
+                <em>{rule}</em>
+              </article>
+            ))}
+          </div>
         </section>
       </section>
     </main>

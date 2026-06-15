@@ -686,6 +686,62 @@ dd {
   color: var(--red);
 }
 
+.collaboration-panel {
+  margin-top: 14px;
+}
+
+.collaboration-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.collaboration-card {
+  min-height: 138px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfcfd;
+}
+
+.collaboration-card span,
+.collaboration-card strong,
+.collaboration-card p,
+.collaboration-card em {
+  display: block;
+}
+
+.collaboration-card span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.collaboration-card strong {
+  margin-top: 8px;
+  line-height: 1.25;
+}
+
+.collaboration-card p {
+  margin: 7px 0 0;
+  color: var(--muted);
+  line-height: 1.38;
+}
+
+.collaboration-card em {
+  width: fit-content;
+  margin-top: 10px;
+  border: 1px solid rgba(18, 106, 113, 0.22);
+  border-radius: 8px;
+  padding: 5px 8px;
+  background: rgba(18, 106, 113, 0.08);
+  color: var(--accent-dark);
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 850;
+}
+
 .integration-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -2070,6 +2126,10 @@ dd {
     grid-template-columns: 1fr;
   }
 
+  .collaboration-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .source-monitor {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2140,6 +2200,10 @@ dd {
   }
 
   .command-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .collaboration-grid {
     grid-template-columns: 1fr;
   }
 
