@@ -514,6 +514,53 @@ h3 {
   gap: 8px;
 }
 
+.tender-intake-panel {
+  margin-bottom: 14px;
+}
+
+.tender-intake-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.tender-intake-card {
+  min-height: 128px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 13px;
+  background: #fbfcfd;
+}
+
+.tender-intake-card span,
+.tender-intake-card strong,
+.tender-intake-card p {
+  display: block;
+}
+
+.tender-intake-card span {
+  width: fit-content;
+  border: 1px solid rgba(18, 106, 113, 0.22);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: rgba(18, 106, 113, 0.08);
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.tender-intake-card strong {
+  margin-top: 10px;
+  line-height: 1.25;
+}
+
+.tender-intake-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
 .table-row {
   display: grid;
   grid-template-columns: minmax(260px, 1fr) 110px 140px 76px;
@@ -3377,6 +3424,10 @@ dd {
     grid-template-columns: 1fr;
   }
 
+  .tender-intake-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .document-row {
     grid-template-columns: 1fr 1fr;
   }
@@ -3632,6 +3683,10 @@ dd {
   }
 
   .release-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tender-intake-grid {
     grid-template-columns: 1fr;
   }
 

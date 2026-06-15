@@ -36,6 +36,13 @@ const rows = [
   ],
 ];
 
+const intakeGates = [
+  ["Источник", "ЕИС, 223-ФЗ API или ЭТП", "обязателен первоисточник"],
+  ["Документы", "ТЗ, извещение, проект контракта", "нужен file hash"],
+  ["Компания", "ОКПД2, регионы, стоп-темы", "сверить профиль"],
+  ["Экономика", "НМЦК, маржа, обеспечение", "до решения о входе"],
+];
+
 export default function TendersPage() {
   return (
     <main className="app-shell">
@@ -53,6 +60,25 @@ export default function TendersPage() {
             </button>
           </div>
         </header>
+
+        <section className="panel tender-intake-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Pre-win intake</p>
+              <h2>Что проверяем до первой воронки</h2>
+            </div>
+            <span className="status-pill green">primary source first</span>
+          </div>
+          <div className="tender-intake-grid">
+            {intakeGates.map(([title, text, rule]) => (
+              <article className="tender-intake-card" key={title}>
+                <span>{rule}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
 
         <section className="panel">
           <div className="tender-table">
