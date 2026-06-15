@@ -50,6 +50,13 @@ const funnelRouting = [
   ["Execution", "победа подтверждена протоколом и файлами", "вторая воронка"],
 ];
 
+const executionHandoff = [
+  ["Win protocol", "протокол победы сохранен из ЕИС или площадки", "source proof"],
+  ["Document pack", "ТЗ, проект контракта, КП и расчет связаны с карточкой", "file hash"],
+  ["Economics freeze", "маржа, обеспечение и риски зафиксированы перед исполнением", "no silent math"],
+  ["Execution owner", "назначен ответственный за контракт, поставку и оплату", "human owner"],
+];
+
 export default function TendersPage() {
   return (
     <main className="app-shell">
@@ -101,6 +108,25 @@ export default function TendersPage() {
                 <span>{target}</span>
                 <strong>{title}</strong>
                 <p>{rule}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel execution-handoff-receipt-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Pre-win to execution handoff</p>
+              <h2>Что должно перейти во вторую воронку</h2>
+            </div>
+            <span className="status-pill green">handoff locked</span>
+          </div>
+          <div className="execution-handoff-receipt-grid">
+            {executionHandoff.map(([title, text, gate]) => (
+              <article className="execution-handoff-receipt-card" key={title}>
+                <span>{gate}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>
