@@ -72,6 +72,13 @@ const mergeChecklist = [
   ["Review", "в PR есть статус, риски и следующий шаг"],
 ];
 
+const reviewPacket = [
+  ["Changed route", "какой экран кабинета изменен и зачем", "до review"],
+  ["Verification", "build, desktop/mobile smoke, console health", "обязательно"],
+  ["Product logic", "какая часть старой логики или новой воронки закрыта", "обязательно"],
+  ["Next step", "что брать следующим маленьким инкрементом", "после review"],
+];
+
 const mergeRoom = [
   {
     title: "Готово к объединению",
@@ -246,6 +253,25 @@ export default function TasksPage() {
               <article className="merge-check" key={title}>
                 <strong>{title}</strong>
                 <span>{description}</span>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel review-packet-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Review packet</p>
+              <h2>Что должно быть понятно перед объединением PR</h2>
+            </div>
+            <span className="status-pill">review-ready</span>
+          </div>
+          <div className="review-packet-grid">
+            {reviewPacket.map(([title, text, gate]) => (
+              <article className="review-packet-card" key={title}>
+                <span>{gate}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>

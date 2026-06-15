@@ -1267,6 +1267,54 @@ dd {
   line-height: 1.38;
 }
 
+.review-packet-panel {
+  margin-top: 14px;
+}
+
+.review-packet-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.review-packet-card {
+  min-height: 130px;
+  border: 1px solid rgba(36, 90, 141, 0.18);
+  border-radius: 8px;
+  padding: 12px;
+  background: #f3f8fc;
+}
+
+.review-packet-card span,
+.review-packet-card strong,
+.review-packet-card p {
+  display: block;
+}
+
+.review-packet-card span {
+  width: fit-content;
+  border: 1px solid rgba(36, 90, 141, 0.22);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: rgba(36, 90, 141, 0.08);
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.review-packet-card strong {
+  margin-top: 10px;
+  color: var(--accent-dark);
+  line-height: 1.25;
+}
+
+.review-packet-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.38;
+}
+
 .merge-room-panel {
   margin-top: 14px;
 }
@@ -4317,6 +4365,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .review-packet-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .merge-room-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -4527,6 +4579,10 @@ dd {
   }
 
   .merge-checklist {
+    grid-template-columns: 1fr;
+  }
+
+  .review-packet-grid {
     grid-template-columns: 1fr;
   }
 
