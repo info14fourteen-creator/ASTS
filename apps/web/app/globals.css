@@ -2260,6 +2260,54 @@ dd {
   line-height: 1.4;
 }
 
+.freshness-breach-panel {
+  margin-top: 14px;
+}
+
+.freshness-breach-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.freshness-breach-card {
+  min-height: 128px;
+  border: 1px solid rgba(154, 100, 27, 0.24);
+  border-radius: 8px;
+  padding: 13px;
+  background: #fffaf0;
+}
+
+.freshness-breach-card span,
+.freshness-breach-card strong,
+.freshness-breach-card p {
+  display: block;
+}
+
+.freshness-breach-card span {
+  width: fit-content;
+  border: 1px solid rgba(154, 100, 27, 0.26);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: #fff7e8;
+  color: var(--amber);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.freshness-breach-card strong {
+  margin-top: 10px;
+  color: var(--accent-dark);
+  line-height: 1.25;
+}
+
+.freshness-breach-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
 .pipeline {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -4742,6 +4790,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .freshness-breach-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .raw-custody-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -5029,6 +5081,10 @@ dd {
   }
 
   .freshness-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .freshness-breach-grid {
     grid-template-columns: 1fr;
   }
 

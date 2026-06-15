@@ -58,6 +58,13 @@ const freshnessRules = [
   ["ЭТП", "webhook/API", "статусы подачи и площадочные файлы требуют подтверждения коннектора"],
 ];
 
+const freshnessBreachQueue = [
+  ["ЕИС документы", "нет свежего файла ТЗ или протокола", "quarantine"],
+  ["ФНС карточка", "ИНН изменился или ответ старше события сделки", "rerun"],
+  ["ЭТП статус", "площадка не подтвердила подачу или отзыв заявки", "manual"],
+  ["OCR версия", "текст не совпадает с оригинальным PDF/hash", "rebuild"],
+];
+
 const evidenceGates = [
   ["Source URL", "ссылка на карточку ЕИС, ФНС или ЭТП", "обязательно"],
   ["File hash", "оригинал документа и версия OCR", "обязательно"],
@@ -210,6 +217,25 @@ export default function SourcesPage() {
             {freshnessRules.map(([title, cadence, text]) => (
               <article className="freshness-card" key={title}>
                 <span>{cadence}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel freshness-breach-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Freshness breach queue</p>
+              <h2>Что делаем, если первоисточник просрочен</h2>
+            </div>
+            <span className="status-pill">AI waits</span>
+          </div>
+          <div className="freshness-breach-grid">
+            {freshnessBreachQueue.map(([title, text, action]) => (
+              <article className="freshness-breach-card" key={title}>
+                <span>{action}</span>
                 <strong>{title}</strong>
                 <p>{text}</p>
               </article>
