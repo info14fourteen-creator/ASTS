@@ -21,6 +21,20 @@ const aiSteps = [
   ["04", "Поставить задачу", "если данных не хватает или confidence низкий"],
 ];
 
+const reviewStats = [
+  ["В очереди", "18", "документы и процедуры"],
+  ["Авто-решений", "11", "confidence выше 85%"],
+  ["Эскалаций", "5", "уйдут человеку"],
+  ["Средний confidence", "81%", "по текущей пачке"],
+];
+
+const evidence = [
+  ["ТЗ", "Файл: tz_lighting_v4.pdf", "позиции 12-14", "manual"],
+  ["Контракт", "ЕИС / проект контракта", "штрафы и сроки", "ok"],
+  ["КП", "Локальный файл поставщика", "нет логистики ЦФО", "warning"],
+  ["Протокол", "zakupki.gov.ru", "победитель и цена", "ok"],
+];
+
 export default function AiReviewPage() {
   return (
     <main className="app-shell">
@@ -35,6 +49,16 @@ export default function AiReviewPage() {
             Запустить разбор
           </button>
         </header>
+
+        <section className="ai-stat-grid">
+          {reviewStats.map(([label, value, text]) => (
+            <article className="ai-stat" key={label}>
+              <span>{label}</span>
+              <strong>{value}</strong>
+              <small>{text}</small>
+            </article>
+          ))}
+        </section>
 
         <section className="layout-grid">
           <article className="panel span-7">
@@ -70,6 +94,32 @@ export default function AiReviewPage() {
                 <div className="quality-card" key={title}>
                   <strong>{title}</strong>
                   <p>{text}</p>
+                </div>
+              ))}
+            </div>
+          </article>
+
+          <article className="panel span-7">
+            <div className="panel-head compact">
+              <div>
+                <p className="eyebrow">Evidence trail</p>
+                <h2>На чем основан вывод</h2>
+              </div>
+              <span className="status-pill green">ссылки сохранены</span>
+            </div>
+            <div className="evidence-table">
+              <div className="evidence-row evidence-head">
+                <span>Блок</span>
+                <span>Источник</span>
+                <span>Что нашел AI</span>
+                <span>Статус</span>
+              </div>
+              {evidence.map(([block, source, finding, tone]) => (
+                <div className="evidence-row" key={block}>
+                  <strong>{block}</strong>
+                  <span>{source}</span>
+                  <span>{finding}</span>
+                  <em className={tone}>{tone}</em>
                 </div>
               ))}
             </div>
