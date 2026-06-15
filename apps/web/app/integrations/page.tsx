@@ -19,6 +19,13 @@ const syncRules = [
   ["Файлы", "ссылки на ТЗ, протоколы, договоры и закрывающие"],
 ];
 
+const launchMatrix = [
+  ["Волна 1", "Bitrix24 + amoCRM", "сделки, компании, задачи", "утвердить поля и стадии"],
+  ["Волна 2", "1C + Telegram", "счета, платежи, статусы, уведомления", "собрать sandbox и bot token"],
+  ["Волна 3", "Мегаплан + Planfix", "проекты исполнения и регламенты", "описать mapping задач"],
+  ["Волна 4", "RetailCRM + СберCRM + BPMSoft", "enterprise CRM контуры", "проверить API и права доступа"],
+];
+
 const queue = [
   ["Bitrix24", "описать поля сделки и стадии", "первый коннектор"],
   ["1C", "схема счетов, актов и платежей", "после исполнения"],
@@ -39,6 +46,32 @@ export default function IntegrationsPage() {
             Подключить
           </button>
         </header>
+
+        <section className="panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Launch matrix</p>
+              <h2>Очередность CRM и каналов</h2>
+            </div>
+            <span className="status-pill">4 волны</span>
+          </div>
+          <div className="integration-matrix">
+            <div className="integration-matrix-row integration-matrix-head">
+              <span>Волна</span>
+              <span>Системы</span>
+              <span>Данные</span>
+              <span>Следующий артефакт</span>
+            </div>
+            {launchMatrix.map(([wave, systems, data, artifact]) => (
+              <div className="integration-matrix-row" key={wave}>
+                <strong>{wave}</strong>
+                <span>{systems}</span>
+                <span>{data}</span>
+                <em>{artifact}</em>
+              </div>
+            ))}
+          </div>
+        </section>
 
         <section className="integration-grid">
           {integrations.map(([name, text, status, tone]) => (
