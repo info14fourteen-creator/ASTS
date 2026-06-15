@@ -28,6 +28,13 @@ const dealEntryGates = [
   ["Обеспечение", "деньги и срок возврата учтены в cash flow", "required"],
 ];
 
+const coefficientReceipt = [
+  ["Reason", "почему меняем маржу, логистику, НДС или нагрузку", "до пересчета"],
+  ["Source snapshot", "НМЦК, КП, тариф доставки и налоговая ставка", "evidence"],
+  ["Owner approval", "кто подтвердил новый расчетный профиль", "human"],
+  ["Rollback value", "предыдущий коэффициент и дата изменения", "audit"],
+];
+
 const accessPlans = [
   ["Pilot", "1 команда", "ЕИС, AI разбор, 2 воронки", "проверить ценность на 20 процедурах"],
   ["Team", "тендерный отдел", "CRM, роли, задачи, документы", "подключить Bitrix24/amoCRM"],
@@ -95,6 +102,25 @@ export default function EconomicsPage() {
                   <strong>{value}</strong>
                   <p>{text}</p>
                 </div>
+              ))}
+            </div>
+          </article>
+
+          <article className="panel span-12 coefficient-receipt-panel">
+            <div className="panel-head compact">
+              <div>
+                <p className="eyebrow">Coefficient change receipt</p>
+                <h2>Что фиксируем при изменении расчетов</h2>
+              </div>
+              <span className="status-pill green">no silent math</span>
+            </div>
+            <div className="coefficient-receipt-grid">
+              {coefficientReceipt.map(([title, text, gate]) => (
+                <article className="coefficient-receipt-card" key={title}>
+                  <span>{gate}</span>
+                  <strong>{title}</strong>
+                  <p>{text}</p>
+                </article>
               ))}
             </div>
           </article>
