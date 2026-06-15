@@ -561,6 +561,53 @@ h3 {
   line-height: 1.4;
 }
 
+.tender-routing-panel {
+  margin-bottom: 14px;
+}
+
+.tender-routing-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.tender-routing-card {
+  min-height: 132px;
+  border: 1px solid rgba(36, 90, 141, 0.18);
+  border-radius: 8px;
+  padding: 12px;
+  background: #f3f8fc;
+}
+
+.tender-routing-card span,
+.tender-routing-card strong,
+.tender-routing-card p {
+  display: block;
+}
+
+.tender-routing-card span {
+  width: fit-content;
+  border: 1px solid rgba(36, 90, 141, 0.22);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: rgba(36, 90, 141, 0.08);
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.tender-routing-card strong {
+  margin-top: 10px;
+  line-height: 1.25;
+}
+
+.tender-routing-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.38;
+}
+
 .table-row {
   display: grid;
   grid-template-columns: minmax(260px, 1fr) 110px 140px 76px;
@@ -3846,6 +3893,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .tender-routing-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .document-row {
     grid-template-columns: 1fr 1fr;
   }
@@ -4140,6 +4191,10 @@ dd {
   }
 
   .tender-intake-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tender-routing-grid {
     grid-template-columns: 1fr;
   }
 

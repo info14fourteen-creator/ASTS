@@ -43,6 +43,13 @@ const intakeGates = [
   ["Экономика", "НМЦК, маржа, обеспечение", "до решения о входе"],
 ];
 
+const funnelRouting = [
+  ["Reject", "стоп-тема, слабая экономика или нет первоисточника", "архив"],
+  ["Pre-win", "AI confidence выше порога и есть ответственный", "воронка до победы"],
+  ["Manual review", "аналоги, КП или логистика требуют подтверждения", "задачи"],
+  ["Execution", "победа подтверждена протоколом и файлами", "вторая воронка"],
+];
+
 export default function TendersPage() {
   return (
     <main className="app-shell">
@@ -75,6 +82,25 @@ export default function TendersPage() {
                 <span>{rule}</span>
                 <strong>{title}</strong>
                 <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel tender-routing-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Funnel routing</p>
+              <h2>Куда попадает процедура после AI-решения</h2>
+            </div>
+            <span className="status-pill">two funnels</span>
+          </div>
+          <div className="tender-routing-grid">
+            {funnelRouting.map(([title, rule, target]) => (
+              <article className="tender-routing-card" key={title}>
+                <span>{target}</span>
+                <strong>{title}</strong>
+                <p>{rule}</p>
               </article>
             ))}
           </div>
