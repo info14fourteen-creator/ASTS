@@ -19,6 +19,13 @@ const syncRules = [
   ["Файлы", "ссылки на ТЗ, протоколы, договоры и закрывающие"],
 ];
 
+const accessChecklist = [
+  ["OAuth/API", "токен или приложение хранится в GitHub Secrets"],
+  ["Scopes", "только сделки, компании, задачи и файлы"],
+  ["Test record", "одна тестовая процедура создает сделку без дублей"],
+  ["Rollback", "можно отключить sync и оставить локальные данные ASTS"],
+];
+
 const launchMatrix = [
   ["Волна 1", "Bitrix24 + amoCRM", "сделки, компании, задачи", "утвердить поля и стадии"],
   ["Волна 2", "1C + Telegram", "счета, платежи, статусы, уведомления", "собрать sandbox и bot token"],
@@ -118,6 +125,24 @@ export default function IntegrationsPage() {
               ))}
             </div>
           </article>
+        </section>
+
+        <section className="panel integration-access-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Access checklist</p>
+              <h2>Что проверяем перед включением CRM</h2>
+            </div>
+            <span className="status-pill green">secret-safe</span>
+          </div>
+          <div className="integration-access-grid">
+            {accessChecklist.map(([title, text]) => (
+              <article className="integration-access-card" key={title}>
+                <strong>{title}</strong>
+                <span>{text}</span>
+              </article>
+            ))}
+          </div>
         </section>
       </section>
     </main>
