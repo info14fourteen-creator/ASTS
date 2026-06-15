@@ -1693,6 +1693,56 @@ dd {
   line-height: 1.42;
 }
 
+.partner-access-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.partner-access-card {
+  min-height: 118px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfcfd;
+}
+
+.partner-access-card strong,
+.partner-access-card span {
+  display: block;
+}
+
+.partner-access-card strong {
+  color: var(--accent-dark);
+}
+
+.partner-access-card span {
+  margin-top: 8px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.partner-prompt {
+  margin-top: 12px;
+  border: 1px solid rgba(36, 90, 141, 0.18);
+  border-radius: 8px;
+  padding: 14px;
+  background: #f3f8fc;
+}
+
+.partner-prompt span {
+  display: block;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.partner-prompt p {
+  margin: 8px 0 0;
+  line-height: 1.5;
+}
+
 .source-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2195,6 +2245,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .partner-access-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .setting-row {
     grid-template-columns: 1fr;
     gap: 6px;
@@ -2333,6 +2387,10 @@ dd {
   }
 
   .guardrail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .partner-access-grid {
     grid-template-columns: 1fr;
   }
 }

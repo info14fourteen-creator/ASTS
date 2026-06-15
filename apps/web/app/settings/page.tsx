@@ -29,6 +29,13 @@ const guardrails = [
   ["Human approval", "подача заявки, платежи, смена источников и удаление файлов требуют подтверждения"],
 ];
 
+const partnerAccess = [
+  ["GitHub", "доступ в репозиторий, работа только через feature-ветку и Pull Request"],
+  ["Secrets", "личный пароль, токены API и ключи площадок хранятся в GitHub Secrets"],
+  ["Codex prompt", "партнер просит настроить свой GitHub-доступ и не пушить напрямую в main"],
+  ["First PR", "первый вклад должен содержать build, smoke и краткий статус"],
+];
+
 export default function SettingsPage() {
   return (
     <main className="app-shell">
@@ -141,6 +148,32 @@ export default function SettingsPage() {
                   <span>{text}</span>
                 </div>
               ))}
+            </div>
+          </article>
+
+          <article className="panel span-12">
+            <div className="panel-head compact">
+              <div>
+                <p className="eyebrow">Partner access</p>
+                <h2>Пакет подключения партнера</h2>
+              </div>
+              <span className="status-pill">no main push</span>
+            </div>
+            <div className="partner-access-grid">
+              {partnerAccess.map(([title, text]) => (
+                <div className="partner-access-card" key={title}>
+                  <strong>{title}</strong>
+                  <span>{text}</span>
+                </div>
+              ))}
+            </div>
+            <div className="partner-prompt">
+              <span>Промпт для партнера</span>
+              <p>
+                Подключи мой Codex к репозиторию ASTS на GitHub, создай отдельную ветку для
+                моей работы, не пушь напрямую в main, все изменения отправляй через Pull Request
+                с результатом build/smoke и коротким статусом.
+              </p>
             </div>
           </article>
         </section>
