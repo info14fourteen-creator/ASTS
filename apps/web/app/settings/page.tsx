@@ -22,6 +22,13 @@ const accessRules = [
   ["Партнер", "работает в отдельной ветке и через PR"],
 ];
 
+const guardrails = [
+  ["GitHub Secrets", "пароли и API ключи не попадают в код, только в секреты репозитория"],
+  ["Audit trail", "логируем импорт, AI выводы, загрузку файлов, смену стадии и экспорт в CRM"],
+  ["Partner workflow", "партнер работает через отдельную ветку, PR и review перед объединением"],
+  ["Human approval", "подача заявки, платежи, смена источников и удаление файлов требуют подтверждения"],
+];
+
 export default function SettingsPage() {
   return (
     <main className="app-shell">
@@ -114,6 +121,24 @@ export default function SettingsPage() {
                 <div className="setting-row" key={role}>
                   <span>{role}</span>
                   <strong>{text}</strong>
+                </div>
+              ))}
+            </div>
+          </article>
+
+          <article className="panel span-12">
+            <div className="panel-head compact">
+              <div>
+                <p className="eyebrow">Security guardrails</p>
+                <h2>Контроль доступа, секретов и аудита</h2>
+              </div>
+              <span className="status-pill">safe collaboration</span>
+            </div>
+            <div className="guardrail-grid">
+              {guardrails.map(([title, text]) => (
+                <div className="guardrail-card" key={title}>
+                  <strong>{title}</strong>
+                  <span>{text}</span>
                 </div>
               ))}
             </div>

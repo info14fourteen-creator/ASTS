@@ -267,6 +267,10 @@ h3 {
   grid-column: span 5;
 }
 
+.span-12 {
+  grid-column: 1 / -1;
+}
+
 .panel-head {
   display: flex;
   align-items: flex-start;
@@ -1522,6 +1526,35 @@ dd {
   line-height: 1.35;
 }
 
+.guardrail-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.guardrail-card {
+  min-height: 118px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfcfd;
+}
+
+.guardrail-card strong,
+.guardrail-card span {
+  display: block;
+}
+
+.guardrail-card strong {
+  line-height: 1.25;
+}
+
+.guardrail-card span {
+  margin-top: 8px;
+  color: var(--muted);
+  line-height: 1.42;
+}
+
 .source-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1957,6 +1990,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .guardrail-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .setting-row {
     grid-template-columns: 1fr;
     gap: 6px;
@@ -2075,6 +2112,10 @@ dd {
 
   .onboarding-summary,
   .fit-rule-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .guardrail-grid {
     grid-template-columns: 1fr;
   }
 }
