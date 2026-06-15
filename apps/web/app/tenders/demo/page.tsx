@@ -13,6 +13,12 @@ const aiChecks = [
   ["Поставщики", "7 кандидатов, 4 готовы дать КП до конца дня"],
   ["Экономика", "Маржа 11.8% после логистики и гарантии"],
 ];
+const preWinAiGates = [
+  ["ТЗ", "нельзя идти дальше без подтверждения аналогов"],
+  ["КП", "минимум 3 валидных предложения с источником"],
+  ["Экономика", "цена подачи, маржа и риск должны быть зафиксированы"],
+  ["Подача", "AI блокирует заявку без полного пакета файлов"],
+];
 const nextActions = [
   ["Закупщик", "Получить 2 недостающих КП", "до 13:00"],
   ["Техэксперт", "Подтвердить аналоги по светильникам", "сегодня"],
@@ -72,6 +78,24 @@ export default function TenderCardPage() {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="panel prewin-ai-gates-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Pre-win AI gates</p>
+              <h2>Где AI останавливает подачу</h2>
+            </div>
+            <span className="status-pill">до победы</span>
+          </div>
+          <div className="prewin-ai-gates-grid">
+            {preWinAiGates.map(([stage, gate]) => (
+              <article className="prewin-ai-gate-card" key={stage}>
+                <span>{stage}</span>
+                <strong>{gate}</strong>
+              </article>
+            ))}
           </div>
         </section>
 

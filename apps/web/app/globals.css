@@ -708,6 +708,46 @@ dd {
   color: var(--accent-dark);
 }
 
+.prewin-ai-gates-panel {
+  margin-top: 14px;
+}
+
+.prewin-ai-gates-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.prewin-ai-gate-card {
+  min-height: 112px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 13px;
+  background: #fbfcfd;
+}
+
+.prewin-ai-gate-card span,
+.prewin-ai-gate-card strong {
+  display: block;
+}
+
+.prewin-ai-gate-card span {
+  width: fit-content;
+  border: 1px solid rgba(154, 100, 27, 0.24);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: #fff7e8;
+  color: var(--amber);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.prewin-ai-gate-card strong {
+  margin-top: 10px;
+  line-height: 1.35;
+}
+
 .deal-detail-grid {
   display: grid;
   grid-template-columns: 0.85fr 1fr 1fr;
@@ -3155,6 +3195,10 @@ dd {
     grid-template-columns: repeat(6, minmax(110px, 1fr));
   }
 
+  .prewin-ai-gates-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .execution-stage-line {
     grid-template-columns: repeat(6, minmax(110px, 1fr));
     overflow-x: auto;
@@ -3478,6 +3522,10 @@ dd {
   }
 
   .execution-ai-gates-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .prewin-ai-gates-grid {
     grid-template-columns: 1fr;
   }
 
