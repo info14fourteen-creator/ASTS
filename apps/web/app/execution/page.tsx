@@ -42,6 +42,13 @@ const winHandoff = [
   ["Задачи", "ответственные, сроки, критические условия", "старт исполнения"],
 ];
 
+const executionStartGate = [
+  ["Winner proof", "протокол победы и цена победы связаны с карточкой процедуры", "без этого не открывать"],
+  ["Contract baseline", "проект контракта, ТЗ и штрафы сверены до счета", "AI gate"],
+  ["Economics lock", "плановая маржа, резерв и поставщики перенесены из pre-win", "owner approval"],
+  ["Responsibility map", "финансы, закупка, логистика и бухгалтерия получили задачи", "audit trail"],
+];
+
 const documents = [
   ["Контракт", "подписан", "ЕИС", "готово", "Договор"],
   ["Счет на аванс", "выставлен", "1C", "ожидает", "Счет"],
@@ -91,6 +98,25 @@ export default function ExecutionPage() {
               <span className={index === 0 ? "complete" : index === 1 ? "current" : ""} key={stage}>
                 {stage}
               </span>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel execution-start-gate-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Execution start gate</p>
+              <h2>Что должно быть закрыто до запуска второй воронки</h2>
+            </div>
+            <span className="status-pill green">win is not execution</span>
+          </div>
+          <div className="execution-start-gate-grid">
+            {executionStartGate.map(([title, text, gate]) => (
+              <article className="execution-start-gate-card" key={title}>
+                <span>{gate}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
+              </article>
             ))}
           </div>
         </section>
