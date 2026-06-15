@@ -65,6 +65,33 @@ const mergeChecklist = [
   ["Review", "в PR есть статус, риски и следующий шаг"],
 ];
 
+const mergeRoom = [
+  {
+    title: "Готово к объединению",
+    state: "green",
+    owner: "Codex + партнер",
+    checklist: ["ветка синхронизирована с main", "нет конфликтов", "PR checks зеленые"],
+  },
+  {
+    title: "Останавливаем merge",
+    state: "red",
+    owner: "Автор PR",
+    checklist: ["упал build", "есть чужие файлы в diff", "нет связи с майнд картой"],
+  },
+  {
+    title: "Сверяем логику",
+    state: "amber",
+    owner: "Владелец продукта",
+    checklist: ["две воронки сохранены", "первоисточник указан", "AI не принимает решение один"],
+  },
+  {
+    title: "После merge",
+    state: "blue",
+    owner: "Дежурный",
+    checklist: ["проверить GitHub Pages", "обновить план", "выдать следующий маленький шаг"],
+  },
+];
+
 export default function TasksPage() {
   return (
     <main className="app-shell">
@@ -192,6 +219,29 @@ export default function TasksPage() {
               <article className="merge-check" key={title}>
                 <strong>{title}</strong>
                 <span>{description}</span>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel merge-room-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Merge room</p>
+              <h2>Как объединяем без потери логики</h2>
+            </div>
+            <span className="status-pill green">two-person safe</span>
+          </div>
+          <div className="merge-room-grid">
+            {mergeRoom.map(({ title, state, owner, checklist }) => (
+              <article className={`merge-room-card ${state}`} key={title}>
+                <span>{owner}</span>
+                <strong>{title}</strong>
+                <ul>
+                  {checklist.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
               </article>
             ))}
           </div>
