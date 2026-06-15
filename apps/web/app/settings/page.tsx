@@ -36,6 +36,13 @@ const guardrails = [
   ["Human approval", "подача заявки, платежи, смена источников и удаление файлов требуют подтверждения"],
 ];
 
+const secretRotation = [
+  ["Owner password", "личный доступ владельца", "90 дней", "смена при новом партнере"],
+  ["Source API keys", "ЕИС, ФНС, ЭТП и file vault", "60 дней", "заморозить импорт при утечке"],
+  ["CRM tokens", "Bitrix24, amoCRM, 1C и Telegram", "30 дней", "отключить sync до проверки"],
+  ["Emergency revoke", "подозрение на компрометацию", "сразу", "audit export и новый secret"],
+];
+
 const backupPlan = [
   ["Postgres snapshot", "каждые 6 часов", "процедуры, стадии, задачи, настройки"],
   ["File vault mirror", "каждый импорт", "оригиналы ТЗ, протоколы, КП, OCR и hash"],
@@ -230,6 +237,26 @@ export default function SettingsPage() {
                   <strong>{title}</strong>
                   <span>{text}</span>
                 </div>
+              ))}
+            </div>
+          </article>
+
+          <article className="panel span-12">
+            <div className="panel-head compact">
+              <div>
+                <p className="eyebrow">Secret rotation</p>
+                <h2>Когда обновляем пароли, токены и API ключи</h2>
+              </div>
+              <span className="status-pill green">no stale keys</span>
+            </div>
+            <div className="secret-rotation-grid">
+              {secretRotation.map(([title, scope, cadence, action]) => (
+                <article className="secret-rotation-card" key={title}>
+                  <span>{cadence}</span>
+                  <strong>{title}</strong>
+                  <p>{scope}</p>
+                  <em>{action}</em>
+                </article>
               ))}
             </div>
           </article>
