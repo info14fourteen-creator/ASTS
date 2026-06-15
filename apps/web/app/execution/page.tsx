@@ -21,6 +21,20 @@ const risks = [
   ["Штрафы", "сроки и пени вынесены из проекта контракта"],
 ];
 
+const executionStats = [
+  ["Дней до поставки", "9", "контроль срока"],
+  ["Аванс", "ожидается", "счет выставлен"],
+  ["Маржа факт", "10.9%", "после закупки"],
+  ["Закрывающие", "0/4", "пока не готовы"],
+];
+
+const documents = [
+  ["Контракт", "подписан", "ЕИС", "готово", "Договор"],
+  ["Счет на аванс", "выставлен", "1C", "ожидает", "Счет"],
+  ["Спецификация", "сверка", "файл", "AI review", "Закупка"],
+  ["УПД", "не создан", "1C", "после поставки", "Закрывающие"],
+];
+
 export default function ExecutionPage() {
   return (
     <main className="app-shell">
@@ -51,6 +65,16 @@ export default function ExecutionPage() {
               </span>
             ))}
           </div>
+        </section>
+
+        <section className="execution-health-grid">
+          {executionStats.map(([label, value, text]) => (
+            <article className="execution-health" key={label}>
+              <span>{label}</span>
+              <strong>{value}</strong>
+              <small>{text}</small>
+            </article>
+          ))}
         </section>
 
         <section className="layout-grid bottom-grid">
@@ -84,6 +108,34 @@ export default function ExecutionPage() {
                   <span>{title}</span>
                   <strong>{value}</strong>
                   <p>{text}</p>
+                </div>
+              ))}
+            </div>
+          </article>
+
+          <article className="panel span-7">
+            <div className="panel-head compact">
+              <div>
+                <p className="eyebrow">Closing pack</p>
+                <h2>Документы исполнения</h2>
+              </div>
+              <span className="status-pill">4 документа</span>
+            </div>
+            <div className="document-table">
+              <div className="document-row document-head">
+                <span>Документ</span>
+                <span>Статус</span>
+                <span>Источник</span>
+                <span>Контроль</span>
+                <span>Этап</span>
+              </div>
+              {documents.map(([title, status, source, control, stage]) => (
+                <div className="document-row" key={title}>
+                  <strong>{title}</strong>
+                  <span>{status}</span>
+                  <span>{source}</span>
+                  <span>{control}</span>
+                  <span>{stage}</span>
                 </div>
               ))}
             </div>
