@@ -353,6 +353,59 @@ h3 {
   line-height: 1.35;
 }
 
+.parity-panel {
+  margin-bottom: 14px;
+}
+
+.parity-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.parity-card {
+  min-height: 128px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 13px;
+  background: #fbfcfd;
+}
+
+.parity-card span,
+.parity-card strong,
+.parity-card p {
+  display: block;
+}
+
+.parity-card span {
+  width: fit-content;
+  border: 1px solid rgba(40, 122, 82, 0.2);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: rgba(40, 122, 82, 0.09);
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.parity-card.review span {
+  border-color: rgba(154, 100, 27, 0.24);
+  background: #fff7e8;
+  color: var(--amber);
+}
+
+.parity-card strong {
+  margin-top: 10px;
+  line-height: 1.25;
+}
+
+.parity-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
 .tender-table {
   display: grid;
   gap: 8px;
@@ -2201,6 +2254,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .parity-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .task-lane-grid {
     grid-template-columns: 1fr;
   }
@@ -2287,6 +2344,10 @@ dd {
   }
 
   .command-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .parity-grid {
     grid-template-columns: 1fr;
   }
 

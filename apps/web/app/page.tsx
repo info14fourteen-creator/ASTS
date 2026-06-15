@@ -107,6 +107,13 @@ const commandSignals = [
   ["Execution funnel", "1 контракт ждет УПД, 2 оплаты в контроле", "после победы"],
 ];
 
+const mindMapParity = [
+  ["2 воронки", "до победы и исполнение разделены в карточке процедуры", "covered"],
+  ["Первоисточники", "ЕИС, ФНС и ЭТП отмечены как обязательные каналы", "covered"],
+  ["AI вместо рутины", "скоринг, OCR и low-confidence проверки вынесены в задачи", "covered"],
+  ["Старая схема", "оставить сверку PDF/mind map перед merge в main", "review"],
+];
+
 const integrations = [
   ["Bitrix24", "первая очередь"],
   ["amoCRM", "первая очередь"],
@@ -174,6 +181,25 @@ export default function Home() {
                 <span>{title}</span>
                 <strong>{text}</strong>
                 <small>{status}</small>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel parity-panel" aria-label="Сверка старой mind map">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Mind map parity</p>
+              <h2>Что уже перенесено из старой логики</h2>
+            </div>
+            <span className="status-pill">3 / 4 covered</span>
+          </div>
+          <div className="parity-grid">
+            {mindMapParity.map(([title, text, status]) => (
+              <article className={`parity-card ${status}`} key={title}>
+                <span>{status}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>
