@@ -1816,6 +1816,54 @@ dd {
   line-height: 1.35;
 }
 
+.source-intake-contract-panel {
+  margin-top: 14px;
+}
+
+.source-intake-contract-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.source-intake-contract-card {
+  min-height: 136px;
+  border: 1px solid rgba(18, 106, 113, 0.18);
+  border-radius: 8px;
+  padding: 13px;
+  background: #f7fbfb;
+}
+
+.source-intake-contract-card span,
+.source-intake-contract-card strong,
+.source-intake-contract-card p {
+  display: block;
+}
+
+.source-intake-contract-card span {
+  width: fit-content;
+  border: 1px solid rgba(40, 122, 82, 0.22);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: rgba(40, 122, 82, 0.08);
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.source-intake-contract-card strong {
+  margin-top: 10px;
+  color: var(--accent-dark);
+  line-height: 1.25;
+}
+
+.source-intake-contract-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
 .connector-readiness-panel {
   margin-top: 14px;
 }
@@ -4381,6 +4429,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .source-intake-contract-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .connector-readiness-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -4643,6 +4695,10 @@ dd {
   }
 
   .source-health-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .source-intake-contract-grid {
     grid-template-columns: 1fr;
   }
 

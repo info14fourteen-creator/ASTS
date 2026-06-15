@@ -30,6 +30,13 @@ const runStats = [
   ["Ошибок API", "2", "повтор через 15 мин"],
 ];
 
+const sourceIntakeContract = [
+  ["Source ID", "официальный идентификатор процедуры, ИНН или файла", "до нормализации"],
+  ["Raw artifact", "XML/JSON ответа, PDF или архив из первоисточника", "сохраняем всегда"],
+  ["Checksum", "sha256 для ответа и каждого вложенного файла", "для audit trail"],
+  ["AI status", "ready, quarantine или manual review", "до скоринга"],
+];
+
 const connectorReadiness = [
   ["P0", "ЕИС / zakupki.gov.ru", "определить официальный формат выгрузки, ключи и лимиты", "можно начинать"],
   ["P0", "ФНС", "зафиксировать метод проверки ИНН и хранение ответа", "нужен доступ"],
@@ -128,6 +135,25 @@ export default function SourcesPage() {
               <small>{text}</small>
             </article>
           ))}
+        </section>
+
+        <section className="panel source-intake-contract-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source intake contract</p>
+              <h2>Что обязано прийти из первоисточника</h2>
+            </div>
+            <span className="status-pill green">AI blocked until complete</span>
+          </div>
+          <div className="source-intake-contract-grid">
+            {sourceIntakeContract.map(([title, text, gate]) => (
+              <article className="source-intake-contract-card" key={title}>
+                <span>{gate}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="panel connector-readiness-panel">
