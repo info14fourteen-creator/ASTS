@@ -100,6 +100,13 @@ const tasks: Task[] = [
   },
 ];
 
+const commandSignals = [
+  ["Primary feed", "ЕИС: 42 новых, ФНС: 6 проверок, ЭТП: 11 обновлений", "синхронизация 07:40"],
+  ["AI triage", "5 процедур прошли автоскоринг, 3 отправлены на ручную проверку", "confidence threshold 85%"],
+  ["Pre-win funnel", "2 карточки на этапе КП, 1 срок подачи меньше 10 часов", "сегодня"],
+  ["Execution funnel", "1 контракт ждет УПД, 2 оплаты в контроле", "после победы"],
+];
+
 const integrations = [
   ["Bitrix24", "первая очередь"],
   ["amoCRM", "первая очередь"],
@@ -150,6 +157,25 @@ export default function Home() {
             <span>Средний match</span>
             <strong>81%</strong>
             <small>по профилю компании</small>
+          </div>
+        </section>
+
+        <section className="panel command-panel" aria-label="Утренний контрольный слой">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Morning control</p>
+              <h2>Что требует внимания сейчас</h2>
+            </div>
+            <span className="status-pill">обновлено 07:40</span>
+          </div>
+          <div className="command-grid">
+            {commandSignals.map(([title, text, status]) => (
+              <article className="command-card" key={title}>
+                <span>{title}</span>
+                <strong>{text}</strong>
+                <small>{status}</small>
+              </article>
+            ))}
           </div>
         </section>
 

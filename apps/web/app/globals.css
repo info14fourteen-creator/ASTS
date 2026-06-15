@@ -306,6 +306,49 @@ h3 {
   color: var(--amber);
 }
 
+.command-panel {
+  margin-bottom: 14px;
+}
+
+.command-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.command-card {
+  min-height: 132px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 13px;
+  background: #fbfcfd;
+}
+
+.command-card span,
+.command-card strong,
+.command-card small {
+  display: block;
+}
+
+.command-card span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.command-card strong {
+  margin-top: 12px;
+  line-height: 1.35;
+}
+
+.command-card small {
+  margin-top: 9px;
+  color: var(--accent-dark);
+  font-weight: 800;
+  line-height: 1.35;
+}
+
 .tender-table {
   display: grid;
   gap: 8px;
@@ -1800,6 +1843,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .command-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .task-lane-grid {
     grid-template-columns: 1fr;
   }
@@ -1858,6 +1905,10 @@ dd {
   }
 
   .integration-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .command-grid {
     grid-template-columns: 1fr;
   }
 
