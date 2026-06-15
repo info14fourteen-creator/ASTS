@@ -37,6 +37,13 @@ const teamRoutes = [
   ["Исполнение", "ведет вторую воронку после победы"],
 ];
 
+const profileReadiness = [
+  ["Юрданные", "ИНН/ОГРН подтверждены через ФНС", "до источников"],
+  ["Номенклатура", "ОКПД2, бренды, аналоги и стоп-позиции", "до AI фильтра"],
+  ["Порог входа", "маржа, НМЦК, логистика и обеспечение", "до рекомендации"],
+  ["Роли", "кто подтверждает риск, цену и подачу", "до автозадач"],
+];
+
 export default function OnboardingPage() {
   return (
     <main className="app-shell">
@@ -85,6 +92,25 @@ export default function OnboardingPage() {
                 <span>{data}</span>
                 <strong>{title}</strong>
                 <p>{rule}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel profile-readiness-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Profile readiness gate</p>
+              <h2>Без чего AI не подбирает процедуры</h2>
+            </div>
+            <span className="status-pill">minimum profile</span>
+          </div>
+          <div className="profile-readiness-grid">
+            {profileReadiness.map(([title, text, gate]) => (
+              <article className="profile-readiness-card" key={title}>
+                <span>{gate}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>
