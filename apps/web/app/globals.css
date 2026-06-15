@@ -59,6 +59,20 @@ button.primary {
   color: #ffffff;
 }
 
+.primary-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 8px 14px;
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 750;
+  text-decoration: none;
+}
+
 .app-shell {
   display: grid;
   grid-template-columns: 260px minmax(0, 1fr);
