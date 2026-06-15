@@ -29,6 +29,13 @@ const guardrails = [
   ["Human approval", "подача заявки, платежи, смена источников и удаление файлов требуют подтверждения"],
 ];
 
+const backupPlan = [
+  ["Postgres snapshot", "каждые 6 часов", "процедуры, стадии, задачи, настройки"],
+  ["File vault mirror", "каждый импорт", "оригиналы ТЗ, протоколы, КП, OCR и hash"],
+  ["Search rebuild", "ночью", "индекс можно пересобрать из БД и файлов"],
+  ["Audit export", "раз в сутки", "лог решений, AI выводов, CRM выгрузок и доступов"],
+];
+
 const partnerAccess = [
   ["GitHub", "доступ в репозиторий, работа только через feature-ветку и Pull Request"],
   ["Secrets", "личный пароль, токены API и ключи площадок хранятся в GitHub Secrets"],
@@ -128,6 +135,25 @@ export default function SettingsPage() {
                 <div className="setting-row" key={role}>
                   <span>{role}</span>
                   <strong>{text}</strong>
+                </div>
+              ))}
+            </div>
+          </article>
+
+          <article className="panel span-12">
+            <div className="panel-head compact">
+              <div>
+                <p className="eyebrow">Backup & restore</p>
+                <h2>Как не теряем данные кабинета</h2>
+              </div>
+              <span className="status-pill green">restore-ready</span>
+            </div>
+            <div className="backup-grid">
+              {backupPlan.map(([title, cadence, text]) => (
+                <div className="backup-card" key={title}>
+                  <span>{cadence}</span>
+                  <strong>{title}</strong>
+                  <p>{text}</p>
                 </div>
               ))}
             </div>
