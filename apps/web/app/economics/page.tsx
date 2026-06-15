@@ -27,6 +27,13 @@ const accessPlans = [
   ["Enterprise", "несколько юрлиц", "1C, аудит, SSO, SLA, API", "описать договор и поддержку"],
 ];
 
+const entitlementGates = [
+  ["Seat", "пользователь и роль", "без роли нет действий в воронках"],
+  ["Source", "ЕИС, ФНС, ЭТП", "источник включен только после ключа/API"],
+  ["AI pack", "разбор, evidence, confidence", "ниже тарифа уходит в preview"],
+  ["Export", "CRM, 1C, Telegram", "выгрузка только после access check"],
+];
+
 export default function EconomicsPage() {
   return (
     <main className="app-shell">
@@ -156,6 +163,15 @@ export default function EconomicsPage() {
                   <strong>{scope}</strong>
                   <p>{includes}</p>
                   <em>{next}</em>
+                </article>
+              ))}
+            </div>
+            <div className="entitlement-grid">
+              {entitlementGates.map(([title, scope, rule]) => (
+                <article className="entitlement-card" key={title}>
+                  <span>{scope}</span>
+                  <strong>{title}</strong>
+                  <p>{rule}</p>
                 </article>
               ))}
             </div>

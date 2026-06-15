@@ -1772,6 +1772,45 @@ dd {
   font-weight: 850;
 }
 
+.entitlement-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.entitlement-card {
+  min-height: 118px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #f7faf8;
+}
+
+.entitlement-card span,
+.entitlement-card strong,
+.entitlement-card p {
+  display: block;
+}
+
+.entitlement-card span {
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.entitlement-card strong {
+  margin-top: 8px;
+  line-height: 1.25;
+}
+
+.entitlement-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.38;
+}
+
 .ai-review-list {
   display: grid;
   gap: 10px;
@@ -2655,6 +2694,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .entitlement-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .ai-step-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2754,6 +2797,10 @@ dd {
   }
 
   .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .entitlement-grid {
     grid-template-columns: 1fr;
   }
 
