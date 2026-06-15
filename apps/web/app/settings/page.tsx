@@ -36,6 +36,13 @@ const backupPlan = [
   ["Audit export", "раз в сутки", "лог решений, AI выводов, CRM выгрузок и доступов"],
 ];
 
+const domainRollout = [
+  ["DNS", "app.site.ru -> production host", "проверить CNAME/A и TTL перед релизом"],
+  ["TLS", "HTTPS + HSTS", "сертификат должен обновляться автоматически"],
+  ["Runtime env", "GitHub Secrets / hosting env", "ключи API и пароли не попадают в код"],
+  ["Go-live smoke", "login, sources, tasks, AI review", "проверка после каждого выката"],
+];
+
 const partnerAccess = [
   ["GitHub", "доступ в репозиторий, работа только через feature-ветку и Pull Request"],
   ["Secrets", "личный пароль, токены API и ключи площадок хранятся в GitHub Secrets"],
@@ -135,6 +142,25 @@ export default function SettingsPage() {
                 <div className="setting-row" key={role}>
                   <span>{role}</span>
                   <strong>{text}</strong>
+                </div>
+              ))}
+            </div>
+          </article>
+
+          <article className="panel span-12">
+            <div className="panel-head compact">
+              <div>
+                <p className="eyebrow">app.site.ru rollout</p>
+                <h2>Что проверяем перед публичным кабинетом</h2>
+              </div>
+              <span className="status-pill">domain checklist</span>
+            </div>
+            <div className="domain-rollout-grid">
+              {domainRollout.map(([title, scope, text]) => (
+                <div className="domain-rollout-card" key={title}>
+                  <span>{scope}</span>
+                  <strong>{title}</strong>
+                  <p>{text}</p>
                 </div>
               ))}
             </div>

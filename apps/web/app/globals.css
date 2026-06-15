@@ -2279,6 +2279,44 @@ dd {
   line-height: 1.4;
 }
 
+.domain-rollout-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.domain-rollout-card {
+  min-height: 132px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfcfd;
+}
+
+.domain-rollout-card span,
+.domain-rollout-card strong,
+.domain-rollout-card p {
+  display: block;
+}
+
+.domain-rollout-card span {
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.domain-rollout-card strong {
+  margin-top: 10px;
+  line-height: 1.25;
+}
+
+.domain-rollout-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
 .partner-access-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -2928,6 +2966,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .domain-rollout-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .partner-access-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -3122,6 +3164,10 @@ dd {
   }
 
   .backup-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .domain-rollout-grid {
     grid-template-columns: 1fr;
   }
 
