@@ -121,6 +121,13 @@ const previewReview = [
   ["Merge gate", "build, browser smoke и сверка старой mind map перед объединением", "guard"],
 ];
 
+const releaseReadiness = [
+  ["Build", "16 static routes", "последняя сборка проходит"],
+  ["Smoke", "desktop + mobile", "проверяем измененный маршрут"],
+  ["Data safety", "backup + source ledger", "секреты и восстановление описаны"],
+  ["Collaboration", "PR #17", "объединяем только после review"],
+];
+
 const integrations = [
   ["Bitrix24", "первая очередь"],
   ["amoCRM", "первая очередь"],
@@ -224,6 +231,25 @@ export default function Home() {
             {previewReview.map(([title, text, status]) => (
               <article className="preview-card" key={title}>
                 <span>{status}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel release-panel" aria-label="Готовность к объединению">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Release readiness</p>
+              <h2>Что должно быть зеленым перед merge</h2>
+            </div>
+            <span className="status-pill green">main protected</span>
+          </div>
+          <div className="release-grid">
+            {releaseReadiness.map(([title, scope, text]) => (
+              <article className="release-card" key={title}>
+                <span>{scope}</span>
                 <strong>{title}</strong>
                 <p>{text}</p>
               </article>
