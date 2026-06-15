@@ -114,6 +114,13 @@ const mindMapParity = [
   ["Старая схема", "оставить сверку PDF/mind map перед merge в main", "review"],
 ];
 
+const previewReview = [
+  ["Preview", "локальный Next preview сейчас, публично через GitHub Pages после merge", "смотреть"],
+  ["PR #17", "codex/app-site-shell -> main, рабочая ветка не пушит напрямую в main", "review"],
+  ["Routes", "Обзор, Тендеры, Источники, AI разбор, Исполнение, Задачи, Настройки", "click-through"],
+  ["Merge gate", "build, browser smoke и сверка старой mind map перед объединением", "guard"],
+];
+
 const integrations = [
   ["Bitrix24", "первая очередь"],
   ["amoCRM", "первая очередь"],
@@ -197,6 +204,25 @@ export default function Home() {
           <div className="parity-grid">
             {mindMapParity.map(([title, text, status]) => (
               <article className={`parity-card ${status}`} key={title}>
+                <span>{status}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel preview-panel" aria-label="Где смотреть и что ревьюить">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Preview / Review</p>
+              <h2>Где смотреть текущую сборку</h2>
+            </div>
+            <span className="status-pill">PR #17</span>
+          </div>
+          <div className="preview-grid">
+            {previewReview.map(([title, text, status]) => (
+              <article className="preview-card" key={title}>
                 <span>{status}</span>
                 <strong>{title}</strong>
                 <p>{text}</p>

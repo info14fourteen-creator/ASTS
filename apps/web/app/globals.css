@@ -406,6 +406,53 @@ h3 {
   line-height: 1.4;
 }
 
+.preview-panel {
+  margin-bottom: 14px;
+}
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.preview-card {
+  min-height: 132px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 13px;
+  background: #fbfcfd;
+}
+
+.preview-card span,
+.preview-card strong,
+.preview-card p {
+  display: block;
+}
+
+.preview-card span {
+  width: fit-content;
+  border: 1px solid rgba(36, 90, 141, 0.2);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: #eef6fc;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.preview-card strong {
+  margin-top: 10px;
+  line-height: 1.25;
+}
+
+.preview-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
 .tender-table {
   display: grid;
   gap: 8px;
@@ -2258,6 +2305,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .preview-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .task-lane-grid {
     grid-template-columns: 1fr;
   }
@@ -2348,6 +2399,10 @@ dd {
   }
 
   .parity-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .preview-grid {
     grid-template-columns: 1fr;
   }
 
