@@ -44,6 +44,13 @@ const freshnessRules = [
   ["ЭТП", "webhook/API", "статусы подачи и площадочные файлы требуют подтверждения коннектора"],
 ];
 
+const accessLedger = [
+  ["ЕИС API", "GitHub Secret", "Owner", "синхронизация процедур"],
+  ["ФНС", "личный ключ/контракт", "Legal", "проверка ИНН и ЕГРЮЛ"],
+  ["ЭТП sandbox", "кабинет площадки", "Ops", "статус подачи и площадочные файлы"],
+  ["File vault", "service account", "Docs", "OCR, hash и версионирование"],
+];
+
 const endpoints = [
   ["zakupki.gov.ru", "Извещения, лоты, протоколы", "каждые 15 мин", "активен"],
   ["ФНС", "ЕГРЮЛ, ИНН, статус юрлица", "по событию", "контракт"],
@@ -132,6 +139,32 @@ export default function SourcesPage() {
                 <strong>{title}</strong>
                 <p>{text}</p>
               </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel access-ledger-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Access ledger</p>
+              <h2>Какие доступы нужны для первоисточников</h2>
+            </div>
+            <span className="status-pill green">secret registry</span>
+          </div>
+          <div className="access-ledger">
+            <div className="access-ledger-row access-ledger-head">
+              <span>Доступ</span>
+              <span>Где хранится</span>
+              <span>Владелец</span>
+              <span>Что блокирует</span>
+            </div>
+            {accessLedger.map(([name, storage, owner, blocker]) => (
+              <div className="access-ledger-row" key={name}>
+                <strong>{name}</strong>
+                <span>{storage}</span>
+                <span>{owner}</span>
+                <em>{blocker}</em>
+              </div>
             ))}
           </div>
         </section>
