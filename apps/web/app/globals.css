@@ -365,6 +365,10 @@ h3 {
   border-radius: 8px;
 }
 
+.tender-inbox-row {
+  grid-template-columns: 150px 100px minmax(240px, 1fr) 110px 110px 76px;
+}
+
 .table-head {
   min-height: 38px;
   border-color: transparent;
@@ -387,6 +391,13 @@ h3 {
 
 .tender-row small {
   color: var(--muted);
+}
+
+.tender-row span,
+.tender-row strong,
+.tender-row small {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .risk {
@@ -1797,6 +1808,10 @@ dd {
   .table-row {
     grid-template-columns: 1fr;
     gap: 7px;
+  }
+
+  .tender-inbox-row {
+    grid-template-columns: 1fr;
   }
 
   .document-row {
