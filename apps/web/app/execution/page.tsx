@@ -28,6 +28,13 @@ const executionStats = [
   ["Закрывающие", "0/4", "пока не готовы"],
 ];
 
+const executionAiGates = [
+  ["Договор", "AI сверяет договор с ТЗ, протоколом и ценой победы", "блокирует замену условий"],
+  ["Закупка", "AI проверяет КП, аналоги, сроки поставки и маржу", "ручное ok при аналоге"],
+  ["Поставка", "AI держит дедлайн, адрес, комплектность и фото/накладные", "эскалация за 48 часов"],
+  ["Оплата", "AI сверяет счет, УПД, акты и график платежей", "не закрывать без пакета"],
+];
+
 const winHandoff = [
   ["Протокол победы", "номер процедуры, итоговая цена, заказчик", "обязательно"],
   ["Экономика", "плановая маржа, поставщики, резерв риска", "из первой воронки"],
@@ -101,6 +108,25 @@ export default function ExecutionPage() {
               <small>{text}</small>
             </article>
           ))}
+        </section>
+
+        <section className="panel execution-ai-gates-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI execution gates</p>
+              <h2>Где AI останавливает исполнение</h2>
+            </div>
+            <span className="status-pill">human approval</span>
+          </div>
+          <div className="execution-ai-gates-grid">
+            {executionAiGates.map(([stage, control, gate]) => (
+              <article className="execution-ai-gate-card" key={stage}>
+                <span>{stage}</span>
+                <strong>{control}</strong>
+                <p>{gate}</p>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="layout-grid bottom-grid">

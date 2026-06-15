@@ -1845,6 +1845,53 @@ dd {
   line-height: 1.35;
 }
 
+.execution-ai-gates-panel {
+  margin-top: 14px;
+}
+
+.execution-ai-gates-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.execution-ai-gate-card {
+  min-height: 148px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 13px;
+  background: #fbfcfd;
+}
+
+.execution-ai-gate-card span,
+.execution-ai-gate-card strong,
+.execution-ai-gate-card p {
+  display: block;
+}
+
+.execution-ai-gate-card span {
+  width: fit-content;
+  border: 1px solid rgba(154, 100, 27, 0.24);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: #fff7e8;
+  color: var(--amber);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.execution-ai-gate-card strong {
+  margin-top: 10px;
+  line-height: 1.3;
+}
+
+.execution-ai-gate-card p {
+  margin: 9px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
 .execution-list {
   display: grid;
   gap: 10px;
@@ -3121,6 +3168,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .execution-ai-gates-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .table-head {
     display: none;
   }
@@ -3423,6 +3474,10 @@ dd {
   }
 
   .execution-health-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .execution-ai-gates-grid {
     grid-template-columns: 1fr;
   }
 
