@@ -28,6 +28,13 @@ const queues = [
   ["Ручная проверка", "2 вывода ниже confidence 85%", "закупщик"],
 ];
 
+const handoffReceipt = [
+  ["Original owner", "кто загрузил или подтвердил первоисточник", "до обработки"],
+  ["OCR owner", "кто отвечает за качество распознавания", "до AI"],
+  ["Stage binding", "к какой воронке и этапу привязан файл", "до задачи"],
+  ["Use history", "где документ уже использован в выводе или решении", "audit"],
+];
+
 const integrityChain = [
   ["Original", "PDF/DOCX/XLSX", "храним без изменений"],
   ["OCR", "text layer", "версия связана с оригиналом"],
@@ -107,6 +114,25 @@ export default function DocumentsPage() {
                 <span>{stage}</span>
                 <em>{blocker}</em>
               </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel document-handoff-receipt-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Document handoff receipt</p>
+              <h2>Что фиксируем при передаче документа дальше</h2>
+            </div>
+            <span className="status-pill green">no lost evidence</span>
+          </div>
+          <div className="document-handoff-receipt-grid">
+            {handoffReceipt.map(([title, text, gate]) => (
+              <article className="document-handoff-receipt-card" key={title}>
+                <span>{gate}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
+              </article>
             ))}
           </div>
         </section>

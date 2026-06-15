@@ -2806,6 +2806,54 @@ dd {
   text-transform: uppercase;
 }
 
+.document-handoff-receipt-panel {
+  margin-top: 14px;
+}
+
+.document-handoff-receipt-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.document-handoff-receipt-card {
+  min-height: 132px;
+  border: 1px solid rgba(40, 122, 82, 0.2);
+  border-radius: 8px;
+  padding: 13px;
+  background: #f7faf8;
+}
+
+.document-handoff-receipt-card span,
+.document-handoff-receipt-card strong,
+.document-handoff-receipt-card p {
+  display: block;
+}
+
+.document-handoff-receipt-card span {
+  width: fit-content;
+  border: 1px solid rgba(40, 122, 82, 0.22);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: rgba(40, 122, 82, 0.08);
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.document-handoff-receipt-card strong {
+  margin-top: 10px;
+  color: var(--accent-dark);
+  line-height: 1.25;
+}
+
+.document-handoff-receipt-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
 .document-flow-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -4380,6 +4428,7 @@ dd {
   .document-stat-grid,
   .document-flow-grid,
   .document-integrity-grid,
+  .document-handoff-receipt-grid,
   .document-release-gates-grid,
   .document-manifest-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -4793,6 +4842,7 @@ dd {
   .document-stat-grid,
   .document-flow-grid,
   .document-integrity-grid,
+  .document-handoff-receipt-grid,
   .document-release-gates-grid,
   .document-manifest-grid {
     grid-template-columns: 1fr;
