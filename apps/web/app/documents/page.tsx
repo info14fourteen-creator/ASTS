@@ -35,6 +35,13 @@ const integrityChain = [
   ["AI-ready", "fields + evidence", "только после source link"],
 ];
 
+const aiReleaseGates = [
+  ["Оригинал", "AI не работает без исходного файла"],
+  ["OCR", "низкое качество уходит в ручную проверку"],
+  ["Hash", "каждый вывод хранит ссылку на sha256"],
+  ["Источник", "нужна связь с ЕИС, ЭТП, 1C или ручной загрузкой"],
+];
+
 const intakeRules = [
   ["Первоисточник", "сохраняем исходный файл, API id, дату получения и хэш"],
   ["Распознавание", "OCR складывает текст рядом с оригиналом и не меняет PDF"],
@@ -148,6 +155,24 @@ export default function DocumentsPage() {
                 <span>{format}</span>
                 <strong>{title}</strong>
                 <p>{rule}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel document-release-gates-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI release gates</p>
+              <h2>Когда документ можно отдавать в AI-вывод</h2>
+            </div>
+            <span className="status-pill">evidence first</span>
+          </div>
+          <div className="document-release-gates-grid">
+            {aiReleaseGates.map(([title, rule]) => (
+              <article className="document-release-gate-card" key={title}>
+                <span>{title}</span>
+                <strong>{rule}</strong>
               </article>
             ))}
           </div>

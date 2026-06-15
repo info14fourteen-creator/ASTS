@@ -2165,6 +2165,46 @@ dd {
   line-height: 1.38;
 }
 
+.document-release-gates-panel {
+  margin-top: 14px;
+}
+
+.document-release-gates-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.document-release-gate-card {
+  min-height: 114px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 13px;
+  background: #fbfcfd;
+}
+
+.document-release-gate-card span,
+.document-release-gate-card strong {
+  display: block;
+}
+
+.document-release-gate-card span {
+  width: fit-content;
+  border: 1px solid rgba(36, 90, 141, 0.22);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: rgba(36, 90, 141, 0.08);
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.document-release-gate-card strong {
+  margin-top: 10px;
+  line-height: 1.35;
+}
+
 .economics-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -3173,7 +3213,8 @@ dd {
 
   .document-stat-grid,
   .document-flow-grid,
-  .document-integrity-grid {
+  .document-integrity-grid,
+  .document-release-gates-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -3474,7 +3515,8 @@ dd {
 
   .document-stat-grid,
   .document-flow-grid,
-  .document-integrity-grid {
+  .document-integrity-grid,
+  .document-release-gates-grid {
     grid-template-columns: 1fr;
   }
 
