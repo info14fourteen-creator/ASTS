@@ -49,6 +49,13 @@ const documents = [
   ["УПД", "не создан", "1C", "после поставки", "Закрывающие"],
 ];
 
+const acceptanceGates = [
+  ["Поставка", "адрес, срок, комплектность и подтверждение заказчика", "до УПД"],
+  ["Документы", "счет, акт, УПД, контракт и версии файлов", "file vault"],
+  ["Экономика", "факт закупки, логистика, маржа и резерв риска", "до финального расчета"],
+  ["Оплата", "график платежей, просрочка, контакт заказчика", "эскалация"],
+];
+
 export default function ExecutionPage() {
   return (
     <main className="app-shell">
@@ -124,6 +131,25 @@ export default function ExecutionPage() {
                 <span>{stage}</span>
                 <strong>{control}</strong>
                 <p>{gate}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel execution-acceptance-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Acceptance gate</p>
+              <h2>Что подтверждаем перед закрытием исполнения</h2>
+            </div>
+            <span className="status-pill green">post-win only</span>
+          </div>
+          <div className="execution-acceptance-grid">
+            {acceptanceGates.map(([title, text, gate]) => (
+              <article className="execution-acceptance-card" key={title}>
+                <span>{gate}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>
