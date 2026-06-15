@@ -1,11 +1,18 @@
 import { Sidebar } from "../app-shell";
 
 const documents = [
-  ["Техническое задание", "ЕИС", "OCR готов", "AI 82%", "до победы"],
-  ["Проект контракта", "ЕИС", "OCR готов", "AI 91%", "до победы"],
-  ["Протокол подведения итогов", "ЕИС", "OCR готов", "AI 88%", "результат"],
-  ["Счет поставщика", "ручная загрузка", "нужен OCR", "AI ожидает", "исполнение"],
-  ["УПД", "1C", "ожидает файл", "AI ожидает", "закрывающие"],
+  ["Техническое задание", "ЕИС API", "PDF + OCR", "AI 82%", "до победы", "подтвердить сроки"],
+  ["Проект контракта", "ЕИС API", "PDF + OCR", "AI 91%", "до победы", "готово"],
+  ["Протокол подведения итогов", "ЕИС API", "PDF + OCR", "AI 88%", "результат", "сверить победителя"],
+  ["Счет поставщика", "ручная загрузка", "нужен OCR", "AI ожидает", "исполнение", "запросить скан"],
+  ["УПД", "1C", "ожидает файл", "AI ожидает", "закрывающие", "нет оригинала"],
+];
+
+const documentStats = [
+  ["13", "файлов в пакете", "ЕИС, площадка, 1C, ручная загрузка"],
+  ["9", "связаны с первоисточником", "есть API id или ссылка на исходный файл"],
+  ["2", "требуют действия", "OCR и подтверждение победителя"],
+  ["85%", "порог автопроверки", "ниже отправляем человеку"],
 ];
 
 const vaultRules = [
@@ -19,6 +26,13 @@ const queues = [
   ["OCR очередь", "2 файла требуют распознавания", "сегодня"],
   ["AI разбор", "1 файл ожидает извлечения полей", "после OCR"],
   ["Ручная проверка", "2 вывода ниже confidence 85%", "закупщик"],
+];
+
+const intakeRules = [
+  ["Первоисточник", "сохраняем исходный файл, API id, дату получения и хэш"],
+  ["Распознавание", "OCR складывает текст рядом с оригиналом и не меняет PDF"],
+  ["Извлечение", "AI вынимает сроки, суммы, требования, штрафы и реквизиты"],
+  ["Контроль", "каждый вывод имеет confidence и ссылку на страницу документа"],
 ];
 
 export default function DocumentsPage() {
@@ -36,6 +50,16 @@ export default function DocumentsPage() {
           </button>
         </header>
 
+        <section className="document-stat-grid">
+          {documentStats.map(([value, label, hint]) => (
+            <article className="document-stat" key={label}>
+              <strong>{value}</strong>
+              <span>{label}</span>
+              <small>{hint}</small>
+            </article>
+          ))}
+        </section>
+
         <section className="panel">
           <div className="panel-head compact">
             <div>
@@ -51,14 +75,16 @@ export default function DocumentsPage() {
               <span>OCR</span>
               <span>AI</span>
               <span>Этап</span>
+              <span>Блокер</span>
             </div>
-            {documents.map(([title, source, ocr, ai, stage]) => (
+            {documents.map(([title, source, ocr, ai, stage, blocker]) => (
               <div className="document-row" key={title}>
                 <strong>{title}</strong>
                 <span>{source}</span>
                 <span>{ocr}</span>
                 <span>{ai}</span>
                 <span>{stage}</span>
+                <em>{blocker}</em>
               </div>
             ))}
           </div>
@@ -99,6 +125,25 @@ export default function DocumentsPage() {
               ))}
             </div>
           </article>
+        </section>
+
+        <section className="panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Processing contract</p>
+              <h2>Как файл превращается в проверяемые данные</h2>
+            </div>
+            <span className="status-pill">primary only</span>
+          </div>
+          <div className="document-flow-grid">
+            {intakeRules.map(([title, text], index) => (
+              <article className="document-flow-card" key={title}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
         </section>
       </section>
     </main>

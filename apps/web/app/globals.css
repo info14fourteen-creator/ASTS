@@ -1023,9 +1023,47 @@ dd {
   gap: 8px;
 }
 
+.document-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.document-stat {
+  min-height: 124px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.document-stat strong,
+.document-stat span,
+.document-stat small {
+  display: block;
+}
+
+.document-stat strong {
+  font-size: clamp(28px, 3.4vw, 40px);
+  line-height: 1;
+}
+
+.document-stat span {
+  margin-top: 9px;
+  font-weight: 850;
+}
+
+.document-stat small {
+  margin-top: 7px;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
 .document-row {
   display: grid;
-  grid-template-columns: minmax(220px, 1fr) 130px 120px 100px 120px;
+  grid-template-columns: minmax(190px, 1fr) 120px 116px 92px 108px 136px;
   gap: 10px;
   align-items: center;
   min-height: 54px;
@@ -1044,6 +1082,18 @@ dd {
   line-height: 1.35;
 }
 
+.document-row em {
+  width: fit-content;
+  border: 1px solid rgba(18, 106, 113, 0.22);
+  border-radius: 8px;
+  padding: 5px 8px;
+  background: rgba(18, 106, 113, 0.08);
+  color: var(--accent-dark);
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 850;
+}
+
 .document-head {
   min-height: 36px;
   border-color: transparent;
@@ -1055,6 +1105,41 @@ dd {
   font-size: 12px;
   font-weight: 850;
   text-transform: uppercase;
+}
+
+.document-flow-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.document-flow-card {
+  min-height: 134px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 13px;
+  background: #fbfcfd;
+}
+
+.document-flow-card span,
+.document-flow-card strong {
+  display: block;
+}
+
+.document-flow-card span {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.document-flow-card strong {
+  margin-top: 8px;
+}
+
+.document-flow-card p {
+  margin: 7px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
 }
 
 .economics-grid {
@@ -1675,6 +1760,11 @@ dd {
     grid-template-columns: 1fr 1fr;
   }
 
+  .document-stat-grid,
+  .document-flow-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .document-head {
     display: none;
   }
@@ -1796,6 +1886,11 @@ dd {
   }
 
   .document-row {
+    grid-template-columns: 1fr;
+  }
+
+  .document-stat-grid,
+  .document-flow-grid {
     grid-template-columns: 1fr;
   }
 
