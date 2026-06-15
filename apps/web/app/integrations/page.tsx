@@ -33,6 +33,13 @@ const accessChecklist = [
   ["Rollback", "можно отключить sync и оставить локальные данные ASTS"],
 ];
 
+const exportGates = [
+  ["Source proof", "есть ссылка первоисточника, файл и hash", "block export"],
+  ["Stage owner", "назначен ответственный по текущей воронке", "warn"],
+  ["AI confidence", "выше порога или есть ручное подтверждение", "block export"],
+  ["Rollback path", "CRM запись можно найти и отключить sync", "ready"],
+];
+
 const launchMatrix = [
   ["Волна 1", "Bitrix24 + amoCRM", "сделки, компании, задачи", "утвердить поля и стадии"],
   ["Волна 2", "1C + Telegram", "счета, платежи, статусы, уведомления", "собрать sandbox и bot token"],
@@ -112,6 +119,25 @@ export default function IntegrationsPage() {
                 <strong>{title}</strong>
                 <p>{asts}</p>
                 <em>{rule}</em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel export-gates-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Export gates</p>
+              <h2>Когда можно отправлять данные в CRM</h2>
+            </div>
+            <span className="status-pill">no blind sync</span>
+          </div>
+          <div className="export-gates-grid">
+            {exportGates.map(([title, rule, state]) => (
+              <article className={`export-gate-card ${state === "ready" ? "ready" : ""}`} key={title}>
+                <span>{state}</span>
+                <strong>{title}</strong>
+                <p>{rule}</p>
               </article>
             ))}
           </div>

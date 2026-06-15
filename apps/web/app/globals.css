@@ -1398,6 +1398,64 @@ dd {
   font-weight: 850;
 }
 
+.export-gates-panel {
+  margin-top: 14px;
+}
+
+.export-gates-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.export-gate-card {
+  min-height: 132px;
+  border: 1px solid rgba(154, 100, 27, 0.24);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fff8eb;
+}
+
+.export-gate-card span,
+.export-gate-card strong,
+.export-gate-card p {
+  display: block;
+}
+
+.export-gate-card span {
+  width: fit-content;
+  border: 1px solid rgba(154, 100, 27, 0.24);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: #fff7e8;
+  color: var(--amber);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.export-gate-card.ready {
+  border-color: rgba(40, 122, 82, 0.22);
+  background: #f7faf8;
+}
+
+.export-gate-card.ready span {
+  border-color: rgba(40, 122, 82, 0.22);
+  background: rgba(40, 122, 82, 0.08);
+  color: var(--green);
+}
+
+.export-gate-card strong {
+  margin-top: 10px;
+  line-height: 1.25;
+}
+
+.export-gate-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.38;
+}
+
 .integration-matrix {
   display: grid;
   gap: 8px;
@@ -3696,6 +3754,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .export-gates-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .integration-matrix-row {
     grid-template-columns: 1fr 1fr;
     align-items: start;
@@ -3883,6 +3945,10 @@ dd {
   }
 
   .field-mapping-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .export-gates-grid {
     grid-template-columns: 1fr;
   }
 
