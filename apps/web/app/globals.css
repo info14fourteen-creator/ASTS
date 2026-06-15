@@ -2215,6 +2215,62 @@ dd {
   line-height: 1.4;
 }
 
+.execution-control-panel {
+  margin-top: 14px;
+}
+
+.execution-control-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.execution-control-card {
+  min-height: 150px;
+  border: 1px solid rgba(36, 90, 141, 0.18);
+  border-radius: 8px;
+  padding: 13px;
+  background: #f3f8fc;
+}
+
+.execution-control-card span,
+.execution-control-card strong,
+.execution-control-card p,
+.execution-control-card em {
+  display: block;
+}
+
+.execution-control-card span {
+  width: fit-content;
+  border: 1px solid rgba(36, 90, 141, 0.22);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: rgba(36, 90, 141, 0.08);
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.execution-control-card strong {
+  margin-top: 10px;
+  color: var(--accent-dark);
+  line-height: 1.25;
+}
+
+.execution-control-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.38;
+}
+
+.execution-control-card em {
+  margin-top: 10px;
+  color: var(--ink);
+  font-style: normal;
+  font-weight: 850;
+}
+
 .execution-acceptance-panel {
   margin-top: 14px;
 }
@@ -3787,6 +3843,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .execution-control-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .execution-acceptance-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -4149,6 +4209,10 @@ dd {
   }
 
   .execution-ai-gates-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .execution-control-grid {
     grid-template-columns: 1fr;
   }
 

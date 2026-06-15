@@ -56,6 +56,13 @@ const acceptanceGates = [
   ["Оплата", "график платежей, просрочка, контакт заказчика", "эскалация"],
 ];
 
+const controlPoints = [
+  ["Счет", "финансы", "сумма, НДС, реквизиты и срок оплаты", "до отправки"],
+  ["Закупка", "закупщик", "КП, аналоги, логистика и фактическая маржа", "до заказа"],
+  ["Поставка", "исполнение", "адрес, комплектность, фото и накладная", "до закрывающих"],
+  ["Закрывающие", "бухгалтерия", "УПД, акт, счет-фактура и hash файлов", "до финального расчета"],
+];
+
 export default function ExecutionPage() {
   return (
     <main className="app-shell">
@@ -131,6 +138,26 @@ export default function ExecutionPage() {
                 <span>{stage}</span>
                 <strong>{control}</strong>
                 <p>{gate}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel execution-control-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Post-win control points</p>
+              <h2>Кто подтверждает переходы второй воронки</h2>
+            </div>
+            <span className="status-pill">owner required</span>
+          </div>
+          <div className="execution-control-grid">
+            {controlPoints.map(([stage, owner, proof, gate]) => (
+              <article className="execution-control-card" key={stage}>
+                <span>{gate}</span>
+                <strong>{stage}</strong>
+                <p>{proof}</p>
+                <em>{owner}</em>
               </article>
             ))}
           </div>
