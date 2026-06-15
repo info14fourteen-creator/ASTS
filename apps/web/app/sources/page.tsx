@@ -23,6 +23,27 @@ const queue = [
   ["Протоколы после победы", "вторая воронка исполнения", "в плане"],
 ];
 
+const runStats = [
+  ["Последний забор", "04:12", "ЕИС извещения"],
+  ["Новых процедур", "128", "за 24 часа"],
+  ["Файлов в очереди", "342", "ТЗ, протоколы, КП"],
+  ["Ошибок API", "2", "повтор через 15 мин"],
+];
+
+const endpoints = [
+  ["zakupki.gov.ru", "Извещения, лоты, протоколы", "каждые 15 мин", "активен"],
+  ["ФНС", "ЕГРЮЛ, ИНН, статус юрлица", "по событию", "контракт"],
+  ["ЭТП", "статусы подачи и площадочные файлы", "webhook/API", "проект"],
+  ["Федресурс", "банкротство, залоги, сообщения", "раз в день", "наблюдение"],
+];
+
+const storageRules = [
+  ["Postgres", "процедуры, лоты, организации, стадии, задачи"],
+  ["Object storage", "оригинальные документы, OCR, версии файлов"],
+  ["Search index", "полнотекстовый поиск по ТЗ, протоколам и КП"],
+  ["Audit log", "кто и когда принял AI-рекомендацию или изменил этап"],
+];
+
 export default function SourcesPage() {
   return (
     <main className="app-shell">
@@ -46,6 +67,16 @@ export default function SourcesPage() {
                 <p>{text}</p>
               </div>
               <span>{status}</span>
+            </article>
+          ))}
+        </section>
+
+        <section className="source-health-grid">
+          {runStats.map(([label, value, text]) => (
+            <article className="source-health" key={label}>
+              <span>{label}</span>
+              <strong>{value}</strong>
+              <small>{text}</small>
             </article>
           ))}
         </section>
@@ -82,6 +113,50 @@ export default function SourcesPage() {
                   <strong>{title}</strong>
                   <span>{text}</span>
                   <em>{status}</em>
+                </div>
+              ))}
+            </div>
+          </article>
+        </section>
+
+        <section className="layout-grid bottom-grid">
+          <article className="panel span-7">
+            <div className="panel-head compact">
+              <div>
+                <p className="eyebrow">Primary API map</p>
+                <h2>Контроль первоисточников</h2>
+              </div>
+            </div>
+            <div className="endpoint-table">
+              <div className="endpoint-row endpoint-head">
+                <span>Источник</span>
+                <span>Данные</span>
+                <span>Частота</span>
+                <span>Статус</span>
+              </div>
+              {endpoints.map(([name, data, cadence, status]) => (
+                <div className="endpoint-row" key={name}>
+                  <strong>{name}</strong>
+                  <span>{data}</span>
+                  <span>{cadence}</span>
+                  <em>{status}</em>
+                </div>
+              ))}
+            </div>
+          </article>
+
+          <article className="panel span-5">
+            <div className="panel-head compact">
+              <div>
+                <p className="eyebrow">Server storage</p>
+                <h2>Куда складываем</h2>
+              </div>
+            </div>
+            <div className="source-grid">
+              {storageRules.map(([title, text]) => (
+                <div className="source-rule" key={title}>
+                  <strong>{title}</strong>
+                  <span>{text}</span>
                 </div>
               ))}
             </div>

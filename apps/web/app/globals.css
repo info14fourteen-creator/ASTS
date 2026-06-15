@@ -763,6 +763,49 @@ dd {
   color: var(--blue);
 }
 
+.source-health-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.source-health {
+  min-height: 122px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.source-health span,
+.source-health strong,
+.source-health small {
+  display: block;
+}
+
+.source-health span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.source-health strong {
+  margin-top: 12px;
+  color: var(--text);
+  font-size: clamp(28px, 4vw, 38px);
+  letter-spacing: 0;
+}
+
+.source-health small {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
 .pipeline {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -1155,6 +1198,63 @@ dd {
   line-height: 1.45;
 }
 
+.endpoint-table {
+  display: grid;
+  gap: 8px;
+}
+
+.endpoint-row {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1.35fr) 128px 104px;
+  gap: 10px;
+  align-items: center;
+  min-height: 56px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: #fbfcfd;
+}
+
+.endpoint-row span,
+.endpoint-row strong,
+.endpoint-row em {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.endpoint-row span {
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.endpoint-row em {
+  width: fit-content;
+  border: 1px solid rgba(18, 106, 113, 0.18);
+  border-radius: 8px;
+  padding: 5px 8px;
+  background: rgba(18, 106, 113, 0.08);
+  color: var(--accent-dark);
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.endpoint-head {
+  min-height: auto;
+  border: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  background: transparent;
+}
+
+.endpoint-head span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
 .coefficient-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -1380,6 +1480,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .source-health-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .source-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1442,6 +1546,20 @@ dd {
 
   .source-card {
     display: grid;
+  }
+
+  .source-health-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .endpoint-head {
+    display: none;
+  }
+
+  .endpoint-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    align-items: start;
   }
 
   .ai-review-row,
