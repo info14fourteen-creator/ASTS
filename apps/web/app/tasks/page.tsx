@@ -37,6 +37,13 @@ const collaboration = [
   ["Backlog", "mind map parity", "следующий крупный слой", "сверить старую логику"],
 ];
 
+const mergeChecklist = [
+  ["Build", "npm run build прошел на ветке"],
+  ["Smoke", "проверены desktop и mobile ключевого маршрута"],
+  ["Mind map", "новая логика привязана к старым этапам"],
+  ["Review", "в PR есть статус, риски и следующий шаг"],
+];
+
 export default function TasksPage() {
   return (
     <main className="app-shell">
@@ -89,6 +96,24 @@ export default function TasksPage() {
                 <strong>{title}</strong>
                 <p>{state}</p>
                 <em>{rule}</em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel merge-readiness-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Merge readiness</p>
+              <h2>Когда объединяем</h2>
+            </div>
+            <span className="status-pill">4 gates</span>
+          </div>
+          <div className="merge-checklist">
+            {mergeChecklist.map(([title, description]) => (
+              <article className="merge-check" key={title}>
+                <strong>{title}</strong>
+                <span>{description}</span>
               </article>
             ))}
           </div>
