@@ -2452,6 +2452,54 @@ dd {
   line-height: 1.35;
 }
 
+.payment-collection-gate-panel {
+  margin-top: 14px;
+}
+
+.payment-collection-gate-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.payment-collection-gate-card {
+  min-height: 140px;
+  border: 1px solid rgba(154, 100, 27, 0.2);
+  border-radius: 8px;
+  padding: 13px;
+  background: #fffaf0;
+}
+
+.payment-collection-gate-card span,
+.payment-collection-gate-card strong,
+.payment-collection-gate-card p {
+  display: block;
+}
+
+.payment-collection-gate-card span {
+  width: fit-content;
+  border: 1px solid rgba(154, 100, 27, 0.24);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: #fff7e8;
+  color: var(--amber);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.payment-collection-gate-card strong {
+  margin-top: 10px;
+  color: var(--ink);
+  line-height: 1.25;
+}
+
+.payment-collection-gate-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
 .execution-ai-gates-panel {
   margin-top: 14px;
 }
@@ -4376,6 +4424,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .payment-collection-gate-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .execution-ai-gates-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -4802,6 +4854,10 @@ dd {
   }
 
   .execution-health-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .payment-collection-gate-grid {
     grid-template-columns: 1fr;
   }
 

@@ -28,6 +28,13 @@ const executionStats = [
   ["Закрывающие", "0/4", "пока не готовы"],
 ];
 
+const paymentCollectionGate = [
+  ["Invoice proof", "счет, сумма, НДС, реквизиты и дата отправки", "до ожидания оплаты"],
+  ["Customer contact", "ответственный заказчика и канал напоминания", "если нет оплаты"],
+  ["Document link", "контракт, счет и подтверждение отправки в file vault", "audit trail"],
+  ["Escalation timer", "авто-задача при просрочке или молчании заказчика", "SLA payment"],
+];
+
 const executionAiGates = [
   ["Договор", "AI сверяет договор с ТЗ, протоколом и ценой победы", "блокирует замену условий"],
   ["Закупка", "AI проверяет КП, аналоги, сроки поставки и маржу", "ручное ok при аналоге"],
@@ -148,6 +155,25 @@ export default function ExecutionPage() {
               <small>{text}</small>
             </article>
           ))}
+        </section>
+
+        <section className="panel payment-collection-gate-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Payment collection gate</p>
+              <h2>Что проверяем перед ожиданием оплаты</h2>
+            </div>
+            <span className="status-pill">cash control</span>
+          </div>
+          <div className="payment-collection-gate-grid">
+            {paymentCollectionGate.map(([title, text, gate]) => (
+              <article className="payment-collection-gate-card" key={title}>
+                <span>{gate}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="panel execution-ai-gates-panel">
