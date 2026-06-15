@@ -499,6 +499,16 @@ dd {
   gap: 10px;
 }
 
+.task-lane-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.task-lane {
+  align-self: start;
+}
+
 .task {
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -506,13 +516,28 @@ dd {
 }
 
 .task strong,
-.task span {
+.task span,
+.task em {
   display: block;
 }
 
 .task span {
   margin-top: 5px;
   color: var(--muted);
+}
+
+.task em {
+  width: fit-content;
+  margin-top: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 5px 8px;
+  background: var(--surface-soft);
+  color: var(--muted);
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
 }
 
 .task.warning {
@@ -523,6 +548,18 @@ dd {
 .task.danger {
   border-color: rgba(180, 35, 24, 0.24);
   background: #fff3f1;
+}
+
+.task.warning em {
+  border-color: rgba(154, 100, 27, 0.24);
+  background: #fff7e8;
+  color: var(--amber);
+}
+
+.task.danger em {
+  border-color: rgba(180, 35, 24, 0.24);
+  background: #fff3f1;
+  color: var(--red);
 }
 
 .integration-grid {
@@ -1259,6 +1296,10 @@ dd {
 
   .integration-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .task-lane-grid {
+    grid-template-columns: 1fr;
   }
 
   .source-monitor {
