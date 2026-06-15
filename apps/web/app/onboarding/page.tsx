@@ -44,6 +44,13 @@ const profileReadiness = [
   ["Роли", "кто подтверждает риск, цену и подачу", "до автозадач"],
 ];
 
+const profileConfirmation = [
+  ["Legal proof", "ФНС/ЕГРЮЛ сверены и связаны с карточкой компании", "owner"],
+  ["Tender fit", "ОКПД2, регионы, стоп-темы и аналоги подтверждены", "expert"],
+  ["Commercial rule", "маржа, НДС, логистика и обеспечение имеют владельца", "finance"],
+  ["Access scope", "роли, CRM и Telegram-доступы выданы по назначению", "admin"],
+];
+
 export default function OnboardingPage() {
   return (
     <main className="app-shell">
@@ -109,6 +116,25 @@ export default function OnboardingPage() {
             {profileReadiness.map(([title, text, gate]) => (
               <article className="profile-readiness-card" key={title}>
                 <span>{gate}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel profile-confirmation-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Profile confirmation receipt</p>
+              <h2>Кто подтверждает стартовые данные компании</h2>
+            </div>
+            <span className="status-pill green">human approved</span>
+          </div>
+          <div className="profile-confirmation-grid">
+            {profileConfirmation.map(([title, text, owner]) => (
+              <article className="profile-confirmation-card" key={title}>
+                <span>{owner}</span>
                 <strong>{title}</strong>
                 <p>{text}</p>
               </article>
