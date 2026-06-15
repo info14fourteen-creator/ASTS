@@ -51,6 +51,13 @@ const automationMonitor = [
   ["PR update", "codex/app-site-shell", "push только в PR ветку, main не трогаем", "safe"],
 ];
 
+const aiAutomationQueue = [
+  ["Собрать документы", "AI скачивает и связывает файлы с процедурой", "нужен file hash"],
+  ["Разобрать ТЗ", "AI выделяет требования, сроки, риски и аналоги", "ручная проверка low confidence"],
+  ["Сверить компанию", "AI сравнивает профиль, ОКВЭД, опыт и ограничения", "только ФНС/ЕИС"],
+  ["Подготовить действие", "AI ставит задачу, дедлайн и ответственного", "человек подтверждает"],
+];
+
 const mergeChecklist = [
   ["Build", "npm run build прошел на ветке"],
   ["Smoke", "проверены desktop и mobile ключевого маршрута"],
@@ -93,6 +100,25 @@ export default function TasksPage() {
               </div>
             </article>
           ))}
+        </section>
+
+        <section className="panel ai-automation-queue-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI work queue</p>
+              <h2>Что автоматизируем вместо ручной рутины</h2>
+            </div>
+            <span className="status-pill green">human approval</span>
+          </div>
+          <div className="ai-automation-queue-grid">
+            {aiAutomationQueue.map(([title, action, gate]) => (
+              <article className="ai-automation-queue-card" key={title}>
+                <strong>{title}</strong>
+                <p>{action}</p>
+                <em>{gate}</em>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="panel automation-monitor-panel">
