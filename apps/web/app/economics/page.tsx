@@ -21,6 +21,13 @@ const checks = [
   ["Нужна ручная проверка", "логистика", "warning"],
 ];
 
+const dealEntryGates = [
+  ["Маржа", "минимум 10% после резервов", "ok"],
+  ["Confidence", "ниже 85% только через ручное подтверждение", "check"],
+  ["КП", "цена поставщика фиксируется до подачи", "required"],
+  ["Обеспечение", "деньги и срок возврата учтены в cash flow", "required"],
+];
+
 const accessPlans = [
   ["Pilot", "1 команда", "ЕИС, AI разбор, 2 воронки", "проверить ценность на 20 процедурах"],
   ["Team", "тендерный отдел", "CRM, роли, задачи, документы", "подключить Bitrix24/amoCRM"],
@@ -88,6 +95,25 @@ export default function EconomicsPage() {
                   <strong>{value}</strong>
                   <p>{text}</p>
                 </div>
+              ))}
+            </div>
+          </article>
+
+          <article className="panel span-12">
+            <div className="panel-head compact">
+              <div>
+                <p className="eyebrow">Deal entry gates</p>
+                <h2>Когда экономику можно пускать дальше</h2>
+              </div>
+              <span className="status-pill">before Top-3</span>
+            </div>
+            <div className="deal-entry-grid">
+              {dealEntryGates.map(([title, rule, state]) => (
+                <article className={`deal-entry-card ${state}`} key={title}>
+                  <span>{state}</span>
+                  <strong>{title}</strong>
+                  <p>{rule}</p>
+                </article>
               ))}
             </div>
           </article>
