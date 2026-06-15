@@ -28,6 +28,13 @@ const executionStats = [
   ["Закрывающие", "0/4", "пока не готовы"],
 ];
 
+const winHandoff = [
+  ["Протокол победы", "номер процедуры, итоговая цена, заказчик", "обязательно"],
+  ["Экономика", "плановая маржа, поставщики, резерв риска", "из первой воронки"],
+  ["Файлы", "контракт, ТЗ, протокол, КП и версии", "file vault"],
+  ["Задачи", "ответственные, сроки, критические условия", "старт исполнения"],
+];
+
 const documents = [
   ["Контракт", "подписан", "ЕИС", "готово", "Договор"],
   ["Счет на аванс", "выставлен", "1C", "ожидает", "Счет"],
@@ -63,6 +70,25 @@ export default function ExecutionPage() {
               <span className={index === 0 ? "complete" : index === 1 ? "current" : ""} key={stage}>
                 {stage}
               </span>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel execution-handoff-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Win handoff</p>
+              <h2>Что переносим из воронки до победы</h2>
+            </div>
+            <span className="status-pill green">separate funnel</span>
+          </div>
+          <div className="execution-handoff-grid">
+            {winHandoff.map(([title, text, status]) => (
+              <article className="execution-handoff-card" key={title}>
+                <span>{status}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
+              </article>
             ))}
           </div>
         </section>
