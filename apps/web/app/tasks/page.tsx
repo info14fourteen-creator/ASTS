@@ -51,6 +51,13 @@ const automationMonitor = [
   ["PR update", "codex/app-site-shell", "push только в PR ветку, main не трогаем", "safe"],
 ];
 
+const escalationRules = [
+  ["Срок подачи", "меньше 10 часов", "B2G специалист", "немедленно"],
+  ["AI confidence", "ниже 85%", "закупщик", "до КП"],
+  ["Источник", "нет первичного файла или hash", "владелец источника", "до скоринга"],
+  ["Исполнение", "оплата или УПД просрочены", "исполнение", "в день риска"],
+];
+
 const aiAutomationQueue = [
   ["Собрать документы", "AI скачивает и связывает файлы с процедурой", "нужен file hash"],
   ["Разобрать ТЗ", "AI выделяет требования, сроки, риски и аналоги", "ручная проверка low confidence"],
@@ -127,6 +134,26 @@ export default function TasksPage() {
               </div>
             </article>
           ))}
+        </section>
+
+        <section className="panel escalation-rules-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Escalation rules</p>
+              <h2>Когда автоматизация зовет человека</h2>
+            </div>
+            <span className="status-pill">human in loop</span>
+          </div>
+          <div className="escalation-rules-grid">
+            {escalationRules.map(([trigger, threshold, owner, deadline]) => (
+              <article className="escalation-rule-card" key={trigger}>
+                <span>{threshold}</span>
+                <strong>{trigger}</strong>
+                <p>{owner}</p>
+                <em>{deadline}</em>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="panel ai-automation-queue-panel">
