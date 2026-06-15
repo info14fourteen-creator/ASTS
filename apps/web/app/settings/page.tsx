@@ -22,6 +22,13 @@ const accessRules = [
   ["Партнер", "работает в отдельной ветке и через PR"],
 ];
 
+const roleChangeGuard = [
+  ["Reason", "зачем меняем доступ или роль участника", "до изменения"],
+  ["Scope", "какие источники, CRM, файлы и ветки будут доступны", "review"],
+  ["Secret impact", "нужно ли ротировать пароль, API key или CRM token", "security"],
+  ["Audit note", "кто подтвердил и когда изменение вступило в силу", "обязательно"],
+];
+
 const approvalMatrix = [
   ["Источники", "Владелец", "добавление API ключей и смена канала импорта"],
   ["AI вывод", "B2G менеджер", "подтверждение допуска процедуры к КП"],
@@ -157,6 +164,25 @@ export default function SettingsPage() {
                   <span>{role}</span>
                   <strong>{text}</strong>
                 </div>
+              ))}
+            </div>
+          </article>
+
+          <article className="panel span-12 role-change-guard-panel">
+            <div className="panel-head compact">
+              <div>
+                <p className="eyebrow">Role change guard</p>
+                <h2>Что фиксируем перед изменением доступа</h2>
+              </div>
+              <span className="status-pill green">least privilege</span>
+            </div>
+            <div className="role-change-guard-grid">
+              {roleChangeGuard.map(([title, text, gate]) => (
+                <article className="role-change-guard-card" key={title}>
+                  <span>{gate}</span>
+                  <strong>{title}</strong>
+                  <p>{text}</p>
+                </article>
               ))}
             </div>
           </article>

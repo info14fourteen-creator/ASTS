@@ -3626,6 +3626,54 @@ dd {
   line-height: 1.35;
 }
 
+.role-change-guard-panel {
+  margin-top: 0;
+}
+
+.role-change-guard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.role-change-guard-card {
+  min-height: 132px;
+  border: 1px solid rgba(40, 122, 82, 0.2);
+  border-radius: 8px;
+  padding: 12px;
+  background: #f7faf8;
+}
+
+.role-change-guard-card span,
+.role-change-guard-card strong,
+.role-change-guard-card p {
+  display: block;
+}
+
+.role-change-guard-card span {
+  width: fit-content;
+  border: 1px solid rgba(40, 122, 82, 0.22);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: rgba(40, 122, 82, 0.08);
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.role-change-guard-card strong {
+  margin-top: 10px;
+  color: var(--accent-dark);
+  line-height: 1.25;
+}
+
+.role-change-guard-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
 .access-approval-panel {
   margin-top: 0;
 }
@@ -4672,6 +4720,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .role-change-guard-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .backup-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -4983,6 +5035,10 @@ dd {
   }
 
   .guardrail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .role-change-guard-grid {
     grid-template-columns: 1fr;
   }
 
