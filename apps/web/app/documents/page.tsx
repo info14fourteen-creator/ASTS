@@ -42,6 +42,13 @@ const aiReleaseGates = [
   ["Источник", "нужна связь с ЕИС, ЭТП, 1C или ручной загрузкой"],
 ];
 
+const manifestFields = [
+  ["source_id", "API id, URL или id ручной загрузки", "обязательно"],
+  ["file_hash", "sha256 оригинала и OCR версии", "обязательно"],
+  ["stage_link", "карточка процедуры и текущая воронка", "обязательно"],
+  ["ai_evidence", "страница, confidence и человек, который подтвердил", "до экспорта"],
+];
+
 const intakeRules = [
   ["Первоисточник", "сохраняем исходный файл, API id, дату получения и хэш"],
   ["Распознавание", "OCR складывает текст рядом с оригиналом и не меняет PDF"],
@@ -173,6 +180,25 @@ export default function DocumentsPage() {
               <article className="document-release-gate-card" key={title}>
                 <span>{title}</span>
                 <strong>{rule}</strong>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel document-manifest-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Manifest export</p>
+              <h2>Что кладем в пакет доказательств</h2>
+            </div>
+            <span className="status-pill">portable evidence</span>
+          </div>
+          <div className="document-manifest-grid">
+            {manifestFields.map(([field, rule, gate]) => (
+              <article className="document-manifest-card" key={field}>
+                <span>{gate}</span>
+                <strong>{field}</strong>
+                <p>{rule}</p>
               </article>
             ))}
           </div>
