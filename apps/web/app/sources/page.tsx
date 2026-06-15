@@ -30,6 +30,13 @@ const runStats = [
   ["Ошибок API", "2", "повтор через 15 мин"],
 ];
 
+const freshnessRules = [
+  ["ЕИС", "15 мин", "извещения, протоколы и документы не старше окна синхронизации"],
+  ["ФНС", "по событию", "проверка ИНН запускается при новой процедуре или поставщике"],
+  ["Файлы/OCR", "до 30 мин", "AI не делает вывод без оригинала файла или OCR-версии"],
+  ["ЭТП", "webhook/API", "статусы подачи и площадочные файлы требуют подтверждения коннектора"],
+];
+
 const endpoints = [
   ["zakupki.gov.ru", "Извещения, лоты, протоколы", "каждые 15 мин", "активен"],
   ["ФНС", "ЕГРЮЛ, ИНН, статус юрлица", "по событию", "контракт"],
@@ -79,6 +86,25 @@ export default function SourcesPage() {
               <small>{text}</small>
             </article>
           ))}
+        </section>
+
+        <section className="panel freshness-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Freshness SLA</p>
+              <h2>Когда данные можно отдавать в AI разбор</h2>
+            </div>
+            <span className="status-pill">primary only</span>
+          </div>
+          <div className="freshness-grid">
+            {freshnessRules.map(([title, cadence, text]) => (
+              <article className="freshness-card" key={title}>
+                <span>{cadence}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="layout-grid bottom-grid">
