@@ -54,6 +54,7 @@
 - `docs/15-primary-source-policy-ru.md`
 - `docs/16-b2g-mind-map-registry-ru.md`
 - `docs/17-platform-delivery-and-integrations-ru.md`
+- `docs/19-continuation-70-step-plan-ru.md`
 
 ## Workdesk
 
