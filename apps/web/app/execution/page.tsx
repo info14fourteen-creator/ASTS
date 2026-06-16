@@ -1,5 +1,5 @@
 import { Sidebar } from "../app-shell";
-import { executionRows } from "../../lib/mock-data";
+import { executionDocumentRows, executionRows } from "../../lib/mock-data";
 
 const executionStages = ["Договор", "Счет", "Закупка", "Поставка", "Закрывающие", "Финальный расчет"];
 
@@ -55,13 +55,6 @@ const executionStartGate = [
   ["Contract baseline", "проект контракта, ТЗ и штрафы сверены до счета", "AI gate"],
   ["Economics lock", "плановая маржа, резерв и поставщики перенесены из pre-win", "owner approval"],
   ["Responsibility map", "финансы, закупка, логистика и бухгалтерия получили задачи", "audit trail"],
-];
-
-const documents = [
-  ["Контракт", "подписан", "ЕИС", "готово", "Договор"],
-  ["Счет на аванс", "выставлен", "1C", "ожидает", "Счет"],
-  ["Спецификация", "сверка", "файл", "AI review", "Закупка"],
-  ["УПД", "не создан", "1C", "после поставки", "Закрывающие"],
 ];
 
 const acceptanceGates = [
@@ -314,26 +307,28 @@ export default function ExecutionPage() {
           <article className="panel span-7">
             <div className="panel-head compact">
               <div>
-                <p className="eyebrow">Closing pack</p>
-                <h2>Документы исполнения</h2>
+                <p className="eyebrow">Execution handoff artifacts</p>
+                <h2>Документы исполнения из fixture</h2>
               </div>
-              <span className="status-pill">4 документа</span>
+              <span className="status-pill">{executionDocumentRows.length} handoff artifacts</span>
             </div>
             <div className="document-table">
               <div className="document-row document-head">
                 <span>Документ</span>
-                <span>Статус</span>
                 <span>Источник</span>
-                <span>Контроль</span>
+                <span>Custody</span>
                 <span>Этап</span>
+                <span>Artifact</span>
+                <span>Storage</span>
               </div>
-              {documents.map(([title, status, source, control, stage]) => (
-                <div className="document-row" key={title}>
-                  <strong>{title}</strong>
-                  <span>{status}</span>
-                  <span>{source}</span>
-                  <span>{control}</span>
-                  <span>{stage}</span>
+              {executionDocumentRows.map((document) => (
+                <div className="document-row" key={document.artifactId}>
+                  <strong>{document.title}</strong>
+                  <span>{document.source}</span>
+                  <em>{document.custody}</em>
+                  <span>{document.stage}</span>
+                  <span>{document.artifactId}</span>
+                  <span>{document.storage}</span>
                 </div>
               ))}
             </div>

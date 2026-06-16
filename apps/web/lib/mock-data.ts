@@ -83,6 +83,15 @@ export type DocumentRow = {
   blocker: string;
 };
 
+export type ExecutionDocumentRow = {
+  title: string;
+  artifactId: string;
+  source: string;
+  custody: string;
+  stage: string;
+  storage: string;
+};
+
 export type RawArtifactManifest = {
   title: string;
   artifactId: string;
@@ -271,6 +280,21 @@ export const executionRows: ExecutionRow[] = demoData.tenders
     note: tender.outcome.note,
     documentCount: demoData.documents.filter((document) => document.tender_id === tender.tender_id).length,
   }));
+
+export const executionDocumentRows: ExecutionDocumentRow[] = demoData.documents
+  .filter((document) => documentTender(document)?.funnel === "execution")
+  .map((document) => {
+    const source = documentSource(document);
+
+    return {
+      title: document.title,
+      artifactId: document.raw_artifact.artifact_id,
+      source: source ? sourceApiLabel(source.source_kind) : "Источник",
+      custody: document.raw_artifact.custody_status,
+      stage: documentBlocker(document.status),
+      storage: document.raw_artifact.storage_path,
+    };
+  });
 
 export const participationStages = [
   "Входящие",

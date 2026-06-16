@@ -4,6 +4,7 @@ const defaultBaseUrl = "http://127.0.0.1:3070";
 const demoDataUrl = new URL("../../../packages/shared/demo-data/asts-demo.json", import.meta.url);
 const demoData = JSON.parse(await readFile(demoDataUrl, "utf8"));
 const preWinTenders = demoData.tenders.filter((tender) => tender.funnel === "pre_win");
+const executionTenders = demoData.tenders.filter((tender) => tender.funnel === "execution");
 
 const tenderDetailRouteChecks = preWinTenders.map((tender) => ({
   path: `/tenders/${tender.tender_id}`,
@@ -30,6 +31,12 @@ const outcomeFilterRouteChecks = ["suggested", "locked", "approved"].map((outcom
     mustInclude: ["Outcome filters", outcome, tender.tender_id, tender.title, tender.outcome.note],
   };
 });
+
+const executionDocumentMarkers = executionTenders.flatMap((tender) =>
+  demoData.documents
+    .filter((document) => document.tender_id === tender.tender_id)
+    .flatMap((document) => [document.title, document.raw_artifact.artifact_id, document.raw_artifact.storage_path]),
+);
 
 const routeChecks = [
   {
@@ -95,9 +102,11 @@ const routeChecks = [
     mustInclude: [
       "Исполнение после победы",
       "Execution fixture inbox",
+      "Execution handoff artifacts",
       "exec-2026-0007",
       "execution_owner",
       "raw-etp-procedure-room-0373100042626000001",
+      ...executionDocumentMarkers,
     ],
   },
   {

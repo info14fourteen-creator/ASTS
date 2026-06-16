@@ -258,6 +258,78 @@
       },
       "storage_path": "raw/fns/7700000000/egrul.json",
       "mime_type": "application/json"
+    },
+    {
+      "document_id": "doc-exec-2026-0007-win-protocol",
+      "tender_id": "exec-2026-0007",
+      "title": "Протокол победы",
+      "status": "attached",
+      "source": {
+        "source_kind": "etp",
+        "source_url": "https://www.rts-tender.ru/",
+        "raw_artifact_id": "raw-etp-win-protocol-exec-2026-0007",
+        "checksum_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "freshness": "fresh"
+      },
+      "raw_artifact": {
+        "artifact_id": "raw-etp-win-protocol-exec-2026-0007",
+        "storage_path": "raw/etp/exec-2026-0007/win-protocol.pdf",
+        "source_url": "https://www.rts-tender.ru/",
+        "checksum_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "content_type": "application/pdf",
+        "collected_at": "2026-06-16T08:20:00+05:00",
+        "custody_status": "attached"
+      },
+      "storage_path": "raw/etp/exec-2026-0007/win-protocol.pdf",
+      "mime_type": "application/pdf"
+    },
+    {
+      "document_id": "doc-exec-2026-0007-contract",
+      "tender_id": "exec-2026-0007",
+      "title": "Подписанный контракт",
+      "status": "reviewed",
+      "source": {
+        "source_kind": "eis",
+        "source_url": "https://zakupki.gov.ru/",
+        "raw_artifact_id": "raw-eis-contract-exec-2026-0007",
+        "checksum_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "freshness": "fresh"
+      },
+      "raw_artifact": {
+        "artifact_id": "raw-eis-contract-exec-2026-0007",
+        "storage_path": "raw/eis/exec-2026-0007/signed-contract.pdf",
+        "source_url": "https://zakupki.gov.ru/",
+        "checksum_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "content_type": "application/pdf",
+        "collected_at": "2026-06-16T08:24:00+05:00",
+        "custody_status": "reviewed"
+      },
+      "storage_path": "raw/eis/exec-2026-0007/signed-contract.pdf",
+      "mime_type": "application/pdf"
+    },
+    {
+      "document_id": "doc-exec-2026-0007-advance-invoice",
+      "tender_id": "exec-2026-0007",
+      "title": "Счет на аванс",
+      "status": "parsed",
+      "source": {
+        "source_kind": "file_vault",
+        "source_url": "https://asts.local/file-vault",
+        "raw_artifact_id": "raw-file-vault-invoice-exec-2026-0007",
+        "checksum_sha256": "9999999999999999999999999999999999999999999999999999999999999999",
+        "freshness": "manual_review"
+      },
+      "raw_artifact": {
+        "artifact_id": "raw-file-vault-invoice-exec-2026-0007",
+        "storage_path": "raw/file-vault/exec-2026-0007/advance-invoice.pdf",
+        "source_url": "https://asts.local/file-vault",
+        "checksum_sha256": "9999999999999999999999999999999999999999999999999999999999999999",
+        "content_type": "application/pdf",
+        "collected_at": "2026-06-16T08:30:00+05:00",
+        "custody_status": "parsed"
+      },
+      "storage_path": "raw/file-vault/exec-2026-0007/advance-invoice.pdf",
+      "mime_type": "application/pdf"
     }
   ],
   "tasks": [
