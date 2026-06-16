@@ -78,6 +78,19 @@ Route smoke закрепляет:
 Пока есть хотя бы одна freshness breach карточка, AI не должен принимать решение
 по процедуре без обновленного raw artifact или ручного owner review.
 
+### Freshness Owner Action Rules
+
+Снятие freshness-блокировки должно отображаться как owner action, а не как
+автоматическое исчезновение карточки:
+
+- `stale` - обновить payload из первоисточника и показать новый checksum;
+- `missing` - загрузить отсутствующий raw artifact или официальный ответ об отсутствии публикации;
+- `parse_failed` - отправить payload на ручную схему нормализации, сохранив quarantine;
+- `hash_mismatch` - перезапросить первоисточник и сравнить checksum.
+
+UI не должен скрывать карточку и переводить AI в `ready`, пока нет owner receipt
+с `resolution_status="restored"` и ссылкой на новый raw artifact.
+
 ## AI Review UI Contract
 
 Маршрут `/ai-review` отображает backend contract `GET /v1/ai/review-queue`.

@@ -199,6 +199,7 @@
 61. Добавить FNS source contract spike: `/v1/sources/connectors` содержит `fns-egrul-nalog-ru` для ИНН/ОГРН, ЕГРЮЛ raw artifact, checksum, freshness и required secrets.
 62. Добавить AI review API docs: `docs/05-api-contract.md`, API README и Web README описывают `/v1/ai/review-queue`, threshold, owner review gate, source evidence и `/ai-review` UI markers.
 63. Добавить FNS UI source card: `/sources` показывает `fns-egrul-nalog-ru`, ИНН/ОГРН capabilities, raw template, required secrets и AI gate до выдачи доступа.
+64. Добавить source freshness owner action docs: API docs, API README и Web README описывают ручное снятие `stale`, `missing`, `parse_failed`, `hash_mismatch` через owner receipt.
 
 Следующими брать:
 
@@ -215,7 +216,8 @@
 11. [done 2026-06-17] Добавить FNS source contract spike: ИНН, ЕГРЮЛ, raw artifact и freshness evidence.
 12. [done 2026-06-17] Добавить AI review API docs: описать `/v1/ai/review-queue` и owner review gate.
 13. [done 2026-06-17] Добавить FNS UI source card: показать ИНН/ЕГРЮЛ readiness на `/sources`.
-14. Добавить source freshness owner action docs: описать ручное снятие stale/missing/hash blockers.
+14. [done 2026-06-17] Добавить source freshness owner action docs: описать ручное снятие stale/missing/hash blockers.
 15. Добавить FNS smoke docs: описать секреты, лимиты и smoke для ИНН/ОГРН.
 16. Добавить AI review owner action docs: описать, кто подтверждает low-confidence fact и как фиксируется решение.
 17. Добавить FNS connector browser loop: закрепить ФНС карточку в browser-проверке `/sources`.
+18. Добавить source freshness owner UI card: показать receipt rules на `/sources`.

@@ -63,6 +63,21 @@ handoff stay blocked until the row is refreshed, refetched or manually reviewed.
 
 The detailed DTO and example response live in `docs/05-api-contract.md`.
 
+### Freshness Owner Actions
+
+Freshness blockers are cleared by owner receipts, not by implicit retries.
+Each breach type has a specific owner action:
+
+- `stale` -> `refresh_primary_payload`;
+- `missing` -> `fetch_missing_artifact`;
+- `parse_failed` -> `manual_schema_review`;
+- `hash_mismatch` -> `refetch_and_compare`.
+
+The receipt must record `breach_id`, `owner_role`, `action`,
+`resolution_status`, `new_raw_artifact_id`, `new_checksum_sha256` and
+`audit_note`. API implementations must keep `ai_gate="blocked"` unless the
+receipt is `resolution_status="restored"` and points to a verified raw artifact.
+
 ## AI Review Queue Contract
 
 `GET /v1/ai/review-queue` is the backend contract behind the `/ai-review`

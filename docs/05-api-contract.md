@@ -125,6 +125,35 @@ Example:
 
 UI contract: `/sources` renders the same four breach types in `data-testid="source-freshness-breach-queue"` and exposes `data-ai-blocked-count`, `data-breach-types`, `data-source-url`, `data-raw-artifact-id` and `data-ai-gate`. Route smoke must fail if these markers disappear.
 
+### Source Freshness Owner Actions
+
+Freshness breaches are removed only by an explicit owner action. A new source
+payload alone is not enough: the system must keep an audit receipt that explains
+which blocker was resolved, which raw artifact replaced or repaired the broken
+evidence, and who accepted the result.
+
+Owner action matrix:
+
+- `stale` - owner role `supplier_manager`; action `refresh_primary_payload`;
+  required evidence is a newer official payload with a new checksum and
+  `last_success_at` inside SLA.
+- `missing` - owner role `document_owner`; action `fetch_missing_artifact`;
+  required evidence is the missing raw artifact or official "not published"
+  source response.
+- `parse_failed` - owner role `data_steward`; action `manual_schema_review`;
+  required evidence is a normalized payload version plus the quarantined raw
+  payload kept unchanged.
+- `hash_mismatch` - owner role `security_owner`; action `refetch_and_compare`;
+  required evidence is a fresh official refetch, checksum comparison and a
+  quarantine note for the mismatched artifact.
+
+Every owner action receipt must include `breach_id`, `owner_id`,
+`owner_role`, `action`, `resolution_status`, `resolved_at`, `new_raw_artifact_id`,
+`new_checksum_sha256` and `audit_note`. `resolution_status` is one of
+`restored`, `accepted_with_note` or `still_blocked`. AI gates can move from
+`blocked` to `ready` only when `resolution_status="restored"` and the new raw
+artifact is linked to the affected procedure.
+
 ## AI Review Queue
 
 Prototype route: `GET /v1/ai/review-queue`.
