@@ -154,10 +154,11 @@
 16. Подготовить first connector skeleton для ЕИС.
 17. Добавить JSON schema validation script.
 18. Привязать outcome/reason к карточке процедуры.
+19. Показать raw artifact manifest в web-разделе документов.
 
 Следующими брать:
 
-1. Показать raw artifact manifest в web-разделе документов.
-2. Добавить smoke-проверку `/v1/sources/connectors` после установки API-зависимостей.
-3. Включить shared validation в GitHub Actions.
-4. Добавить outcome UI states: approved / locked / rejected.
+1. Добавить smoke-проверку `/v1/sources/connectors` после установки API-зависимостей.
+2. Включить shared validation в GitHub Actions.
+3. Добавить outcome UI states: approved / locked / rejected.
+4. Подключить `/documents` к shared fixture, чтобы убрать ручное дублирование demo-data.

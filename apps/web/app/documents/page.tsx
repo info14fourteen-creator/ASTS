@@ -56,6 +56,29 @@ const manifestFields = [
   ["ai_evidence", "страница, confidence и человек, который подтвердил", "до экспорта"],
 ];
 
+const rawArtifactManifests = [
+  {
+    title: "Техническое задание",
+    artifactId: "raw-eis-0373100042626000001",
+    source: "zakupki.gov.ru",
+    storage: "raw/eis/0373100042626000001/specification.pdf",
+    checksum: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    contentType: "application/pdf",
+    collectedAt: "16 июня 2026, 07:40",
+    custody: "parsed",
+  },
+  {
+    title: "Проверка заказчика по ФНС",
+    artifactId: "raw-fns-customer-profile-7700000000",
+    source: "egrul.nalog.ru",
+    storage: "raw/fns/7700000000/egrul.json",
+    checksum: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    contentType: "application/json",
+    collectedAt: "16 июня 2026, 07:42",
+    custody: "checksum_verified",
+  },
+];
+
 const intakeRules = [
   ["Первоисточник", "сохраняем исходный файл, API id, дату получения и хэш"],
   ["Распознавание", "OCR складывает текст рядом с оригиналом и не меняет PDF"],
@@ -114,6 +137,51 @@ export default function DocumentsPage() {
                 <span>{stage}</span>
                 <em>{blocker}</em>
               </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel raw-artifact-manifest-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Raw artifact manifests</p>
+              <h2>Исходные файлы, checksum и custody</h2>
+            </div>
+            <span className="status-pill green">source-linked</span>
+          </div>
+          <div className="raw-artifact-manifest-grid">
+            {rawArtifactManifests.map((artifact) => (
+              <article className="raw-artifact-manifest-card" key={artifact.artifactId}>
+                <div className="raw-artifact-manifest-head">
+                  <div>
+                    <span>{artifact.custody}</span>
+                    <strong>{artifact.title}</strong>
+                  </div>
+                  <em>{artifact.contentType}</em>
+                </div>
+                <dl>
+                  <div>
+                    <dt>Artifact</dt>
+                    <dd>{artifact.artifactId}</dd>
+                  </div>
+                  <div>
+                    <dt>Source</dt>
+                    <dd>{artifact.source}</dd>
+                  </div>
+                  <div>
+                    <dt>Storage</dt>
+                    <dd>{artifact.storage}</dd>
+                  </div>
+                  <div>
+                    <dt>Checksum</dt>
+                    <dd>{artifact.checksum}</dd>
+                  </div>
+                  <div>
+                    <dt>Collected</dt>
+                    <dd>{artifact.collectedAt}</dd>
+                  </div>
+                </dl>
+              </article>
             ))}
           </div>
         </section>

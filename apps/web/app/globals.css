@@ -3315,6 +3315,94 @@ dd {
   text-transform: uppercase;
 }
 
+.raw-artifact-manifest-panel {
+  margin-top: 14px;
+}
+
+.raw-artifact-manifest-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.raw-artifact-manifest-card {
+  min-width: 0;
+  border: 1px solid rgba(40, 122, 82, 0.2);
+  border-radius: 8px;
+  padding: 13px;
+  background: #f7faf8;
+}
+
+.raw-artifact-manifest-head {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.raw-artifact-manifest-head div {
+  min-width: 0;
+}
+
+.raw-artifact-manifest-head span,
+.raw-artifact-manifest-head strong,
+.raw-artifact-manifest-head em {
+  display: block;
+}
+
+.raw-artifact-manifest-head span {
+  width: fit-content;
+  border: 1px solid rgba(40, 122, 82, 0.22);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: rgba(40, 122, 82, 0.08);
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.raw-artifact-manifest-head strong {
+  margin-top: 10px;
+  color: var(--accent-dark);
+  line-height: 1.25;
+}
+
+.raw-artifact-manifest-head em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+  text-align: right;
+}
+
+.raw-artifact-manifest-card dl {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.raw-artifact-manifest-card dl div {
+  min-width: 0;
+  border-top: 1px solid rgba(40, 122, 82, 0.14);
+  padding-top: 8px;
+}
+
+.raw-artifact-manifest-card dt {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.raw-artifact-manifest-card dd {
+  margin-top: 4px;
+  color: var(--ink);
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
 .document-handoff-receipt-panel {
   margin-top: 14px;
 }
@@ -5214,6 +5302,7 @@ dd {
   .document-integrity-grid,
   .document-handoff-receipt-grid,
   .document-release-gates-grid,
+  .raw-artifact-manifest-grid,
   .document-manifest-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -5711,6 +5800,7 @@ dd {
   .document-integrity-grid,
   .document-handoff-receipt-grid,
   .document-release-gates-grid,
+  .raw-artifact-manifest-grid,
   .document-manifest-grid {
     grid-template-columns: 1fr;
   }
