@@ -144,10 +144,11 @@
 6. Расширить API-схемы: `TenderSummary`, `SourceEvidence`, `DocumentArtifact`, `TaskItem` and `/v1/contracts`.
 7. Добавить prototype endpoints: in-memory `/v1/tenders`, `/v1/documents`, `/v1/tasks`.
 8. Сверить mind map registry со статусами `implemented / planned / needs owner`.
+9. Разделить главный экран на компоненты `overview-sections.tsx`.
 
 Следующими брать:
 
-1. Разделить главный экран на компоненты.
-2. Добавить PWA readiness check.
-3. Подготовить ingestion service layer: retry, quarantine, raw artifacts.
-4. Связать demo API с web mock data.
+1. Добавить PWA readiness check.
+2. Подготовить ingestion service layer: retry, quarantine, raw artifacts.
+3. Связать demo API с web mock data.
+4. Описать JSON-схемы извлечения позиций и КП.

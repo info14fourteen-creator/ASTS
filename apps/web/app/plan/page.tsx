@@ -18,10 +18,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Разделить главный экран на компоненты", "Sidebar уже общий, дальше panels"],
-  ["2", "Добавить PWA readiness check", "manifest, icons, install surface"],
-  ["3", "Подготовить ingestion service layer", "retry, quarantine, raw artifacts"],
-  ["4", "Связать demo API с web mock data", "один источник демо-правды для UI/API"],
+  ["1", "Добавить PWA readiness check", "manifest, icons, install surface"],
+  ["2", "Подготовить ingestion service layer", "retry, quarantine, raw artifacts"],
+  ["3", "Связать demo API с web mock data", "один источник демо-правды для UI/API"],
+  ["4", "Описать JSON-схемы извлечения", "позиции, КП, риски, confidence"],
 ];
 
 const cycleRules = [
