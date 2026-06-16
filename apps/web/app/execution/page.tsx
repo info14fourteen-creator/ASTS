@@ -278,6 +278,7 @@ export default function ExecutionPage() {
           className="panel execution-blocked-browser-loop-panel"
           data-artifact-count={executionBlockedBrowserLoop.expectedArtifactCount}
           data-evidence={executionBlockedBrowserLoop.evidence}
+          data-fallback="route-smoke-html-contract"
           data-missing-artifacts={executionBlockedBrowserLoop.expectedMissingArtifacts}
           data-route={executionBlockedBrowserLoop.route}
           data-selector={executionBlockedBrowserLoop.selector}
@@ -299,6 +300,14 @@ export default function ExecutionPage() {
                 <p>{text}</p>
               </article>
             ))}
+          </div>
+          <div className="execution-browser-ci-note" data-testid="execution-browser-ci-note">
+            <span>CI fallback</span>
+            <strong>Если in-app browser bridge недоступен, route smoke проверяет HTML contract.</strong>
+            <p>
+              Для blocked handoff обязательны selector, data-status=blocked, data-artifact-count=0,
+              data-missing-artifacts=3 и raw evidence. Без этих маркеров PR не считается проверенным.
+            </p>
           </div>
         </section>
 

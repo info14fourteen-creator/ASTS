@@ -196,4 +196,4 @@
 1. [done 2026-06-17] Добавить source health API contract: подготовить backend-модель для ready/quarantine/unavailable.
 2. [done 2026-06-17] Добавить fixture quarantine browser loop: проверять quarantine copy в браузере и route smoke.
 3. [done 2026-06-17] Добавить owner approval API handoff contract: перенести lock summary в backend DTO.
-4. Добавить execution browser loop CI note: описать fallback, если in-app browser bridge недоступен.
+4. [done 2026-06-17] Добавить execution browser loop CI note: описать fallback, если in-app browser bridge недоступен.

@@ -4219,6 +4219,41 @@ dd {
   line-height: 1.4;
 }
 
+.execution-browser-ci-note {
+  margin-top: 10px;
+  border: 1px solid rgba(36, 90, 141, 0.16);
+  border-radius: 8px;
+  padding: 13px;
+  background: #f8fbfd;
+}
+
+.execution-browser-ci-note span,
+.execution-browser-ci-note strong,
+.execution-browser-ci-note p {
+  display: block;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.execution-browser-ci-note span {
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.execution-browser-ci-note strong {
+  margin-top: 6px;
+  color: var(--accent-dark);
+  line-height: 1.28;
+}
+
+.execution-browser-ci-note p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
 .execution-health-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
