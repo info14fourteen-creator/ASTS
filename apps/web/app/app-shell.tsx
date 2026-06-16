@@ -9,6 +9,7 @@ const navItems = [
   ["execution", "/execution", "Исполнение"],
   ["tasks", "/tasks", "Задачи"],
   ["integrations", "/integrations", "Интеграции"],
+  ["plan", "/plan", "План"],
   ["settings", "/settings", "Настройки"],
   ["onboarding", "/onboarding", "Onboarding"],
 ];

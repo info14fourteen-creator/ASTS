@@ -129,7 +129,7 @@ const previewReview = [
 ];
 
 const releaseReadiness = [
-  ["Build", "16 static routes", "последняя сборка проходит"],
+  ["Build", "19 static routes", "последняя сборка проходит"],
   ["Smoke", "desktop + mobile", "проверяем измененный маршрут"],
   ["Data safety", "backup + source ledger", "секреты и восстановление описаны"],
   ["Collaboration", "PR #17", "объединяем только после review"],

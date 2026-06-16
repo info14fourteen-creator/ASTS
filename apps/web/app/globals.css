@@ -519,6 +519,122 @@ h3 {
   margin-bottom: 14px;
 }
 
+.plan-state-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.plan-cycle-panel,
+.plan-block-panel,
+.plan-next-panel {
+  margin-bottom: 14px;
+}
+
+.plan-cycle-grid,
+.plan-block-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.plan-cycle-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.plan-block-grid {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.plan-cycle-card,
+.plan-block-card,
+.plan-next-row {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-soft);
+}
+
+.plan-cycle-card,
+.plan-block-card {
+  min-height: 126px;
+  padding: 13px;
+}
+
+.plan-cycle-card strong,
+.plan-block-card strong,
+.plan-block-card span,
+.plan-block-card em,
+.plan-cycle-card p,
+.plan-block-card p {
+  display: block;
+}
+
+.plan-cycle-card strong,
+.plan-block-card strong {
+  color: var(--accent-dark);
+  line-height: 1.25;
+}
+
+.plan-cycle-card p,
+.plan-block-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.38;
+}
+
+.plan-block-card span {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 900;
+  line-height: 30px;
+  text-align: center;
+}
+
+.plan-block-card em {
+  margin-top: 10px;
+  color: var(--green);
+  font-style: normal;
+  font-weight: 850;
+}
+
+.plan-next-list {
+  display: grid;
+  gap: 8px;
+}
+
+.plan-next-row {
+  display: grid;
+  grid-template-columns: 44px minmax(170px, 0.75fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+}
+
+.plan-next-row span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #eef7f1;
+  color: var(--green);
+  font-weight: 900;
+}
+
+.plan-next-row strong {
+  color: var(--accent-dark);
+}
+
+.plan-next-row p {
+  margin: 0;
+  color: var(--muted);
+}
+
 .release-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -5098,6 +5214,19 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .plan-cycle-grid,
+  .plan-block-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .plan-next-row {
+    grid-template-columns: 40px 1fr;
+  }
+
+  .plan-next-row p {
+    grid-column: 2;
+  }
+
   .task-lane-grid {
     grid-template-columns: 1fr;
   }
@@ -5351,6 +5480,19 @@ dd {
 
   .release-grid {
     grid-template-columns: 1fr;
+  }
+
+  .plan-cycle-grid,
+  .plan-block-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .plan-next-row {
+    grid-template-columns: 1fr;
+  }
+
+  .plan-next-row p {
+    grid-column: auto;
   }
 
   .tender-intake-grid {

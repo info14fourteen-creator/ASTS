@@ -46,7 +46,7 @@ const handoffLoop = [
 
 const automationMonitor = [
   ["Heartbeat", "12 мин", "следующий инкремент запускается без ручного пинка", "running"],
-  ["Build", "npm run build", "каждая правка должна собрать 18 static routes", "required"],
+  ["Build", "npm run build", "каждая правка должна собрать 19 static routes", "required"],
   ["Smoke", "changed route", "DOM проверка desktop/mobile и чистая консоль", "required"],
   ["PR update", "codex/app-site-shell", "push только в PR ветку, main не трогаем", "safe"],
 ];
