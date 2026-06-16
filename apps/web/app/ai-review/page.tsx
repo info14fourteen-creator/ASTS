@@ -63,6 +63,13 @@ const auditReceipt = [
   ["Rollback", "предыдущий вывод и причина пересчета", "при повторном разборе"],
 ];
 
+const overrideLedger = [
+  ["Manual approve", "ответственный принимает риск при confidence 75-84%", "reason required"],
+  ["Block release", "AI вывод не уходит в сделку без source URL и file hash", "evidence first"],
+  ["Re-run AI", "новая версия файла или OCR создает новый вывод", "keep previous"],
+  ["Escalate owner", "низкая уверенность уходит владельцу этапа", "task created"],
+];
+
 export default function AiReviewPage() {
   return (
     <main className="app-shell">
@@ -155,6 +162,25 @@ export default function AiReviewPage() {
           <div className="ai-audit-receipt-grid">
             {auditReceipt.map(([title, text, gate]) => (
               <article className="ai-audit-receipt-card" key={title}>
+                <span>{gate}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel ai-override-ledger-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Override ledger</p>
+              <h2>Как фиксируем ручное решение поверх AI</h2>
+            </div>
+            <span className="status-pill">no hidden override</span>
+          </div>
+          <div className="ai-override-ledger-grid">
+            {overrideLedger.map(([title, text, gate]) => (
+              <article className="ai-override-ledger-card" key={title}>
                 <span>{gate}</span>
                 <strong>{title}</strong>
                 <p>{text}</p>
