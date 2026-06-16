@@ -141,10 +141,11 @@
 3. Вынести mock-данные главного web-кабинета в `apps/web/lib/mock-data.ts`.
 4. Добавить smoke-скрипт маршрутов `apps/web/scripts/smoke.mjs`.
 5. Начать backend foundation: health/status response models and `/v1/status`.
+6. Расширить API-схемы: `TenderSummary`, `SourceEvidence`, `DocumentArtifact`, `TaskItem` and `/v1/contracts`.
 
 Следующими брать:
 
-1. Расширить API-схемы: tender, source, document, task contracts.
+1. Добавить prototype endpoints: in-memory tender/source/document/task lists.
 2. Сверить mind map registry со статусами `implemented / planned / needs owner`.
 3. Разделить главный экран на компоненты.
 4. Добавить PWA readiness check.

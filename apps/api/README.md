@@ -29,4 +29,5 @@ Future FastAPI backend.
 
 - `GET /health` - liveness response with service name and API version.
 - `GET /v1/status` - product/API status contract: stage, primary-source policy, two funnels, module readiness checks.
+- `GET /v1/contracts` - first API contract registry for tender, document and task schemas.
 - `GET /stack` - planned technical stack and output types.

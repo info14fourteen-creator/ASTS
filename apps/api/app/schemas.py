@@ -2,6 +2,29 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
+DealFunnel = Literal["pre_win", "execution"]
+DealStage = Literal[
+    "inbox",
+    "qualification",
+    "positions",
+    "supplier_quotes",
+    "top3",
+    "economics",
+    "submission",
+    "result",
+    "contract",
+    "payment",
+    "purchase",
+    "fulfillment",
+    "closing_documents",
+    "final_settlement",
+]
+SourceKind = Literal["eis", "fns", "etp", "gis_torgi", "fedresurs", "file_vault"]
+SourceFreshness = Literal["fresh", "stale", "quarantine", "manual_review"]
+DocumentStatus = Literal["raw", "downloaded", "ocr_ready", "parsed", "reviewed", "attached"]
+TaskPriority = Literal["normal", "warning", "critical"]
+TaskStatus = Literal["open", "blocked", "done"]
+
 
 class HealthResponse(BaseModel):
     status: Literal["ok"]
@@ -32,3 +55,58 @@ class ApiStatusResponse(BaseModel):
     funnels: list[str] = Field(min_length=2)
     modules: list[str]
     checks: list[StatusCheck]
+
+
+class SourceEvidence(BaseModel):
+    source_kind: SourceKind
+    source_url: str
+    raw_artifact_id: str
+    checksum_sha256: str = Field(min_length=64, max_length=64)
+    freshness: SourceFreshness
+
+
+class TenderSummary(BaseModel):
+    tender_id: str
+    title: str
+    customer_name: str
+    source: SourceEvidence
+    nmck_rub: int | None = Field(default=None, ge=0)
+    region: str | None = None
+    deadline_at: str | None = None
+    funnel: DealFunnel
+    stage: DealStage
+    ai_confidence: float = Field(ge=0, le=1)
+
+
+class DocumentArtifact(BaseModel):
+    document_id: str
+    tender_id: str
+    title: str
+    status: DocumentStatus
+    source: SourceEvidence
+    storage_path: str
+    mime_type: str
+
+
+class TaskItem(BaseModel):
+    task_id: str
+    tender_id: str
+    title: str
+    owner_role: str
+    priority: TaskPriority
+    status: TaskStatus
+    due_at: str | None = None
+    requires_human_approval: bool = True
+
+
+class ApiContract(BaseModel):
+    name: str
+    route: str
+    model: str
+    required_evidence: list[str]
+
+
+class ApiContractsResponse(BaseModel):
+    version: str
+    source_policy: str
+    contracts: list[ApiContract]

@@ -1,7 +1,14 @@
 from fastapi import FastAPI
 
 from app.config import settings
-from app.schemas import ApiStatusResponse, HealthResponse, StackResponse, StatusCheck
+from app.schemas import (
+    ApiContract,
+    ApiContractsResponse,
+    ApiStatusResponse,
+    HealthResponse,
+    StackResponse,
+    StatusCheck,
+)
 
 app = FastAPI(title=settings.app_name, version=settings.app_version)
 
@@ -35,6 +42,36 @@ def status() -> ApiStatusResponse:
                 name="web shell",
                 state="ready",
                 detail="app.site.ru prototype exposes 19 static routes in PR #17",
+            ),
+        ],
+    )
+
+
+@app.get("/v1/contracts", response_model=ApiContractsResponse, tags=["system"])
+def contracts() -> ApiContractsResponse:
+    evidence_fields = ["source_kind", "source_url", "raw_artifact_id", "checksum_sha256"]
+
+    return ApiContractsResponse(
+        version=settings.app_version,
+        source_policy="No AI decision without SourceEvidence",
+        contracts=[
+            ApiContract(
+                name="Tender summary",
+                route="/v1/tenders",
+                model="TenderSummary",
+                required_evidence=evidence_fields,
+            ),
+            ApiContract(
+                name="Document artifact",
+                route="/v1/documents",
+                model="DocumentArtifact",
+                required_evidence=evidence_fields + ["storage_path"],
+            ),
+            ApiContract(
+                name="Task item",
+                route="/v1/tasks",
+                model="TaskItem",
+                required_evidence=["tender_id", "owner_role", "requires_human_approval"],
             ),
         ],
     )

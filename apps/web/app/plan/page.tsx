@@ -18,7 +18,7 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Расширить API-схемы", "tender, source, document, task contracts"],
+  ["1", "Добавить prototype endpoints", "in-memory tender/source/document/task lists"],
   ["2", "Сверить mind map registry", "implemented / planned / needs owner"],
   ["3", "Разделить главный экран на компоненты", "Sidebar уже общий, дальше panels"],
   ["4", "Добавить PWA readiness check", "manifest, icons, install surface"],
