@@ -2946,6 +2946,134 @@ dd {
   line-height: 1.35;
 }
 
+.source-url-health-panel {
+  margin-top: 14px;
+  border-color: rgba(36, 90, 141, 0.18);
+  background: #f8fbfd;
+}
+
+.source-url-health-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.source-url-health-card {
+  min-height: 292px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 13px;
+  background: var(--surface);
+}
+
+.source-url-health-card div:first-child {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.source-url-health-card span,
+.source-url-health-card strong,
+.source-url-health-card a,
+.source-url-health-card p,
+.source-url-health-card em,
+.source-url-health-card dt,
+.source-url-health-card dd {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.source-url-health-card span {
+  flex: 0 0 auto;
+  order: 2;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: var(--surface-soft);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.source-url-health-card.ready span {
+  border-color: rgba(40, 122, 82, 0.22);
+  background: rgba(40, 122, 82, 0.08);
+  color: var(--green);
+}
+
+.source-url-health-card.quarantine span {
+  border-color: rgba(154, 100, 27, 0.24);
+  background: #fff7e8;
+  color: var(--amber);
+}
+
+.source-url-health-card.unavailable span {
+  border-color: rgba(167, 57, 57, 0.22);
+  background: #fff1ef;
+  color: var(--red);
+}
+
+.source-url-health-card strong {
+  color: var(--accent-dark);
+  line-height: 1.25;
+}
+
+.source-url-health-card a {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 12px;
+  color: var(--blue);
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.source-url-health-card dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 14px 0 0;
+}
+
+.source-url-health-card dl div {
+  border: 1px solid rgba(36, 90, 141, 0.12);
+  border-radius: 8px;
+  padding: 8px;
+  background: #f8fbfd;
+}
+
+.source-url-health-card dt {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.source-url-health-card dd {
+  margin: 5px 0 0;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.25;
+}
+
+.source-url-health-card p {
+  margin: 12px 0 0;
+  color: var(--muted);
+  line-height: 1.38;
+}
+
+.source-url-health-card em {
+  display: block;
+  margin-top: 12px;
+  color: var(--accent-dark);
+  font-style: normal;
+  font-weight: 850;
+  line-height: 1.35;
+}
+
 .source-intake-contract-panel {
   margin-top: 14px;
 }
@@ -6403,6 +6531,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .source-url-health-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .source-intake-contract-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -6769,6 +6901,20 @@ dd {
 
   .source-health-grid {
     grid-template-columns: 1fr;
+  }
+
+  .source-url-health-grid,
+  .source-url-health-card dl {
+    grid-template-columns: 1fr;
+  }
+
+  .source-url-health-card div:first-child {
+    display: grid;
+  }
+
+  .source-url-health-card span {
+    order: 0;
+    width: fit-content;
   }
 
   .source-intake-contract-grid {

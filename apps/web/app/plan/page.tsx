@@ -21,10 +21,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить source_url health state", "показать, когда первоисточник недоступен или ушел в quarantine"],
-  ["2", "Добавить fixture drift quarantine copy", "объяснить владельцу, что делать при status=drift"],
-  ["3", "Добавить owner approval handoff lock", "не пускать approved outcome в execution без receipt"],
-  ["4", "Добавить execution blocked browser loop", "сверять blocked fixture в браузере и route smoke"],
+  ["1", "Добавить fixture drift quarantine copy", "объяснить владельцу, что делать при status=drift"],
+  ["2", "Добавить owner approval handoff lock", "не пускать approved outcome в execution без receipt"],
+  ["3", "Добавить execution blocked browser loop", "сверять blocked fixture в браузере и route smoke"],
+  ["4", "Добавить source health API contract", "подготовить backend-модель для ready/quarantine/unavailable"],
 ];
 
 const cycleRules = [

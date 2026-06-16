@@ -186,10 +186,11 @@
 48. Добавить fixture drift warning: `/plan` показывает guard, который сверяет smoke counts с shared fixture и становится warning при расхождении.
 49. Добавить owner approval receipt history: `/tenders` хранит последние ручные подтверждения/блокировки перед handoff во вторую воронку.
 50. Добавить execution artifact blocked fixture: `/execution` показывает сценарий, где победа подтверждена, но вторая воронка заблокирована без raw artifacts.
+51. Добавить source_url health state: `/sources` показывает ready/quarantine/unavailable для первоисточника, raw artifact и AI gate.
 
 Следующими брать:
 
-1. Добавить source_url health state: показать, когда первоисточник недоступен или ушел в quarantine.
-2. Добавить fixture drift quarantine copy: объяснить владельцу, что делать при status=drift.
-3. Добавить owner approval handoff lock: не пускать approved outcome в execution без receipt.
-4. Добавить execution blocked browser loop: сверять blocked fixture в браузере и route smoke.
+1. Добавить fixture drift quarantine copy: объяснить владельцу, что делать при status=drift.
+2. Добавить owner approval handoff lock: не пускать approved outcome в execution без receipt.
+3. Добавить execution blocked browser loop: сверять blocked fixture в браузере и route smoke.
+4. Добавить source health API contract: подготовить backend-модель для ready/quarantine/unavailable.

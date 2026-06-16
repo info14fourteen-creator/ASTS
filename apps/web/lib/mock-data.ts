@@ -128,6 +128,20 @@ export type BlockedExecutionFixture = {
   rule: string;
 };
 
+export type SourceUrlHealthState = {
+  id: string;
+  source: string;
+  host: string;
+  sourceUrl: string;
+  rawArtifactId: string;
+  status: "ready" | "quarantine" | "unavailable";
+  lastChecked: string;
+  freshness: string;
+  owner: string;
+  action: string;
+  reason: string;
+};
+
 export type RawArtifactManifest = {
   title: string;
   artifactId: string;
@@ -353,6 +367,10 @@ export const executionDocumentRows: ExecutionDocumentRow[] = demoData.documents
 const approvedPreWinHandoffTender =
   demoData.tenders.find((tender) => tender.funnel === "pre_win" && tender.outcome.status === "approved") ??
   demoData.tenders[0];
+const lockedSourceTender =
+  demoData.tenders.find((tender) => tender.funnel === "pre_win" && tender.outcome.status === "locked") ??
+  demoData.tenders[1];
+const executionSourceTender = demoData.tenders.find((tender) => tender.funnel === "execution") ?? demoData.tenders[0];
 
 export const blockedExecutionFixture: BlockedExecutionFixture = {
   id: approvedPreWinHandoffTender.tender_id,
@@ -366,6 +384,48 @@ export const blockedExecutionFixture: BlockedExecutionFixture = {
   decision: "execution handoff blocked",
   rule: "Победа подтверждена, но вторая воронка не открывается без протокола, контракта и счета в raw artifacts.",
 };
+
+export const sourceUrlHealthStates: SourceUrlHealthState[] = [
+  {
+    id: approvedPreWinHandoffTender.tender_id,
+    source: sourceApiLabel(approvedPreWinHandoffTender.source.source_kind),
+    host: hostFromUrl(approvedPreWinHandoffTender.source.source_url),
+    sourceUrl: approvedPreWinHandoffTender.source.source_url,
+    rawArtifactId: approvedPreWinHandoffTender.source.raw_artifact_id,
+    status: "ready",
+    lastChecked: formatAuditTime(approvedPreWinHandoffTender.audit_events.at(-1)?.created_at ?? "2026-06-11T10:00:00+05:00"),
+    freshness: "fresh under 15 min",
+    owner: approvedPreWinHandoffTender.outcome.owner_role,
+    action: "AI scoring allowed",
+    reason: "source_url, raw artifact и owner receipt совпали со shared fixture.",
+  },
+  {
+    id: lockedSourceTender.tender_id,
+    source: sourceApiLabel(lockedSourceTender.source.source_kind),
+    host: hostFromUrl(lockedSourceTender.source.source_url),
+    sourceUrl: lockedSourceTender.source.source_url,
+    rawArtifactId: lockedSourceTender.source.raw_artifact_id,
+    status: "quarantine",
+    lastChecked: formatAuditTime(lockedSourceTender.audit_events.at(-1)?.created_at ?? "2026-06-11T10:20:00+05:00"),
+    freshness: "schema drift",
+    owner: lockedSourceTender.outcome.owner_role,
+    action: "manual review before AI",
+    reason: "первоисточник доступен, но нормализатор не имеет права перезаписать старую схему без решения владельца.",
+  },
+  {
+    id: executionSourceTender.tender_id,
+    source: sourceApiLabel(executionSourceTender.source.source_kind),
+    host: hostFromUrl(executionSourceTender.source.source_url),
+    sourceUrl: executionSourceTender.source.source_url,
+    rawArtifactId: executionSourceTender.source.raw_artifact_id,
+    status: "unavailable",
+    lastChecked: "нет свежего ответа",
+    freshness: "connector timeout",
+    owner: executionSourceTender.outcome.owner_role,
+    action: "retry 3x then escalate",
+    reason: "площадочный status webhook не подтвержден, поэтому execution AI и handoff ждут новый raw response.",
+  },
+];
 
 export const fixtureCoverage = {
   totalTenders: demoData.tenders.length,

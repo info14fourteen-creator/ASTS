@@ -1,4 +1,5 @@
 import { Sidebar } from "../app-shell";
+import { sourceUrlHealthStates } from "../../lib/mock-data";
 
 const sources = [
   ["ЕИС / zakupki.gov.ru", "44-ФЗ, 223-ФЗ, извещения, протоколы, контракты", "connector stub", "primary"],
@@ -149,6 +150,57 @@ export default function SourcesPage() {
               <small>{text}</small>
             </article>
           ))}
+        </section>
+
+        <section
+          className="panel source-url-health-panel"
+          data-quarantine-count={sourceUrlHealthStates.filter((state) => state.status === "quarantine").length}
+          data-ready-count={sourceUrlHealthStates.filter((state) => state.status === "ready").length}
+          data-testid="source-url-health-state"
+          data-unavailable-count={sourceUrlHealthStates.filter((state) => state.status === "unavailable").length}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source URL health state</p>
+              <h2>Когда первоисточник можно отдавать в AI</h2>
+            </div>
+            <span className="status-pill amber">quarantine blocks AI</span>
+          </div>
+          <div className="source-url-health-grid">
+            {sourceUrlHealthStates.map((state) => (
+              <article className={`source-url-health-card ${state.status}`} key={state.id}>
+                <div>
+                  <span>{state.status}</span>
+                  <strong>{state.source}</strong>
+                </div>
+                <a href={state.sourceUrl} rel="noreferrer" target="_blank">
+                  {state.host}
+                </a>
+                <dl>
+                  <div>
+                    <dt>Procedure</dt>
+                    <dd>{state.id}</dd>
+                  </div>
+                  <div>
+                    <dt>Raw artifact</dt>
+                    <dd>{state.rawArtifactId}</dd>
+                  </div>
+                  <div>
+                    <dt>Freshness</dt>
+                    <dd>{state.freshness}</dd>
+                  </div>
+                  <div>
+                    <dt>Owner</dt>
+                    <dd>{state.owner}</dd>
+                  </div>
+                </dl>
+                <p>{state.reason}</p>
+                <em>
+                  {state.lastChecked} · {state.action}
+                </em>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="panel source-intake-contract-panel">
