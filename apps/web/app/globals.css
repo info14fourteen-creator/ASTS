@@ -733,6 +733,76 @@ h3 {
   line-height: 1.35;
 }
 
+.fixture-drift-quarantine {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.9fr) minmax(0, 1.1fr);
+  gap: 14px;
+  margin-top: 12px;
+  border: 1px solid rgba(36, 90, 141, 0.2);
+  border-radius: 8px;
+  padding: 14px;
+  background: #f3f8fc;
+}
+
+.fixture-drift-quarantine.quarantine {
+  border-color: rgba(154, 100, 27, 0.28);
+  background: #fffaf0;
+}
+
+.fixture-drift-quarantine h3,
+.fixture-drift-quarantine p,
+.fixture-drift-quarantine em,
+.fixture-drift-quarantine-steps strong,
+.fixture-drift-quarantine-steps span {
+  display: block;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.fixture-drift-quarantine h3 {
+  margin: 4px 0 0;
+  color: var(--accent-dark);
+}
+
+.fixture-drift-quarantine p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.fixture-drift-quarantine em {
+  margin-top: 10px;
+  color: var(--blue);
+  font-style: normal;
+  font-weight: 850;
+  line-height: 1.35;
+}
+
+.fixture-drift-quarantine-steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.fixture-drift-quarantine-steps article {
+  min-height: 92px;
+  border: 1px solid rgba(36, 90, 141, 0.16);
+  border-radius: 8px;
+  padding: 10px;
+  background: var(--surface);
+}
+
+.fixture-drift-quarantine-steps strong {
+  color: var(--accent-dark);
+  line-height: 1.25;
+}
+
+.fixture-drift-quarantine-steps span {
+  margin-top: 7px;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
 .pr-gate-card {
   color: inherit;
   text-decoration: none;
@@ -6475,6 +6545,10 @@ dd {
     grid-template-columns: 1fr;
   }
 
+  .fixture-drift-quarantine {
+    grid-template-columns: 1fr;
+  }
+
   .plan-next-row {
     grid-template-columns: 40px 1fr;
   }
@@ -6915,6 +6989,10 @@ dd {
   .source-url-health-card span {
     order: 0;
     width: fit-content;
+  }
+
+  .fixture-drift-quarantine-steps {
+    grid-template-columns: 1fr;
   }
 
   .source-intake-contract-grid {

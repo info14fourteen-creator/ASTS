@@ -142,6 +142,15 @@ export type SourceUrlHealthState = {
   reason: string;
 };
 
+export type FixtureDriftQuarantineCopy = {
+  status: "standby" | "quarantine";
+  owner: string;
+  aiGate: string;
+  mergeGate: string;
+  evidence: string;
+  steps: [string, string][];
+};
+
 export type RawArtifactManifest = {
   title: string;
   artifactId: string;
@@ -495,6 +504,26 @@ export const fixtureDriftSummary = {
   status: fixtureDriftChecks.every((check) => check.status === "aligned") ? "aligned" : "drift",
   aligned: fixtureDriftChecks.filter((check) => check.status === "aligned").length,
   total: fixtureDriftChecks.length,
+};
+
+export const fixtureDriftQuarantineCopy: FixtureDriftQuarantineCopy = {
+  status: fixtureDriftSummary.status === "aligned" ? "standby" : "quarantine",
+  owner: "Release owner",
+  aiGate:
+    fixtureDriftSummary.status === "aligned"
+      ? "AI может читать demo fixture, но guard остается перед каждым merge."
+      : "AI review, handoff и auto-export блокируются до ручного решения владельца.",
+  mergeGate:
+    fixtureDriftSummary.status === "aligned"
+      ? "Merge разрешен только пока Web build, Shared validation и route smoke считают одинаково."
+      : "Merge стоп: сначала обновить shared fixture или smoke markers, затем повторить проверки.",
+  evidence: "fixture-drift-warning / route smoke / packages/shared/demo-data/asts-demo.json",
+  steps: [
+    ["Freeze", "остановить AI выводы, handoff во вторую воронку и экспорт в CRM по затронутому count"],
+    ["Locate", "сравнить expected/actual в guard, route smoke и shared fixture"],
+    ["Decide", "либо обновить demo-data как источник правды, либо поправить UI/smoke, если ошибся экран"],
+    ["Release", "снять quarantine только после green CI и owner approval в PR"],
+  ],
 };
 
 export const participationStages = [

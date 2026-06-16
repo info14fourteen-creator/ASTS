@@ -1,5 +1,10 @@
 import { Sidebar } from "../app-shell";
-import { fixtureCoverage, fixtureDriftChecks, fixtureDriftSummary } from "../../lib/mock-data";
+import {
+  fixtureCoverage,
+  fixtureDriftChecks,
+  fixtureDriftQuarantineCopy,
+  fixtureDriftSummary,
+} from "../../lib/mock-data";
 
 const currentState = [
   ["PR", "#17 codex/app-site-shell", "CLEAN, checks green"],
@@ -21,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить fixture drift quarantine copy", "объяснить владельцу, что делать при status=drift"],
-  ["2", "Добавить owner approval handoff lock", "не пускать approved outcome в execution без receipt"],
-  ["3", "Добавить execution blocked browser loop", "сверять blocked fixture в браузере и route smoke"],
-  ["4", "Добавить source health API contract", "подготовить backend-модель для ready/quarantine/unavailable"],
+  ["1", "Добавить owner approval handoff lock", "не пускать approved outcome в execution без receipt"],
+  ["2", "Добавить execution blocked browser loop", "сверять blocked fixture в браузере и route smoke"],
+  ["3", "Добавить source health API contract", "подготовить backend-модель для ready/quarantine/unavailable"],
+  ["4", "Добавить fixture quarantine browser loop", "проверять quarantine copy в браузере и route smoke"],
 ];
 
 const cycleRules = [
@@ -250,6 +255,34 @@ export default function PlanPage() {
                     {check.actual} / {check.expected}
                   </strong>
                   <p>{check.rule}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+          <div
+            className={`fixture-drift-quarantine ${fixtureDriftQuarantineCopy.status}`}
+            data-action-count={fixtureDriftQuarantineCopy.steps.length}
+            data-evidence={fixtureDriftQuarantineCopy.evidence}
+            data-owner={fixtureDriftQuarantineCopy.owner}
+            data-status={fixtureDriftQuarantineCopy.status}
+            data-testid="fixture-drift-quarantine-copy"
+          >
+            <div>
+              <p className="eyebrow">Fixture drift quarantine copy</p>
+              <h3>
+                {fixtureDriftQuarantineCopy.status === "standby"
+                  ? "Quarantine готов, но не включен"
+                  : "Quarantine включен до решения владельца"}
+              </h3>
+              <p>{fixtureDriftQuarantineCopy.aiGate}</p>
+              <p>{fixtureDriftQuarantineCopy.mergeGate}</p>
+              <em>{fixtureDriftQuarantineCopy.evidence}</em>
+            </div>
+            <div className="fixture-drift-quarantine-steps">
+              {fixtureDriftQuarantineCopy.steps.map(([title, text]) => (
+                <article key={title}>
+                  <strong>{title}</strong>
+                  <span>{text}</span>
                 </article>
               ))}
             </div>
