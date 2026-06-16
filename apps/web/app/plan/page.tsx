@@ -18,10 +18,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Связать demo API с web mock data", "один источник демо-правды для UI/API"],
-  ["2", "Описать JSON-схемы извлечения", "позиции, КП, риски, confidence"],
-  ["3", "Добавить outcome/reason API", "финалы первой и второй воронки"],
-  ["4", "Добавить raw artifact manifest", "documents API + evidence chain"],
+  ["1", "Описать JSON-схемы извлечения", "позиции, КП, риски, confidence"],
+  ["2", "Добавить outcome/reason API", "финалы первой и второй воронки"],
+  ["3", "Добавить raw artifact manifest", "documents API + evidence chain"],
+  ["4", "Подготовить ЕИС connector skeleton", "без реального скачивания, только интерфейс"],
 ];
 
 const cycleRules = [

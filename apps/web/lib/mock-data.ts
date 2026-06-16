@@ -1,3 +1,5 @@
+import demoData from "../../../packages/shared/demo-data/asts-demo.json";
+
 export type Tender = {
   id: string;
   title: string;
@@ -18,44 +20,51 @@ export type Task = {
   tone: "neutral" | "warning" | "danger";
 };
 
-export const tenders: Tender[] = [
-  {
-    id: "03731000426-26",
-    title: "Поставка светотехнического оборудования для учреждения",
-    source: "ЕИС",
-    customer: "ГБУ Жилищник района",
-    nmck: "18.4 млн ₽",
-    deadline: "18 июня, 14:00",
-    region: "Москва",
-    status: "AI-разбор",
-    risk: "medium",
-    match: 86,
-  },
-  {
-    id: "32211984571",
-    title: "Комплексное обслуживание инженерных систем",
-    source: "223-ФЗ",
-    customer: "АО Теплосеть",
-    nmck: "42.8 млн ₽",
-    deadline: "21 июня, 09:00",
-    region: "Татарстан",
-    status: "Поставщики",
-    risk: "low",
-    match: 78,
-  },
-  {
-    id: "01622000118-26",
-    title: "Закупка расходных материалов и комплектующих",
-    source: "ЭТП",
-    customer: "Минздрав региона",
-    nmck: "7.9 млн ₽",
-    deadline: "16 июня, 11:30",
-    region: "Свердловская область",
-    status: "Срок близко",
-    risk: "high",
-    match: 64,
-  },
-];
+const sourceLabels = {
+  eis: "ЕИС",
+  fns: "ФНС",
+  etp: "ЭТП",
+  gis_torgi: "ГИС Торги",
+  fedresurs: "Федресурс",
+  file_vault: "Файл",
+} as const;
+
+type SourceKind = keyof typeof sourceLabels;
+type TenderRisk = Tender["risk"];
+type TaskTone = Task["tone"];
+
+function sourceLabel(sourceKind: string): string {
+  return sourceLabels[sourceKind as SourceKind] ?? sourceKind;
+}
+
+function tenderRisk(risk: string): TenderRisk {
+  if (risk === "low" || risk === "medium" || risk === "high") {
+    return risk;
+  }
+
+  return "medium";
+}
+
+function taskTone(tone: string): TaskTone {
+  if (tone === "neutral" || tone === "warning" || tone === "danger") {
+    return tone;
+  }
+
+  return "neutral";
+}
+
+export const tenders: Tender[] = demoData.tenders.map((tender) => ({
+  id: tender.tender_id,
+  title: tender.title,
+  source: sourceLabel(tender.source.source_kind),
+  customer: tender.customer_name,
+  nmck: tender.nmck_label,
+  deadline: tender.deadline_label,
+  region: tender.region,
+  status: tender.stage_label,
+  risk: tenderRisk(tender.risk),
+  match: tender.match,
+}));
 
 export const participationStages = [
   "Входящие",
@@ -77,26 +86,12 @@ export const executionStages = [
   "Финальный расчет",
 ];
 
-export const tasks: Task[] = [
-  {
-    title: "Проверить 3 low-confidence позиции",
-    owner: "Закупщик",
-    due: "сегодня, 16:00",
-    tone: "warning",
-  },
-  {
-    title: "Подтвердить список поставщиков",
-    owner: "Менеджер",
-    due: "сегодня, 18:00",
-    tone: "neutral",
-  },
-  {
-    title: "Срок подачи меньше 10 часов",
-    owner: "B2G специалист",
-    due: "критично",
-    tone: "danger",
-  },
-];
+export const tasks: Task[] = demoData.tasks.map((task) => ({
+  title: task.title,
+  owner: task.owner_label,
+  due: task.due_label,
+  tone: taskTone(task.tone),
+}));
 
 export const commandSignals = [
   ["Primary feed", "ЕИС: 42 новых, ФНС: 6 проверок, ЭТП: 11 обновлений", "синхронизация 07:40"],

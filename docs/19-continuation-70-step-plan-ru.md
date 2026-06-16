@@ -147,10 +147,11 @@
 9. Разделить главный экран на компоненты `overview-sections.tsx`.
 10. Добавить PWA readiness check: manifest icons и install/offline статусы.
 11. Подготовить ingestion service layer: retry, quarantine, raw artifacts.
+12. Связать demo API с web mock data через `packages/shared/demo-data/asts-demo.json`.
 
 Следующими брать:
 
-1. Связать demo API с web mock data.
-2. Описать JSON-схемы извлечения позиций и КП.
-3. Добавить справочник outcome/reason в API.
-4. Добавить raw artifact manifest в documents API.
+1. Описать JSON-схемы извлечения позиций и КП.
+2. Добавить справочник outcome/reason в API.
+3. Добавить raw artifact manifest в documents API.
+4. Подготовить first connector skeleton для ЕИС.

@@ -1,96 +1,52 @@
-from app.schemas import DocumentArtifact, SourceEvidence, TaskItem, TenderSummary
+import json
+from pathlib import Path
 
-EIS_EVIDENCE = SourceEvidence(
-    source_kind="eis",
-    source_url="https://zakupki.gov.ru/epz/order/notice/ea20/view/common-info.html?regNumber=0373100042626000001",
-    raw_artifact_id="raw-eis-0373100042626000001",
-    checksum_sha256="a" * 64,
-    freshness="fresh",
-)
+from app.schemas import DocumentArtifact, TaskItem, TenderSummary
 
-FNS_EVIDENCE = SourceEvidence(
-    source_kind="fns",
-    source_url="https://egrul.nalog.ru/",
-    raw_artifact_id="raw-fns-customer-profile-7700000000",
-    checksum_sha256="b" * 64,
-    freshness="manual_review",
-)
+DEMO_DATA_PATH = Path(__file__).resolve().parents[3] / "packages" / "shared" / "demo-data" / "asts-demo.json"
 
-ETP_EVIDENCE = SourceEvidence(
-    source_kind="etp",
-    source_url="https://www.rts-tender.ru/",
-    raw_artifact_id="raw-etp-procedure-room-0373100042626000001",
-    checksum_sha256="c" * 64,
-    freshness="fresh",
-)
 
-DEMO_TENDERS = [
-    TenderSummary(
-        tender_id="0373100042626000001",
-        title="Поставка серверного оборудования для регионального центра",
-        customer_name="ГБУ Региональный центр цифровой инфраструктуры",
-        source=EIS_EVIDENCE,
-        nmck_rub=18_450_000,
-        region="Москва",
-        deadline_at="2026-06-24T10:00:00+03:00",
-        funnel="pre_win",
-        stage="qualification",
-        ai_confidence=0.82,
-    ),
-    TenderSummary(
-        tender_id="exec-2026-0007",
-        title="Исполнение контракта: поставка и ввод в эксплуатацию",
-        customer_name="ГБУ Региональный центр цифровой инфраструктуры",
-        source=ETP_EVIDENCE,
-        nmck_rub=18_450_000,
-        region="Москва",
-        deadline_at="2026-07-15T18:00:00+03:00",
-        funnel="execution",
-        stage="fulfillment",
-        ai_confidence=0.74,
-    ),
-]
+def _load_demo_data() -> dict:
+    with DEMO_DATA_PATH.open(encoding="utf-8") as demo_file:
+        return json.load(demo_file)
 
+
+def _source_by_tender_id(demo_data: dict) -> dict[str, dict]:
+    return {tender["tender_id"]: tender["source"] for tender in demo_data["tenders"]}
+
+
+def _document_source(document: dict, sources: dict[str, dict]) -> dict:
+    if "source" in document:
+        return document["source"]
+    return sources[document["source_ref"]]
+
+
+DEMO_DATA = _load_demo_data()
+TENDER_SOURCES = _source_by_tender_id(DEMO_DATA)
+
+DEMO_TENDERS = [TenderSummary(**tender) for tender in DEMO_DATA["tenders"]]
 DEMO_DOCUMENTS = [
     DocumentArtifact(
-        document_id="doc-0373100042626000001-tz",
-        tender_id="0373100042626000001",
-        title="Техническое задание",
-        status="parsed",
-        source=EIS_EVIDENCE,
-        storage_path="raw/eis/0373100042626000001/specification.pdf",
-        mime_type="application/pdf",
-    ),
-    DocumentArtifact(
-        document_id="doc-0373100042626000001-customer",
-        tender_id="0373100042626000001",
-        title="Проверка заказчика по ФНС",
-        status="reviewed",
-        source=FNS_EVIDENCE,
-        storage_path="raw/fns/7700000000/egrul.json",
-        mime_type="application/json",
-    ),
+        document_id=document["document_id"],
+        tender_id=document["tender_id"],
+        title=document["title"],
+        status=document["status"],
+        source=_document_source(document, TENDER_SOURCES),
+        storage_path=document["storage_path"],
+        mime_type=document["mime_type"],
+    )
+    for document in DEMO_DATA["documents"]
 ]
-
 DEMO_TASKS = [
     TaskItem(
-        task_id="task-qualification-001",
-        tender_id="0373100042626000001",
-        title="Подтвердить соответствие требованиям и допускам",
-        owner_role="tender_manager",
-        priority="warning",
-        status="open",
-        due_at="2026-06-18T18:00:00+03:00",
-        requires_human_approval=True,
-    ),
-    TaskItem(
-        task_id="task-execution-007",
-        tender_id="exec-2026-0007",
-        title="Сверить график поставки с пост-победной воронкой",
-        owner_role="execution_owner",
-        priority="critical",
-        status="blocked",
-        due_at="2026-06-17T12:00:00+03:00",
-        requires_human_approval=True,
-    ),
+        task_id=task["task_id"],
+        tender_id=task["tender_id"],
+        title=task["title"],
+        owner_role=task["owner_role"],
+        priority=task["priority"],
+        status=task["status"],
+        due_at=task["due_at"],
+        requires_human_approval=task["requires_human_approval"],
+    )
+    for task in DEMO_DATA["tasks"]
 ]

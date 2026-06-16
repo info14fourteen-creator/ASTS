@@ -1,0 +1,140 @@
+{
+  "tenders": [
+    {
+      "tender_id": "0373100042626000001",
+      "title": "Поставка серверного оборудования для регионального центра",
+      "customer_name": "ГБУ Региональный центр цифровой инфраструктуры",
+      "source": {
+        "source_kind": "eis",
+        "source_url": "https://zakupki.gov.ru/epz/order/notice/ea20/view/common-info.html?regNumber=0373100042626000001",
+        "raw_artifact_id": "raw-eis-0373100042626000001",
+        "checksum_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "freshness": "fresh"
+      },
+      "nmck_rub": 18450000,
+      "nmck_label": "18.4 млн ₽",
+      "region": "Москва",
+      "deadline_at": "2026-06-24T10:00:00+03:00",
+      "deadline_label": "24 июня, 10:00",
+      "funnel": "pre_win",
+      "stage": "qualification",
+      "stage_label": "AI-разбор",
+      "ai_confidence": 0.82,
+      "risk": "medium",
+      "match": 82
+    },
+    {
+      "tender_id": "322119845710000001",
+      "title": "Комплексное обслуживание инженерных систем",
+      "customer_name": "АО Теплосеть",
+      "source": {
+        "source_kind": "eis",
+        "source_url": "https://zakupki.gov.ru/223/purchase/public/purchase/info/common-info.html?regNumber=32211984571",
+        "raw_artifact_id": "raw-eis-32211984571",
+        "checksum_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "freshness": "fresh"
+      },
+      "nmck_rub": 42800000,
+      "nmck_label": "42.8 млн ₽",
+      "region": "Татарстан",
+      "deadline_at": "2026-06-21T09:00:00+03:00",
+      "deadline_label": "21 июня, 09:00",
+      "funnel": "pre_win",
+      "stage": "supplier_quotes",
+      "stage_label": "Поставщики",
+      "ai_confidence": 0.78,
+      "risk": "low",
+      "match": 78
+    },
+    {
+      "tender_id": "exec-2026-0007",
+      "title": "Исполнение контракта: поставка и ввод в эксплуатацию",
+      "customer_name": "ГБУ Региональный центр цифровой инфраструктуры",
+      "source": {
+        "source_kind": "etp",
+        "source_url": "https://www.rts-tender.ru/",
+        "raw_artifact_id": "raw-etp-procedure-room-0373100042626000001",
+        "checksum_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "freshness": "fresh"
+      },
+      "nmck_rub": 18450000,
+      "nmck_label": "18.4 млн ₽",
+      "region": "Москва",
+      "deadline_at": "2026-07-15T18:00:00+03:00",
+      "deadline_label": "15 июля, 18:00",
+      "funnel": "execution",
+      "stage": "fulfillment",
+      "stage_label": "Исполнение",
+      "ai_confidence": 0.74,
+      "risk": "medium",
+      "match": 74
+    }
+  ],
+  "documents": [
+    {
+      "document_id": "doc-0373100042626000001-tz",
+      "tender_id": "0373100042626000001",
+      "title": "Техническое задание",
+      "status": "parsed",
+      "source_ref": "0373100042626000001",
+      "storage_path": "raw/eis/0373100042626000001/specification.pdf",
+      "mime_type": "application/pdf"
+    },
+    {
+      "document_id": "doc-0373100042626000001-customer",
+      "tender_id": "0373100042626000001",
+      "title": "Проверка заказчика по ФНС",
+      "status": "reviewed",
+      "source": {
+        "source_kind": "fns",
+        "source_url": "https://egrul.nalog.ru/",
+        "raw_artifact_id": "raw-fns-customer-profile-7700000000",
+        "checksum_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "freshness": "manual_review"
+      },
+      "storage_path": "raw/fns/7700000000/egrul.json",
+      "mime_type": "application/json"
+    }
+  ],
+  "tasks": [
+    {
+      "task_id": "task-qualification-001",
+      "tender_id": "0373100042626000001",
+      "title": "Подтвердить соответствие требованиям и допускам",
+      "owner_role": "tender_manager",
+      "owner_label": "B2G специалист",
+      "priority": "warning",
+      "status": "open",
+      "due_at": "2026-06-18T18:00:00+03:00",
+      "due_label": "18 июня, 18:00",
+      "tone": "warning",
+      "requires_human_approval": true
+    },
+    {
+      "task_id": "task-suppliers-002",
+      "tender_id": "322119845710000001",
+      "title": "Подтвердить список поставщиков",
+      "owner_role": "supplier_manager",
+      "owner_label": "Менеджер",
+      "priority": "normal",
+      "status": "open",
+      "due_at": "2026-06-18T18:00:00+03:00",
+      "due_label": "сегодня, 18:00",
+      "tone": "neutral",
+      "requires_human_approval": true
+    },
+    {
+      "task_id": "task-execution-007",
+      "tender_id": "exec-2026-0007",
+      "title": "Сверить график поставки с пост-победной воронкой",
+      "owner_role": "execution_owner",
+      "owner_label": "Исполнение",
+      "priority": "critical",
+      "status": "blocked",
+      "due_at": "2026-06-17T12:00:00+03:00",
+      "due_label": "срочно",
+      "tone": "danger",
+      "requires_human_approval": true
+    }
+  ]
+}
