@@ -534,12 +534,14 @@ h3 {
 }
 
 .plan-cycle-panel,
+.plan-api-panel,
 .plan-block-panel,
 .plan-next-panel {
   margin-bottom: 14px;
 }
 
 .plan-cycle-grid,
+.plan-api-grid,
 .plan-block-grid {
   display: grid;
   gap: 10px;
@@ -549,11 +551,16 @@ h3 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+.plan-api-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .plan-block-grid {
   grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
 .plan-cycle-card,
+.plan-api-card,
 .plan-block-card,
 .plan-next-row {
   border: 1px solid var(--line);
@@ -562,27 +569,32 @@ h3 {
 }
 
 .plan-cycle-card,
+.plan-api-card,
 .plan-block-card {
   min-height: 126px;
   padding: 13px;
 }
 
 .plan-cycle-card strong,
+.plan-api-card strong,
 .plan-block-card strong,
 .plan-block-card span,
 .plan-block-card em,
 .plan-cycle-card p,
+.plan-api-card p,
 .plan-block-card p {
   display: block;
 }
 
 .plan-cycle-card strong,
+.plan-api-card strong,
 .plan-block-card strong {
   color: var(--accent-dark);
   line-height: 1.25;
 }
 
 .plan-cycle-card p,
+.plan-api-card p,
 .plan-block-card p {
   margin: 8px 0 0;
   color: var(--muted);
@@ -5635,6 +5647,7 @@ dd {
   }
 
   .plan-cycle-grid,
+  .plan-api-grid,
   .plan-block-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -5904,6 +5917,7 @@ dd {
   }
 
   .plan-cycle-grid,
+  .plan-api-grid,
   .plan-block-grid {
     grid-template-columns: 1fr;
   }

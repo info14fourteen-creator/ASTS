@@ -4,7 +4,7 @@ const currentState = [
   ["PR", "#17 codex/app-site-shell", "CLEAN, checks green"],
   ["Web build", "19 static routes", "GitHub Actions проходят"],
   ["Shared validation", "schemas + fixture", "demo-data aligned"],
-  ["API smoke", "FastAPI contracts", "/v1/sources/connectors проходит"],
+  ["API smoke", "FastAPI contracts", "CI ставит pinned deps; local SKIP допустим"],
   ["Automation", "asts-app-site-ru-12", "heartbeat каждые 12 минут"],
   ["Safety", "no push to main", "все изменения через PR"],
 ];
@@ -20,10 +20,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить API dependency note", "локальный SKIP без FastAPI, CI ставит deps"],
-  ["2", "Добавить owner approval marker", "видимый статус в карточке outcome"],
-  ["3", "Добавить approved/locked demo rows", "fixture-покрытие для outcome filters"],
-  ["4", "Связать `/tenders` row href с detail id", "готовим несколько карточек процедур"],
+  ["1", "Добавить owner approval marker", "видимый статус в карточке outcome"],
+  ["2", "Добавить approved/locked demo rows", "fixture-покрытие для outcome filters"],
+  ["3", "Связать `/tenders` row href с detail id", "готовим несколько карточек процедур"],
+  ["4", "Добавить API smoke badge в карточку PR", "отдельно показать backend gate"],
 ];
 
 const cycleRules = [
@@ -31,6 +31,12 @@ const cycleRules = [
   ["Build", "запустить релевантную проверку"],
   ["Push", "только в PR ветку, не в main"],
   ["Report", "кратко: что сделано, что проверено, что дальше"],
+];
+
+const apiDependencyNotes = [
+  ["Local", "`python3 scripts/smoke_connectors.py` может вернуть SKIP, если FastAPI не установлен"],
+  ["CI", "`API smoke` ставит `apps/api/requirements-smoke.txt` и проверяет реальный endpoint"],
+  ["Merge", "зелёный GitHub Actions важнее локального SKIP на чистой машине"],
 ];
 
 const mergeChecklist = [
@@ -76,6 +82,24 @@ export default function PlanPage() {
           <div className="plan-cycle-grid">
             {cycleRules.map(([title, text]) => (
               <article className="plan-cycle-card" key={title}>
+                <strong>{title}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel plan-api-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">API dependency note</p>
+              <h2>Почему локальный SKIP не ломает smoke</h2>
+            </div>
+            <span className="status-pill green">CI pinned deps</span>
+          </div>
+          <div className="plan-api-grid">
+            {apiDependencyNotes.map(([title, text]) => (
+              <article className="plan-api-card" key={title}>
                 <strong>{title}</strong>
                 <p>{text}</p>
               </article>

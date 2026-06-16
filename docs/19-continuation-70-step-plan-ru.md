@@ -167,10 +167,11 @@
 29. Добавить PR review checklist: merge gates, source evidence, two funnels и owner approval.
 30. Добавить empty state для Tender Inbox, когда outcome-фильтр не находит процедур.
 31. Подключить карточку `/tenders/demo` к shared fixture, чтобы убрать ручные данные процедуры.
+32. Добавить API dependency note: локальный `SKIP` без FastAPI допустим, CI ставит pinned deps.
 
 Следующими брать:
 
-1. Добавить API dependency note: локальный `SKIP` без FastAPI, CI ставит pinned deps.
-2. Добавить owner approval marker: видимый статус в карточке outcome.
-3. Добавить approved/locked demo rows: fixture-покрытие для outcome filters.
-4. Связать `/tenders` row href с detail id: готовим несколько карточек процедур.
+1. Добавить owner approval marker: видимый статус в карточке outcome.
+2. Добавить approved/locked demo rows: fixture-покрытие для outcome filters.
+3. Связать `/tenders` row href с detail id: готовим несколько карточек процедур.
+4. Добавить API smoke badge в карточку PR: отдельно показать backend gate.
