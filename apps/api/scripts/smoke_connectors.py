@@ -17,7 +17,9 @@ def main() -> int:
         print(f"SKIP /v1/sources/connectors smoke: missing dependency {error.name}")
         return 0
 
-    response = TestClient(app).get("/v1/sources/connectors")
+    client = TestClient(app)
+
+    response = client.get("/v1/sources/connectors")
     if response.status_code != 200:
         print(f"FAIL /v1/sources/connectors HTTP {response.status_code}")
         return 1
@@ -59,7 +61,37 @@ def main() -> int:
         print("FAIL EIS connector capabilities are incomplete")
         return 1
 
-    print("PASS /v1/sources/connectors EIS contract-only connector")
+    health_response = client.get("/v1/sources/health")
+    if health_response.status_code != 200:
+        print(f"FAIL /v1/sources/health HTTP {health_response.status_code}")
+        return 1
+
+    health_payload = health_response.json()
+    health_states = health_payload.get("states", [])
+    statuses = {state.get("status") for state in health_states}
+    if statuses != {"ready", "quarantine", "unavailable"}:
+        got_statuses = sorted(str(status) for status in statuses)
+        print(f"FAIL /v1/sources/health statuses: expected ready/quarantine/unavailable, got {got_statuses}")
+        return 1
+
+    summary = health_payload.get("summary", {})
+    expected_counts = {"total": 3, "ready": 1, "quarantine": 1, "unavailable": 1}
+    for field, value in expected_counts.items():
+        if summary.get(field) != value:
+            print(f"FAIL /v1/sources/health summary {field}: expected {value!r}, got {summary.get(field)!r}")
+            return 1
+
+    ready_state = next((state for state in health_states if state.get("status") == "ready"), {})
+    blocked_states = [state for state in health_states if state.get("status") in {"quarantine", "unavailable"}]
+    if ready_state.get("ai_gate") != "allowed":
+        print("FAIL /v1/sources/health ready state must allow AI gate")
+        return 1
+
+    if any(state.get("ai_gate") != "blocked" for state in blocked_states):
+        print("FAIL /v1/sources/health quarantine/unavailable states must block AI gate")
+        return 1
+
+    print("PASS /v1/sources/connectors and /v1/sources/health source contracts")
     return 0
 
 

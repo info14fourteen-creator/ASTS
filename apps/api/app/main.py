@@ -11,6 +11,7 @@ from app.schemas import (
     IngestionPolicyResponse,
     OutcomeReasonsResponse,
     SourceConnectorsResponse,
+    SourceHealthResponse,
     StackResponse,
     StatusCheck,
     TaskItem,
@@ -19,6 +20,7 @@ from app.schemas import (
 from app.services.connectors import get_source_connectors
 from app.services.ingestion import get_ingestion_policy
 from app.services.outcomes import get_outcome_reasons
+from app.services.source_health import get_source_health
 
 app = FastAPI(title=settings.app_name, version=settings.app_version)
 
@@ -102,6 +104,18 @@ def contracts() -> ApiContractsResponse:
                 ],
             ),
             ApiContract(
+                name="Source health",
+                route="/v1/sources/health",
+                model="SourceHealthResponse",
+                required_evidence=[
+                    "source_url",
+                    "raw_artifact_id",
+                    "status",
+                    "ai_gate",
+                    "reason",
+                ],
+            ),
+            ApiContract(
                 name="Outcome reasons",
                 route="/v1/outcomes",
                 model="OutcomeReasonsResponse",
@@ -134,6 +148,11 @@ def ingestion_policy() -> IngestionPolicyResponse:
 @app.get("/v1/sources/connectors", response_model=SourceConnectorsResponse, tags=["sources"])
 def source_connectors() -> SourceConnectorsResponse:
     return get_source_connectors()
+
+
+@app.get("/v1/sources/health", response_model=SourceHealthResponse, tags=["sources"])
+def source_health() -> SourceHealthResponse:
+    return get_source_health()
 
 
 @app.get("/v1/outcomes", response_model=OutcomeReasonsResponse, tags=["workflow"])

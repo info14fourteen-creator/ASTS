@@ -30,6 +30,8 @@ RawArtifactCustodyStatus = Literal[
 ]
 ConnectorMode = Literal["contract_only", "sandbox", "production"]
 ConnectorStatus = Literal["planned", "stub", "ready", "blocked"]
+SourceHealthStatus = Literal["ready", "quarantine", "unavailable"]
+SourceHealthAiGate = Literal["allowed", "blocked"]
 TaskPriority = Literal["normal", "warning", "critical"]
 TaskStatus = Literal["open", "blocked", "done"]
 IngestionAction = Literal["retry", "quarantine", "manual_review"]
@@ -174,6 +176,29 @@ class SourceConnector(BaseModel):
     blocked_by: list[str]
 
 
+class SourceHealthState(BaseModel):
+    id: str
+    source_kind: SourceKind
+    display_name: str
+    host: str
+    source_url: str
+    raw_artifact_id: str
+    status: SourceHealthStatus
+    last_checked: str
+    freshness: str
+    owner_role: str
+    ai_gate: SourceHealthAiGate
+    action: str
+    reason: str
+
+
+class SourceHealthSummary(BaseModel):
+    total: int = Field(ge=0)
+    ready: int = Field(ge=0)
+    quarantine: int = Field(ge=0)
+    unavailable: int = Field(ge=0)
+
+
 class TaskItem(BaseModel):
     task_id: str
     tender_id: str
@@ -229,6 +254,13 @@ class SourceConnectorsResponse(BaseModel):
     version: str
     source_policy: str
     connectors: list[SourceConnector]
+
+
+class SourceHealthResponse(BaseModel):
+    version: str
+    source_policy: str
+    summary: SourceHealthSummary
+    states: list[SourceHealthState]
 
 
 class ApiContract(BaseModel):
