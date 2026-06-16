@@ -164,10 +164,11 @@
 26. Добавить интерактивные outcome filters в tender inbox по статусам suggested / locked / approved.
 27. Подключить tender inbox к shared fixture, чтобы убрать ручные rows.
 28. Добавить API smoke badge/status в README и workdesk `/plan`.
+29. Добавить PR review checklist: merge gates, source evidence, two funnels и owner approval.
 
 Следующими брать:
 
-1. Добавить PR review checklist: merge gates + owner approval.
-2. Добавить empty state для inbox, когда фильтр не находит процедур.
-3. Подключить tender detail к shared fixture, чтобы карточка `/tenders/demo` не жила на ручных блоках.
-4. Добавить API dependency note: локальный `SKIP` без FastAPI, CI ставит pinned deps.
+1. Добавить empty state для inbox, когда фильтр не находит процедур.
+2. Подключить tender detail к shared fixture, чтобы карточка `/tenders/demo` не жила на ручных блоках.
+3. Добавить API dependency note: локальный `SKIP` без FastAPI, CI ставит pinned deps.
+4. Добавить owner approval marker: видимый статус в карточке outcome.

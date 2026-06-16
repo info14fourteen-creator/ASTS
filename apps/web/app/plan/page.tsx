@@ -20,10 +20,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить PR review checklist", "merge gates + owner approval"],
-  ["2", "Добавить empty state для inbox", "когда фильтр не находит процедур"],
-  ["3", "Подключить tender detail к shared fixture", "карточка `/tenders/demo` без ручных блоков"],
-  ["4", "Добавить API dependency note", "локальный SKIP без FastAPI, CI ставит deps"],
+  ["1", "Добавить empty state для inbox", "когда фильтр не находит процедур"],
+  ["2", "Подключить tender detail к shared fixture", "карточка `/tenders/demo` без ручных блоков"],
+  ["3", "Добавить API dependency note", "локальный SKIP без FastAPI, CI ставит deps"],
+  ["4", "Добавить owner approval marker", "видимый статус в карточке outcome"],
 ];
 
 const cycleRules = [
@@ -31,6 +31,13 @@ const cycleRules = [
   ["Build", "запустить релевантную проверку"],
   ["Push", "только в PR ветку, не в main"],
   ["Report", "кратко: что сделано, что проверено, что дальше"],
+];
+
+const mergeChecklist = [
+  ["Checks", "Web build, Shared validation и API smoke зелёные"],
+  ["Funnels", "до победы `/tenders`, исполнение только в `/execution`"],
+  ["Sources", "AI-выводы ссылаются на первоисточник, hash или confidence-rule"],
+  ["Owner", "approval нужен для outcome, экономики, доступов и merge gates"],
 ];
 
 export default function PlanPage() {
@@ -91,6 +98,24 @@ export default function PlanPage() {
                 <strong>{title}</strong>
                 <p>{text}</p>
                 <em>пункты {range}</em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel merge-readiness-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR review checklist</p>
+              <h2>Что нельзя пропустить перед merge</h2>
+            </div>
+            <span className="status-pill green">owner approval</span>
+          </div>
+          <div className="merge-checklist">
+            {mergeChecklist.map(([title, text]) => (
+              <article className="merge-check" key={title}>
+                <strong>{title}</strong>
+                <span>{text}</span>
               </article>
             ))}
           </div>
