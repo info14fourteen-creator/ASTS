@@ -166,10 +166,11 @@
 28. Добавить API smoke badge/status в README и workdesk `/plan`.
 29. Добавить PR review checklist: merge gates, source evidence, two funnels и owner approval.
 30. Добавить empty state для Tender Inbox, когда outcome-фильтр не находит процедур.
+31. Подключить карточку `/tenders/demo` к shared fixture, чтобы убрать ручные данные процедуры.
 
 Следующими брать:
 
-1. Подключить tender detail к shared fixture, чтобы карточка `/tenders/demo` не жила на ручных блоках.
-2. Добавить API dependency note: локальный `SKIP` без FastAPI, CI ставит pinned deps.
-3. Добавить owner approval marker: видимый статус в карточке outcome.
-4. Добавить approved/locked demo rows: fixture-покрытие для outcome filters.
+1. Добавить API dependency note: локальный `SKIP` без FastAPI, CI ставит pinned deps.
+2. Добавить owner approval marker: видимый статус в карточке outcome.
+3. Добавить approved/locked demo rows: fixture-покрытие для outcome filters.
+4. Связать `/tenders` row href с detail id: готовим несколько карточек процедур.

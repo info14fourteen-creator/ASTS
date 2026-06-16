@@ -28,6 +28,23 @@ export type TenderInboxRow = {
   risk: Tender["risk"];
 };
 
+export type TenderDetail = {
+  title: string;
+  statusPill: string;
+  decision: {
+    summary: string;
+    recommendation: string;
+    risk: string;
+    nextStage: string;
+  };
+  sourceFacts: [string, string][];
+  aiChecks: [string, string][];
+  nextActions: [string, string, string][];
+  outcomeSnapshot: [string, string, string][];
+  auditTrail: [string, string, string][];
+  participationStageIndex: number;
+};
+
 export type Task = {
   title: string;
   owner: string;
@@ -173,6 +190,17 @@ function hostFromUrl(value: string): string {
   }
 }
 
+function shortChecksum(value: string): string {
+  return `${value.slice(0, 12)}...${value.slice(-6)}`;
+}
+
+function formatAuditTime(value: string): string {
+  return new Intl.DateTimeFormat("ru-RU", {
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(new Date(value));
+}
+
 export const tenders: Tender[] = demoData.tenders.map((tender) => ({
   id: tender.tender_id,
   title: tender.title,
@@ -224,6 +252,53 @@ export const executionStages = [
   "Закрывающие",
   "Финальный расчет",
 ];
+
+const detailTender = demoData.tenders.find((tender) => tender.funnel === "pre_win") ?? demoData.tenders[0];
+const detailTasks = demoData.tasks.filter((task) => task.tender_id === detailTender.tender_id);
+const detailDocuments = demoData.documents.filter((document) => document.tender_id === detailTender.tender_id);
+
+export const tenderDetail: TenderDetail = {
+  title: detailTender.title,
+  statusPill: `AI ${detailTender.outcome.status}: ${detailTender.outcome.title}`,
+  decision: {
+    summary: detailTender.outcome.note,
+    recommendation: detailTender.outcome.title,
+    risk: `${detailTender.risk} risk, match ${detailTender.match}%`,
+    nextStage: detailTender.stage_label,
+  },
+  sourceFacts: [
+    ["Источник", hostFromUrl(detailTender.source.source_url)],
+    ["Raw artifact", detailTender.source.raw_artifact_id],
+    ["Checksum", shortChecksum(detailTender.source.checksum_sha256)],
+    ["Срок подачи", detailTender.deadline_label],
+  ],
+  aiChecks: [
+    ["Outcome", detailTender.outcome.note],
+    ["Confidence", `${Math.round(detailTender.ai_confidence * 100)}%`],
+    ["Evidence", detailTender.outcome.source_ref],
+    ["Документы", `${detailDocuments.length} raw artifact(s) attached`],
+  ],
+  nextActions: detailTasks.length
+    ? detailTasks.map((task) => [task.owner_label, task.title, task.due_label])
+    : [[detailTender.outcome.owner_role, detailTender.outcome.title, "owner approval"]],
+  outcomeSnapshot: [
+    ["Outcome", detailTender.outcome.code, detailTender.outcome.status],
+    ["Reason", detailTender.outcome.title, detailTender.outcome.note],
+    ["Approval", detailTender.outcome.owner_role, detailTender.outcome.requires_owner_approval ? "обязательно" : "не требуется"],
+    ["Evidence", detailTender.outcome.source_ref, "source proof"],
+  ],
+  auditTrail: detailTender.audit_events.map((event) => [
+    formatAuditTime(event.created_at),
+    event.action,
+    event.evidence_ref,
+  ]),
+  participationStageIndex: Math.max(
+    0,
+    ["intake", "qualification", "positions", "supplier_quotes", "top_3", "economics", "submission", "result"].indexOf(
+      detailTender.stage,
+    ),
+  ),
+};
 
 export const tasks: Task[] = demoData.tasks.map((task) => ({
   title: task.title,

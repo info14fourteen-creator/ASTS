@@ -20,10 +20,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Подключить tender detail к shared fixture", "карточка `/tenders/demo` без ручных блоков"],
-  ["2", "Добавить API dependency note", "локальный SKIP без FastAPI, CI ставит deps"],
-  ["3", "Добавить owner approval marker", "видимый статус в карточке outcome"],
-  ["4", "Добавить approved/locked demo rows", "fixture-покрытие для outcome filters"],
+  ["1", "Добавить API dependency note", "локальный SKIP без FastAPI, CI ставит deps"],
+  ["2", "Добавить owner approval marker", "видимый статус в карточке outcome"],
+  ["3", "Добавить approved/locked demo rows", "fixture-покрытие для outcome filters"],
+  ["4", "Связать `/tenders` row href с detail id", "готовим несколько карточек процедур"],
 ];
 
 const cycleRules = [
