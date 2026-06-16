@@ -105,6 +105,14 @@ export default function TenderCardPage() {
               </div>
               <span className="status-pill">AI suggested</span>
             </div>
+            <div className={`owner-approval-marker ${tenderDetail.ownerApproval.required ? "required" : "optional"}`}>
+              <div>
+                <span>{tenderDetail.ownerApproval.status}</span>
+                <strong>{tenderDetail.ownerApproval.ownerRole}</strong>
+                <p>{tenderDetail.ownerApproval.note}</p>
+              </div>
+              <em>{tenderDetail.ownerApproval.evidence}</em>
+            </div>
             <div className="outcome-reason-grid">
               {tenderDetail.outcomeSnapshot.map(([label, value, note]) => (
                 <article className="outcome-reason-card" key={label}>

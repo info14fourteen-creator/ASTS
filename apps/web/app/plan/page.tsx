@@ -20,10 +20,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить owner approval marker", "видимый статус в карточке outcome"],
-  ["2", "Добавить approved/locked demo rows", "fixture-покрытие для outcome filters"],
-  ["3", "Связать `/tenders` row href с detail id", "готовим несколько карточек процедур"],
-  ["4", "Добавить API smoke badge в карточку PR", "отдельно показать backend gate"],
+  ["1", "Добавить approved/locked demo rows", "fixture-покрытие для outcome filters"],
+  ["2", "Связать `/tenders` row href с detail id", "готовим несколько карточек процедур"],
+  ["3", "Добавить API smoke badge в карточку PR", "отдельно показать backend gate"],
+  ["4", "Добавить owner approval smoke text", "закрепить marker в route smoke"],
 ];
 
 const cycleRules = [

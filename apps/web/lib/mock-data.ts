@@ -37,6 +37,13 @@ export type TenderDetail = {
     risk: string;
     nextStage: string;
   };
+  ownerApproval: {
+    required: boolean;
+    status: string;
+    ownerRole: string;
+    evidence: string;
+    note: string;
+  };
   sourceFacts: [string, string][];
   aiChecks: [string, string][];
   nextActions: [string, string, string][];
@@ -265,6 +272,15 @@ export const tenderDetail: TenderDetail = {
     recommendation: detailTender.outcome.title,
     risk: `${detailTender.risk} risk, match ${detailTender.match}%`,
     nextStage: detailTender.stage_label,
+  },
+  ownerApproval: {
+    required: detailTender.outcome.requires_owner_approval,
+    status: detailTender.outcome.requires_owner_approval ? "Owner approval required" : "Owner approval not required",
+    ownerRole: detailTender.outcome.owner_role,
+    evidence: detailTender.outcome.source_ref,
+    note: detailTender.outcome.requires_owner_approval
+      ? "AI предлагает исход, но закрытие сделки требует подтверждения владельца этапа."
+      : "Исход можно закрыть без дополнительного владельца по текущей policy.",
   },
   sourceFacts: [
     ["Источник", hostFromUrl(detailTender.source.source_url)],
