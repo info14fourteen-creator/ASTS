@@ -173,10 +173,11 @@
 35. Связать `/tenders` row href с detail id: строки inbox ведут на `/tenders/[id]`.
 36. Добавить API smoke badge в карточку PR/workdesk: backend gate виден в `/plan`.
 37. Добавить owner approval smoke text: route smoke закрепляет marker в inbox и карточке процедуры.
+38. Добавить execution fixture row в отдельный экран: post-win запись видна в `/execution`, а не в pre-win inbox.
 
 Следующими брать:
 
-1. Добавить execution fixture row в отдельный экран: не смешивать post-win с pre-win inbox.
-2. Добавить detail fallback copy для неизвестного tender id: 404 с понятной причиной.
-3. Добавить tender detail smoke route list: проверять реальные demo id из fixture.
-4. Добавить route smoke для outcome filters: проверять suggested / locked / approved.
+1. Добавить detail fallback copy для неизвестного tender id: 404 с понятной причиной.
+2. Добавить tender detail smoke route list: проверять реальные demo id из fixture.
+3. Добавить route smoke для outcome filters: проверять suggested / locked / approved.
+4. Добавить execution smoke по документам: проверять handoff artifacts второй воронки.

@@ -58,6 +58,17 @@ const routeChecks = [
     ],
   },
   {
+    path: "/execution",
+    status: 200,
+    mustInclude: [
+      "Исполнение после победы",
+      "Execution fixture inbox",
+      "exec-2026-0007",
+      "execution_owner",
+      "raw-etp-procedure-room-0373100042626000001",
+    ],
+  },
+  {
     path: "/sources",
     status: 200,
     mustInclude: [

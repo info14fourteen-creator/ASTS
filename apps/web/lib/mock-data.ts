@@ -28,6 +28,21 @@ export type TenderInboxRow = {
   risk: Tender["risk"];
 };
 
+export type ExecutionRow = {
+  id: string;
+  title: string;
+  customer: string;
+  stage: string;
+  outcome: OutcomeStatus;
+  owner: string;
+  evidence: string;
+  deadline: string;
+  nmck: string;
+  match: string;
+  note: string;
+  documentCount: number;
+};
+
 export type TenderDetail = {
   title: string;
   statusPill: string;
@@ -239,6 +254,23 @@ export const tenderInboxRows: TenderInboxRow[] = demoData.tenders
       risk: tenderRisk(tender.risk),
     };
   });
+
+export const executionRows: ExecutionRow[] = demoData.tenders
+  .filter((tender) => tender.funnel === "execution")
+  .map((tender) => ({
+    id: tender.tender_id,
+    title: tender.title,
+    customer: tender.customer_name,
+    stage: tender.stage_label,
+    outcome: outcomeStatus(tender.outcome.status),
+    owner: tender.outcome.owner_role,
+    evidence: tender.outcome.source_ref,
+    deadline: tender.deadline_label,
+    nmck: tender.nmck_label,
+    match: `${tender.match}%`,
+    note: tender.outcome.note,
+    documentCount: demoData.documents.filter((document) => document.tender_id === tender.tender_id).length,
+  }));
 
 export const participationStages = [
   "Входящие",

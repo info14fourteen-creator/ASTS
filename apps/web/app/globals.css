@@ -3263,6 +3263,62 @@ dd {
   line-height: 1.4;
 }
 
+.execution-fixture-panel {
+  margin-top: 14px;
+}
+
+.execution-fixture-table {
+  display: grid;
+  gap: 8px;
+}
+
+.execution-fixture-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) 86px minmax(0, 0.7fr) minmax(0, 1fr) 108px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  min-height: 76px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfcfd;
+}
+
+.execution-fixture-head {
+  min-height: auto;
+  border: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  background: transparent;
+}
+
+.execution-fixture-row strong,
+.execution-fixture-row span,
+.execution-fixture-row small,
+.execution-fixture-row em {
+  display: block;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.execution-fixture-row small,
+.execution-fixture-row em {
+  margin-top: 5px;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.execution-fixture-row em {
+  font-style: normal;
+}
+
+.execution-fixture-head span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
 .execution-health-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -5696,6 +5752,15 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .execution-fixture-row {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  .execution-fixture-head {
+    display: none;
+  }
+
   .execution-start-gate-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -6240,6 +6305,11 @@ dd {
 
   .execution-handoff-grid {
     grid-template-columns: 1fr;
+  }
+
+  .execution-fixture-row {
+    grid-template-columns: 1fr;
+    gap: 7px;
   }
 
   .execution-start-gate-grid {

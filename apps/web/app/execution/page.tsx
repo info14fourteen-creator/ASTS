@@ -1,4 +1,5 @@
 import { Sidebar } from "../app-shell";
+import { executionRows } from "../../lib/mock-data";
 
 const executionStages = ["Договор", "Счет", "Закупка", "Поставка", "Закрывающие", "Финальный расчет"];
 
@@ -142,6 +143,46 @@ export default function ExecutionPage() {
                 <span>{status}</span>
                 <strong>{title}</strong>
                 <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel execution-fixture-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Execution fixture inbox</p>
+              <h2>Контракты только второй воронки</h2>
+            </div>
+            <span className="status-pill green">post-win only</span>
+          </div>
+          <div className="execution-fixture-table">
+            <div className="execution-fixture-row execution-fixture-head">
+              <span>Контракт</span>
+              <span>Outcome</span>
+              <span>Владелец</span>
+              <span>Evidence</span>
+              <span>Срок</span>
+              <span>AI</span>
+            </div>
+            {executionRows.map((row) => (
+              <article className="execution-fixture-row" key={row.id}>
+                <div>
+                  <strong>{row.id}</strong>
+                  <small>{row.title}</small>
+                  <em>{row.customer}</em>
+                </div>
+                <span className={`outcome-state-pill ${row.outcome}`}>{row.outcome}</span>
+                <span>{row.owner}</span>
+                <div>
+                  <strong>{row.evidence}</strong>
+                  <small>{row.documentCount} raw artifact(s)</small>
+                </div>
+                <span>{row.deadline}</span>
+                <div>
+                  <strong>{row.match}</strong>
+                  <small>{row.note}</small>
+                </div>
               </article>
             ))}
           </div>

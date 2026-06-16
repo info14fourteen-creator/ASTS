@@ -20,10 +20,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить execution fixture row в отдельный экран", "не смешивать post-win с pre-win inbox"],
-  ["2", "Добавить detail fallback copy", "404 с понятной причиной для неизвестного id"],
-  ["3", "Добавить tender detail smoke route list", "проверять реальные demo id из fixture"],
-  ["4", "Добавить route smoke для outcome filters", "проверять suggested / locked / approved"],
+  ["1", "Добавить detail fallback copy", "404 с понятной причиной для неизвестного id"],
+  ["2", "Добавить tender detail smoke route list", "проверять реальные demo id из fixture"],
+  ["3", "Добавить route smoke для outcome filters", "проверять suggested / locked / approved"],
+  ["4", "Добавить execution smoke по документам", "проверять handoff artifacts второй воронки"],
 ];
 
 const cycleRules = [
