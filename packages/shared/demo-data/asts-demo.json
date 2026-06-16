@@ -302,7 +302,7 @@
         "checksum_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
         "content_type": "application/pdf",
         "collected_at": "2026-06-16T08:24:00+05:00",
-        "custody_status": "reviewed"
+        "custody_status": "checksum_verified"
       },
       "storage_path": "raw/eis/exec-2026-0007/signed-contract.pdf",
       "mime_type": "application/pdf"

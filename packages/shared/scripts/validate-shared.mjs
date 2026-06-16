@@ -256,6 +256,8 @@ function validateSourceEvidence(source, label) {
 }
 
 function validateRawArtifact(rawArtifact, label) {
+  const custodyStatuses = new Set(["raw_saved", "checksum_verified", "parsed", "quarantine"]);
+
   assert(rawArtifact, `${label} must include raw_artifact`);
   assertNonEmptyString(rawArtifact.artifact_id, `${label}.raw_artifact.artifact_id`);
   assertNonEmptyString(rawArtifact.storage_path, `${label}.raw_artifact.storage_path`);
@@ -264,6 +266,10 @@ function validateRawArtifact(rawArtifact, label) {
   assertNonEmptyString(rawArtifact.content_type, `${label}.raw_artifact.content_type`);
   assertNonEmptyString(rawArtifact.collected_at, `${label}.raw_artifact.collected_at`);
   assertNonEmptyString(rawArtifact.custody_status, `${label}.raw_artifact.custody_status`);
+  assert(
+    custodyStatuses.has(rawArtifact.custody_status),
+    `${label}.raw_artifact.custody_status must be raw_saved, checksum_verified, parsed or quarantine`,
+  );
 }
 
 function assertArrayIncludes(actual, expected, label) {
