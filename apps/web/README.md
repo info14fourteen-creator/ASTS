@@ -32,7 +32,8 @@ npm run start -- --hostname 127.0.0.1 --port 3040
 
 - `/` - обзор кабинета, утренний контроль, сверка mind map.
 - `/tenders` - входящие процедуры и первая воронка до победы.
-- `/tenders/demo` - карточка процедуры.
+- `/tenders/[id]` - карточка процедуры из shared fixture.
+- `/tenders/demo` - совместимый shortcut на первую demo-карточку.
 - `/sources` - первоисточники, freshness SLA, evidence gate.
 - `/documents` - файлы, OCR, версии и hash-контроль.
 - `/ai-review` - AI-разбор с confidence и guardrails.

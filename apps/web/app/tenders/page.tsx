@@ -178,7 +178,7 @@ export default function TendersPage() {
               <span>AI</span>
             </div>
             {filteredRows.map((row) => (
-              <a className="table-row tender-row table-link tender-inbox-row" href="/tenders/demo" key={row.id}>
+              <a className="table-row tender-row table-link tender-inbox-row" href={`/tenders/${row.id}`} key={row.id}>
                 <div>
                   <strong>{row.id}</strong>
                   <small>{row.nextAction}</small>

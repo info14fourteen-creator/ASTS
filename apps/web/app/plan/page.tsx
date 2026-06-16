@@ -20,10 +20,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Связать `/tenders` row href с detail id", "готовим несколько карточек процедур"],
-  ["2", "Добавить API smoke badge в карточку PR", "отдельно показать backend gate"],
-  ["3", "Добавить owner approval smoke text", "закрепить marker в route smoke"],
-  ["4", "Добавить execution fixture row в отдельный экран", "не смешивать post-win с pre-win inbox"],
+  ["1", "Добавить API smoke badge в карточку PR", "отдельно показать backend gate"],
+  ["2", "Добавить owner approval smoke text", "закрепить marker в route smoke"],
+  ["3", "Добавить execution fixture row в отдельный экран", "не смешивать post-win с pre-win inbox"],
+  ["4", "Добавить detail fallback copy", "404 с понятной причиной для неизвестного id"],
 ];
 
 const cycleRules = [

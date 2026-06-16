@@ -10,7 +10,7 @@
 - Рабочий PR для кабинета: `#17 Build initial app.site.ru workspace shell`.
 - Основная ветка разработки: `codex/app-site-shell`; прямой push в `main` запрещен.
 - PR #17 находится в состоянии `CLEAN`, GitHub Actions проходят.
-- Есть Next.js web-кабинет `apps/web` с маршрутом `/` и рабочими разделами: `/tenders`, `/tenders/demo`, `/sources`, `/documents`, `/ai-review`, `/economics`, `/execution`, `/tasks`, `/integrations`, `/settings`, `/onboarding`, `/login`.
+- Есть Next.js web-кабинет `apps/web` с маршрутом `/` и рабочими разделами: `/tenders`, `/tenders/[id]`, `/tenders/demo`, `/sources`, `/documents`, `/ai-review`, `/economics`, `/execution`, `/tasks`, `/integrations`, `/settings`, `/onboarding`, `/login`.
 - Восстановлены две отдельные воронки старой B2G-логики: до победы в процедуре и после победы / исполнение.
 - Зафиксирована политика данных: только первоисточники, агрегаторы не являются источником истины.
 - В workdesk уже есть roadmap, первоисточники, mind map cleanup и правила merge.
@@ -170,10 +170,11 @@
 32. Добавить API dependency note: локальный `SKIP` без FastAPI допустим, CI ставит pinned deps.
 33. Добавить owner approval marker: видимый статус в карточке outcome.
 34. Добавить approved/locked demo rows: fixture-покрытие для outcome filters.
+35. Связать `/tenders` row href с detail id: строки inbox ведут на `/tenders/[id]`.
 
 Следующими брать:
 
-1. Связать `/tenders` row href с detail id: готовим несколько карточек процедур.
-2. Добавить API smoke badge в карточку PR: отдельно показать backend gate.
-3. Добавить owner approval smoke text: закрепить marker в route smoke.
-4. Добавить execution fixture row в отдельный экран: не смешивать post-win с pre-win inbox.
+1. Добавить API smoke badge в карточку PR: отдельно показать backend gate.
+2. Добавить owner approval smoke text: закрепить marker в route smoke.
+3. Добавить execution fixture row в отдельный экран: не смешивать post-win с pre-win inbox.
+4. Добавить detail fallback copy для неизвестного tender id: 404 с понятной причиной.

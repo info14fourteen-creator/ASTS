@@ -261,60 +261,86 @@ export const executionStages = [
 ];
 
 const detailTender = demoData.tenders.find((tender) => tender.funnel === "pre_win") ?? demoData.tenders[0];
-const detailTasks = demoData.tasks.filter((task) => task.tender_id === detailTender.tender_id);
-const detailDocuments = demoData.documents.filter((document) => document.tender_id === detailTender.tender_id);
+const participationStageOrder = [
+  "intake",
+  "qualification",
+  "positions",
+  "supplier_quotes",
+  "top_3",
+  "economics",
+  "submission",
+  "result",
+];
 
-export const tenderDetail: TenderDetail = {
-  title: detailTender.title,
-  statusPill: `AI ${detailTender.outcome.status}: ${detailTender.outcome.title}`,
-  decision: {
-    summary: detailTender.outcome.note,
-    recommendation: detailTender.outcome.title,
-    risk: `${detailTender.risk} risk, match ${detailTender.match}%`,
-    nextStage: detailTender.stage_label,
-  },
-  ownerApproval: {
-    required: detailTender.outcome.requires_owner_approval,
-    status: detailTender.outcome.requires_owner_approval ? "Owner approval required" : "Owner approval not required",
-    ownerRole: detailTender.outcome.owner_role,
-    evidence: detailTender.outcome.source_ref,
-    note: detailTender.outcome.requires_owner_approval
-      ? "AI предлагает исход, но закрытие сделки требует подтверждения владельца этапа."
-      : "Исход можно закрыть без дополнительного владельца по текущей policy.",
-  },
-  sourceFacts: [
-    ["Источник", hostFromUrl(detailTender.source.source_url)],
-    ["Raw artifact", detailTender.source.raw_artifact_id],
-    ["Checksum", shortChecksum(detailTender.source.checksum_sha256)],
-    ["Срок подачи", detailTender.deadline_label],
-  ],
-  aiChecks: [
-    ["Outcome", detailTender.outcome.note],
-    ["Confidence", `${Math.round(detailTender.ai_confidence * 100)}%`],
-    ["Evidence", detailTender.outcome.source_ref],
-    ["Документы", `${detailDocuments.length} raw artifact(s) attached`],
-  ],
-  nextActions: detailTasks.length
-    ? detailTasks.map((task) => [task.owner_label, task.title, task.due_label])
-    : [[detailTender.outcome.owner_role, detailTender.outcome.title, "owner approval"]],
-  outcomeSnapshot: [
-    ["Outcome", detailTender.outcome.code, detailTender.outcome.status],
-    ["Reason", detailTender.outcome.title, detailTender.outcome.note],
-    ["Approval", detailTender.outcome.owner_role, detailTender.outcome.requires_owner_approval ? "обязательно" : "не требуется"],
-    ["Evidence", detailTender.outcome.source_ref, "source proof"],
-  ],
-  auditTrail: detailTender.audit_events.map((event) => [
-    formatAuditTime(event.created_at),
-    event.action,
-    event.evidence_ref,
-  ]),
-  participationStageIndex: Math.max(
-    0,
-    ["intake", "qualification", "positions", "supplier_quotes", "top_3", "economics", "submission", "result"].indexOf(
-      detailTender.stage,
-    ),
-  ),
-};
+export const tenderDetailIds = demoData.tenders
+  .filter((tender) => tender.funnel === "pre_win")
+  .map((tender) => tender.tender_id);
+
+export function getTenderDetail(tenderId: string): TenderDetail | undefined {
+  const tender = demoData.tenders.find((item) => item.tender_id === tenderId && item.funnel === "pre_win");
+
+  if (!tender) {
+    return undefined;
+  }
+
+  const detailTasks = demoData.tasks.filter((task) => task.tender_id === tender.tender_id);
+  const detailDocuments = demoData.documents.filter((document) => document.tender_id === tender.tender_id);
+
+  return {
+    title: tender.title,
+    statusPill: `AI ${tender.outcome.status}: ${tender.outcome.title}`,
+    decision: {
+      summary: tender.outcome.note,
+      recommendation: tender.outcome.title,
+      risk: `${tender.risk} risk, match ${tender.match}%`,
+      nextStage: tender.stage_label,
+    },
+    ownerApproval: {
+      required: tender.outcome.requires_owner_approval,
+      status: tender.outcome.requires_owner_approval ? "Owner approval required" : "Owner approval not required",
+      ownerRole: tender.outcome.owner_role,
+      evidence: tender.outcome.source_ref,
+      note: tender.outcome.requires_owner_approval
+        ? "AI предлагает исход, но закрытие сделки требует подтверждения владельца этапа."
+        : "Исход можно закрыть без дополнительного владельца по текущей policy.",
+    },
+    sourceFacts: [
+      ["Источник", hostFromUrl(tender.source.source_url)],
+      ["Raw artifact", tender.source.raw_artifact_id],
+      ["Checksum", shortChecksum(tender.source.checksum_sha256)],
+      ["Срок подачи", tender.deadline_label],
+    ],
+    aiChecks: [
+      ["Outcome", tender.outcome.note],
+      ["Confidence", `${Math.round(tender.ai_confidence * 100)}%`],
+      ["Evidence", tender.outcome.source_ref],
+      ["Документы", `${detailDocuments.length} raw artifact(s) attached`],
+    ],
+    nextActions: detailTasks.length
+      ? detailTasks.map((task) => [task.owner_label, task.title, task.due_label])
+      : [[tender.outcome.owner_role, tender.outcome.title, "owner approval"]],
+    outcomeSnapshot: [
+      ["Outcome", tender.outcome.code, tender.outcome.status],
+      ["Reason", tender.outcome.title, tender.outcome.note],
+      ["Approval", tender.outcome.owner_role, tender.outcome.requires_owner_approval ? "обязательно" : "не требуется"],
+      ["Evidence", tender.outcome.source_ref, "source proof"],
+    ],
+    auditTrail: tender.audit_events.map((event) => [
+      formatAuditTime(event.created_at),
+      event.action,
+      event.evidence_ref,
+    ]),
+    participationStageIndex: Math.max(0, participationStageOrder.indexOf(tender.stage)),
+  };
+}
+
+const defaultTenderDetail = getTenderDetail(detailTender.tender_id);
+
+if (!defaultTenderDetail) {
+  throw new Error("Demo tender detail fixture is missing");
+}
+
+export const tenderDetail = defaultTenderDetail;
 
 export const tasks: Task[] = demoData.tasks.map((task) => ({
   title: task.title,
