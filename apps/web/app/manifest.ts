@@ -13,5 +13,19 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: "#142126",
     categories: ["business", "productivity"],
     lang: "ru",
+    icons: [
+      {
+        src: "/icons/asts-icon.svg",
+        sizes: "any",
+        type: "image/svg+xml",
+        purpose: "any",
+      },
+      {
+        src: "/icons/asts-maskable.svg",
+        sizes: "any",
+        type: "image/svg+xml",
+        purpose: "maskable",
+      },
+    ],
   };
 }

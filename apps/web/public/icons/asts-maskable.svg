@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">ASTS maskable</title>
+  <desc id="desc">Maskable tender operations app icon</desc>
+  <rect width="512" height="512" fill="#142126"/>
+  <circle cx="256" cy="256" r="196" fill="#f4f6f8"/>
+  <path fill="#142126" d="M151 167h210v38H151zM151 238h210v38H151zM151 309h134v38H151z"/>
+  <path fill="#42a46b" d="M317 304l29 29 58-70 29 24-84 101-61-58z"/>
+</svg>

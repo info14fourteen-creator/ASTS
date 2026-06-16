@@ -6,6 +6,7 @@ import {
   operatorHandoff,
   participationStages,
   previewReview,
+  pwaReadiness,
   releaseReadiness,
   tasks,
   tenders,
@@ -161,6 +162,29 @@ function ReleasePanel() {
         {releaseReadiness.map(([title, scope, text]) => (
           <article className="release-card" key={title}>
             <span>{scope}</span>
+            <strong>{title}</strong>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function PwaReadinessPanel() {
+  return (
+    <section className="panel pwa-panel" aria-label="Готовность PWA">
+      <div className="panel-head compact">
+        <div>
+          <p className="eyebrow">PWA readiness</p>
+          <h2>Что нужно для web/mobile install</h2>
+        </div>
+        <span className="status-pill green">manifest live</span>
+      </div>
+      <div className="pwa-grid">
+        {pwaReadiness.map(([title, text, status]) => (
+          <article className={`pwa-card ${status}`} key={title}>
+            <span>{status}</span>
             <strong>{title}</strong>
             <p>{text}</p>
           </article>
@@ -348,6 +372,7 @@ export function OverviewWorkspace() {
       <MindMapParityPanel />
       <PreviewPanel />
       <ReleasePanel />
+      <PwaReadinessPanel />
 
       <section className="layout-grid">
         <TenderInboxPanel />

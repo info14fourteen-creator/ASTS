@@ -145,10 +145,11 @@
 7. Добавить prototype endpoints: in-memory `/v1/tenders`, `/v1/documents`, `/v1/tasks`.
 8. Сверить mind map registry со статусами `implemented / planned / needs owner`.
 9. Разделить главный экран на компоненты `overview-sections.tsx`.
+10. Добавить PWA readiness check: manifest icons и install/offline статусы.
 
 Следующими брать:
 
-1. Добавить PWA readiness check.
-2. Подготовить ingestion service layer: retry, quarantine, raw artifacts.
-3. Связать demo API с web mock data.
-4. Описать JSON-схемы извлечения позиций и КП.
+1. Подготовить ingestion service layer: retry, quarantine, raw artifacts.
+2. Связать demo API с web mock data.
+3. Описать JSON-схемы извлечения позиций и КП.
+4. Добавить справочник outcome/reason в API.

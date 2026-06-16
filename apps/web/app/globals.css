@@ -642,13 +642,15 @@ h3 {
   color: var(--muted);
 }
 
-.release-grid {
+.release-grid,
+.pwa-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
 }
 
-.release-card {
+.release-card,
+.pwa-card {
   min-height: 124px;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -658,23 +660,37 @@ h3 {
 
 .release-card span,
 .release-card strong,
-.release-card p {
+.release-card p,
+.pwa-card span,
+.pwa-card strong,
+.pwa-card p {
   display: block;
 }
 
-.release-card span {
+.release-card span,
+.pwa-card span {
   color: var(--green);
   font-size: 12px;
   font-weight: 850;
   text-transform: uppercase;
 }
 
-.release-card strong {
+.pwa-card.planned span {
+  color: var(--amber);
+}
+
+.pwa-card.blocked span {
+  color: var(--red);
+}
+
+.release-card strong,
+.pwa-card strong {
   margin-top: 10px;
   line-height: 1.25;
 }
 
-.release-card p {
+.release-card p,
+.pwa-card p {
   margin: 8px 0 0;
   color: var(--muted);
   line-height: 1.4;
@@ -5217,7 +5233,8 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .release-grid {
+  .release-grid,
+  .pwa-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -5485,7 +5502,8 @@ dd {
     grid-template-columns: 1fr;
   }
 
-  .release-grid {
+  .release-grid,
+  .pwa-grid {
     grid-template-columns: 1fr;
   }
 

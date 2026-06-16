@@ -135,6 +135,13 @@ export const releaseReadiness = [
   ["Collaboration", "PR #17", "объединяем только после review"],
 ];
 
+export const pwaReadiness = [
+  ["Manifest", "standalone, scope, theme и language заданы", "ready"],
+  ["Icons", "any + maskable SVG добавлены в public/icons", "ready"],
+  ["Install", "кнопку установки добавим после UX на mobile", "planned"],
+  ["Offline", "service worker включим после API/cache policy", "blocked"],
+];
+
 export const integrations = [
   ["Bitrix24", "первая очередь"],
   ["amoCRM", "первая очередь"],
