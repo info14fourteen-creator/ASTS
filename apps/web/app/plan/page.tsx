@@ -18,10 +18,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить outcome UI states", "approved / locked / rejected variants"],
-  ["2", "Подключить documents к shared fixture", "убрать ручное дублирование demo-data"],
-  ["3", "Добавить API dependency lock", "CI для smoke-проверок"],
-  ["4", "Добавить shared validation badge", "README / workdesk status"],
+  ["1", "Подключить documents к shared fixture", "убрать ручное дублирование demo-data"],
+  ["2", "Добавить API dependency lock", "CI для smoke-проверок"],
+  ["3", "Добавить shared validation badge", "README / workdesk status"],
+  ["4", "Добавить outcome filters", "inbox по статусам suggested / locked / approved"],
 ];
 
 const cycleRules = [

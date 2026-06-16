@@ -1159,6 +1159,68 @@ dd {
   overflow-wrap: anywhere;
 }
 
+.outcome-states-panel {
+  margin-top: 14px;
+}
+
+.outcome-states-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.outcome-state-card {
+  min-height: 124px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 13px;
+  background: #fbfcfd;
+}
+
+.outcome-state-card span,
+.outcome-state-card strong,
+.outcome-state-card p {
+  display: block;
+}
+
+.outcome-state-card span {
+  width: fit-content;
+  border-radius: 8px;
+  padding: 4px 7px;
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.outcome-state-card.green span {
+  border: 1px solid rgba(40, 122, 82, 0.22);
+  background: rgba(40, 122, 82, 0.08);
+  color: var(--green);
+}
+
+.outcome-state-card.amber span {
+  border: 1px solid rgba(154, 100, 27, 0.24);
+  background: #fff7e8;
+  color: var(--amber);
+}
+
+.outcome-state-card.red span {
+  border: 1px solid rgba(172, 61, 61, 0.22);
+  background: #fff5f5;
+  color: var(--red);
+}
+
+.outcome-state-card strong {
+  margin-top: 10px;
+  line-height: 1.28;
+}
+
+.outcome-state-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
 .deal-detail-grid {
   display: grid;
   grid-template-columns: 0.85fr 1fr 1fr;
@@ -5228,6 +5290,10 @@ dd {
     grid-template-columns: 1fr;
   }
 
+  .outcome-states-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .deal-detail-grid {
     grid-template-columns: 1fr;
   }
@@ -5700,6 +5766,10 @@ dd {
   }
 
   .outcome-reason-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .outcome-states-grid {
     grid-template-columns: 1fr;
   }
 

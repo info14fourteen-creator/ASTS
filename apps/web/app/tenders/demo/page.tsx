@@ -35,6 +35,11 @@ const auditTrail = [
   ["08:03", "Создана задача на проверку аналогов", "task-qualification-001"],
   ["08:05", "Закрытие сделки заблокировано до владельца", "owner approval"],
 ];
+const outcomeStates = [
+  ["approved", "Владелец подтвердил исход", "переход разрешен", "green"],
+  ["locked", "AI или правило заблокировали закрытие", "нужен owner approval", "amber"],
+  ["rejected", "Сделка завершена с причиной отказа", "архив без удаления истории", "red"],
+];
 
 export default function TenderCardPage() {
   return (
@@ -148,6 +153,25 @@ export default function TenderCardPage() {
               ))}
             </div>
           </article>
+        </section>
+
+        <section className="panel outcome-states-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Outcome states</p>
+              <h2>Как меняется карточка после решения</h2>
+            </div>
+            <span className="status-pill">approved / locked / rejected</span>
+          </div>
+          <div className="outcome-states-grid">
+            {outcomeStates.map(([state, rule, gate, tone]) => (
+              <article className={`outcome-state-card ${tone}`} key={state}>
+                <span>{state}</span>
+                <strong>{rule}</strong>
+                <p>{gate}</p>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="deal-detail-grid">

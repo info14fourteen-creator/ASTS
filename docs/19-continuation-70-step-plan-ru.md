@@ -157,10 +157,11 @@
 19. Показать raw artifact manifest в web-разделе документов.
 20. Добавить smoke-проверку `/v1/sources/connectors` после установки API-зависимостей.
 21. Включить shared validation в GitHub Actions.
+22. Добавить outcome UI states: approved / locked / rejected.
 
 Следующими брать:
 
-1. Добавить outcome UI states: approved / locked / rejected.
-2. Подключить `/documents` к shared fixture, чтобы убрать ручное дублирование demo-data.
-3. Добавить API dependency lock/CI для smoke-проверок.
-4. Добавить shared validation badge/status в README или workdesk.
+1. Подключить `/documents` к shared fixture, чтобы убрать ручное дублирование demo-data.
+2. Добавить API dependency lock/CI для smoke-проверок.
+3. Добавить shared validation badge/status в README или workdesk.
+4. Добавить outcome filters в inbox по статусам suggested / locked / approved.
