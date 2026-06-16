@@ -2,7 +2,9 @@ import { Sidebar } from "../app-shell";
 
 const currentState = [
   ["PR", "#17 codex/app-site-shell", "CLEAN, checks green"],
-  ["Checks", "Web + Shared + API", "19 static routes; GitHub Actions проходят"],
+  ["Web build", "19 static routes", "GitHub Actions проходят"],
+  ["Shared validation", "schemas + fixture", "demo-data aligned"],
+  ["API smoke", "FastAPI contracts", "/v1/sources/connectors проходит"],
   ["Automation", "asts-app-site-ru-12", "heartbeat каждые 12 минут"],
   ["Safety", "no push to main", "все изменения через PR"],
 ];
@@ -18,10 +20,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить API smoke badge", "README / workdesk status"],
-  ["2", "Добавить PR review checklist", "merge gates + owner approval"],
-  ["3", "Добавить empty state для inbox", "когда фильтр не находит процедур"],
-  ["4", "Подключить tender detail к shared fixture", "карточка `/tenders/demo` без ручных блоков"],
+  ["1", "Добавить PR review checklist", "merge gates + owner approval"],
+  ["2", "Добавить empty state для inbox", "когда фильтр не находит процедур"],
+  ["3", "Подключить tender detail к shared fixture", "карточка `/tenders/demo` без ручных блоков"],
+  ["4", "Добавить API dependency note", "локальный SKIP без FastAPI, CI ставит deps"],
 ];
 
 const cycleRules = [
