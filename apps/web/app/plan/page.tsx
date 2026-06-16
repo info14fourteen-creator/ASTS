@@ -18,10 +18,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить outcome filters", "inbox по статусам suggested / locked / approved"],
-  ["2", "Подключить tender inbox к shared fixture", "убрать ручные rows"],
-  ["3", "Добавить API smoke badge", "README / workdesk status"],
-  ["4", "Добавить PR review checklist", "merge gates + owner approval"],
+  ["1", "Подключить tender inbox к shared fixture", "убрать ручные rows"],
+  ["2", "Добавить API smoke badge", "README / workdesk status"],
+  ["3", "Добавить PR review checklist", "merge gates + owner approval"],
+  ["4", "Добавить empty state для inbox", "когда фильтр не находит процедур"],
 ];
 
 const cycleRules = [

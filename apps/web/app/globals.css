@@ -701,6 +701,113 @@ h3 {
   gap: 8px;
 }
 
+.outcome-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.outcome-filter-card {
+  min-height: 116px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfcfd;
+  text-align: left;
+  cursor: pointer;
+}
+
+.outcome-filter-card.active {
+  border-color: rgba(18, 106, 113, 0.42);
+  box-shadow: inset 0 0 0 1px rgba(18, 106, 113, 0.16);
+}
+
+.outcome-filter-card span,
+.outcome-filter-card strong,
+.outcome-filter-card small,
+.outcome-filter-card p {
+  display: block;
+}
+
+.outcome-filter-card span {
+  width: fit-content;
+  border-radius: 8px;
+  padding: 4px 7px;
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.outcome-filter-card.neutral span {
+  border: 1px solid rgba(18, 106, 113, 0.22);
+  background: rgba(18, 106, 113, 0.08);
+  color: var(--accent-dark);
+}
+
+.outcome-filter-card.blue span {
+  border: 1px solid rgba(36, 90, 141, 0.22);
+  background: rgba(36, 90, 141, 0.08);
+  color: var(--blue);
+}
+
+.outcome-filter-card.amber span {
+  border: 1px solid rgba(154, 100, 27, 0.24);
+  background: #fff7e8;
+  color: var(--amber);
+}
+
+.outcome-filter-card.green span {
+  border: 1px solid rgba(40, 122, 82, 0.22);
+  background: rgba(40, 122, 82, 0.08);
+  color: var(--green);
+}
+
+.outcome-filter-card strong {
+  margin-top: 10px;
+  line-height: 1.25;
+}
+
+.outcome-filter-card small {
+  margin-top: 4px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.outcome-filter-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.38;
+}
+
+.outcome-state-pill {
+  width: fit-content;
+  border-radius: 8px;
+  padding: 5px 8px;
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.outcome-state-pill.suggested {
+  border: 1px solid rgba(36, 90, 141, 0.22);
+  background: rgba(36, 90, 141, 0.08);
+  color: var(--blue);
+}
+
+.outcome-state-pill.locked {
+  border: 1px solid rgba(154, 100, 27, 0.24);
+  background: #fff7e8;
+  color: var(--amber);
+}
+
+.outcome-state-pill.approved {
+  border: 1px solid rgba(40, 122, 82, 0.22);
+  background: rgba(40, 122, 82, 0.08);
+  color: var(--green);
+}
+
 .tender-intake-panel {
   margin-bottom: 14px;
 }
@@ -855,7 +962,7 @@ h3 {
 }
 
 .tender-inbox-row {
-  grid-template-columns: 150px 100px minmax(240px, 1fr) 110px 110px 76px;
+  grid-template-columns: 150px 92px 96px minmax(220px, 1fr) 100px 92px 76px;
 }
 
 .table-head {
@@ -5294,6 +5401,10 @@ dd {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .outcome-filter-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .deal-detail-grid {
     grid-template-columns: 1fr;
   }
@@ -5345,6 +5456,10 @@ dd {
 
   .tender-inbox-row {
     grid-template-columns: 1fr;
+  }
+
+  .outcome-filter-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .tender-intake-grid {
@@ -5770,6 +5885,10 @@ dd {
   }
 
   .outcome-states-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .outcome-filter-grid {
     grid-template-columns: 1fr;
   }
 
