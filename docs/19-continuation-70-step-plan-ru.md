@@ -184,10 +184,11 @@
 46. Добавить execution artifact empty guard: `/execution` не дает второй воронке стартовать без минимального handoff-пакета raw artifacts.
 47. Добавить source_url deep link: карточка `/tenders/[id]` открывает первоисточник из shared fixture и закрепляет href в route smoke.
 48. Добавить fixture drift warning: `/plan` показывает guard, который сверяет smoke counts с shared fixture и становится warning при расхождении.
+49. Добавить owner approval receipt history: `/tenders` хранит последние ручные подтверждения/блокировки перед handoff во вторую воронку.
 
 Следующими брать:
 
-1. Добавить owner approval receipt history: хранить последнее ручное подтверждение перед handoff.
-2. Добавить execution artifact blocked fixture: отдельный demo-сценарий, где вторая воронка реально заблокирована.
-3. Добавить source_url health state: показать, когда первоисточник недоступен или ушел в quarantine.
-4. Добавить fixture drift quarantine copy: объяснить владельцу, что делать при status=drift.
+1. Добавить execution artifact blocked fixture: отдельный demo-сценарий, где вторая воронка реально заблокирована.
+2. Добавить source_url health state: показать, когда первоисточник недоступен или ушел в quarantine.
+3. Добавить fixture drift quarantine copy: объяснить владельцу, что делать при status=drift.
+4. Добавить owner approval handoff lock: не пускать approved outcome в execution без receipt.

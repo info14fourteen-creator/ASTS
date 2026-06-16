@@ -2,13 +2,14 @@
 
 import { useMemo, useState } from "react";
 
-import { tenderInboxRows, type OutcomeStatus } from "../../lib/mock-data";
+import { ownerApprovalHistoryRows, tenderInboxRows, type OutcomeStatus } from "../../lib/mock-data";
 import { Sidebar } from "../app-shell";
 
 export type OutcomeKey = "all" | OutcomeStatus;
 type OutcomeTone = "blue" | "amber" | "green" | "neutral";
 
 const rows = tenderInboxRows;
+const approvedOwnerReceipt = ownerApprovalHistoryRows.find((row) => row.outcome === "approved");
 
 const outcomeFilterSpecs = [
   ["all", "All", "Все outcome", "полная очередь inbox", "neutral"],
@@ -213,6 +214,39 @@ export function TendersInbox({ initialOutcome }: { initialOutcome: OutcomeKey })
                 <dd>{activeOutcomeDetail}</dd>
               </div>
             </dl>
+          </div>
+          <div
+            className="owner-approval-history"
+            data-history-count={ownerApprovalHistoryRows.length}
+            data-last-approved={approvedOwnerReceipt?.id ?? "none"}
+            data-testid="owner-approval-receipt-history"
+          >
+            <div>
+              <span>Owner approval receipt history</span>
+              <strong>Последние подтверждения перед handoff</strong>
+              <p>
+                AI может предложить исход, но история хранит, кто подтвердил или заблокировал решение, по какому
+                evidence и можно ли переводить процедуру во вторую воронку.
+              </p>
+            </div>
+            <div className="owner-approval-history-list">
+              {ownerApprovalHistoryRows.map((receipt) => (
+                <article
+                  className={`owner-approval-history-row ${receipt.outcome}`}
+                  data-evidence={receipt.evidence}
+                  data-handoff={receipt.handoff}
+                  data-outcome={receipt.outcome}
+                  key={receipt.id}
+                >
+                  <span>{receipt.timestamp}</span>
+                  <strong>{receipt.id}</strong>
+                  <em>{receipt.owner}</em>
+                  <p>{receipt.action}</p>
+                  <small>{receipt.evidence}</small>
+                  <b>{receipt.handoff}</b>
+                </article>
+              ))}
+            </div>
           </div>
           <div className="tender-table">
             <div className="table-row table-head tender-inbox-row">

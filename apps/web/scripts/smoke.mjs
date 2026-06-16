@@ -12,6 +12,11 @@ const preWinOutcomeCounts = ["suggested", "locked", "approved"]
   .map((outcome) => preWinTenders.filter((tender) => tender.outcome.status === outcome).length)
   .join("/");
 const fixtureDriftCheckCount = 4;
+const approvedPreWinTender = preWinTenders.find((tender) => tender.outcome.status === "approved");
+
+if (!approvedPreWinTender) {
+  throw new Error("demo fixture must include approved pre-win owner receipt");
+}
 
 function htmlAttributeValue(value) {
   return value.replaceAll("&", "&amp;");
@@ -127,11 +132,19 @@ const routeChecks = [
       "Outcome filters",
       "Owner approval receipt",
       "data-testid=\"owner-approval-browser-loop\"",
+      "Owner approval receipt history",
+      "data-testid=\"owner-approval-receipt-history\"",
+      `data-history-count="${preWinTenders.length}"`,
+      `data-last-approved="${approvedPreWinTender.tender_id}"`,
+      "Последние подтверждения перед handoff",
+      "ready for execution handoff",
+      "blocked before handoff",
       "data-active-outcome=\"all\"",
       "data-visible-count=\"4\"",
       "ожидают owner review",
       "нет owner approval",
       "0373100042626000001",
+      approvedPreWinTender.outcome.source_ref,
     ],
   },
   ...outcomeFilterRouteChecks,

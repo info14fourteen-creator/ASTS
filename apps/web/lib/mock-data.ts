@@ -28,6 +28,17 @@ export type TenderInboxRow = {
   risk: Tender["risk"];
 };
 
+export type OwnerApprovalHistoryRow = {
+  id: string;
+  outcome: OutcomeStatus;
+  owner: string;
+  action: string;
+  timestamp: string;
+  evidence: string;
+  handoff: string;
+  note: string;
+};
+
 export type ExecutionRow = {
   id: string;
   title: string;
@@ -275,6 +286,24 @@ export const tenderInboxRows: TenderInboxRow[] = demoData.tenders
       risk: tenderRisk(tender.risk),
     };
   });
+
+export const ownerApprovalHistoryRows: OwnerApprovalHistoryRow[] = demoData.tenders
+  .filter((tender) => tender.funnel === "pre_win")
+  .map((tender) => {
+    const lastAudit = tender.audit_events.at(-1);
+
+    return {
+      id: tender.tender_id,
+      outcome: outcomeStatus(tender.outcome.status),
+      owner: lastAudit?.actor_role ?? tender.outcome.owner_role,
+      action: lastAudit?.action ?? tender.outcome.code,
+      timestamp: lastAudit ? formatAuditTime(lastAudit.created_at) : "нет события",
+      evidence: lastAudit?.evidence_ref ?? tender.outcome.source_ref,
+      handoff: tender.outcome.status === "approved" ? "ready for execution handoff" : "blocked before handoff",
+      note: tender.outcome.note,
+    };
+  })
+  .sort((left, right) => right.timestamp.localeCompare(left.timestamp));
 
 export const executionRows: ExecutionRow[] = demoData.tenders
   .filter((tender) => tender.funnel === "execution")
