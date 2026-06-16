@@ -169,10 +169,11 @@
 31. Подключить карточку `/tenders/demo` к shared fixture, чтобы убрать ручные данные процедуры.
 32. Добавить API dependency note: локальный `SKIP` без FastAPI допустим, CI ставит pinned deps.
 33. Добавить owner approval marker: видимый статус в карточке outcome.
+34. Добавить approved/locked demo rows: fixture-покрытие для outcome filters.
 
 Следующими брать:
 
-1. Добавить approved/locked demo rows: fixture-покрытие для outcome filters.
-2. Связать `/tenders` row href с detail id: готовим несколько карточек процедур.
-3. Добавить API smoke badge в карточку PR: отдельно показать backend gate.
-4. Добавить owner approval smoke text: закрепить marker в route smoke.
+1. Связать `/tenders` row href с detail id: готовим несколько карточек процедур.
+2. Добавить API smoke badge в карточку PR: отдельно показать backend gate.
+3. Добавить owner approval smoke text: закрепить marker в route smoke.
+4. Добавить execution fixture row в отдельный экран: не смешивать post-win с pre-win inbox.

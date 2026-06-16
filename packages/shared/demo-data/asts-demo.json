@@ -87,6 +87,92 @@
       "match": 78
     },
     {
+      "tender_id": "0173200001426000044",
+      "title": "Поставка сетевого оборудования с расширенной гарантией",
+      "customer_name": "Департамент информационных технологий города",
+      "source": {
+        "source_kind": "eis",
+        "source_url": "https://zakupki.gov.ru/epz/order/notice/ea20/view/common-info.html?regNumber=0173200001426000044",
+        "raw_artifact_id": "raw-eis-0173200001426000044",
+        "checksum_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "freshness": "fresh"
+      },
+      "nmck_rub": 12600000,
+      "nmck_label": "12.6 млн ₽",
+      "region": "Москва",
+      "deadline_at": "2026-06-20T11:00:00+03:00",
+      "deadline_label": "20 июня, 11:00",
+      "funnel": "pre_win",
+      "stage": "economics",
+      "stage_label": "Экономика",
+      "ai_confidence": 0.91,
+      "outcome": {
+        "code": "unprofitable",
+        "funnel": "pre_win",
+        "title": "Нерентабельная сделка",
+        "status": "locked",
+        "requires_owner_approval": true,
+        "owner_role": "finance_owner",
+        "source_ref": "raw-eis-0173200001426000044",
+        "note": "AI заблокировал подачу: минимальная закупочная цена и обеспечение съедают плановую маржу."
+      },
+      "audit_events": [
+        {
+          "event_id": "audit-0173200001426000044-ai-locked-unprofitable",
+          "tender_id": "0173200001426000044",
+          "action": "outcome_locked",
+          "actor_role": "ai_reviewer",
+          "created_at": "2026-06-16T08:15:00+05:00",
+          "evidence_ref": "raw-eis-0173200001426000044"
+        }
+      ],
+      "risk": "high",
+      "match": 91
+    },
+    {
+      "tender_id": "0373100099926000012",
+      "title": "Поставка рабочих станций для образовательных учреждений",
+      "customer_name": "ГКУ Центр закупок образования",
+      "source": {
+        "source_kind": "eis",
+        "source_url": "https://zakupki.gov.ru/epz/order/notice/ea20/view/common-info.html?regNumber=0373100099926000012",
+        "raw_artifact_id": "raw-eis-0373100099926000012",
+        "checksum_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "freshness": "fresh"
+      },
+      "nmck_rub": 23700000,
+      "nmck_label": "23.7 млн ₽",
+      "region": "Москва",
+      "deadline_at": "2026-06-27T12:00:00+03:00",
+      "deadline_label": "27 июня, 12:00",
+      "funnel": "pre_win",
+      "stage": "result",
+      "stage_label": "Результат",
+      "ai_confidence": 0.88,
+      "outcome": {
+        "code": "won",
+        "funnel": "pre_win",
+        "title": "Победа подтверждена",
+        "status": "approved",
+        "requires_owner_approval": true,
+        "owner_role": "tender_owner",
+        "source_ref": "raw-eis-0373100099926000012",
+        "note": "Протокол победы сохранен, экономика заморожена, карточка готова к handoff во вторую воронку."
+      },
+      "audit_events": [
+        {
+          "event_id": "audit-0373100099926000012-owner-approved-won",
+          "tender_id": "0373100099926000012",
+          "action": "outcome_approved",
+          "actor_role": "tender_owner",
+          "created_at": "2026-06-16T08:20:00+05:00",
+          "evidence_ref": "raw-eis-0373100099926000012"
+        }
+      ],
+      "risk": "low",
+      "match": 88
+    },
+    {
       "tender_id": "exec-2026-0007",
       "title": "Исполнение контракта: поставка и ввод в эксплуатацию",
       "customer_name": "ГБУ Региональный центр цифровой инфраструктуры",
@@ -198,6 +284,32 @@
       "status": "open",
       "due_at": "2026-06-18T18:00:00+03:00",
       "due_label": "сегодня, 18:00",
+      "tone": "neutral",
+      "requires_human_approval": true
+    },
+    {
+      "task_id": "task-economics-locked-004",
+      "tender_id": "0173200001426000044",
+      "title": "Проверить блокировку по марже и обеспечению",
+      "owner_role": "finance_owner",
+      "owner_label": "Финансы",
+      "priority": "critical",
+      "status": "blocked",
+      "due_at": "2026-06-17T14:00:00+03:00",
+      "due_label": "завтра, 14:00",
+      "tone": "danger",
+      "requires_human_approval": true
+    },
+    {
+      "task_id": "task-handoff-approved-005",
+      "tender_id": "0373100099926000012",
+      "title": "Передать победу в воронку исполнения",
+      "owner_role": "execution_owner",
+      "owner_label": "Исполнение",
+      "priority": "normal",
+      "status": "open",
+      "due_at": "2026-06-19T12:00:00+03:00",
+      "due_label": "19 июня, 12:00",
       "tone": "neutral",
       "requires_human_approval": true
     },

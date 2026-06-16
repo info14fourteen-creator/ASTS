@@ -199,8 +199,8 @@ export default function TendersPage() {
                 <span>{outcomeLabel(activeOutcome)}</span>
                 <strong>По этому outcome сейчас нет процедур</strong>
                 <p>
-                  Очередь не сломана: shared fixture пока содержит только suggested pre-win процедуры. Следующий
-                  шаг - добавить approved/locked примеры или открыть полный inbox через All.
+                  Очередь не сломана: выбранный фильтр просто не нашел процедур в текущем наборе. Откройте полный
+                  inbox через All или добавьте новый fixture-сценарий.
                 </p>
               </div>
             ) : null}
