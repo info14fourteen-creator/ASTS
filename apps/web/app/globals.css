@@ -3744,6 +3744,58 @@ dd {
   line-height: 1.38;
 }
 
+.execution-blocked-fixture-panel {
+  margin-top: 14px;
+  border-color: rgba(154, 100, 27, 0.28);
+  background: #fffaf0;
+}
+
+.execution-blocked-fixture-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.execution-blocked-fixture-grid article {
+  min-height: 132px;
+  border: 1px solid rgba(154, 100, 27, 0.24);
+  border-radius: 8px;
+  padding: 13px;
+  background: var(--surface);
+}
+
+.execution-blocked-fixture-grid span,
+.execution-blocked-fixture-grid strong,
+.execution-blocked-fixture-grid p {
+  display: block;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.execution-blocked-fixture-grid span {
+  width: fit-content;
+  border: 1px solid rgba(154, 100, 27, 0.26);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: #fff7e8;
+  color: var(--amber);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.execution-blocked-fixture-grid strong {
+  margin-top: 10px;
+  color: var(--accent-dark);
+  line-height: 1.25;
+}
+
+.execution-blocked-fixture-grid p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
 .execution-health-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -6203,7 +6255,8 @@ dd {
     display: none;
   }
 
-  .execution-artifact-guard-grid {
+  .execution-artifact-guard-grid,
+  .execution-blocked-fixture-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -6778,7 +6831,8 @@ dd {
     gap: 7px;
   }
 
-  .execution-artifact-guard-grid {
+  .execution-artifact-guard-grid,
+  .execution-blocked-fixture-grid {
     grid-template-columns: 1fr;
   }
 

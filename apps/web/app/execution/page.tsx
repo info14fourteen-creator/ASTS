@@ -1,5 +1,5 @@
 import { Sidebar } from "../app-shell";
-import { executionDocumentRows, executionRows } from "../../lib/mock-data";
+import { blockedExecutionFixture, executionDocumentRows, executionRows } from "../../lib/mock-data";
 
 const executionStages = ["Договор", "Счет", "Закупка", "Поставка", "Закрывающие", "Финальный расчет"];
 
@@ -225,6 +225,46 @@ export default function ExecutionPage() {
                   ? "AI может вести исполнение, но owner approval остается обязательным."
                   : "Нет raw artifacts: открыть вторую воронку нельзя."}
               </p>
+            </article>
+          </div>
+        </section>
+
+        <section
+          className="panel execution-blocked-fixture-panel"
+          data-artifact-count={blockedExecutionFixture.artifactCount}
+          data-evidence={blockedExecutionFixture.evidence}
+          data-missing-artifacts={blockedExecutionFixture.missingArtifacts}
+          data-min-artifacts={blockedExecutionFixture.minArtifacts}
+          data-status={blockedExecutionFixture.status}
+          data-testid="execution-artifact-blocked-fixture"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Execution artifact blocked fixture</p>
+              <h2>Победа не запускает исполнение без raw artifacts</h2>
+            </div>
+            <span className="status-pill amber">handoff blocked</span>
+          </div>
+          <div className="execution-blocked-fixture-grid">
+            <article>
+              <span>Procedure</span>
+              <strong>{blockedExecutionFixture.id}</strong>
+              <p>{blockedExecutionFixture.title}</p>
+            </article>
+            <article>
+              <span>Owner receipt</span>
+              <strong>{blockedExecutionFixture.owner}</strong>
+              <p>{blockedExecutionFixture.evidence}</p>
+            </article>
+            <article>
+              <span>Missing pack</span>
+              <strong>{blockedExecutionFixture.missingArtifacts}</strong>
+              <p>протокол, контракт и счет должны прийти из первоисточников или file vault.</p>
+            </article>
+            <article>
+              <span>Decision</span>
+              <strong>{blockedExecutionFixture.decision}</strong>
+              <p>{blockedExecutionFixture.rule}</p>
             </article>
           </div>
         </section>

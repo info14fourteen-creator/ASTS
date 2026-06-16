@@ -115,6 +115,19 @@ export type ExecutionDocumentRow = {
   storage: string;
 };
 
+export type BlockedExecutionFixture = {
+  id: string;
+  title: string;
+  owner: string;
+  evidence: string;
+  status: "blocked";
+  artifactCount: number;
+  missingArtifacts: number;
+  minArtifacts: number;
+  decision: string;
+  rule: string;
+};
+
 export type RawArtifactManifest = {
   title: string;
   artifactId: string;
@@ -336,6 +349,23 @@ export const executionDocumentRows: ExecutionDocumentRow[] = demoData.documents
       storage: document.raw_artifact.storage_path,
     };
   });
+
+const approvedPreWinHandoffTender =
+  demoData.tenders.find((tender) => tender.funnel === "pre_win" && tender.outcome.status === "approved") ??
+  demoData.tenders[0];
+
+export const blockedExecutionFixture: BlockedExecutionFixture = {
+  id: approvedPreWinHandoffTender.tender_id,
+  title: approvedPreWinHandoffTender.title,
+  owner: approvedPreWinHandoffTender.outcome.owner_role,
+  evidence: approvedPreWinHandoffTender.outcome.source_ref,
+  status: "blocked",
+  artifactCount: 0,
+  missingArtifacts: 3,
+  minArtifacts: 3,
+  decision: "execution handoff blocked",
+  rule: "Победа подтверждена, но вторая воронка не открывается без протокола, контракта и счета в raw artifacts.",
+};
 
 export const fixtureCoverage = {
   totalTenders: demoData.tenders.length,
