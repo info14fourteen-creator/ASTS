@@ -114,3 +114,24 @@ in `contract_only` mode. It defines:
 
 The connector must stay `network_enabled=false` until access terms, request
 limits, secrets and INN/OGRN freshness tests are approved.
+
+### FNS Smoke Contract
+
+Current `API smoke` is contract-only and must not call the public network. It
+verifies that the FNS connector is present, disabled for network use and ready
+to accept approved credentials later:
+
+- `connector_id="fns-egrul-nalog-ru"`;
+- `source_kind="fns"`;
+- `mode="contract_only"` and `network_enabled=false`;
+- raw storage template `raw/fns/{inn}/{artifact_id}`;
+- required secrets `FNS_API_BASE_URL` and `FNS_API_TOKEN`;
+- supported objects `legal entity profile by INN`, `EGRUL extract` and
+  `company status`;
+- capabilities `fetch_by_inn`, `fetch_by_ogrn`, `fetch_extract` and
+  `normalize`.
+
+Real INN/OGRN smoke is a separate future gate. It can be enabled only after the
+owner records approved FNS access terms, request volume limits, secret storage
+location and a safe test INN/OGRN pair. Until then, CI must keep testing the
+contract shape, not external FNS availability.

@@ -91,6 +91,22 @@ Route smoke закрепляет:
 UI не должен скрывать карточку и переводить AI в `ready`, пока нет owner receipt
 с `resolution_status="restored"` и ссылкой на новый raw artifact.
 
+## FNS Smoke UI Contract
+
+Маршрут `/sources` показывает contract-only карточку ФНС:
+`data-testid="fns-source-readiness-card"`.
+
+Route smoke закрепляет:
+
+- `data-connector-id="fns-egrul-nalog-ru"`;
+- `data-status="contract-only"` и `data-ai-gate="manual_review_until_secrets"`;
+- `data-required-secrets="FNS_API_BASE_URL,FNS_API_TOKEN"`;
+- capabilities `fetch_by_inn`, `fetch_by_ogrn`, `fetch_extract`, `normalize`;
+- raw template `raw/fns/{inn}/{artifact_id}`.
+
+Пока backend держит `network_enabled=false`, web показывает готовность контракта,
+но не обещает реальную сетевую проверку ИНН/ОГРН.
+
 ## AI Review UI Contract
 
 Маршрут `/ai-review` отображает backend contract `GET /v1/ai/review-queue`.

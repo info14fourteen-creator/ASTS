@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить FNS smoke docs", "описать секреты, лимиты и smoke для ИНН/ОГРН"],
-  ["2", "Добавить AI review owner action docs", "описать ручное подтверждение low-confidence facts"],
-  ["3", "Добавить FNS connector browser loop", "закрепить ФНС карточку в браузерной проверке"],
-  ["4", "Добавить source freshness owner UI card", "показать receipt rules на /sources"],
+  ["1", "Добавить AI review owner action docs", "описать ручное подтверждение low-confidence facts"],
+  ["2", "Добавить FNS connector browser loop", "закрепить ФНС карточку в браузерной проверке"],
+  ["3", "Добавить source freshness owner UI card", "показать receipt rules на /sources"],
+  ["4", "Добавить FNS real-network smoke gate", "описать условия включения сетевого smoke"],
 ];
 
 const cycleRules = [
