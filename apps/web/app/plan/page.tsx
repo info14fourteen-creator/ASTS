@@ -20,10 +20,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить route smoke для outcome filters", "проверять suggested / locked / approved"],
-  ["2", "Добавить execution smoke по документам", "проверять handoff artifacts второй воронки"],
-  ["3", "Добавить source-id mismatch hint", "подсказать, где искать регномер из первоисточника"],
-  ["4", "Добавить fixture coverage count в /plan", "показывать сколько pre-win/post-win rows под smoke"],
+  ["1", "Добавить execution smoke по документам", "проверять handoff artifacts второй воронки"],
+  ["2", "Добавить source-id mismatch hint", "подсказать, где искать регномер из первоисточника"],
+  ["3", "Добавить fixture coverage count в /plan", "показывать сколько pre-win/post-win rows под smoke"],
+  ["4", "Добавить owner approval browser loop", "кликать outcome filter и сверять active state"],
 ];
 
 const cycleRules = [

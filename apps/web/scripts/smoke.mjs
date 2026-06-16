@@ -3,20 +3,33 @@ import { readFile } from "node:fs/promises";
 const defaultBaseUrl = "http://127.0.0.1:3070";
 const demoDataUrl = new URL("../../../packages/shared/demo-data/asts-demo.json", import.meta.url);
 const demoData = JSON.parse(await readFile(demoDataUrl, "utf8"));
+const preWinTenders = demoData.tenders.filter((tender) => tender.funnel === "pre_win");
 
-const tenderDetailRouteChecks = demoData.tenders
-  .filter((tender) => tender.funnel === "pre_win")
-  .map((tender) => ({
-    path: `/tenders/${tender.tender_id}`,
+const tenderDetailRouteChecks = preWinTenders.map((tender) => ({
+  path: `/tenders/${tender.tender_id}`,
+  status: 200,
+  mustInclude: [
+    "Карточка процедуры",
+    "Outcome / reason",
+    tender.title,
+    tender.outcome.owner_role,
+    tender.outcome.source_ref,
+  ],
+}));
+
+const outcomeFilterRouteChecks = ["suggested", "locked", "approved"].map((outcome) => {
+  const tender = preWinTenders.find((item) => item.outcome.status === outcome);
+
+  if (!tender) {
+    throw new Error(`demo fixture must include pre-win outcome ${outcome}`);
+  }
+
+  return {
+    path: `/tenders?outcome=${outcome}`,
     status: 200,
-    mustInclude: [
-      "Карточка процедуры",
-      "Outcome / reason",
-      tender.title,
-      tender.outcome.owner_role,
-      tender.outcome.source_ref,
-    ],
-  }));
+    mustInclude: ["Outcome filters", outcome, tender.tender_id, tender.title, tender.outcome.note],
+  };
+});
 
 const routeChecks = [
   {
@@ -54,6 +67,7 @@ const routeChecks = [
       "0373100042626000001",
     ],
   },
+  ...outcomeFilterRouteChecks,
   ...tenderDetailRouteChecks,
   {
     path: "/tenders/unknown-id",
