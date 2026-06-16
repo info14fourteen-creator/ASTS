@@ -808,6 +808,46 @@ h3 {
   color: var(--green);
 }
 
+.tender-empty-state {
+  display: grid;
+  gap: 8px;
+  min-height: 128px;
+  border: 1px dashed rgba(154, 100, 27, 0.34);
+  border-radius: 8px;
+  padding: 16px;
+  background: #fffaf0;
+}
+
+.tender-empty-state span,
+.tender-empty-state strong,
+.tender-empty-state p {
+  display: block;
+}
+
+.tender-empty-state span {
+  width: fit-content;
+  border: 1px solid rgba(154, 100, 27, 0.24);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: #fff7e8;
+  color: var(--amber);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.tender-empty-state strong {
+  color: var(--accent-dark);
+  line-height: 1.25;
+}
+
+.tender-empty-state p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
 .tender-intake-panel {
   margin-bottom: 14px;
 }

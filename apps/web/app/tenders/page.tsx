@@ -37,6 +37,10 @@ function procedureCountLabel(count: number): string {
   return `${count} процедур`;
 }
 
+function outcomeLabel(outcome: OutcomeKey): string {
+  return outcomeFilterSpecs.find(([key]) => key === outcome)?.[2] ?? "выбранному фильтру";
+}
+
 const intakeGates = [
   ["Источник", "ЕИС, 223-ФЗ API или ЭТП", "обязателен первоисточник"],
   ["Документы", "ТЗ, извещение, проект контракта", "нужен file hash"],
@@ -190,6 +194,16 @@ export default function TendersPage() {
                 <span className={`risk ${row.risk}`}>{row.match}</span>
               </a>
             ))}
+            {filteredRows.length === 0 ? (
+              <div className="tender-empty-state">
+                <span>{outcomeLabel(activeOutcome)}</span>
+                <strong>По этому outcome сейчас нет процедур</strong>
+                <p>
+                  Очередь не сломана: shared fixture пока содержит только suggested pre-win процедуры. Следующий
+                  шаг - добавить approved/locked примеры или открыть полный inbox через All.
+                </p>
+              </div>
+            ) : null}
           </div>
         </section>
       </section>

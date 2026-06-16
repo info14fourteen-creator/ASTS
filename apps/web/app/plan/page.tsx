@@ -20,10 +20,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить empty state для inbox", "когда фильтр не находит процедур"],
-  ["2", "Подключить tender detail к shared fixture", "карточка `/tenders/demo` без ручных блоков"],
-  ["3", "Добавить API dependency note", "локальный SKIP без FastAPI, CI ставит deps"],
-  ["4", "Добавить owner approval marker", "видимый статус в карточке outcome"],
+  ["1", "Подключить tender detail к shared fixture", "карточка `/tenders/demo` без ручных блоков"],
+  ["2", "Добавить API dependency note", "локальный SKIP без FastAPI, CI ставит deps"],
+  ["3", "Добавить owner approval marker", "видимый статус в карточке outcome"],
+  ["4", "Добавить approved/locked demo rows", "fixture-покрытие для outcome filters"],
 ];
 
 const cycleRules = [
