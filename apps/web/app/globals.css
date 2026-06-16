@@ -537,6 +537,7 @@ h3 {
 .plan-api-panel,
 .pr-gates-panel,
 .plan-block-panel,
+.fixture-coverage-panel,
 .plan-next-panel {
   margin-bottom: 14px;
 }
@@ -544,6 +545,7 @@ h3 {
 .plan-cycle-grid,
 .plan-api-grid,
 .pr-gate-grid,
+.fixture-coverage-grid,
 .plan-block-grid {
   display: grid;
   gap: 10px;
@@ -561,6 +563,10 @@ h3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.fixture-coverage-grid {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
 .plan-block-grid {
   grid-template-columns: repeat(7, minmax(0, 1fr));
 }
@@ -568,6 +574,7 @@ h3 {
 .plan-cycle-card,
 .plan-api-card,
 .pr-gate-card,
+.fixture-coverage-card,
 .plan-block-card,
 .plan-next-row {
   border: 1px solid var(--line);
@@ -578,6 +585,7 @@ h3 {
 .plan-cycle-card,
 .plan-api-card,
 .pr-gate-card,
+.fixture-coverage-card,
 .plan-block-card {
   min-height: 126px;
   padding: 13px;
@@ -586,6 +594,8 @@ h3 {
 .plan-cycle-card strong,
 .plan-api-card strong,
 .pr-gate-card strong,
+.fixture-coverage-card strong,
+.fixture-coverage-card span,
 .plan-block-card strong,
 .plan-block-card span,
 .plan-block-card em,
@@ -593,6 +603,7 @@ h3 {
 .plan-api-card p,
 .pr-gate-card p,
 .pr-gate-card span,
+.fixture-coverage-card p,
 .plan-block-card p {
   display: block;
 }
@@ -600,14 +611,28 @@ h3 {
 .plan-cycle-card strong,
 .plan-api-card strong,
 .pr-gate-card strong,
+.fixture-coverage-card strong,
 .plan-block-card strong {
   color: var(--accent-dark);
   line-height: 1.25;
 }
 
+.fixture-coverage-card strong {
+  margin-top: 8px;
+  font-size: 30px;
+}
+
+.fixture-coverage-card span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
 .plan-cycle-card p,
 .plan-api-card p,
 .pr-gate-card p,
+.fixture-coverage-card p,
 .plan-block-card p {
   margin: 8px 0 0;
   color: var(--muted);
@@ -5889,6 +5914,7 @@ dd {
   .plan-cycle-grid,
   .plan-api-grid,
   .pr-gate-grid,
+  .fixture-coverage-grid,
   .plan-block-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -6160,6 +6186,7 @@ dd {
   .plan-cycle-grid,
   .plan-api-grid,
   .pr-gate-grid,
+  .fixture-coverage-grid,
   .plan-block-grid {
     grid-template-columns: 1fr;
   }

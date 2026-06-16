@@ -179,10 +179,11 @@
 41. Добавить route smoke для outcome filters: `/tenders?outcome=suggested|locked|approved` проверяются по shared fixture.
 42. Добавить execution smoke по документам: post-win handoff artifacts второй воронки выводятся из shared fixture и закреплены route smoke.
 43. Добавить source-id mismatch hint: карточка и 404 объясняют разницу между `tender_id/regNumber` и `raw_artifact_id/source_ref`.
+44. Добавить fixture coverage count в `/plan`: план показывает pre-win, execution, documents, execution artifacts, tasks и outcome states из shared fixture.
 
 Следующими брать:
 
-1. Добавить fixture coverage count в `/plan`: показывать сколько pre-win/post-win rows под smoke.
-2. Добавить owner approval browser loop: кликать outcome filter и сверять active state.
-3. Добавить execution artifact empty guard: не давать второй воронке стартовать без документов.
-4. Добавить source_url deep link: из карточки быстро открыть первоисточник.
+1. Добавить owner approval browser loop: кликать outcome filter и сверять active state.
+2. Добавить execution artifact empty guard: не давать второй воронке стартовать без документов.
+3. Добавить source_url deep link: из карточки быстро открыть первоисточник.
+4. Добавить fixture drift warning: подсветить, если smoke counts не совпали с shared fixture.

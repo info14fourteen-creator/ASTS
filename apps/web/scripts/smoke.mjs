@@ -5,6 +5,9 @@ const demoDataUrl = new URL("../../../packages/shared/demo-data/asts-demo.json",
 const demoData = JSON.parse(await readFile(demoDataUrl, "utf8"));
 const preWinTenders = demoData.tenders.filter((tender) => tender.funnel === "pre_win");
 const executionTenders = demoData.tenders.filter((tender) => tender.funnel === "execution");
+const executionDocuments = demoData.documents.filter((document) =>
+  executionTenders.some((tender) => tender.tender_id === document.tender_id),
+);
 
 const tenderDetailRouteChecks = preWinTenders.map((tender) => ({
   path: `/tenders/${tender.tender_id}`,
@@ -64,6 +67,17 @@ const routeChecks = [
       "Next increments",
       "asts-app-site-ru-12",
       "19 static routes",
+      "Fixture coverage",
+      "Pre-win rows",
+      "Execution rows",
+      "Execution artifacts",
+      "Outcome states",
+      `${preWinTenders.length}`,
+      `${executionTenders.length}`,
+      `${demoData.documents.length}`,
+      `${executionDocuments.length}`,
+      `${demoData.tasks.length}`,
+      "3/1/1",
     ],
   },
   {

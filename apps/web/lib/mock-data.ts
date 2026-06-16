@@ -302,6 +302,20 @@ export const executionDocumentRows: ExecutionDocumentRow[] = demoData.documents
     };
   });
 
+export const fixtureCoverage = {
+  totalTenders: demoData.tenders.length,
+  preWinTenders: demoData.tenders.filter((tender) => tender.funnel === "pre_win").length,
+  executionTenders: demoData.tenders.filter((tender) => tender.funnel === "execution").length,
+  documents: demoData.documents.length,
+  executionArtifacts: demoData.documents.filter((document) => documentTender(document)?.funnel === "execution").length,
+  tasks: demoData.tasks.length,
+  outcomeStates: {
+    suggested: demoData.tenders.filter((tender) => tender.outcome.status === "suggested").length,
+    locked: demoData.tenders.filter((tender) => tender.outcome.status === "locked").length,
+    approved: demoData.tenders.filter((tender) => tender.outcome.status === "approved").length,
+  },
+};
+
 export const participationStages = [
   "Входящие",
   "Оценка",

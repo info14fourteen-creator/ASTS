@@ -1,4 +1,5 @@
 import { Sidebar } from "../app-shell";
+import { fixtureCoverage } from "../../lib/mock-data";
 
 const currentState = [
   ["PR", "#17 codex/app-site-shell", "CLEAN, checks green"],
@@ -20,10 +21,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить fixture coverage count в /plan", "показывать сколько pre-win/post-win rows под smoke"],
-  ["2", "Добавить owner approval browser loop", "кликать outcome filter и сверять active state"],
-  ["3", "Добавить execution artifact empty guard", "не давать второй воронке стартовать без документов"],
-  ["4", "Добавить source_url deep link", "из карточки быстро открыть первоисточник"],
+  ["1", "Добавить owner approval browser loop", "кликать outcome filter и сверять active state"],
+  ["2", "Добавить execution artifact empty guard", "не давать второй воронке стартовать без документов"],
+  ["3", "Добавить source_url deep link", "из карточки быстро открыть первоисточник"],
+  ["4", "Добавить fixture drift warning", "подсветить, если smoke counts не совпали с shared fixture"],
 ];
 
 const cycleRules = [
@@ -68,6 +69,19 @@ const mergeChecklist = [
   ["Funnels", "до победы `/tenders`, исполнение только в `/execution`"],
   ["Sources", "AI-выводы ссылаются на первоисточник, hash или confidence-rule"],
   ["Owner", "approval нужен для outcome, экономики, доступов и merge gates"],
+];
+
+const fixtureCoverageCards = [
+  ["Pre-win rows", `${fixtureCoverage.preWinTenders}`, "проверяются в /tenders и /tenders/[id] smoke"],
+  ["Execution rows", `${fixtureCoverage.executionTenders}`, "живут только во второй воронке /execution"],
+  ["Documents", `${fixtureCoverage.documents}`, "raw artifacts из первоисточников и file vault"],
+  ["Execution artifacts", `${fixtureCoverage.executionArtifacts}`, "handoff pack второй воронки"],
+  ["Tasks", `${fixtureCoverage.tasks}`, "owner approval, SLA и эскалации"],
+  [
+    "Outcome states",
+    `${fixtureCoverage.outcomeStates.suggested}/${fixtureCoverage.outcomeStates.locked}/${fixtureCoverage.outcomeStates.approved}`,
+    "suggested / locked / approved под route smoke",
+  ],
 ];
 
 export default function PlanPage() {
@@ -183,6 +197,25 @@ export default function PlanPage() {
               <article className="merge-check" key={title}>
                 <strong>{title}</strong>
                 <span>{text}</span>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel fixture-coverage-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Fixture coverage</p>
+              <h2>Что сейчас покрыто demo-data и smoke</h2>
+            </div>
+            <span className="status-pill green">shared fixture counts</span>
+          </div>
+          <div className="fixture-coverage-grid">
+            {fixtureCoverageCards.map(([title, value, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>{value}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>
