@@ -105,6 +105,26 @@ class RawArtifactManifest(BaseModel):
     custody_status: RawArtifactCustodyStatus
 
 
+class DealOutcomeSnapshot(BaseModel):
+    code: OutcomeCode
+    funnel: DealFunnel
+    title: str
+    status: Literal["suggested", "approved", "locked"]
+    requires_owner_approval: bool
+    owner_role: str
+    source_ref: str
+    note: str
+
+
+class AuditEvent(BaseModel):
+    event_id: str
+    tender_id: str
+    action: str
+    actor_role: str
+    created_at: str
+    evidence_ref: str
+
+
 class TenderSummary(BaseModel):
     tender_id: str
     title: str
@@ -116,6 +136,8 @@ class TenderSummary(BaseModel):
     funnel: DealFunnel
     stage: DealStage
     ai_confidence: float = Field(ge=0, le=1)
+    outcome: DealOutcomeSnapshot | None = None
+    audit_events: list[AuditEvent] = Field(default_factory=list)
 
 
 class DocumentArtifact(BaseModel):

@@ -24,6 +24,17 @@ const nextActions = [
   ["Техэксперт", "Подтвердить аналоги по светильникам", "сегодня"],
   ["Финансы", "Зафиксировать минимальную цену подачи", "до подачи"],
 ];
+const outcomeSnapshot = [
+  ["Outcome", "manual_management", "AI предложил"],
+  ["Reason", "Ручное управление", "не закрывать сделку"],
+  ["Approval", "tender_manager", "обязательное подтверждение"],
+  ["Evidence", "raw-eis-0373100042626000001", "source proof"],
+];
+const auditTrail = [
+  ["08:00", "AI предложил outcome manual_management", "raw-eis-0373100042626000001"],
+  ["08:03", "Создана задача на проверку аналогов", "task-qualification-001"],
+  ["08:05", "Закрытие сделки заблокировано до владельца", "owner approval"],
+];
 
 export default function TenderCardPage() {
   return (
@@ -97,6 +108,46 @@ export default function TenderCardPage() {
               </article>
             ))}
           </div>
+        </section>
+
+        <section className="outcome-audit-grid">
+          <article className="panel outcome-reason-panel">
+            <div className="panel-head compact">
+              <div>
+                <p className="eyebrow">Outcome / reason</p>
+                <h2>Исход сделки и причина</h2>
+              </div>
+              <span className="status-pill">AI suggested</span>
+            </div>
+            <div className="outcome-reason-grid">
+              {outcomeSnapshot.map(([label, value, note]) => (
+                <article className="outcome-reason-card" key={label}>
+                  <span>{label}</span>
+                  <strong>{value}</strong>
+                  <p>{note}</p>
+                </article>
+              ))}
+            </div>
+          </article>
+
+          <article className="panel outcome-audit-panel">
+            <div className="panel-head compact">
+              <div>
+                <p className="eyebrow">Audit trail</p>
+                <h2>Почему карточку нельзя закрыть молча</h2>
+              </div>
+              <span className="status-pill green">owner required</span>
+            </div>
+            <div className="outcome-audit-list">
+              {auditTrail.map(([time, action, evidence]) => (
+                <article key={`${time}-${action}`}>
+                  <span>{time}</span>
+                  <strong>{action}</strong>
+                  <em>{evidence}</em>
+                </article>
+              ))}
+            </div>
+          </article>
         </section>
 
         <section className="deal-detail-grid">

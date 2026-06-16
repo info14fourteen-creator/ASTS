@@ -153,10 +153,11 @@
 15. Добавить raw artifact manifest в documents API.
 16. Подготовить first connector skeleton для ЕИС.
 17. Добавить JSON schema validation script.
+18. Привязать outcome/reason к карточке процедуры.
 
 Следующими брать:
 
-1. Привязать outcome/reason к карточке процедуры.
-2. Показать raw artifact manifest в web-разделе документов.
-3. Добавить smoke-проверку `/v1/sources/connectors` после установки API-зависимостей.
-4. Включить shared validation в GitHub Actions.
+1. Показать raw artifact manifest в web-разделе документов.
+2. Добавить smoke-проверку `/v1/sources/connectors` после установки API-зависимостей.
+3. Включить shared validation в GitHub Actions.
+4. Добавить outcome UI states: approved / locked / rejected.

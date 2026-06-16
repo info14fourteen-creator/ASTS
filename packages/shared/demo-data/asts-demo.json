@@ -20,6 +20,26 @@
       "stage": "qualification",
       "stage_label": "AI-разбор",
       "ai_confidence": 0.82,
+      "outcome": {
+        "code": "manual_management",
+        "funnel": "pre_win",
+        "title": "Ручное управление",
+        "status": "suggested",
+        "requires_owner_approval": true,
+        "owner_role": "tender_manager",
+        "source_ref": "raw-eis-0373100042626000001",
+        "note": "AI предлагает оставить сделку живой до подтверждения аналогов и экономики."
+      },
+      "audit_events": [
+        {
+          "event_id": "audit-0373100042626000001-ai-suggested-manual",
+          "tender_id": "0373100042626000001",
+          "action": "outcome_suggested",
+          "actor_role": "ai_reviewer",
+          "created_at": "2026-06-16T08:00:00+05:00",
+          "evidence_ref": "raw-eis-0373100042626000001"
+        }
+      ],
       "risk": "medium",
       "match": 82
     },
@@ -43,6 +63,26 @@
       "stage": "supplier_quotes",
       "stage_label": "Поставщики",
       "ai_confidence": 0.78,
+      "outcome": {
+        "code": "manual_management",
+        "funnel": "pre_win",
+        "title": "Ручное управление",
+        "status": "suggested",
+        "requires_owner_approval": true,
+        "owner_role": "supplier_manager",
+        "source_ref": "raw-eis-32211984571",
+        "note": "Нужны КП поставщиков до решения о подаче."
+      },
+      "audit_events": [
+        {
+          "event_id": "audit-32211984571-ai-suggested-manual",
+          "tender_id": "322119845710000001",
+          "action": "outcome_suggested",
+          "actor_role": "ai_reviewer",
+          "created_at": "2026-06-16T08:05:00+05:00",
+          "evidence_ref": "raw-eis-32211984571"
+        }
+      ],
       "risk": "low",
       "match": 78
     },
@@ -66,6 +106,26 @@
       "stage": "fulfillment",
       "stage_label": "Исполнение",
       "ai_confidence": 0.74,
+      "outcome": {
+        "code": "partial_payment",
+        "funnel": "execution",
+        "title": "Частичная оплата",
+        "status": "suggested",
+        "requires_owner_approval": true,
+        "owner_role": "execution_owner",
+        "source_ref": "raw-etp-procedure-room-0373100042626000001",
+        "note": "AI видит риск расхождения плановой и фактической оплаты, требуется подтверждение владельца исполнения."
+      },
+      "audit_events": [
+        {
+          "event_id": "audit-exec-2026-0007-ai-suggested-partial-payment",
+          "tender_id": "exec-2026-0007",
+          "action": "outcome_suggested",
+          "actor_role": "ai_reviewer",
+          "created_at": "2026-06-16T08:10:00+05:00",
+          "evidence_ref": "raw-etp-procedure-room-0373100042626000001"
+        }
+      ],
       "risk": "medium",
       "match": 74
     }

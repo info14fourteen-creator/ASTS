@@ -18,10 +18,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Привязать outcome/reason", "карточка процедуры + audit trail"],
-  ["2", "Показать raw artifact manifest", "web documents + custody details"],
-  ["3", "Добавить API smoke", "/v1/sources/connectors after dependencies"],
-  ["4", "Включить shared validation", "GitHub Actions gate"],
+  ["1", "Показать raw artifact manifest", "web documents + custody details"],
+  ["2", "Добавить API smoke", "/v1/sources/connectors after dependencies"],
+  ["3", "Включить shared validation", "GitHub Actions gate"],
+  ["4", "Добавить outcome UI states", "approved / locked / rejected variants"],
 ];
 
 const cycleRules = [

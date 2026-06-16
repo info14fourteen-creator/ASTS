@@ -88,6 +88,18 @@ function validateDemoData() {
 
   const tenderIds = new Set();
   const tenderSources = new Map();
+  const outcomeFunnels = {
+    pre_win: new Set([
+      "won",
+      "lost_competition",
+      "rejected_before_submission",
+      "deadline_expired",
+      "unprofitable",
+      "cancelled_by_customer",
+      "manual_management",
+    ]),
+    execution: new Set(["not_paid", "not_accepted", "penalties", "refund", "partial_payment"]),
+  };
 
   for (const tender of demoData.tenders) {
     assertNonEmptyString(tender.tender_id, "tender.tender_id");
@@ -97,6 +109,8 @@ function validateDemoData() {
     tenderSources.set(tender.tender_id, tender.source);
     assert(["pre_win", "execution"].includes(tender.funnel), `invalid funnel for ${tender.tender_id}`);
     assert(typeof tender.ai_confidence === "number", `missing ai_confidence for ${tender.tender_id}`);
+    validateOutcome(tender.outcome, tender, outcomeFunnels);
+    validateAuditEvents(tender.audit_events, tender);
   }
 
   for (const document of demoData.documents) {
@@ -113,6 +127,29 @@ function validateDemoData() {
   for (const task of demoData.tasks) {
     assert(tenderIds.has(task.tender_id), `task ${task.task_id} references unknown tender`);
     assert(typeof task.requires_human_approval === "boolean", `task ${task.task_id} must declare approval gate`);
+  }
+}
+
+function validateOutcome(outcome, tender, outcomeFunnels) {
+  assert(outcome, `tender ${tender.tender_id} must include outcome snapshot`);
+  assert(outcome.funnel === tender.funnel, `outcome funnel mismatch for ${tender.tender_id}`);
+  assert(outcomeFunnels[tender.funnel].has(outcome.code), `invalid outcome code ${outcome.code} for ${tender.funnel}`);
+  assert(["suggested", "approved", "locked"].includes(outcome.status), `invalid outcome status for ${tender.tender_id}`);
+  assert(typeof outcome.requires_owner_approval === "boolean", `outcome approval gate missing for ${tender.tender_id}`);
+  assertNonEmptyString(outcome.owner_role, `outcome owner missing for ${tender.tender_id}`);
+  assertNonEmptyString(outcome.source_ref, `outcome source_ref missing for ${tender.tender_id}`);
+  assertNonEmptyString(outcome.note, `outcome note missing for ${tender.tender_id}`);
+}
+
+function validateAuditEvents(auditEvents, tender) {
+  assert(Array.isArray(auditEvents) && auditEvents.length > 0, `tender ${tender.tender_id} must include audit events`);
+  for (const event of auditEvents) {
+    assertNonEmptyString(event.event_id, `audit event_id missing for ${tender.tender_id}`);
+    assert(event.tender_id === tender.tender_id, `audit tender_id mismatch for ${event.event_id}`);
+    assertNonEmptyString(event.action, `audit action missing for ${event.event_id}`);
+    assertNonEmptyString(event.actor_role, `audit actor_role missing for ${event.event_id}`);
+    assertNonEmptyString(event.created_at, `audit created_at missing for ${event.event_id}`);
+    assertNonEmptyString(event.evidence_ref, `audit evidence_ref missing for ${event.event_id}`);
   }
 }
 

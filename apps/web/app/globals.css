@@ -1077,6 +1077,88 @@ dd {
   line-height: 1.35;
 }
 
+.outcome-audit-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.outcome-reason-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.outcome-reason-card {
+  min-height: 112px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 13px;
+  background: #fbfcfd;
+}
+
+.outcome-reason-card span,
+.outcome-reason-card strong,
+.outcome-reason-card p {
+  display: block;
+}
+
+.outcome-reason-card span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.outcome-reason-card strong {
+  margin-top: 10px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.outcome-reason-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.outcome-audit-list {
+  display: grid;
+  gap: 8px;
+}
+
+.outcome-audit-list article {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  gap: 8px 10px;
+  align-items: start;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+  background: #fbfcfd;
+}
+
+.outcome-audit-list span {
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.outcome-audit-list strong,
+.outcome-audit-list em {
+  min-width: 0;
+  line-height: 1.35;
+}
+
+.outcome-audit-list em {
+  grid-column: 2;
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  overflow-wrap: anywhere;
+}
+
 .deal-detail-grid {
   display: grid;
   grid-template-columns: 0.85fr 1fr 1fr;
@@ -5054,6 +5136,10 @@ dd {
     grid-template-columns: 1fr;
   }
 
+  .outcome-audit-grid {
+    grid-template-columns: 1fr;
+  }
+
   .deal-detail-grid {
     grid-template-columns: 1fr;
   }
@@ -5521,6 +5607,10 @@ dd {
   }
 
   .tender-intake-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .outcome-reason-grid {
     grid-template-columns: 1fr;
   }
 
