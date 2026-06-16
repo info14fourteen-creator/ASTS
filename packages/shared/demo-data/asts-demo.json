@@ -278,7 +278,7 @@
         "checksum_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
         "content_type": "application/pdf",
         "collected_at": "2026-06-16T08:20:00+05:00",
-        "custody_status": "attached"
+        "custody_status": "checksum_verified"
       },
       "storage_path": "raw/etp/exec-2026-0007/win-protocol.pdf",
       "mime_type": "application/pdf"
