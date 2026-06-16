@@ -46,9 +46,16 @@ const handoffLoop = [
 
 const automationMonitor = [
   ["Heartbeat", "12 мин", "следующий инкремент запускается без ручного пинка", "running"],
-  ["Build", "npm run build", "каждая правка должна собрать 16 static routes", "required"],
+  ["Build", "npm run build", "каждая правка должна собрать 18 static routes", "required"],
   ["Smoke", "changed route", "DOM проверка desktop/mobile и чистая консоль", "required"],
   ["PR update", "codex/app-site-shell", "push только в PR ветку, main не трогаем", "safe"],
+];
+
+const automationPausePolicy = [
+  ["Failed build", "не пушить дальше, пока npm run build не зеленый", "stop"],
+  ["Dirty tree", "не трогать чужие файлы и не мержить смешанный diff", "review"],
+  ["Broken smoke", "оставить PR открытым и зафиксировать маршрут/viewport", "block"],
+  ["No owner", "AI не принимает продуктовый риск без владельца этапа", "handoff"],
 ];
 
 const escalationRules = [
@@ -194,6 +201,25 @@ export default function TasksPage() {
             {automationMonitor.map(([title, cadence, rule, tone]) => (
               <article className={`automation-monitor-card ${tone}`} key={title}>
                 <span>{cadence}</span>
+                <strong>{title}</strong>
+                <p>{rule}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel automation-pause-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Automation pause policy</p>
+              <h2>Когда 12-минутный цикл должен остановиться</h2>
+            </div>
+            <span className="status-pill">stop before damage</span>
+          </div>
+          <div className="automation-pause-grid">
+            {automationPausePolicy.map(([title, rule, action]) => (
+              <article className="automation-pause-card" key={title}>
+                <span>{action}</span>
                 <strong>{title}</strong>
                 <p>{rule}</p>
               </article>

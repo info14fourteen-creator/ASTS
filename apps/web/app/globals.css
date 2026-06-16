@@ -1236,6 +1236,54 @@ dd {
   color: var(--accent-dark);
 }
 
+.automation-pause-panel {
+  margin-top: 14px;
+}
+
+.automation-pause-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.automation-pause-card {
+  min-height: 132px;
+  border: 1px solid rgba(180, 35, 24, 0.2);
+  border-radius: 8px;
+  padding: 13px;
+  background: #fff3f1;
+}
+
+.automation-pause-card span,
+.automation-pause-card strong,
+.automation-pause-card p {
+  display: block;
+}
+
+.automation-pause-card span {
+  width: fit-content;
+  border: 1px solid rgba(180, 35, 24, 0.24);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: rgba(180, 35, 24, 0.08);
+  color: var(--red);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.automation-pause-card strong {
+  margin-top: 10px;
+  color: var(--accent-dark);
+  line-height: 1.25;
+}
+
+.automation-pause-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.38;
+}
+
 .collaboration-panel {
   margin-top: 14px;
 }
@@ -5066,6 +5114,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .automation-pause-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .collaboration-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -5318,6 +5370,10 @@ dd {
   }
 
   .automation-monitor-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .automation-pause-grid {
     grid-template-columns: 1fr;
   }
 
