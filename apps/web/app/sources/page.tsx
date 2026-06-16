@@ -50,6 +50,21 @@ const connectorReadiness = [
   ["P1", "File vault", "хеш, OCR, версии и связь файла с процедурой", "прототип"],
 ];
 
+const fnsReadiness = {
+  connectorId: "fns-egrul-nalog-ru",
+  status: "contract-only",
+  owner: "Legal",
+  aiGate: "manual_review_until_secrets",
+  rawTemplate: "raw/fns/{inn}/{artifact_id}",
+  requiredSecrets: ["FNS_API_BASE_URL", "FNS_API_TOKEN"],
+  checks: [
+    ["ИНН", "fetch_by_inn", "поиск компании и статуса юрлица"],
+    ["ОГРН", "fetch_by_ogrn", "сверка карточки ЕГРЮЛ"],
+    ["Выписка", "fetch_extract", "raw artifact + checksum"],
+    ["Freshness", "normalize", "событийная проверка перед AI"],
+  ],
+};
+
 const connectorRunbook = [
   ["ЕИС", "Data", "raw XML/JSON + файлы", "retry 3x / quarantine"],
   ["ФНС", "Legal", "ответ проверки ИНН", "ручное подтверждение при расхождении"],
@@ -264,6 +279,35 @@ export default function SourcesPage() {
                 <strong>{source}</strong>
                 <p>{task}</p>
                 <em>{status}</em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel connector-readiness-panel"
+          data-ai-gate={fnsReadiness.aiGate}
+          data-connector-id={fnsReadiness.connectorId}
+          data-owner={fnsReadiness.owner}
+          data-raw-template={fnsReadiness.rawTemplate}
+          data-required-secrets={fnsReadiness.requiredSecrets.join(",")}
+          data-status={fnsReadiness.status}
+          data-testid="fns-source-readiness-card"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">FNS source readiness</p>
+              <h2>ФНС / ЕГРЮЛ как первоисточник для ИНН и ОГРН</h2>
+            </div>
+            <span className="status-pill amber">{fnsReadiness.status}</span>
+          </div>
+          <div className="connector-readiness-grid">
+            {fnsReadiness.checks.map(([title, capability, text]) => (
+              <article className="connector-readiness-card" data-capability={capability} key={title}>
+                <span>{title}</span>
+                <strong>{capability}</strong>
+                <p>{text}</p>
+                <em>{fnsReadiness.rawTemplate}</em>
               </article>
             ))}
           </div>
