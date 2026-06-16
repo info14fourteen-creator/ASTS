@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить source health API contract", "подготовить backend-модель для ready/quarantine/unavailable"],
-  ["2", "Добавить fixture quarantine browser loop", "проверять quarantine copy в браузере и route smoke"],
-  ["3", "Добавить owner approval API handoff contract", "перенести lock summary в backend DTO"],
-  ["4", "Добавить execution browser loop CI note", "описать fallback, если in-app browser bridge недоступен"],
+  ["1", "Добавить source freshness API endpoint", "отдельный DTO для stale/missing/parse_failed/hash_mismatch очереди"],
+  ["2", "Добавить /sources freshness breach browser loop", "закрепить stale/missing/hash mismatch copy route smoke"],
+  ["3", "Добавить AI review confidence queue API contract", "low-confidence facts с source evidence"],
+  ["4", "Добавить /ai-review browser loop", "owner review для low-confidence фактов"],
 ];
 
 const cycleRules = [
@@ -37,6 +37,13 @@ const cycleRules = [
   ["Build", "запустить релевантную проверку"],
   ["Push", "только в PR ветку, не в main"],
   ["Report", "кратко: что сделано, что проверено, что дальше"],
+];
+
+const partnerQuickstart = [
+  ["Clone", "git clone git@github.com:info14fourteen-creator/ASTS.git"],
+  ["Branch", "git checkout -b codex/<short-task-name>"],
+  ["Install", "cd apps/web && npm ci"],
+  ["Build", "npm run build && npm run smoke -- --url http://127.0.0.1:4177/"],
 ];
 
 const apiDependencyNotes = [
@@ -148,6 +155,36 @@ export default function PlanPage() {
                 <p>{text}</p>
               </article>
             ))}
+          </div>
+        </section>
+
+        <section
+          className="panel partner-quickstart-panel"
+          data-branch-prefix="codex/"
+          data-step-count={partnerQuickstart.length}
+          data-testid="partner-quickstart"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Partner quickstart</p>
+              <h2>Как второму разработчику начать без риска для main</h2>
+            </div>
+            <span className="status-pill green">codex/* branch</span>
+          </div>
+          <div className="partner-access-grid">
+            {partnerQuickstart.map(([title, text]) => (
+              <article className="partner-access-card" key={title}>
+                <strong>{title}</strong>
+                <span>{text}</span>
+              </article>
+            ))}
+          </div>
+          <div className="partner-prompt">
+            <span>Prompt for partner Codex</span>
+            <p>
+              Подключись к репозиторию ASTS, работай только в своей ветке codex/&lt;short-task-name&gt;, перед PR
+              запусти build/smoke и не пушь напрямую в main.
+            </p>
           </div>
         </section>
 

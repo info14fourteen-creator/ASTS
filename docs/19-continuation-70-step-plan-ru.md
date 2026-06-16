@@ -190,6 +190,7 @@
 52. Добавить fixture drift quarantine copy: `/plan` объясняет владельцу, что блокировать и как снимать quarantine при status=drift.
 53. Добавить owner approval handoff lock: `/tenders` не считает approved готовым к execution без owner receipt и source evidence.
 54. Добавить execution blocked browser loop: `/execution` фиксирует browser-loop contract для blocked fixture и route smoke.
+55. Добавить partner quickstart в `/plan`: второй разработчик видит clone, branch, install, build/smoke и правило не пушить в `main`.
 
 Следующими брать:
 
@@ -197,3 +198,8 @@
 2. [done 2026-06-17] Добавить fixture quarantine browser loop: проверять quarantine copy в браузере и route smoke.
 3. [done 2026-06-17] Добавить owner approval API handoff contract: перенести lock summary в backend DTO.
 4. [done 2026-06-17] Добавить execution browser loop CI note: описать fallback, если in-app browser bridge недоступен.
+5. [done 2026-06-17] Добавить partner quickstart в `/plan`: clone, codex branch, install, build/smoke и partner prompt.
+6. Добавить source freshness API endpoint: отдельный DTO для stale/missing/parse_failed/hash_mismatch очереди.
+7. Добавить `/sources` freshness breach browser loop: закрепить stale/missing/hash mismatch copy route smoke.
+8. Добавить AI review confidence queue API contract: low-confidence facts с source evidence.
+9. Добавить `/ai-review` browser loop для low-confidence owner review.
