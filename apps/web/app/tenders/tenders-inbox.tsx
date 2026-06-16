@@ -68,6 +68,8 @@ export function TendersInbox({ initialOutcome }: { initialOutcome: OutcomeKey })
     () => rows.filter((row) => activeOutcome === "all" || row.outcome === activeOutcome),
     [activeOutcome],
   );
+  const activeOutcomeSpec = outcomeFilterSpecs.find(([key]) => key === activeOutcome) ?? outcomeFilterSpecs[0];
+  const [, activeOutcomeLabel, activeOutcomeTitle, activeOutcomeDetail] = activeOutcomeSpec;
 
   function selectOutcome(outcome: OutcomeKey) {
     setActiveOutcome(outcome);
@@ -179,6 +181,38 @@ export function TendersInbox({ initialOutcome }: { initialOutcome: OutcomeKey })
                 <p>{detail}</p>
               </button>
             ))}
+          </div>
+          <div
+            aria-live="polite"
+            className="owner-approval-browser-loop"
+            data-active-outcome={activeOutcome}
+            data-testid="owner-approval-browser-loop"
+            data-visible-count={filteredRows.length}
+          >
+            <div>
+              <span>Owner approval receipt</span>
+              <strong>
+                Активный outcome: {activeOutcome} · {procedureCountLabel(filteredRows.length)}
+              </strong>
+              <p>
+                Фильтр, URL и видимые процедуры должны совпадать перед ручным подтверждением и handoff во вторую
+                воронку.
+              </p>
+            </div>
+            <dl>
+              <div>
+                <dt>Filter</dt>
+                <dd>{activeOutcomeLabel}</dd>
+              </div>
+              <div>
+                <dt>Gate</dt>
+                <dd>{activeOutcomeTitle}</dd>
+              </div>
+              <div>
+                <dt>Owner rule</dt>
+                <dd>{activeOutcomeDetail}</dd>
+              </div>
+            </dl>
           </div>
           <div className="tender-table">
             <div className="table-row table-head tender-inbox-row">

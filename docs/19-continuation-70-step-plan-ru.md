@@ -180,10 +180,11 @@
 42. Добавить execution smoke по документам: post-win handoff artifacts второй воронки выводятся из shared fixture и закреплены route smoke.
 43. Добавить source-id mismatch hint: карточка и 404 объясняют разницу между `tender_id/regNumber` и `raw_artifact_id/source_ref`.
 44. Добавить fixture coverage count в `/plan`: план показывает pre-win, execution, documents, execution artifacts, tasks и outcome states из shared fixture.
+45. Добавить owner approval browser loop: `/tenders` показывает активный outcome receipt, а браузерный цикл кликает фильтры и сверяет `aria-pressed`, URL и visible rows.
 
 Следующими брать:
 
-1. Добавить owner approval browser loop: кликать outcome filter и сверять active state.
-2. Добавить execution artifact empty guard: не давать второй воронке стартовать без документов.
-3. Добавить source_url deep link: из карточки быстро открыть первоисточник.
-4. Добавить fixture drift warning: подсветить, если smoke counts не совпали с shared fixture.
+1. Добавить execution artifact empty guard: не давать второй воронке стартовать без документов.
+2. Добавить source_url deep link: из карточки быстро открыть первоисточник.
+3. Добавить fixture drift warning: подсветить, если smoke counts не совпали с shared fixture.
+4. Добавить owner approval receipt history: хранить последнее ручное подтверждение перед handoff.

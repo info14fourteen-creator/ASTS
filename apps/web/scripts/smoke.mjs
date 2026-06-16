@@ -26,6 +26,7 @@ const tenderDetailRouteChecks = preWinTenders.map((tender) => ({
 
 const outcomeFilterRouteChecks = ["suggested", "locked", "approved"].map((outcome) => {
   const tender = preWinTenders.find((item) => item.outcome.status === outcome);
+  const visibleCount = preWinTenders.filter((item) => item.outcome.status === outcome).length;
 
   if (!tender) {
     throw new Error(`demo fixture must include pre-win outcome ${outcome}`);
@@ -34,7 +35,17 @@ const outcomeFilterRouteChecks = ["suggested", "locked", "approved"].map((outcom
   return {
     path: `/tenders?outcome=${outcome}`,
     status: 200,
-    mustInclude: ["Outcome filters", outcome, tender.tender_id, tender.title, tender.outcome.note],
+    mustInclude: [
+      "Outcome filters",
+      "Owner approval receipt",
+      "data-testid=\"owner-approval-browser-loop\"",
+      `data-active-outcome="${outcome}"`,
+      `data-visible-count="${visibleCount}"`,
+      outcome,
+      tender.tender_id,
+      tender.title,
+      tender.outcome.note,
+    ],
   };
 });
 
@@ -86,6 +97,10 @@ const routeChecks = [
     mustInclude: [
       "Процедуры",
       "Outcome filters",
+      "Owner approval receipt",
+      "data-testid=\"owner-approval-browser-loop\"",
+      "data-active-outcome=\"all\"",
+      "data-visible-count=\"4\"",
       "ожидают owner review",
       "нет owner approval",
       "0373100042626000001",
