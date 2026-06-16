@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить source freshness API endpoint", "отдельный DTO для stale/missing/parse_failed/hash_mismatch очереди"],
-  ["2", "Добавить /sources freshness breach browser loop", "закрепить stale/missing/hash mismatch copy route smoke"],
-  ["3", "Добавить AI review confidence queue API contract", "low-confidence facts с source evidence"],
-  ["4", "Добавить /ai-review browser loop", "owner review для low-confidence фактов"],
+  ["1", "Добавить AI review confidence queue API contract", "low-confidence facts с source evidence"],
+  ["2", "Добавить /ai-review browser loop", "owner review для low-confidence фактов"],
+  ["3", "Добавить source freshness API docs", "описать freshness DTO и связь с /sources UI"],
+  ["4", "Добавить FNS source contract spike", "ИНН, ЕГРЮЛ и raw artifact evidence"],
 ];
 
 const cycleRules = [

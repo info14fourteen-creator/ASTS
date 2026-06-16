@@ -1,5 +1,10 @@
 import { Sidebar } from "../app-shell";
-import { sourceQuarantineBrowserLoop, sourceUrlHealthStates } from "../../lib/mock-data";
+import {
+  sourceFreshnessBreachQueue,
+  sourceFreshnessBrowserLoop,
+  sourceQuarantineBrowserLoop,
+  sourceUrlHealthStates,
+} from "../../lib/mock-data";
 
 const sources = [
   ["ЕИС / zakupki.gov.ru", "44-ФЗ, 223-ФЗ, извещения, протоколы, контракты", "connector stub", "primary"],
@@ -64,13 +69,6 @@ const freshnessRules = [
   ["ФНС", "по событию", "проверка ИНН запускается при новой процедуре или поставщике"],
   ["Файлы/OCR", "до 30 мин", "AI не делает вывод без оригинала файла или OCR-версии"],
   ["ЭТП", "webhook/API", "статусы подачи и площадочные файлы требуют подтверждения коннектора"],
-];
-
-const freshnessBreachQueue = [
-  ["ЕИС документы", "нет свежего файла ТЗ или протокола", "quarantine"],
-  ["ФНС карточка", "ИНН изменился или ответ старше события сделки", "rerun"],
-  ["ЭТП статус", "площадка не подтвердила подачу или отзыв заявки", "manual"],
-  ["OCR версия", "текст не совпадает с оригинальным PDF/hash", "rebuild"],
 ];
 
 const evidenceGates = [
@@ -331,19 +329,81 @@ export default function SourcesPage() {
           </div>
         </section>
 
-        <section className="panel freshness-breach-panel">
+        <section
+          className="panel freshness-breach-panel"
+          data-ai-blocked-count={sourceFreshnessBreachQueue.filter((item) => item.aiGate === "blocked").length}
+          data-breach-types={sourceFreshnessBrowserLoop.expectedBreachTypes.join(",")}
+          data-testid="source-freshness-breach-queue"
+          data-total-count={sourceFreshnessBreachQueue.length}
+        >
           <div className="panel-head compact">
             <div>
               <p className="eyebrow">Freshness breach queue</p>
-              <h2>Что делаем, если первоисточник просрочен</h2>
+              <h2>Что делаем, если первоисточник нарушил SLA</h2>
             </div>
-            <span className="status-pill">AI waits</span>
+            <span className="status-pill amber">AI blocked</span>
           </div>
           <div className="freshness-breach-grid">
-            {freshnessBreachQueue.map(([title, text, action]) => (
-              <article className="freshness-breach-card" key={title}>
-                <span>{action}</span>
-                <strong>{title}</strong>
+            {sourceFreshnessBreachQueue.map((item) => (
+              <article
+                className="freshness-breach-card"
+                data-ai-gate={item.aiGate}
+                data-breach-type={item.breachType}
+                data-raw-artifact-id={item.rawArtifactId}
+                data-source-url={item.sourceUrl}
+                key={item.id}
+              >
+                <span>{item.breachType}</span>
+                <strong>{item.source}</strong>
+                <p>{item.reason}</p>
+                <dl>
+                  <div>
+                    <dt>Procedure</dt>
+                    <dd>{item.tenderId}</dd>
+                  </div>
+                  <div>
+                    <dt>Raw artifact</dt>
+                    <dd>{item.rawArtifactId}</dd>
+                  </div>
+                  <div>
+                    <dt>SLA / age</dt>
+                    <dd>
+                      {item.sla} / {item.age}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Owner</dt>
+                    <dd>{item.owner}</dd>
+                  </div>
+                </dl>
+                <em>{item.action}</em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-ai-gate={sourceFreshnessBrowserLoop.expectedAiGate}
+          data-breach-types={sourceFreshnessBrowserLoop.expectedBreachTypes.join(",")}
+          data-expected-count={sourceFreshnessBrowserLoop.expectedCount}
+          data-route={sourceFreshnessBrowserLoop.route}
+          data-selector={sourceFreshnessBrowserLoop.selector}
+          data-status={sourceFreshnessBrowserLoop.status}
+          data-testid="source-freshness-browser-loop"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Freshness breach browser loop</p>
+              <h2>Как браузер сверяет блокировку AI по freshness</h2>
+            </div>
+            <span className="status-pill amber">{sourceFreshnessBrowserLoop.status}</span>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {sourceFreshnessBrowserLoop.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>{sourceFreshnessBrowserLoop.selector}</strong>
                 <p>{text}</p>
               </article>
             ))}

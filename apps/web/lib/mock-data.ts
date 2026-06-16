@@ -185,6 +185,35 @@ export type SourceQuarantineBrowserLoop = {
   checks: [string, string][];
 };
 
+export type SourceFreshnessBreachType = "stale" | "missing" | "parse_failed" | "hash_mismatch";
+
+export type SourceFreshnessBreachRow = {
+  id: string;
+  tenderId: string;
+  source: string;
+  sourceUrl: string;
+  rawArtifactId: string;
+  breachType: SourceFreshnessBreachType;
+  detectedAt: string;
+  lastSuccessAt: string;
+  sla: string;
+  age: string;
+  owner: string;
+  aiGate: "blocked";
+  action: string;
+  reason: string;
+};
+
+export type SourceFreshnessBrowserLoop = {
+  status: "armed";
+  route: string;
+  selector: string;
+  expectedAiGate: "blocked";
+  expectedBreachTypes: SourceFreshnessBreachType[];
+  expectedCount: number;
+  checks: [string, string][];
+};
+
 export type FixtureDriftQuarantineCopy = {
   status: "standby" | "quarantine";
   owner: string;
@@ -548,6 +577,88 @@ export const sourceQuarantineBrowserLoop: SourceQuarantineBrowserLoop = {
     ["Assert raw", "сверить raw artifact с карточкой первоисточника и API health contract"],
     ["Assert AI gate", "убедиться, что AI gate остается blocked до ручного решения владельца"],
     ["Assert copy", "проверить текст manual review before AI и schema drift"],
+  ],
+};
+
+export const sourceFreshnessBreachQueue: SourceFreshnessBreachRow[] = [
+  {
+    id: "freshness-stale-raw-eis-32211984571",
+    tenderId: "322119845710000001",
+    source: "ЕИС API",
+    sourceUrl: "https://zakupki.gov.ru/223/purchase/public/purchase/info/common-info.html?regNumber=32211984571",
+    rawArtifactId: "raw-eis-32211984571",
+    breachType: "stale",
+    detectedAt: "08:25",
+    lastSuccessAt: "07:45",
+    sla: "15 мин",
+    age: "40 мин",
+    owner: "supplier_manager",
+    aiGate: "blocked",
+    action: "refresh primary-source payload before AI scoring",
+    reason: "EIS card is older than the 15 minute tender intake SLA.",
+  },
+  {
+    id: "freshness-missing-raw-eis-0373100042626000001",
+    tenderId: "0373100042626000001",
+    source: "ЕИС API",
+    sourceUrl: "https://zakupki.gov.ru/epz/order/notice/ea20/view/common-info.html?regNumber=0373100042626000001",
+    rawArtifactId: "raw-eis-0373100042626000001",
+    breachType: "missing",
+    detectedAt: "08:28",
+    lastSuccessAt: "нет",
+    sla: "15 мин",
+    age: "unknown",
+    owner: "tender_manager",
+    aiGate: "blocked",
+    action: "fetch and store the missing procurement document raw artifact",
+    reason: "Tender card exists, but the original specification file is not in raw storage.",
+  },
+  {
+    id: "freshness-parse-failed-raw-eis-0173200001426000044",
+    tenderId: "0173200001426000044",
+    source: "ЕИС API",
+    sourceUrl: "https://zakupki.gov.ru/epz/order/notice/ea20/view/common-info.html?regNumber=0173200001426000044",
+    rawArtifactId: "raw-eis-0173200001426000044",
+    breachType: "parse_failed",
+    detectedAt: "08:31",
+    lastSuccessAt: "08:15",
+    sla: "15 мин",
+    age: "16 мин",
+    owner: "finance_owner",
+    aiGate: "blocked",
+    action: "send the payload to manual schema review and keep AI blocked",
+    reason: "Primary source is reachable, but normalizer version cannot parse the changed EIS schema.",
+  },
+  {
+    id: "freshness-hash-mismatch-raw-etp-procedure-room-0373100042626000001",
+    tenderId: "exec-2026-0007",
+    source: "ЭТП API",
+    sourceUrl: "https://sberbank-ast.ru/procedure/0373100042626000001/execution",
+    rawArtifactId: "raw-etp-procedure-room-0373100042626000001",
+    breachType: "hash_mismatch",
+    detectedAt: "08:33",
+    lastSuccessAt: "08:20",
+    sla: "15 мин",
+    age: "13 мин",
+    owner: "execution_owner",
+    aiGate: "blocked",
+    action: "quarantine artifact and refetch from official ETP API",
+    reason: "Stored artifact checksum does not match the source evidence checksum.",
+  },
+];
+
+export const sourceFreshnessBrowserLoop: SourceFreshnessBrowserLoop = {
+  status: "armed",
+  route: "/sources",
+  selector: "[data-testid='source-freshness-breach-queue'] [data-ai-gate='blocked']",
+  expectedAiGate: "blocked",
+  expectedBreachTypes: ["stale", "missing", "parse_failed", "hash_mismatch"],
+  expectedCount: sourceFreshnessBreachQueue.length,
+  checks: [
+    ["Locate", "найти freshness breach queue по data-testid"],
+    ["Assert breaches", "сверить stale, missing, parse_failed и hash_mismatch"],
+    ["Assert evidence", "сверить source_url и raw_artifact_id для каждой строки"],
+    ["Assert AI gate", "убедиться, что каждый breach держит data-ai-gate=blocked"],
   ],
 };
 

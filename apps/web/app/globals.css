@@ -3780,7 +3780,10 @@ dd {
 
 .freshness-breach-card span,
 .freshness-breach-card strong,
-.freshness-breach-card p {
+.freshness-breach-card p,
+.freshness-breach-card em,
+.freshness-breach-card dt,
+.freshness-breach-card dd {
   display: block;
 }
 
@@ -3806,6 +3809,41 @@ dd {
   margin: 8px 0 0;
   color: var(--muted);
   line-height: 1.4;
+}
+
+.freshness-breach-card dl {
+  display: grid;
+  gap: 7px;
+  margin: 12px 0 0;
+}
+
+.freshness-breach-card dl div {
+  min-width: 0;
+}
+
+.freshness-breach-card dt {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 750;
+  text-transform: uppercase;
+}
+
+.freshness-breach-card dd {
+  margin: 2px 0 0;
+  overflow-wrap: anywhere;
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.freshness-breach-card em {
+  margin-top: 11px;
+  color: var(--amber);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.35;
 }
 
 .pipeline {

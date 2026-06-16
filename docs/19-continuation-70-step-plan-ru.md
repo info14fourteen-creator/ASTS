@@ -192,6 +192,7 @@
 54. Добавить execution blocked browser loop: `/execution` фиксирует browser-loop contract для blocked fixture и route smoke.
 55. Добавить partner quickstart в `/plan`: второй разработчик видит clone, branch, install, build/smoke и правило не пушить в `main`.
 56. Добавить source freshness API endpoint: `/v1/sources/freshness` возвращает очередь `stale`, `missing`, `parse_failed`, `hash_mismatch` и блокирует AI до восстановления evidence.
+57. Добавить `/sources` freshness breach browser loop: UI показывает `stale`, `missing`, `parse_failed`, `hash_mismatch`, source evidence и `ai_gate=blocked`; route smoke закрепляет HTML-контракт.
 
 Следующими брать:
 
@@ -201,6 +202,8 @@
 4. [done 2026-06-17] Добавить execution browser loop CI note: описать fallback, если in-app browser bridge недоступен.
 5. [done 2026-06-17] Добавить partner quickstart в `/plan`: clone, codex branch, install, build/smoke и partner prompt.
 6. [done 2026-06-17] Добавить source freshness API endpoint: отдельный DTO для stale/missing/parse_failed/hash_mismatch очереди.
-7. Добавить `/sources` freshness breach browser loop: закрепить stale/missing/hash mismatch copy route smoke.
+7. [done 2026-06-17] Добавить `/sources` freshness breach browser loop: закрепить stale/missing/hash mismatch copy route smoke.
 8. Добавить AI review confidence queue API contract: low-confidence facts с source evidence.
 9. Добавить `/ai-review` browser loop для low-confidence owner review.
+10. Добавить source freshness API docs: описать DTO и связь backend `/v1/sources/freshness` с UI `/sources`.
+11. Добавить FNS source contract spike: ИНН, ЕГРЮЛ, raw artifact и freshness evidence.
