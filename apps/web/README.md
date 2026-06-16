@@ -63,6 +63,21 @@ GitHub Actions workflow `Web build` повторяет `npm ci` и `npm run buil
 - `Shared validation` - проверяет shared schemas, examples и demo fixture.
 - `API smoke` - компилирует FastAPI prototype и smoke-проверяет connector contracts.
 
+## Source Freshness UI Contract
+
+Маршрут `/sources` отображает backend contract `GET /v1/sources/freshness`.
+Ключевой блок: `data-testid="source-freshness-breach-queue"`.
+
+Route smoke закрепляет:
+
+- `data-breach-types="stale,missing,parse_failed,hash_mismatch"`;
+- `data-total-count="4"` и `data-ai-blocked-count="4"`;
+- `data-source-url`, `data-raw-artifact-id` и `data-ai-gate="blocked"` на каждой карточке;
+- `data-testid="source-freshness-browser-loop"` как проверяемый browser-loop selector.
+
+Пока есть хотя бы одна freshness breach карточка, AI не должен принимать решение
+по процедуре без обновленного raw artifact или ручного owner review.
+
 ## Collaboration Rules
 
 - Работать в ветках `codex/*`, не пушить напрямую в `main`.

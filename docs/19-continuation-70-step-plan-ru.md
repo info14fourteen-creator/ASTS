@@ -195,6 +195,7 @@
 57. Добавить `/sources` freshness breach browser loop: UI показывает `stale`, `missing`, `parse_failed`, `hash_mismatch`, source evidence и `ai_gate=blocked`; route smoke закрепляет HTML-контракт.
 58. Добавить AI review confidence queue API contract: `/v1/ai/review-queue` возвращает low-confidence facts, owner review, threshold и embedded source evidence.
 59. Добавить `/ai-review` browser loop для low-confidence owner review: UI показывает `requirement`, `supplier_quote`, `economics`, threshold, owner, source evidence и selector для blocked facts.
+60. Добавить source freshness API docs: `docs/05-api-contract.md`, API README и Web README описывают DTO `/v1/sources/freshness`, breach types и связь с `/sources` UI.
 
 Следующими брать:
 
@@ -207,7 +208,8 @@
 7. [done 2026-06-17] Добавить `/sources` freshness breach browser loop: закрепить stale/missing/hash mismatch copy route smoke.
 8. [done 2026-06-17] Добавить AI review confidence queue API contract: low-confidence facts с source evidence.
 9. [done 2026-06-17] Добавить `/ai-review` browser loop для low-confidence owner review.
-10. Добавить source freshness API docs: описать DTO и связь backend `/v1/sources/freshness` с UI `/sources`.
+10. [done 2026-06-17] Добавить source freshness API docs: описать DTO и связь backend `/v1/sources/freshness` с UI `/sources`.
 11. Добавить FNS source contract spike: ИНН, ЕГРЮЛ, raw artifact и freshness evidence.
 12. Добавить AI review API docs: описать `/v1/ai/review-queue` и owner review gate.
 13. Добавить FNS UI source card: показать ИНН/ЕГРЮЛ readiness на `/sources`.
+14. Добавить source freshness owner action docs: описать ручное снятие stale/missing/hash blockers.

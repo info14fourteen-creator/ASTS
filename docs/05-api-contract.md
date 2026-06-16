@@ -67,6 +67,64 @@ This is the first REST shape for the MVP. Exact schemas will be generated from b
 - `PATCH /tasks/{task_id}`
 - `POST /tasks/{task_id}/complete`
 
+## Source Freshness
+
+Prototype route: `GET /v1/sources/freshness`.
+
+Purpose: make primary-source freshness explicit before AI can score, summarize or move a deal. This endpoint is separate from `/v1/sources/health`: health says whether the source can be used at all, freshness says which evidence item is stale, missing, unparseable or checksum-broken.
+
+Required response shape:
+
+- `version` - API contract version.
+- `source_policy` - primary-source-only rule.
+- `sla` - human-readable freshness rule.
+- `summary.total` - number of queue rows.
+- `summary.stale`, `summary.missing`, `summary.parse_failed`, `summary.hash_mismatch` - blocker counts.
+- `summary.ai_blocked` - number of rows that must block AI.
+- `queue[].breach_type` - one of `stale`, `missing`, `parse_failed`, `hash_mismatch`.
+- `queue[].source_url`, `queue[].raw_artifact_id` - evidence link and immutable raw artifact.
+- `queue[].owner_role`, `queue[].required_action`, `queue[].reason` - owner handoff fields.
+- `queue[].ai_gate` - must be `blocked` while the breach is unresolved.
+
+Example:
+
+```json
+{
+  "version": "0.1.0",
+  "source_policy": "Primary-source freshness breaches block AI until raw evidence is restored.",
+  "sla": "Tender intake evidence must be fresh, stored and checksum-verified before AI decisions.",
+  "summary": {
+    "total": 4,
+    "stale": 1,
+    "missing": 1,
+    "parse_failed": 1,
+    "hash_mismatch": 1,
+    "ai_blocked": 4
+  },
+  "queue": [
+    {
+      "id": "freshness-stale-raw-eis-32211984571",
+      "tender_id": "322119845710000001",
+      "source_kind": "eis",
+      "display_name": "EIS / zakupki.gov.ru API",
+      "source_url": "https://zakupki.gov.ru/223/purchase/public/purchase/info/common-info.html?regNumber=32211984571",
+      "raw_artifact_id": "raw-eis-32211984571",
+      "breach_type": "stale",
+      "detected_at": "2026-06-16T08:25:00+05:00",
+      "last_success_at": "2026-06-16T07:45:00+05:00",
+      "sla_minutes": 15,
+      "age_minutes": 40,
+      "owner_role": "supplier_manager",
+      "ai_gate": "blocked",
+      "required_action": "refresh primary-source payload before AI scoring",
+      "reason": "EIS card is older than the 15 minute tender intake SLA."
+    }
+  ]
+}
+```
+
+UI contract: `/sources` renders the same four breach types in `data-testid="source-freshness-breach-queue"` and exposes `data-ai-blocked-count`, `data-breach-types`, `data-source-url`, `data-raw-artifact-id` and `data-ai-gate`. Route smoke must fail if these markers disappear.
+
 ## Reports and Export
 
 - `GET /tenders/{tender_id}/report`
