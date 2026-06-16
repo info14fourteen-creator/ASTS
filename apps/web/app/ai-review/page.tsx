@@ -42,6 +42,60 @@ const confidenceBands = [
   ["< 60%", "заблокировать вывод до новых данных", "blocked"],
 ];
 
+const lowConfidenceReviewQueue = [
+  {
+    fact: "requirement",
+    title: "Требование к поставке серверов",
+    value: "2 позиции требуют ручной проверки аналогов",
+    confidence: "82%",
+    threshold: "85%",
+    status: "review_required",
+    owner: "tender_manager",
+    evidence: "raw-eis-0373100042626000001",
+    source: "zakupki.gov.ru",
+    action: "confirm requirement interpretation before supplier request",
+  },
+  {
+    fact: "supplier_quote",
+    title: "Логистика поставщика по двум регионам",
+    value: "нет подтверждения логистики ЦФО",
+    confidence: "64%",
+    threshold: "85%",
+    status: "blocked",
+    owner: "supplier_manager",
+    evidence: "raw-eis-32211984571",
+    source: "zakupki.gov.ru",
+    action: "request supplier clarification and keep economics blocked",
+  },
+  {
+    fact: "economics",
+    title: "Маржинальность после обеспечения",
+    value: "плановая маржа ниже внутреннего порога",
+    confidence: "74%",
+    threshold: "85%",
+    status: "blocked",
+    owner: "finance_owner",
+    evidence: "raw-eis-0173200001426000044",
+    source: "zakupki.gov.ru",
+    action: "finance owner must approve or keep outcome locked",
+  },
+];
+
+const lowConfidenceBrowserLoop = {
+  status: "armed",
+  route: "/ai-review",
+  selector: "[data-testid='ai-review-confidence-queue'] [data-status='blocked']",
+  expectedReviewRequired: lowConfidenceReviewQueue.filter((item) => item.status === "review_required").length,
+  expectedBlocked: lowConfidenceReviewQueue.filter((item) => item.status === "blocked").length,
+  expectedSourceEvidence: lowConfidenceReviewQueue.length,
+  checks: [
+    ["Locate", "найти low-confidence queue по data-testid"],
+    ["Assert confidence", "сверить confidence < threshold у каждой строки"],
+    ["Assert owner", "сверить owner_role и status review_required/blocked"],
+    ["Assert evidence", "сверить raw evidence и source host перед handoff"],
+  ],
+};
+
 const evidence = [
   ["ТЗ", "Файл: tz_lighting_v4.pdf", "позиции 12-14", "manual"],
   ["Контракт", "ЕИС / проект контракта", "штрафы и сроки", "ok"],
@@ -127,6 +181,92 @@ export default function AiReviewPage() {
                 <span>{band}</span>
                 <strong>{action}</strong>
                 <p>{state}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel ai-confidence-queue-panel"
+          data-blocked-count={lowConfidenceBrowserLoop.expectedBlocked}
+          data-review-required-count={lowConfidenceBrowserLoop.expectedReviewRequired}
+          data-source-evidence-count={lowConfidenceBrowserLoop.expectedSourceEvidence}
+          data-testid="ai-review-confidence-queue"
+          data-threshold="0.85"
+          data-total-count={lowConfidenceReviewQueue.length}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Low-confidence owner review</p>
+              <h2>Какие AI-факты ждут владельца</h2>
+            </div>
+            <span className="status-pill amber">owner review required</span>
+          </div>
+          <div className="ai-confidence-queue-grid">
+            {lowConfidenceReviewQueue.map((item) => (
+              <article
+                className={`ai-confidence-queue-card ${item.status}`}
+                data-confidence={item.confidence}
+                data-evidence-ref={item.evidence}
+                data-fact-type={item.fact}
+                data-owner={item.owner}
+                data-source-host={item.source}
+                data-status={item.status}
+                data-threshold={item.threshold}
+                key={item.fact}
+              >
+                <span>{item.fact}</span>
+                <strong>{item.title}</strong>
+                <p>{item.value}</p>
+                <dl>
+                  <div>
+                    <dt>Confidence</dt>
+                    <dd>
+                      {item.confidence} / {item.threshold}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Owner</dt>
+                    <dd>{item.owner}</dd>
+                  </div>
+                  <div>
+                    <dt>Evidence</dt>
+                    <dd>{item.evidence}</dd>
+                  </div>
+                  <div>
+                    <dt>Source</dt>
+                    <dd>{item.source}</dd>
+                  </div>
+                </dl>
+                <em>{item.action}</em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel ai-confidence-browser-loop-panel"
+          data-blocked-count={lowConfidenceBrowserLoop.expectedBlocked}
+          data-review-required-count={lowConfidenceBrowserLoop.expectedReviewRequired}
+          data-route={lowConfidenceBrowserLoop.route}
+          data-selector={lowConfidenceBrowserLoop.selector}
+          data-source-evidence-count={lowConfidenceBrowserLoop.expectedSourceEvidence}
+          data-status={lowConfidenceBrowserLoop.status}
+          data-testid="ai-review-confidence-browser-loop"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review browser loop</p>
+              <h2>Как браузер сверяет low-confidence handoff</h2>
+            </div>
+            <span className="status-pill amber">{lowConfidenceBrowserLoop.status}</span>
+          </div>
+          <div className="ai-confidence-browser-loop-grid">
+            {lowConfidenceBrowserLoop.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>{lowConfidenceBrowserLoop.selector}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>

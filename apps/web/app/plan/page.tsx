@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить /ai-review browser loop", "owner review для low-confidence фактов"],
-  ["2", "Добавить source freshness API docs", "описать freshness DTO и связь с /sources UI"],
-  ["3", "Добавить FNS source contract spike", "ИНН, ЕГРЮЛ и raw artifact evidence"],
-  ["4", "Добавить AI review UI queue", "показать backend low-confidence facts на /ai-review"],
+  ["1", "Добавить source freshness API docs", "описать freshness DTO и связь с /sources UI"],
+  ["2", "Добавить FNS source contract spike", "ИНН, ЕГРЮЛ и raw artifact evidence"],
+  ["3", "Добавить AI review API docs", "описать /v1/ai/review-queue и owner review gate"],
+  ["4", "Добавить FNS UI source card", "показать ИНН/ЕГРЮЛ readiness на /sources"],
 ];
 
 const cycleRules = [
