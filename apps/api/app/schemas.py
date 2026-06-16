@@ -33,6 +33,15 @@ ConnectorStatus = Literal["planned", "stub", "ready", "blocked"]
 SourceHealthStatus = Literal["ready", "quarantine", "unavailable"]
 SourceHealthAiGate = Literal["allowed", "blocked"]
 SourceFreshnessBreachType = Literal["stale", "missing", "parse_failed", "hash_mismatch"]
+AiReviewFactType = Literal[
+    "requirement",
+    "deadline",
+    "position",
+    "supplier_quote",
+    "economics",
+    "execution_status",
+]
+AiReviewStatus = Literal["review_required", "blocked"]
 OwnerHandoffReceipt = Literal["present", "missing"]
 OwnerHandoffStatus = Literal["unlocked", "locked"]
 OwnerHandoffSummaryStatus = Literal["ready", "locked"]
@@ -230,6 +239,31 @@ class SourceFreshnessSummary(BaseModel):
     ai_blocked: int = Field(ge=0)
 
 
+class AiReviewQueueItem(BaseModel):
+    id: str
+    tender_id: str
+    document_id: str | None = None
+    fact_type: AiReviewFactType
+    title: str
+    extracted_value: str
+    confidence: float = Field(ge=0, le=1)
+    threshold: float = Field(ge=0, le=1)
+    status: AiReviewStatus
+    owner_role: str
+    source: SourceEvidence
+    evidence_ref: str
+    required_action: str
+    reason: str
+
+
+class AiReviewQueueSummary(BaseModel):
+    total: int = Field(ge=0)
+    review_required: int = Field(ge=0)
+    blocked: int = Field(ge=0)
+    low_confidence: int = Field(ge=0)
+    source_evidence_present: int = Field(ge=0)
+
+
 class OwnerApprovalHandoffLockRow(BaseModel):
     tender_id: str
     outcome: Literal["suggested", "approved", "locked"]
@@ -328,6 +362,14 @@ class SourceFreshnessResponse(BaseModel):
     sla: str
     summary: SourceFreshnessSummary
     queue: list[SourceFreshnessQueueItem]
+
+
+class AiReviewQueueResponse(BaseModel):
+    version: str
+    rule: str
+    confidence_threshold: float = Field(ge=0, le=1)
+    summary: AiReviewQueueSummary
+    queue: list[AiReviewQueueItem]
 
 
 class ApiContract(BaseModel):

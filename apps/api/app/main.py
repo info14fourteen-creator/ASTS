@@ -6,6 +6,7 @@ from app.schemas import (
     ApiContract,
     ApiContractsResponse,
     ApiStatusResponse,
+    AiReviewQueueResponse,
     DocumentArtifact,
     HealthResponse,
     IngestionPolicyResponse,
@@ -19,6 +20,7 @@ from app.schemas import (
     TaskItem,
     TenderSummary,
 )
+from app.services.ai_review import get_ai_review_queue
 from app.services.connectors import get_source_connectors
 from app.services.handoff import get_owner_approval_handoff
 from app.services.ingestion import get_ingestion_policy
@@ -133,6 +135,19 @@ def contracts() -> ApiContractsResponse:
                 ],
             ),
             ApiContract(
+                name="AI review queue",
+                route="/v1/ai/review-queue",
+                model="AiReviewQueueResponse",
+                required_evidence=[
+                    "confidence",
+                    "threshold",
+                    "owner_role",
+                    "source",
+                    "evidence_ref",
+                    "required_action",
+                ],
+            ),
+            ApiContract(
                 name="Outcome reasons",
                 route="/v1/outcomes",
                 model="OutcomeReasonsResponse",
@@ -187,6 +202,11 @@ def source_health() -> SourceHealthResponse:
 @app.get("/v1/sources/freshness", response_model=SourceFreshnessResponse, tags=["sources"])
 def source_freshness() -> SourceFreshnessResponse:
     return get_source_freshness()
+
+
+@app.get("/v1/ai/review-queue", response_model=AiReviewQueueResponse, tags=["ai"])
+def ai_review_queue() -> AiReviewQueueResponse:
+    return get_ai_review_queue()
 
 
 @app.get("/v1/outcomes", response_model=OutcomeReasonsResponse, tags=["workflow"])

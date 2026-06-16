@@ -130,6 +130,49 @@ def main() -> int:
         print("FAIL /v1/sources/freshness rows must keep source_url and raw_artifact_id")
         return 1
 
+    ai_review_response = client.get("/v1/ai/review-queue")
+    if ai_review_response.status_code != 200:
+        print(f"FAIL /v1/ai/review-queue HTTP {ai_review_response.status_code}")
+        return 1
+
+    ai_review_payload = ai_review_response.json()
+    ai_review_queue = ai_review_payload.get("queue", [])
+    ai_review_summary = ai_review_payload.get("summary", {})
+    expected_ai_review_counts = {
+        "total": 3,
+        "review_required": 1,
+        "blocked": 2,
+        "low_confidence": 3,
+        "source_evidence_present": 3,
+    }
+    for field, value in expected_ai_review_counts.items():
+        if ai_review_summary.get(field) != value:
+            print(
+                f"FAIL /v1/ai/review-queue summary {field}: "
+                f"expected {value!r}, got {ai_review_summary.get(field)!r}"
+            )
+            return 1
+
+    fact_types = {item.get("fact_type") for item in ai_review_queue}
+    if fact_types != {"requirement", "supplier_quote", "economics"}:
+        got_fact_types = sorted(str(fact_type) for fact_type in fact_types)
+        print(f"FAIL /v1/ai/review-queue fact types: expected requirement/supplier_quote/economics, got {got_fact_types}")
+        return 1
+
+    if any(item.get("confidence", 1) >= item.get("threshold", 0) for item in ai_review_queue):
+        print("FAIL /v1/ai/review-queue rows must be below confidence threshold")
+        return 1
+
+    if any(not item.get("owner_role") or not item.get("evidence_ref") for item in ai_review_queue):
+        print("FAIL /v1/ai/review-queue rows must keep owner_role and evidence_ref")
+        return 1
+
+    for item in ai_review_queue:
+        source = item.get("source", {})
+        if not source.get("source_url") or not source.get("raw_artifact_id") or not source.get("checksum_sha256"):
+            print("FAIL /v1/ai/review-queue rows must embed source evidence")
+            return 1
+
     handoff_response = client.get("/v1/handoff/owner-approval")
     if handoff_response.status_code != 200:
         print(f"FAIL /v1/handoff/owner-approval HTTP {handoff_response.status_code}")
@@ -171,7 +214,7 @@ def main() -> int:
         print("FAIL /v1/handoff/owner-approval locked rows must have missing receipts")
         return 1
 
-    print("PASS source connector, health, freshness and owner handoff contracts")
+    print("PASS source connector, health, freshness, AI review and owner handoff contracts")
     return 0
 
 
