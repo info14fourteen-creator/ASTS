@@ -148,10 +148,11 @@
 10. Добавить PWA readiness check: manifest icons и install/offline статусы.
 11. Подготовить ingestion service layer: retry, quarantine, raw artifacts.
 12. Связать demo API с web mock data через `packages/shared/demo-data/asts-demo.json`.
+13. Описать JSON-схемы извлечения позиций и КП.
 
 Следующими брать:
 
-1. Описать JSON-схемы извлечения позиций и КП.
-2. Добавить справочник outcome/reason в API.
-3. Добавить raw artifact manifest в documents API.
-4. Подготовить first connector skeleton для ЕИС.
+1. Добавить справочник outcome/reason в API.
+2. Добавить raw artifact manifest в documents API.
+3. Подготовить first connector skeleton для ЕИС.
+4. Добавить JSON schema validation script.

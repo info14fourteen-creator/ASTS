@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$id": "https://asts.local/schemas/supplier-quote-normalization.schema.json",
+  "title": "Supplier Quote Normalization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "tender_id", "supplier", "quote_lines", "source_refs", "confidence"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "2026-06-16"
+    },
+    "tender_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "supplier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "inn"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "inn": {
+          "type": ["string", "null"]
+        },
+        "contact": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "quote_lines": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "position_id",
+          "supplier_item_name",
+          "unit_price",
+          "quantity",
+          "vat_rate",
+          "delivery_days",
+          "is_analog",
+          "confidence",
+          "review_status"
+        ],
+        "properties": {
+          "position_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "supplier_item_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "unit_price": {
+            "type": "number",
+            "minimum": 0
+          },
+          "quantity": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "currency": {
+            "type": "string",
+            "default": "RUB"
+          },
+          "vat_rate": {
+            "type": ["number", "null"],
+            "minimum": 0,
+            "maximum": 1
+          },
+          "delivery_days": {
+            "type": ["integer", "null"],
+            "minimum": 0
+          },
+          "valid_until": {
+            "type": ["string", "null"],
+            "format": "date"
+          },
+          "is_analog": {
+            "type": "boolean"
+          },
+          "analog_comment": {
+            "type": ["string", "null"]
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "review_status": {
+            "type": "string",
+            "enum": ["auto_ready", "needs_review", "blocked"]
+          }
+        }
+      }
+    },
+    "source_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/source_ref"
+      }
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "missing_fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "definitions": {
+    "source_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["document_id", "raw_artifact_id", "page_or_sheet", "quote"],
+      "properties": {
+        "document_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "raw_artifact_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "page_or_sheet": {
+          "type": "string",
+          "minLength": 1
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}
