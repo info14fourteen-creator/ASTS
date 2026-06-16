@@ -18,10 +18,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Разделить mock-данные web-кабинета", "apps/web/lib/mock-data.ts"],
-  ["2", "Добавить smoke-скрипт маршрутов", "apps/web/scripts/smoke.mjs"],
-  ["3", "Начать backend foundation", "health version + Pydantic schemas"],
-  ["4", "Сверить mind map registry", "implemented / planned / needs owner"],
+  ["1", "Начать backend foundation", "health version + Pydantic schemas"],
+  ["2", "Сверить mind map registry", "implemented / planned / needs owner"],
+  ["3", "Разделить главный экран на компоненты", "Sidebar уже общий, дальше panels"],
+  ["4", "Добавить PWA readiness check", "manifest, icons, install surface"],
 ];
 
 const cycleRules = [

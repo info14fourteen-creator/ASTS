@@ -134,8 +134,16 @@
 
 ## Ближайшие маленькие инкременты
 
+Готово в PR #17:
+
 1. Связать этот план с README и workdesk.
-2. Добавить `/plan` или dashboard-секцию с текущим статусом плана.
-3. Вынести mock-данные web-кабинета в отдельный файл.
-4. Добавить smoke-скрипт для маршрутов `apps/web`.
-5. Начать backend foundation: схемы и health version.
+2. Добавить `/plan` с текущим статусом плана.
+3. Вынести mock-данные главного web-кабинета в `apps/web/lib/mock-data.ts`.
+4. Добавить smoke-скрипт маршрутов `apps/web/scripts/smoke.mjs`.
+
+Следующими брать:
+
+1. Начать backend foundation: схемы и health version.
+2. Сверить mind map registry со статусами `implemented / planned / needs owner`.
+3. Разделить главный экран на компоненты.
+4. Добавить PWA readiness check.
