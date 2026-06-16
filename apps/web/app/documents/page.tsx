@@ -1,12 +1,5 @@
 import { Sidebar } from "../app-shell";
-
-const documents = [
-  ["Техническое задание", "ЕИС API", "PDF + OCR", "AI 82%", "до победы", "подтвердить сроки"],
-  ["Проект контракта", "ЕИС API", "PDF + OCR", "AI 91%", "до победы", "готово"],
-  ["Протокол подведения итогов", "ЕИС API", "PDF + OCR", "AI 88%", "результат", "сверить победителя"],
-  ["Счет поставщика", "ручная загрузка", "нужен OCR", "AI ожидает", "исполнение", "запросить скан"],
-  ["УПД", "1C", "ожидает файл", "AI ожидает", "закрывающие", "нет оригинала"],
-];
+import { documentRows, rawArtifactManifests } from "../../lib/mock-data";
 
 const documentStats = [
   ["13", "файлов в пакете", "ЕИС, площадка, 1C, ручная загрузка"],
@@ -56,29 +49,6 @@ const manifestFields = [
   ["ai_evidence", "страница, confidence и человек, который подтвердил", "до экспорта"],
 ];
 
-const rawArtifactManifests = [
-  {
-    title: "Техническое задание",
-    artifactId: "raw-eis-0373100042626000001",
-    source: "zakupki.gov.ru",
-    storage: "raw/eis/0373100042626000001/specification.pdf",
-    checksum: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    contentType: "application/pdf",
-    collectedAt: "16 июня 2026, 07:40",
-    custody: "parsed",
-  },
-  {
-    title: "Проверка заказчика по ФНС",
-    artifactId: "raw-fns-customer-profile-7700000000",
-    source: "egrul.nalog.ru",
-    storage: "raw/fns/7700000000/egrul.json",
-    checksum: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
-    contentType: "application/json",
-    collectedAt: "16 июня 2026, 07:42",
-    custody: "checksum_verified",
-  },
-];
-
 const intakeRules = [
   ["Первоисточник", "сохраняем исходный файл, API id, дату получения и хэш"],
   ["Распознавание", "OCR складывает текст рядом с оригиналом и не меняет PDF"],
@@ -117,7 +87,7 @@ export default function DocumentsPage() {
               <p className="eyebrow">Procedure package</p>
               <h2>Документы процедуры и исполнения</h2>
             </div>
-            <span className="status-pill">5 файлов</span>
+            <span className="status-pill">{documentRows.length} файла</span>
           </div>
           <div className="document-table">
             <div className="document-row document-head">
@@ -128,7 +98,7 @@ export default function DocumentsPage() {
               <span>Этап</span>
               <span>Блокер</span>
             </div>
-            {documents.map(([title, source, ocr, ai, stage, blocker]) => (
+            {documentRows.map(({ title, source, ocr, ai, stage, blocker }) => (
               <div className="document-row" key={title}>
                 <strong>{title}</strong>
                 <span>{source}</span>

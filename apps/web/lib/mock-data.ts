@@ -20,6 +20,26 @@ export type Task = {
   tone: "neutral" | "warning" | "danger";
 };
 
+export type DocumentRow = {
+  title: string;
+  source: string;
+  ocr: string;
+  ai: string;
+  stage: string;
+  blocker: string;
+};
+
+export type RawArtifactManifest = {
+  title: string;
+  artifactId: string;
+  source: string;
+  storage: string;
+  checksum: string;
+  contentType: string;
+  collectedAt: string;
+  custody: string;
+};
+
 const sourceLabels = {
   eis: "ЕИС",
   fns: "ФНС",
@@ -32,9 +52,14 @@ const sourceLabels = {
 type SourceKind = keyof typeof sourceLabels;
 type TenderRisk = Tender["risk"];
 type TaskTone = Task["tone"];
+type DemoDocument = (typeof demoData.documents)[number];
 
 function sourceLabel(sourceKind: string): string {
   return sourceLabels[sourceKind as SourceKind] ?? sourceKind;
+}
+
+function sourceApiLabel(sourceKind: string): string {
+  return `${sourceLabel(sourceKind)} API`;
 }
 
 function tenderRisk(risk: string): TenderRisk {
@@ -51,6 +76,73 @@ function taskTone(tone: string): TaskTone {
   }
 
   return "neutral";
+}
+
+function documentSource(document: DemoDocument) {
+  if ("source" in document) {
+    return document.source;
+  }
+
+  return demoData.tenders.find((tender) => tender.tender_id === document.source_ref)?.source;
+}
+
+function documentTender(document: DemoDocument) {
+  return demoData.tenders.find((tender) => tender.tender_id === document.tender_id);
+}
+
+function documentOcr(document: DemoDocument): string {
+  if (document.mime_type === "application/pdf") {
+    return document.status === "raw" || document.status === "downloaded" ? "PDF" : "PDF + OCR";
+  }
+
+  if (document.mime_type === "application/json") {
+    return "JSON";
+  }
+
+  return document.mime_type;
+}
+
+function documentAi(document: DemoDocument): string {
+  if (document.status === "parsed") {
+    return "AI готов";
+  }
+
+  if (document.status === "reviewed") {
+    return "проверено";
+  }
+
+  return "AI ожидает";
+}
+
+function documentBlocker(status: string): string {
+  const labels: Record<string, string> = {
+    raw: "нужна загрузка",
+    downloaded: "нужен OCR",
+    ocr_ready: "ждет AI",
+    parsed: "готово",
+    reviewed: "проверено",
+    attached: "прикреплено",
+  };
+
+  return labels[status] ?? status;
+}
+
+function formatCollectedAt(value: string): string {
+  return new Intl.DateTimeFormat("ru-RU", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(new Date(value));
+}
+
+function hostFromUrl(value: string): string {
+  try {
+    return new URL(value).hostname.replace(/^www\./, "");
+  } catch {
+    return value;
+  }
 }
 
 export const tenders: Tender[] = demoData.tenders.map((tender) => ({
@@ -91,6 +183,31 @@ export const tasks: Task[] = demoData.tasks.map((task) => ({
   owner: task.owner_label,
   due: task.due_label,
   tone: taskTone(task.tone),
+}));
+
+export const documentRows: DocumentRow[] = demoData.documents.map((document) => {
+  const source = documentSource(document);
+  const tender = documentTender(document);
+
+  return {
+    title: document.title,
+    source: source ? sourceApiLabel(source.source_kind) : "Источник",
+    ocr: documentOcr(document),
+    ai: documentAi(document),
+    stage: tender?.funnel === "execution" ? "исполнение" : "до победы",
+    blocker: documentBlocker(document.status),
+  };
+});
+
+export const rawArtifactManifests: RawArtifactManifest[] = demoData.documents.map((document) => ({
+  title: document.title,
+  artifactId: document.raw_artifact.artifact_id,
+  source: hostFromUrl(document.raw_artifact.source_url),
+  storage: document.raw_artifact.storage_path,
+  checksum: document.raw_artifact.checksum_sha256,
+  contentType: document.raw_artifact.content_type,
+  collectedAt: formatCollectedAt(document.raw_artifact.collected_at),
+  custody: document.raw_artifact.custody_status,
 }));
 
 export const commandSignals = [
