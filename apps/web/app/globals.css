@@ -1647,6 +1647,54 @@ dd {
   line-height: 1.38;
 }
 
+.sync-failure-panel {
+  margin-top: 14px;
+}
+
+.sync-failure-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.sync-failure-card {
+  min-height: 128px;
+  border: 1px solid rgba(154, 100, 27, 0.24);
+  border-radius: 8px;
+  padding: 13px;
+  background: #fffaf0;
+}
+
+.sync-failure-card span,
+.sync-failure-card strong,
+.sync-failure-card p {
+  display: block;
+}
+
+.sync-failure-card span {
+  width: fit-content;
+  border: 1px solid rgba(154, 100, 27, 0.26);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: #fff7e8;
+  color: var(--amber);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.sync-failure-card strong {
+  margin-top: 10px;
+  color: var(--accent-dark);
+  line-height: 1.25;
+}
+
+.sync-failure-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.38;
+}
+
 .crm-sandbox-panel {
   margin-top: 14px;
 }
@@ -4825,6 +4873,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .sync-failure-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .crm-sandbox-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -5062,6 +5114,10 @@ dd {
   }
 
   .export-gates-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sync-failure-grid {
     grid-template-columns: 1fr;
   }
 

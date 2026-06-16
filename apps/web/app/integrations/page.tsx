@@ -40,6 +40,13 @@ const exportGates = [
   ["Rollback path", "CRM запись можно найти и отключить sync", "ready"],
 ];
 
+const syncFailureQueue = [
+  ["Duplicate CRM deal", "найден дубль по source_id или ИНН + процедура", "block"],
+  ["Missing evidence", "нет source link, file hash или AI confidence", "return"],
+  ["Rate limit", "CRM API вернул limit, retry идет через backoff", "retry"],
+  ["Owner conflict", "ответственный в CRM не совпадает с ASTS ролью", "manual"],
+];
+
 const sandboxChecklist = [
   ["Sandbox tenant", "отдельный портал/база без боевых клиентов и платежей", "до токена"],
   ["Test procedure", "одна демо-процедура проходит pre-win и execution export", "до wave 1"],
@@ -145,6 +152,25 @@ export default function IntegrationsPage() {
                 <span>{state}</span>
                 <strong>{title}</strong>
                 <p>{rule}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel sync-failure-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Sync failure queue</p>
+              <h2>Что делаем, если CRM export не прошел</h2>
+            </div>
+            <span className="status-pill">no silent retry</span>
+          </div>
+          <div className="sync-failure-grid">
+            {syncFailureQueue.map(([title, text, action]) => (
+              <article className="sync-failure-card" key={title}>
+                <span>{action}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>
