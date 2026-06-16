@@ -175,10 +175,11 @@
 37. Добавить owner approval smoke text: route smoke закрепляет marker в inbox и карточке процедуры.
 38. Добавить execution fixture row в отдельный экран: post-win запись видна в `/execution`, а не в pre-win inbox.
 39. Добавить detail fallback copy для неизвестного tender id: локальный 404 объясняет pre-win/shared fixture и вторую воронку.
+40. Добавить tender detail smoke route list: route smoke строит список реальных `/tenders/[id]` из shared fixture.
 
 Следующими брать:
 
-1. Добавить tender detail smoke route list: проверять реальные demo id из fixture.
-2. Добавить route smoke для outcome filters: проверять suggested / locked / approved.
-3. Добавить execution smoke по документам: проверять handoff artifacts второй воронки.
-4. Добавить source-id mismatch hint: подсказать, где искать регномер из первоисточника.
+1. Добавить route smoke для outcome filters: проверять suggested / locked / approved.
+2. Добавить execution smoke по документам: проверять handoff artifacts второй воронки.
+3. Добавить source-id mismatch hint: подсказать, где искать регномер из первоисточника.
+4. Добавить fixture coverage count в `/plan`: показывать сколько pre-win/post-win rows под smoke.
