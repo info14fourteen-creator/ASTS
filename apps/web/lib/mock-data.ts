@@ -13,6 +13,21 @@ export type Tender = {
   match: number;
 };
 
+export type OutcomeStatus = "suggested" | "approved" | "locked";
+
+export type TenderInboxRow = {
+  id: string;
+  outcome: OutcomeStatus;
+  source: string;
+  title: string;
+  nmck: string;
+  deadline: string;
+  match: string;
+  reason: string;
+  nextAction: string;
+  risk: Tender["risk"];
+};
+
 export type Task = {
   title: string;
   owner: string;
@@ -53,6 +68,7 @@ type SourceKind = keyof typeof sourceLabels;
 type TenderRisk = Tender["risk"];
 type TaskTone = Task["tone"];
 type DemoDocument = (typeof demoData.documents)[number];
+type DemoTender = (typeof demoData.tenders)[number];
 
 function sourceLabel(sourceKind: string): string {
   return sourceLabels[sourceKind as SourceKind] ?? sourceKind;
@@ -68,6 +84,14 @@ function tenderRisk(risk: string): TenderRisk {
   }
 
   return "medium";
+}
+
+function outcomeStatus(status: string): OutcomeStatus {
+  if (status === "suggested" || status === "approved" || status === "locked") {
+    return status;
+  }
+
+  return "suggested";
 }
 
 function taskTone(tone: string): TaskTone {
@@ -88,6 +112,10 @@ function documentSource(document: DemoDocument) {
 
 function documentTender(document: DemoDocument) {
   return demoData.tenders.find((tender) => tender.tender_id === document.tender_id);
+}
+
+function tenderTask(tender: DemoTender) {
+  return demoData.tasks.find((task) => task.tender_id === tender.tender_id);
 }
 
 function documentOcr(document: DemoDocument): string {
@@ -157,6 +185,25 @@ export const tenders: Tender[] = demoData.tenders.map((tender) => ({
   risk: tenderRisk(tender.risk),
   match: tender.match,
 }));
+
+export const tenderInboxRows: TenderInboxRow[] = demoData.tenders
+  .filter((tender) => tender.funnel === "pre_win")
+  .map((tender) => {
+    const task = tenderTask(tender);
+
+    return {
+      id: tender.tender_id,
+      outcome: outcomeStatus(tender.outcome.status),
+      source: sourceApiLabel(tender.source.source_kind),
+      title: tender.title,
+      nmck: tender.nmck_label,
+      deadline: tender.deadline_label,
+      match: `${tender.match}%`,
+      reason: tender.outcome.note,
+      nextAction: task?.title ?? tender.outcome.title,
+      risk: tenderRisk(tender.risk),
+    };
+  });
 
 export const participationStages = [
   "Входящие",

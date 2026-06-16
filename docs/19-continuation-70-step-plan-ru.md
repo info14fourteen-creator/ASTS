@@ -162,10 +162,11 @@
 24. Добавить API dependency lock/CI для smoke-проверок.
 25. Добавить shared validation badge/status в README или workdesk.
 26. Добавить интерактивные outcome filters в tender inbox по статусам suggested / locked / approved.
+27. Подключить tender inbox к shared fixture, чтобы убрать ручные rows.
 
 Следующими брать:
 
-1. Подключить tender inbox к shared fixture, чтобы убрать ручные rows.
-2. Добавить API smoke badge/status в README или workdesk.
-3. Добавить PR review checklist: merge gates + owner approval.
-4. Добавить empty state для inbox, когда фильтр не находит процедур.
+1. Добавить API smoke badge/status в README или workdesk.
+2. Добавить PR review checklist: merge gates + owner approval.
+3. Добавить empty state для inbox, когда фильтр не находит процедур.
+4. Подключить tender detail к shared fixture, чтобы карточка `/tenders/demo` не жила на ручных блоках.

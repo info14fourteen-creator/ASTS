@@ -2,56 +2,40 @@
 
 import { useMemo, useState } from "react";
 
+import { tenderInboxRows, type OutcomeStatus } from "../../lib/mock-data";
 import { Sidebar } from "../app-shell";
 
-type OutcomeKey = "all" | "suggested" | "locked" | "approved";
+type OutcomeKey = "all" | OutcomeStatus;
 type OutcomeTone = "blue" | "amber" | "green" | "neutral";
 
-const rows = [
-  [
-    "03731000426-26",
-    "suggested",
-    "ЕИС API",
-    "Поставка светотехнического оборудования",
-    "18.4 млн ₽",
-    "18 июня",
-    "86%",
-    "совпадает ОКПД2, регион и история поставок",
-    "проверить 3 позиции",
-    "medium",
-  ],
-  [
-    "32211984571",
-    "approved",
-    "223-ФЗ API",
-    "Обслуживание инженерных систем",
-    "42.8 млн ₽",
-    "21 июня",
-    "78%",
-    "подходит по региону и маржинальности",
-    "запросить КП",
-    "low",
-  ],
-  [
-    "01622000118-26",
-    "locked",
-    "ЭТП",
-    "Расходные материалы и комплектующие",
-    "7.9 млн ₽",
-    "16 июня",
-    "64%",
-    "срок близко, часть требований спорная",
-    "ручная проверка",
-    "high",
-  ],
-];
+const rows = tenderInboxRows;
 
-const outcomeFilters = [
-  ["all", "All", "Все outcome", "3 процедуры", "полная очередь inbox", "neutral"],
-  ["suggested", "Suggested", "AI предложил", "2 процедуры", "ожидают owner review", "blue"],
-  ["locked", "Locked", "Заблокировано", "1 процедура", "нет owner approval", "amber"],
-  ["approved", "Approved", "Подтверждено", "0 процедур", "готово к handoff", "green"],
-] satisfies [OutcomeKey, string, string, string, string, OutcomeTone][];
+const outcomeFilterSpecs = [
+  ["all", "All", "Все outcome", "полная очередь inbox", "neutral"],
+  ["suggested", "Suggested", "AI предложил", "ожидают owner review", "blue"],
+  ["locked", "Locked", "Заблокировано", "нет owner approval", "amber"],
+  ["approved", "Approved", "Подтверждено", "готово к handoff", "green"],
+] satisfies [OutcomeKey, string, string, string, OutcomeTone][];
+
+const outcomeCounts = rows.reduce(
+  (counts, row) => ({
+    ...counts,
+    [row.outcome]: counts[row.outcome] + 1,
+  }),
+  { all: rows.length, suggested: 0, locked: 0, approved: 0 } satisfies Record<OutcomeKey, number>,
+);
+
+function procedureCountLabel(count: number): string {
+  if (count % 10 === 1 && count % 100 !== 11) {
+    return `${count} процедура`;
+  }
+
+  if ([2, 3, 4].includes(count % 10) && ![12, 13, 14].includes(count % 100)) {
+    return `${count} процедуры`;
+  }
+
+  return `${count} процедур`;
+}
 
 const intakeGates = [
   ["Источник", "ЕИС, 223-ФЗ API или ЭТП", "обязателен первоисточник"],
@@ -77,7 +61,7 @@ const executionHandoff = [
 export default function TendersPage() {
   const [activeOutcome, setActiveOutcome] = useState<OutcomeKey>("all");
   const filteredRows = useMemo(
-    () => rows.filter(([, outcome]) => activeOutcome === "all" || outcome === activeOutcome),
+    () => rows.filter((row) => activeOutcome === "all" || row.outcome === activeOutcome),
     [activeOutcome],
   );
 
@@ -164,7 +148,7 @@ export default function TendersPage() {
             <span className="status-pill">suggested / locked / approved</span>
           </div>
           <div className="outcome-filter-grid">
-            {outcomeFilters.map(([key, label, title, count, detail, tone]) => (
+            {outcomeFilterSpecs.map(([key, label, title, detail, tone]) => (
               <button
                 aria-pressed={activeOutcome === key}
                 className={`outcome-filter-card ${tone} ${activeOutcome === key ? "active" : ""}`}
@@ -174,7 +158,7 @@ export default function TendersPage() {
               >
                 <span>{label}</span>
                 <strong>{title}</strong>
-                <small>{count}</small>
+                <small>{procedureCountLabel(outcomeCounts[key])}</small>
                 <p>{detail}</p>
               </button>
             ))}
@@ -189,21 +173,21 @@ export default function TendersPage() {
               <span>Срок</span>
               <span>AI</span>
             </div>
-            {filteredRows.map(([id, outcome, source, title, nmck, deadline, match, reason, nextAction, risk]) => (
-              <a className="table-row tender-row table-link tender-inbox-row" href="/tenders/demo" key={id}>
+            {filteredRows.map((row) => (
+              <a className="table-row tender-row table-link tender-inbox-row" href="/tenders/demo" key={row.id}>
                 <div>
-                  <strong>{id}</strong>
-                  <small>{nextAction}</small>
+                  <strong>{row.id}</strong>
+                  <small>{row.nextAction}</small>
                 </div>
-                <span className={`outcome-state-pill ${outcome}`}>{outcome}</span>
-                <span>{source}</span>
+                <span className={`outcome-state-pill ${row.outcome}`}>{row.outcome}</span>
+                <span>{row.source}</span>
                 <div>
-                  <strong>{title}</strong>
-                  <small>{reason}</small>
+                  <strong>{row.title}</strong>
+                  <small>{row.reason}</small>
                 </div>
-                <span>{nmck}</span>
-                <span>{deadline}</span>
-                <span className={`risk ${risk}`}>{match}</span>
+                <span>{row.nmck}</span>
+                <span>{row.deadline}</span>
+                <span className={`risk ${row.risk}`}>{row.match}</span>
               </a>
             ))}
           </div>
