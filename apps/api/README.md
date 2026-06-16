@@ -34,7 +34,7 @@ Future FastAPI backend.
 - `GET /v1/documents` - prototype document artifacts with raw storage paths and raw artifact custody manifest.
 - `GET /v1/tasks` - prototype operator tasks with owners, priority and approval flags.
 - `GET /v1/ingestion/policy` - service-layer contract for raw artifacts, retries and quarantine reasons.
-- `GET /v1/sources/connectors` - connector registry starting with the EIS / zakupki.gov.ru contract-only stub.
+- `GET /v1/sources/connectors` - connector registry starting with EIS / zakupki.gov.ru and FNS / EGRUL contract-only stubs.
 - `GET /v1/sources/health` - primary-source health contract with `ready`, `quarantine` and `unavailable` AI gates.
 - `GET /v1/sources/freshness` - primary-source freshness breach queue for `stale`, `missing`, `parse_failed` and `hash_mismatch` blockers.
 - `GET /v1/ai/review-queue` - low-confidence AI fact queue with owner review and embedded source evidence.
@@ -62,3 +62,19 @@ Every queue row must include `source_url`, `raw_artifact_id`, `owner_role`,
 handoff stay blocked until the row is refreshed, refetched or manually reviewed.
 
 The detailed DTO and example response live in `docs/05-api-contract.md`.
+
+## FNS Connector Contract
+
+`GET /v1/sources/connectors` now includes `connector_id="fns-egrul-nalog-ru"`
+in `contract_only` mode. It defines:
+
+- source kind `fns`;
+- official base URL `https://egrul.nalog.ru/`;
+- raw storage template `raw/fns/{inn}/{artifact_id}`;
+- required secrets `FNS_API_BASE_URL` and `FNS_API_TOKEN`;
+- capabilities `fetch_by_inn`, `fetch_by_ogrn`, `fetch_extract`, `normalize`;
+- evidence fields for `inn`, `ogrn`, `raw_artifact_id`, `checksum_sha256`,
+  `content_type`, `normalization_version` and `freshness`.
+
+The connector must stay `network_enabled=false` until access terms, request
+limits, secrets and INN/OGRN freshness tests are approved.

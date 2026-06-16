@@ -117,6 +117,15 @@ OfficialSourceProvider
 - `mode = contract_only`, пока нет утвержденных ключей, лимитов и тестов;
 - `network_enabled = false`, чтобы skeleton не делал сетевых запросов случайно.
 
+Второй backend-контракт:
+
+- `connector_id = fns-egrul-nalog-ru`;
+- `source_kind = fns`;
+- входные идентификаторы: `inn`, `ogrn`;
+- raw storage: `raw/fns/{inn}/{artifact_id}`;
+- обязательные доказательства: `source_url`, `raw_artifact_id`, `checksum_sha256`, `fetched_at`, `freshness`;
+- `network_enabled = false`, пока не утверждены условия доступа ФНС, лимиты, секреты и smoke-тесты ИНН/ОГРН.
+
 ## Приоритет подключения
 
 1. ЕИС: закупки, карточки, документы, реестры контрактов.

@@ -61,6 +61,40 @@ def main() -> int:
         print("FAIL EIS connector capabilities are incomplete")
         return 1
 
+    fns = next(
+        (connector for connector in connectors if connector.get("connector_id") == "fns-egrul-nalog-ru"),
+        None,
+    )
+    if fns is None:
+        print("FAIL FNS connector not found")
+        return 1
+
+    expected_fns = {
+        "source_kind": "fns",
+        "mode": "contract_only",
+        "network_enabled": False,
+        "raw_storage_template": "raw/fns/{inn}/{artifact_id}",
+    }
+    for field, value in expected_fns.items():
+        if fns.get(field) != value:
+            print(f"FAIL FNS connector {field}: expected {value!r}, got {fns.get(field)!r}")
+            return 1
+
+    fns_required_secrets = set(fns.get("required_secrets", []))
+    if not {"FNS_API_BASE_URL", "FNS_API_TOKEN"}.issubset(fns_required_secrets):
+        print("FAIL FNS connector required secrets are incomplete")
+        return 1
+
+    fns_supported_objects = set(fns.get("supported_objects", []))
+    if not {"legal entity profile by INN", "EGRUL extract", "company status"}.issubset(fns_supported_objects):
+        print("FAIL FNS connector supported objects are incomplete")
+        return 1
+
+    fns_capability_names = {capability.get("name") for capability in fns.get("capabilities", [])}
+    if not {"fetch_by_inn", "fetch_by_ogrn", "fetch_extract", "normalize"}.issubset(fns_capability_names):
+        print("FAIL FNS connector capabilities are incomplete")
+        return 1
+
     health_response = client.get("/v1/sources/health")
     if health_response.status_code != 200:
         print(f"FAIL /v1/sources/health HTTP {health_response.status_code}")
