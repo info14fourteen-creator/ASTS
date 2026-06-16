@@ -1,0 +1,51 @@
+name: API smoke
+
+on:
+  pull_request:
+    paths:
+      - "apps/api/**"
+      - "docs/19-continuation-70-step-plan-ru.md"
+      - ".github/workflows/api-smoke.yml"
+  push:
+    branches:
+      - main
+      - "codex/**"
+    paths:
+      - "apps/api/**"
+      - "docs/19-continuation-70-step-plan-ru.md"
+      - ".github/workflows/api-smoke.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: api-smoke-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    name: Smoke FastAPI contracts
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/api
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: apps/api/requirements-smoke.txt
+
+      - name: Install smoke dependencies
+        run: python -m pip install -r requirements-smoke.txt
+
+      - name: Compile API
+        run: python -m compileall app scripts
+
+      - name: Smoke source connectors
+        run: python scripts/smoke_connectors.py

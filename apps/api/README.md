@@ -41,3 +41,4 @@ Future FastAPI backend.
 ## Smoke Checks
 
 - `python3 scripts/smoke_connectors.py` - checks `/v1/sources/connectors` when FastAPI dependencies are installed; prints `SKIP` locally if they are missing.
+- `requirements-smoke.txt` pins the minimal dependency set used by GitHub Actions workflow `API smoke`.

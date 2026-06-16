@@ -159,10 +159,11 @@
 21. Включить shared validation в GitHub Actions.
 22. Добавить outcome UI states: approved / locked / rejected.
 23. Подключить `/documents` к shared fixture, чтобы убрать ручное дублирование demo-data.
+24. Добавить API dependency lock/CI для smoke-проверок.
 
 Следующими брать:
 
-1. Добавить API dependency lock/CI для smoke-проверок.
-2. Добавить shared validation badge/status в README или workdesk.
-3. Добавить outcome filters в inbox по статусам suggested / locked / approved.
-4. Подключить tender inbox к shared fixture, чтобы убрать ручные rows.
+1. Добавить shared validation badge/status в README или workdesk.
+2. Добавить outcome filters в inbox по статусам suggested / locked / approved.
+3. Подключить tender inbox к shared fixture, чтобы убрать ручные rows.
+4. Добавить API smoke badge/status в README или workdesk.
