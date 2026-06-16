@@ -37,3 +37,7 @@ Future FastAPI backend.
 - `GET /v1/sources/connectors` - connector registry starting with the EIS / zakupki.gov.ru contract-only stub.
 - `GET /v1/outcomes` - structured outcome/reason dictionary for pre-win and execution funnels.
 - `GET /stack` - planned technical stack and output types.
+
+## Smoke Checks
+
+- `python3 scripts/smoke_connectors.py` - checks `/v1/sources/connectors` when FastAPI dependencies are installed; prints `SKIP` locally if they are missing.

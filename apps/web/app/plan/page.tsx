@@ -18,10 +18,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить API smoke", "/v1/sources/connectors after dependencies"],
-  ["2", "Включить shared validation", "GitHub Actions gate"],
-  ["3", "Добавить outcome UI states", "approved / locked / rejected variants"],
-  ["4", "Подключить documents к shared fixture", "убрать ручное дублирование demo-data"],
+  ["1", "Включить shared validation", "GitHub Actions gate"],
+  ["2", "Добавить outcome UI states", "approved / locked / rejected variants"],
+  ["3", "Подключить documents к shared fixture", "убрать ручное дублирование demo-data"],
+  ["4", "Добавить API dependency lock", "CI для smoke-проверок"],
 ];
 
 const cycleRules = [
