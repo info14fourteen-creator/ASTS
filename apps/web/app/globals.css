@@ -535,6 +535,7 @@ h3 {
 
 .plan-cycle-panel,
 .plan-api-panel,
+.pr-gates-panel,
 .plan-block-panel,
 .plan-next-panel {
   margin-bottom: 14px;
@@ -542,6 +543,7 @@ h3 {
 
 .plan-cycle-grid,
 .plan-api-grid,
+.pr-gate-grid,
 .plan-block-grid {
   display: grid;
   gap: 10px;
@@ -555,12 +557,17 @@ h3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.pr-gate-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .plan-block-grid {
   grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
 .plan-cycle-card,
 .plan-api-card,
+.pr-gate-card,
 .plan-block-card,
 .plan-next-row {
   border: 1px solid var(--line);
@@ -570,6 +577,7 @@ h3 {
 
 .plan-cycle-card,
 .plan-api-card,
+.pr-gate-card,
 .plan-block-card {
   min-height: 126px;
   padding: 13px;
@@ -577,17 +585,21 @@ h3 {
 
 .plan-cycle-card strong,
 .plan-api-card strong,
+.pr-gate-card strong,
 .plan-block-card strong,
 .plan-block-card span,
 .plan-block-card em,
 .plan-cycle-card p,
 .plan-api-card p,
+.pr-gate-card p,
+.pr-gate-card span,
 .plan-block-card p {
   display: block;
 }
 
 .plan-cycle-card strong,
 .plan-api-card strong,
+.pr-gate-card strong,
 .plan-block-card strong {
   color: var(--accent-dark);
   line-height: 1.25;
@@ -595,10 +607,64 @@ h3 {
 
 .plan-cycle-card p,
 .plan-api-card p,
+.pr-gate-card p,
 .plan-block-card p {
   margin: 8px 0 0;
   color: var(--muted);
   line-height: 1.38;
+}
+
+.pr-gate-card {
+  color: inherit;
+  text-decoration: none;
+}
+
+.pr-gate-card.green {
+  border-color: rgba(40, 122, 82, 0.22);
+  background: #f7faf8;
+}
+
+.pr-gate-card.blue {
+  border-color: rgba(36, 90, 141, 0.2);
+  background: #f3f8fc;
+}
+
+.pr-gate-card.amber {
+  border-color: rgba(154, 100, 27, 0.22);
+  background: #fffaf0;
+}
+
+.pr-gate-card span {
+  width: fit-content;
+  margin-bottom: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: var(--surface);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.pr-gate-card.green span {
+  border-color: rgba(40, 122, 82, 0.22);
+  color: var(--green);
+}
+
+.pr-gate-card.blue span {
+  border-color: rgba(36, 90, 141, 0.2);
+  color: var(--blue);
+}
+
+.pr-gate-card.amber span {
+  border-color: rgba(154, 100, 27, 0.24);
+  color: var(--amber);
+}
+
+.pr-gate-card:hover,
+.pr-gate-card:focus-visible {
+  border-color: var(--accent);
+  outline: none;
 }
 
 .plan-block-card span {
@@ -5707,6 +5773,7 @@ dd {
 
   .plan-cycle-grid,
   .plan-api-grid,
+  .pr-gate-grid,
   .plan-block-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -5977,6 +6044,7 @@ dd {
 
   .plan-cycle-grid,
   .plan-api-grid,
+  .pr-gate-grid,
   .plan-block-grid {
     grid-template-columns: 1fr;
   }

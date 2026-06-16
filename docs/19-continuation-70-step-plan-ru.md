@@ -171,10 +171,11 @@
 33. Добавить owner approval marker: видимый статус в карточке outcome.
 34. Добавить approved/locked demo rows: fixture-покрытие для outcome filters.
 35. Связать `/tenders` row href с detail id: строки inbox ведут на `/tenders/[id]`.
+36. Добавить API smoke badge в карточку PR/workdesk: backend gate виден в `/plan`.
 
 Следующими брать:
 
-1. Добавить API smoke badge в карточку PR: отдельно показать backend gate.
-2. Добавить owner approval smoke text: закрепить marker в route smoke.
-3. Добавить execution fixture row в отдельный экран: не смешивать post-win с pre-win inbox.
-4. Добавить detail fallback copy для неизвестного tender id: 404 с понятной причиной.
+1. Добавить owner approval smoke text: закрепить marker в route smoke.
+2. Добавить execution fixture row в отдельный экран: не смешивать post-win с pre-win inbox.
+3. Добавить detail fallback copy для неизвестного tender id: 404 с понятной причиной.
+4. Добавить tender detail smoke route list: проверять реальные demo id из fixture.

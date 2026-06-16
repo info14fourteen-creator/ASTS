@@ -20,10 +20,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить API smoke badge в карточку PR", "отдельно показать backend gate"],
-  ["2", "Добавить owner approval smoke text", "закрепить marker в route smoke"],
-  ["3", "Добавить execution fixture row в отдельный экран", "не смешивать post-win с pre-win inbox"],
-  ["4", "Добавить detail fallback copy", "404 с понятной причиной для неизвестного id"],
+  ["1", "Добавить owner approval smoke text", "закрепить marker в route smoke"],
+  ["2", "Добавить execution fixture row в отдельный экран", "не смешивать post-win с pre-win inbox"],
+  ["3", "Добавить detail fallback copy", "404 с понятной причиной для неизвестного id"],
+  ["4", "Добавить tender detail smoke route list", "проверять реальные demo id из fixture"],
 ];
 
 const cycleRules = [
@@ -37,6 +37,30 @@ const apiDependencyNotes = [
   ["Local", "`python3 scripts/smoke_connectors.py` может вернуть SKIP, если FastAPI не установлен"],
   ["CI", "`API smoke` ставит `apps/api/requirements-smoke.txt` и проверяет реальный endpoint"],
   ["Merge", "зелёный GitHub Actions важнее локального SKIP на чистой машине"],
+];
+
+const prGateBadges = [
+  [
+    "Web build",
+    "frontend shell",
+    "GitHub Actions собирает Next.js и держит /plan, /tenders, /execution в рабочем состоянии.",
+    "https://github.com/info14fourteen-creator/ASTS/actions/workflows/web-build.yml",
+    "green",
+  ],
+  [
+    "Shared validation",
+    "schemas + fixture",
+    "Проверяет demo-data, чтобы web и API не разъезжались по структуре процедур.",
+    "https://github.com/info14fourteen-creator/ASTS/actions/workflows/shared-validation.yml",
+    "blue",
+  ],
+  [
+    "API smoke",
+    "backend gate",
+    "Поднимает FastAPI с pinned deps и проверяет /v1/sources/connectors перед merge.",
+    "https://github.com/info14fourteen-creator/ASTS/actions/workflows/api-smoke.yml",
+    "amber",
+  ],
 ];
 
 const mergeChecklist = [
@@ -69,6 +93,25 @@ export default function PlanPage() {
               <small>{note}</small>
             </article>
           ))}
+        </section>
+
+        <section className="panel pr-gates-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR gate badges</p>
+              <h2>Что держит merge в безопасности</h2>
+            </div>
+            <span className="status-pill green">PR #17</span>
+          </div>
+          <div className="pr-gate-grid">
+            {prGateBadges.map(([title, badge, text, href, tone]) => (
+              <a className={`pr-gate-card ${tone}`} href={href} key={title}>
+                <span>{badge}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
+              </a>
+            ))}
+          </div>
         </section>
 
         <section className="panel plan-cycle-panel">
