@@ -19,6 +19,7 @@ Input:
 Output:
 
 - Original file in object storage.
+- Raw artifact manifest with source URL, storage path, checksum, content type, collection time and custody status.
 - Extracted text.
 - Extracted tables.
 - Document metadata.

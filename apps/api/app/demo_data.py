@@ -32,6 +32,7 @@ DEMO_DOCUMENTS = [
         title=document["title"],
         status=document["status"],
         source=_document_source(document, TENDER_SOURCES),
+        raw_artifact=document["raw_artifact"],
         storage_path=document["storage_path"],
         mime_type=document["mime_type"],
     )

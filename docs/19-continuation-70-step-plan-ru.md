@@ -150,10 +150,11 @@
 12. Связать demo API с web mock data через `packages/shared/demo-data/asts-demo.json`.
 13. Описать JSON-схемы извлечения позиций и КП.
 14. Добавить справочник outcome/reason в API.
+15. Добавить raw artifact manifest в documents API.
 
 Следующими брать:
 
-1. Добавить raw artifact manifest в documents API.
-2. Подготовить first connector skeleton для ЕИС.
-3. Добавить JSON schema validation script.
-4. Привязать outcome/reason к карточке процедуры.
+1. Подготовить first connector skeleton для ЕИС.
+2. Добавить JSON schema validation script.
+3. Привязать outcome/reason к карточке процедуры.
+4. Показать raw artifact manifest в web-разделе документов.

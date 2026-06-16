@@ -18,10 +18,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить raw artifact manifest", "documents API + evidence chain"],
-  ["2", "Подготовить ЕИС connector skeleton", "без реального скачивания, только интерфейс"],
-  ["3", "Добавить schema validation", "JSON schema lint + fixture examples"],
-  ["4", "Привязать outcome/reason", "карточка процедуры + audit trail"],
+  ["1", "Подготовить ЕИС connector skeleton", "без реального скачивания, только интерфейс"],
+  ["2", "Добавить schema validation", "JSON schema lint + fixture examples"],
+  ["3", "Привязать outcome/reason", "карточка процедуры + audit trail"],
+  ["4", "Показать raw artifact manifest", "web documents + custody details"],
 ];
 
 const cycleRules = [

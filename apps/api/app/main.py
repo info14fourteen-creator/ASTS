@@ -73,7 +73,7 @@ def contracts() -> ApiContractsResponse:
                 name="Document artifact",
                 route="/v1/documents",
                 model="DocumentArtifact",
-                required_evidence=evidence_fields + ["storage_path"],
+                required_evidence=evidence_fields + ["raw_artifact", "storage_path"],
             ),
             ApiContract(
                 name="Task item",

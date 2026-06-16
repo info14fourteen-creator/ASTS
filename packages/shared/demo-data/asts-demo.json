@@ -77,6 +77,15 @@
       "title": "Техническое задание",
       "status": "parsed",
       "source_ref": "0373100042626000001",
+      "raw_artifact": {
+        "artifact_id": "raw-eis-0373100042626000001",
+        "storage_path": "raw/eis/0373100042626000001/specification.pdf",
+        "source_url": "https://zakupki.gov.ru/epz/order/notice/ea20/view/common-info.html?regNumber=0373100042626000001",
+        "checksum_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "content_type": "application/pdf",
+        "collected_at": "2026-06-16T07:40:00+05:00",
+        "custody_status": "parsed"
+      },
       "storage_path": "raw/eis/0373100042626000001/specification.pdf",
       "mime_type": "application/pdf"
     },
@@ -91,6 +100,15 @@
         "raw_artifact_id": "raw-fns-customer-profile-7700000000",
         "checksum_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
         "freshness": "manual_review"
+      },
+      "raw_artifact": {
+        "artifact_id": "raw-fns-customer-profile-7700000000",
+        "storage_path": "raw/fns/7700000000/egrul.json",
+        "source_url": "https://egrul.nalog.ru/",
+        "checksum_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "content_type": "application/json",
+        "collected_at": "2026-06-16T07:42:00+05:00",
+        "custody_status": "checksum_verified"
       },
       "storage_path": "raw/fns/7700000000/egrul.json",
       "mime_type": "application/json"

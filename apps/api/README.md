@@ -31,7 +31,7 @@ Future FastAPI backend.
 - `GET /v1/status` - product/API status contract: stage, primary-source policy, two funnels, module readiness checks.
 - `GET /v1/contracts` - first API contract registry for tender, document and task schemas.
 - `GET /v1/tenders` - prototype tender list with source evidence and both deal funnels.
-- `GET /v1/documents` - prototype document artifacts with raw storage paths.
+- `GET /v1/documents` - prototype document artifacts with raw storage paths and raw artifact custody manifest.
 - `GET /v1/tasks` - prototype operator tasks with owners, priority and approval flags.
 - `GET /v1/ingestion/policy` - service-layer contract for raw artifacts, retries and quarantine reasons.
 - `GET /v1/outcomes` - structured outcome/reason dictionary for pre-win and execution funnels.

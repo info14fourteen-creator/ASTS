@@ -22,6 +22,12 @@ DealStage = Literal[
 SourceKind = Literal["eis", "fns", "etp", "gis_torgi", "fedresurs", "file_vault"]
 SourceFreshness = Literal["fresh", "stale", "quarantine", "manual_review"]
 DocumentStatus = Literal["raw", "downloaded", "ocr_ready", "parsed", "reviewed", "attached"]
+RawArtifactCustodyStatus = Literal[
+    "raw_saved",
+    "checksum_verified",
+    "parsed",
+    "quarantine",
+]
 TaskPriority = Literal["normal", "warning", "critical"]
 TaskStatus = Literal["open", "blocked", "done"]
 IngestionAction = Literal["retry", "quarantine", "manual_review"]
@@ -87,6 +93,16 @@ class SourceEvidence(BaseModel):
     freshness: SourceFreshness
 
 
+class RawArtifactManifest(BaseModel):
+    artifact_id: str
+    storage_path: str
+    source_url: str
+    checksum_sha256: str = Field(min_length=64, max_length=64)
+    content_type: str
+    collected_at: str
+    custody_status: RawArtifactCustodyStatus
+
+
 class TenderSummary(BaseModel):
     tender_id: str
     title: str
@@ -106,6 +122,7 @@ class DocumentArtifact(BaseModel):
     title: str
     status: DocumentStatus
     source: SourceEvidence
+    raw_artifact: RawArtifactManifest
     storage_path: str
     mime_type: str
 
