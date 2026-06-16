@@ -16,3 +16,4 @@ MVP can generate TypeScript types from FastAPI OpenAPI once backend schemas stab
 - `ai-schemas/supplier-quote-normalization.schema.json` defines the AI output for supplier quote lines, prices, VAT, delivery timing, analog flags and source references.
 - These schemas are source-evidence first: every extracted set must include document/raw artifact references before it can be used in workflow decisions.
 - Run `npm run validate` in `packages/shared` to check schema shape, example AI outputs, demo fixture references and raw artifact custody links.
+- GitHub Actions workflow `Shared validation` runs the same check for shared schema and fixture changes.
