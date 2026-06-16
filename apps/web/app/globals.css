@@ -2119,6 +2119,54 @@ dd {
   line-height: 1.35;
 }
 
+.ingestion-retry-panel {
+  margin-top: 14px;
+}
+
+.ingestion-retry-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.ingestion-retry-card {
+  min-height: 138px;
+  border: 1px solid rgba(154, 100, 27, 0.24);
+  border-radius: 8px;
+  padding: 13px;
+  background: #fffaf0;
+}
+
+.ingestion-retry-card span,
+.ingestion-retry-card strong,
+.ingestion-retry-card p {
+  display: block;
+}
+
+.ingestion-retry-card span {
+  width: fit-content;
+  border: 1px solid rgba(154, 100, 27, 0.26);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: #fff7e8;
+  color: var(--amber);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.ingestion-retry-card strong {
+  margin-top: 10px;
+  color: var(--accent-dark);
+  line-height: 1.25;
+}
+
+.ingestion-retry-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.38;
+}
+
 .freshness-panel {
   margin-top: 14px;
 }
@@ -5010,6 +5058,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .ingestion-retry-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .freshness-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -5311,6 +5363,10 @@ dd {
   }
 
   .connector-runbook-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ingestion-retry-grid {
     grid-template-columns: 1fr;
   }
 

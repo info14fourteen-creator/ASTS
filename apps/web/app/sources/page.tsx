@@ -51,6 +51,13 @@ const connectorRunbook = [
   ["Файлы", "Docs", "оригинал, OCR, версия", "AI вывод только с file hash"],
 ];
 
+const ingestionRetryPolicy = [
+  ["API timeout", "повтор 3 раза с backoff, потом freshness breach", "retry"],
+  ["Schema drift", "raw payload в quarantine, normalizer не перезаписывает старую схему", "quarantine"],
+  ["File missing", "карточка процедуры остается без AI вывода до появления файла", "block AI"],
+  ["Duplicate payload", "сравниваем source id и checksum, новый дубль только в audit log", "dedupe"],
+];
+
 const freshnessRules = [
   ["ЕИС", "15 мин", "извещения, протоколы и документы не старше окна синхронизации"],
   ["ФНС", "по событию", "проверка ИНН запускается при новой процедуре или поставщике"],
@@ -200,6 +207,25 @@ export default function SourcesPage() {
                 </div>
                 <p>{artifact}</p>
                 <em>{guard}</em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel ingestion-retry-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Ingestion retry policy</p>
+              <h2>Как обрабатываем сбой забора данных</h2>
+            </div>
+            <span className="status-pill">no silent overwrite</span>
+          </div>
+          <div className="ingestion-retry-grid">
+            {ingestionRetryPolicy.map(([title, text, action]) => (
+              <article className="ingestion-retry-card" key={title}>
+                <span>{action}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>
