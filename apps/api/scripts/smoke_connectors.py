@@ -91,6 +91,45 @@ def main() -> int:
         print("FAIL /v1/sources/health quarantine/unavailable states must block AI gate")
         return 1
 
+    freshness_response = client.get("/v1/sources/freshness")
+    if freshness_response.status_code != 200:
+        print(f"FAIL /v1/sources/freshness HTTP {freshness_response.status_code}")
+        return 1
+
+    freshness_payload = freshness_response.json()
+    freshness_queue = freshness_payload.get("queue", [])
+    breach_types = {item.get("breach_type") for item in freshness_queue}
+    expected_breaches = {"stale", "missing", "parse_failed", "hash_mismatch"}
+    if breach_types != expected_breaches:
+        got_breaches = sorted(str(breach_type) for breach_type in breach_types)
+        print(f"FAIL /v1/sources/freshness breach types: expected all four, got {got_breaches}")
+        return 1
+
+    freshness_summary = freshness_payload.get("summary", {})
+    expected_freshness_counts = {
+        "total": 4,
+        "stale": 1,
+        "missing": 1,
+        "parse_failed": 1,
+        "hash_mismatch": 1,
+        "ai_blocked": 4,
+    }
+    for field, value in expected_freshness_counts.items():
+        if freshness_summary.get(field) != value:
+            print(
+                f"FAIL /v1/sources/freshness summary {field}: "
+                f"expected {value!r}, got {freshness_summary.get(field)!r}"
+            )
+            return 1
+
+    if any(item.get("ai_gate") != "blocked" for item in freshness_queue):
+        print("FAIL /v1/sources/freshness all breach rows must block AI gate")
+        return 1
+
+    if any(not item.get("source_url") or not item.get("raw_artifact_id") for item in freshness_queue):
+        print("FAIL /v1/sources/freshness rows must keep source_url and raw_artifact_id")
+        return 1
+
     handoff_response = client.get("/v1/handoff/owner-approval")
     if handoff_response.status_code != 200:
         print(f"FAIL /v1/handoff/owner-approval HTTP {handoff_response.status_code}")
@@ -132,7 +171,7 @@ def main() -> int:
         print("FAIL /v1/handoff/owner-approval locked rows must have missing receipts")
         return 1
 
-    print("PASS source connector, health and owner handoff contracts")
+    print("PASS source connector, health, freshness and owner handoff contracts")
     return 0
 
 

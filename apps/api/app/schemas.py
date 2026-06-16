@@ -32,6 +32,7 @@ ConnectorMode = Literal["contract_only", "sandbox", "production"]
 ConnectorStatus = Literal["planned", "stub", "ready", "blocked"]
 SourceHealthStatus = Literal["ready", "quarantine", "unavailable"]
 SourceHealthAiGate = Literal["allowed", "blocked"]
+SourceFreshnessBreachType = Literal["stale", "missing", "parse_failed", "hash_mismatch"]
 OwnerHandoffReceipt = Literal["present", "missing"]
 OwnerHandoffStatus = Literal["unlocked", "locked"]
 OwnerHandoffSummaryStatus = Literal["ready", "locked"]
@@ -202,6 +203,33 @@ class SourceHealthSummary(BaseModel):
     unavailable: int = Field(ge=0)
 
 
+class SourceFreshnessQueueItem(BaseModel):
+    id: str
+    tender_id: str
+    source_kind: SourceKind
+    display_name: str
+    source_url: str
+    raw_artifact_id: str
+    breach_type: SourceFreshnessBreachType
+    detected_at: str
+    last_success_at: str | None = None
+    sla_minutes: int = Field(ge=0)
+    age_minutes: int | None = Field(default=None, ge=0)
+    owner_role: str
+    ai_gate: SourceHealthAiGate
+    required_action: str
+    reason: str
+
+
+class SourceFreshnessSummary(BaseModel):
+    total: int = Field(ge=0)
+    stale: int = Field(ge=0)
+    missing: int = Field(ge=0)
+    parse_failed: int = Field(ge=0)
+    hash_mismatch: int = Field(ge=0)
+    ai_blocked: int = Field(ge=0)
+
+
 class OwnerApprovalHandoffLockRow(BaseModel):
     tender_id: str
     outcome: Literal["suggested", "approved", "locked"]
@@ -292,6 +320,14 @@ class SourceHealthResponse(BaseModel):
     source_policy: str
     summary: SourceHealthSummary
     states: list[SourceHealthState]
+
+
+class SourceFreshnessResponse(BaseModel):
+    version: str
+    source_policy: str
+    sla: str
+    summary: SourceFreshnessSummary
+    queue: list[SourceFreshnessQueueItem]
 
 
 class ApiContract(BaseModel):

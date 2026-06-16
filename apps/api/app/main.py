@@ -12,6 +12,7 @@ from app.schemas import (
     OutcomeReasonsResponse,
     OwnerApprovalHandoffResponse,
     SourceConnectorsResponse,
+    SourceFreshnessResponse,
     SourceHealthResponse,
     StackResponse,
     StatusCheck,
@@ -22,6 +23,7 @@ from app.services.connectors import get_source_connectors
 from app.services.handoff import get_owner_approval_handoff
 from app.services.ingestion import get_ingestion_policy
 from app.services.outcomes import get_outcome_reasons
+from app.services.source_freshness import get_source_freshness
 from app.services.source_health import get_source_health
 
 app = FastAPI(title=settings.app_name, version=settings.app_version)
@@ -118,6 +120,19 @@ def contracts() -> ApiContractsResponse:
                 ],
             ),
             ApiContract(
+                name="Source freshness",
+                route="/v1/sources/freshness",
+                model="SourceFreshnessResponse",
+                required_evidence=[
+                    "breach_type",
+                    "source_url",
+                    "raw_artifact_id",
+                    "detected_at",
+                    "required_action",
+                    "ai_gate",
+                ],
+            ),
+            ApiContract(
                 name="Outcome reasons",
                 route="/v1/outcomes",
                 model="OutcomeReasonsResponse",
@@ -167,6 +182,11 @@ def source_connectors() -> SourceConnectorsResponse:
 @app.get("/v1/sources/health", response_model=SourceHealthResponse, tags=["sources"])
 def source_health() -> SourceHealthResponse:
     return get_source_health()
+
+
+@app.get("/v1/sources/freshness", response_model=SourceFreshnessResponse, tags=["sources"])
+def source_freshness() -> SourceFreshnessResponse:
+    return get_source_freshness()
 
 
 @app.get("/v1/outcomes", response_model=OutcomeReasonsResponse, tags=["workflow"])
