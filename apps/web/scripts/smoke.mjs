@@ -48,6 +48,16 @@ const routeChecks = [
     ],
   },
   {
+    path: "/tenders/unknown-id",
+    status: 404,
+    mustInclude: [
+      "Карточка процедуры не найдена",
+      "unknown tender id",
+      "pre-win id из shared fixture",
+      "/execution",
+    ],
+  },
+  {
     path: "/tasks",
     status: 200,
     mustInclude: [
