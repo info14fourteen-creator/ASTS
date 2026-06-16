@@ -2,7 +2,7 @@ import { Sidebar } from "../app-shell";
 
 const currentState = [
   ["PR", "#17 codex/app-site-shell", "CLEAN, checks green"],
-  ["Build", "19 static routes", "Next production build проходит"],
+  ["Checks", "Web + Shared + API", "19 static routes; GitHub Actions проходят"],
   ["Automation", "asts-app-site-ru-12", "heartbeat каждые 12 минут"],
   ["Safety", "no push to main", "все изменения через PR"],
 ];
@@ -18,10 +18,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить shared validation badge", "README / workdesk status"],
-  ["2", "Добавить outcome filters", "inbox по статусам suggested / locked / approved"],
-  ["3", "Подключить tender inbox к shared fixture", "убрать ручные rows"],
-  ["4", "Добавить API smoke badge", "README / workdesk status"],
+  ["1", "Добавить outcome filters", "inbox по статусам suggested / locked / approved"],
+  ["2", "Подключить tender inbox к shared fixture", "убрать ручные rows"],
+  ["3", "Добавить API smoke badge", "README / workdesk status"],
+  ["4", "Добавить PR review checklist", "merge gates + owner approval"],
 ];
 
 const cycleRules = [

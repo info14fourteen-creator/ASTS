@@ -1,5 +1,9 @@
 # ASTS
 
+[![Web build](https://github.com/info14fourteen-creator/ASTS/actions/workflows/web-build.yml/badge.svg)](https://github.com/info14fourteen-creator/ASTS/actions/workflows/web-build.yml)
+[![Shared validation](https://github.com/info14fourteen-creator/ASTS/actions/workflows/shared-validation.yml/badge.svg)](https://github.com/info14fourteen-creator/ASTS/actions/workflows/shared-validation.yml)
+[![API smoke](https://github.com/info14fourteen-creator/ASTS/actions/workflows/api-smoke.yml/badge.svg)](https://github.com/info14fourteen-creator/ASTS/actions/workflows/api-smoke.yml)
+
 АСТС - SaaS-система для управления тендерной продажей: от разбора закупочной документации до сбора КП поставщиков, сравнения цен, расчета рентабельности, контроля задач и передачи данных в CRM/экспорт.
 
 Текущий этап репозитория - локальный blueprint проекта. Здесь зафиксировано, что строим первым, на чем пишем, как идут данные и какие результаты получает клиент.
@@ -69,6 +73,14 @@
 - план каналов доступа и CRM-интеграций;
 - правило: только первоисточники данных;
 - правила объединения работы через PR.
+
+## Merge Gates
+
+Перед объединением PR должны быть зелены:
+
+- `Web build` - собирает `apps/web` и 19 static routes.
+- `Shared validation` - проверяет AI schemas, demo fixtures, source evidence и raw artifact custody.
+- `API smoke` - ставит pinned FastAPI/Pydantic зависимости и проверяет `/v1/sources/connectors`.
 
 ## Следующий шаг
 
