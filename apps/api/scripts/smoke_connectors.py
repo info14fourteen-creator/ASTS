@@ -91,7 +91,48 @@ def main() -> int:
         print("FAIL /v1/sources/health quarantine/unavailable states must block AI gate")
         return 1
 
-    print("PASS /v1/sources/connectors and /v1/sources/health source contracts")
+    handoff_response = client.get("/v1/handoff/owner-approval")
+    if handoff_response.status_code != 200:
+        print(f"FAIL /v1/handoff/owner-approval HTTP {handoff_response.status_code}")
+        return 1
+
+    handoff_payload = handoff_response.json()
+    handoff_summary = handoff_payload.get("summary", {})
+    expected_handoff_counts = {
+        "approved": 1,
+        "with_receipt": 1,
+        "without_receipt": 0,
+        "execution_ready": 1,
+        "blocked": 3,
+    }
+    for field, value in expected_handoff_counts.items():
+        if handoff_summary.get(field) != value:
+            print(
+                f"FAIL /v1/handoff/owner-approval summary {field}: "
+                f"expected {value!r}, got {handoff_summary.get(field)!r}"
+            )
+            return 1
+
+    if handoff_summary.get("status") != "ready":
+        print("FAIL /v1/handoff/owner-approval summary status must be ready")
+        return 1
+
+    handoff_rows = handoff_payload.get("rows", [])
+    approved_ready = next((row for row in handoff_rows if row.get("outcome") == "approved"), {})
+    if approved_ready.get("status") != "unlocked" or approved_ready.get("receipt") != "present":
+        print("FAIL /v1/handoff/owner-approval approved row must be unlocked with present receipt")
+        return 1
+
+    if approved_ready.get("source_evidence_present") is not True:
+        print("FAIL /v1/handoff/owner-approval approved row must carry source evidence")
+        return 1
+
+    blocked_rows = [row for row in handoff_rows if row.get("status") == "locked"]
+    if len(blocked_rows) != 3 or any(row.get("receipt") != "missing" for row in blocked_rows):
+        print("FAIL /v1/handoff/owner-approval locked rows must have missing receipts")
+        return 1
+
+    print("PASS source connector, health and owner handoff contracts")
     return 0
 
 

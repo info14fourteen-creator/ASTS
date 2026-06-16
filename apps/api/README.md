@@ -37,9 +37,10 @@ Future FastAPI backend.
 - `GET /v1/sources/connectors` - connector registry starting with the EIS / zakupki.gov.ru contract-only stub.
 - `GET /v1/sources/health` - primary-source health contract with `ready`, `quarantine` and `unavailable` AI gates.
 - `GET /v1/outcomes` - structured outcome/reason dictionary for pre-win and execution funnels.
+- `GET /v1/handoff/owner-approval` - owner receipt and source-evidence lock before opening the post-win execution funnel.
 - `GET /stack` - planned technical stack and output types.
 
 ## Smoke Checks
 
-- `python3 scripts/smoke_connectors.py` - checks `/v1/sources/connectors` and `/v1/sources/health` when FastAPI dependencies are installed; prints `SKIP` locally if they are missing.
+- `python3 scripts/smoke_connectors.py` - checks `/v1/sources/connectors`, `/v1/sources/health` and `/v1/handoff/owner-approval` when FastAPI dependencies are installed; prints `SKIP` locally if they are missing.
 - `requirements-smoke.txt` pins the minimal dependency set used by GitHub Actions workflow `API smoke`.

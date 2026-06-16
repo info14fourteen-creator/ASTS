@@ -10,6 +10,7 @@ from app.schemas import (
     HealthResponse,
     IngestionPolicyResponse,
     OutcomeReasonsResponse,
+    OwnerApprovalHandoffResponse,
     SourceConnectorsResponse,
     SourceHealthResponse,
     StackResponse,
@@ -18,6 +19,7 @@ from app.schemas import (
     TenderSummary,
 )
 from app.services.connectors import get_source_connectors
+from app.services.handoff import get_owner_approval_handoff
 from app.services.ingestion import get_ingestion_policy
 from app.services.outcomes import get_outcome_reasons
 from app.services.source_health import get_source_health
@@ -121,6 +123,18 @@ def contracts() -> ApiContractsResponse:
                 model="OutcomeReasonsResponse",
                 required_evidence=["code", "funnel", "requires_owner_approval"],
             ),
+            ApiContract(
+                name="Owner approval handoff",
+                route="/v1/handoff/owner-approval",
+                model="OwnerApprovalHandoffResponse",
+                required_evidence=[
+                    "approved",
+                    "owner_role",
+                    "evidence_ref",
+                    "receipt",
+                    "source_evidence_present",
+                ],
+            ),
         ],
     )
 
@@ -158,6 +172,11 @@ def source_health() -> SourceHealthResponse:
 @app.get("/v1/outcomes", response_model=OutcomeReasonsResponse, tags=["workflow"])
 def outcome_reasons() -> OutcomeReasonsResponse:
     return get_outcome_reasons()
+
+
+@app.get("/v1/handoff/owner-approval", response_model=OwnerApprovalHandoffResponse, tags=["workflow"])
+def owner_approval_handoff() -> OwnerApprovalHandoffResponse:
+    return get_owner_approval_handoff()
 
 
 @app.get("/stack", response_model=StackResponse, tags=["system"])

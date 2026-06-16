@@ -32,6 +32,9 @@ ConnectorMode = Literal["contract_only", "sandbox", "production"]
 ConnectorStatus = Literal["planned", "stub", "ready", "blocked"]
 SourceHealthStatus = Literal["ready", "quarantine", "unavailable"]
 SourceHealthAiGate = Literal["allowed", "blocked"]
+OwnerHandoffReceipt = Literal["present", "missing"]
+OwnerHandoffStatus = Literal["unlocked", "locked"]
+OwnerHandoffSummaryStatus = Literal["ready", "locked"]
 TaskPriority = Literal["normal", "warning", "critical"]
 TaskStatus = Literal["open", "blocked", "done"]
 IngestionAction = Literal["retry", "quarantine", "manual_review"]
@@ -197,6 +200,34 @@ class SourceHealthSummary(BaseModel):
     ready: int = Field(ge=0)
     quarantine: int = Field(ge=0)
     unavailable: int = Field(ge=0)
+
+
+class OwnerApprovalHandoffLockRow(BaseModel):
+    tender_id: str
+    outcome: Literal["suggested", "approved", "locked"]
+    owner_role: str
+    evidence_ref: str
+    receipt: OwnerHandoffReceipt
+    source_evidence_present: bool
+    status: OwnerHandoffStatus
+    gate: str
+    rule: str
+
+
+class OwnerApprovalHandoffLockSummary(BaseModel):
+    approved: int = Field(ge=0)
+    with_receipt: int = Field(ge=0)
+    without_receipt: int = Field(ge=0)
+    execution_ready: int = Field(ge=0)
+    blocked: int = Field(ge=0)
+    status: OwnerHandoffSummaryStatus
+
+
+class OwnerApprovalHandoffResponse(BaseModel):
+    version: str
+    rule: str
+    summary: OwnerApprovalHandoffLockSummary
+    rows: list[OwnerApprovalHandoffLockRow]
 
 
 class TaskItem(BaseModel):
