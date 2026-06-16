@@ -9,12 +9,14 @@ from app.schemas import (
     DocumentArtifact,
     HealthResponse,
     IngestionPolicyResponse,
+    OutcomeReasonsResponse,
     StackResponse,
     StatusCheck,
     TaskItem,
     TenderSummary,
 )
 from app.services.ingestion import get_ingestion_policy
+from app.services.outcomes import get_outcome_reasons
 
 app = FastAPI(title=settings.app_name, version=settings.app_version)
 
@@ -85,6 +87,12 @@ def contracts() -> ApiContractsResponse:
                 model="IngestionPolicyResponse",
                 required_evidence=evidence_fields + ["raw_storage", "retry_steps"],
             ),
+            ApiContract(
+                name="Outcome reasons",
+                route="/v1/outcomes",
+                model="OutcomeReasonsResponse",
+                required_evidence=["code", "funnel", "requires_owner_approval"],
+            ),
         ],
     )
 
@@ -107,6 +115,11 @@ def list_tasks() -> list[TaskItem]:
 @app.get("/v1/ingestion/policy", response_model=IngestionPolicyResponse, tags=["ingestion"])
 def ingestion_policy() -> IngestionPolicyResponse:
     return get_ingestion_policy()
+
+
+@app.get("/v1/outcomes", response_model=OutcomeReasonsResponse, tags=["workflow"])
+def outcome_reasons() -> OutcomeReasonsResponse:
+    return get_outcome_reasons()
 
 
 @app.get("/stack", response_model=StackResponse, tags=["system"])

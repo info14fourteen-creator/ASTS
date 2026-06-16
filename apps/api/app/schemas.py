@@ -32,6 +32,20 @@ QuarantineReason = Literal[
     "schema_mismatch",
     "manual_review_required",
 ]
+OutcomeCode = Literal[
+    "won",
+    "lost_competition",
+    "rejected_before_submission",
+    "deadline_expired",
+    "unprofitable",
+    "cancelled_by_customer",
+    "manual_management",
+    "not_paid",
+    "not_accepted",
+    "penalties",
+    "refund",
+    "partial_payment",
+]
 
 
 class HealthResponse(BaseModel):
@@ -129,6 +143,22 @@ class IngestionPolicyResponse(BaseModel):
     evidence_required: bool
     retry_steps: list[IngestionRetryStep]
     quarantine_reasons: list[QuarantineReason]
+
+
+class OutcomeReason(BaseModel):
+    code: OutcomeCode
+    funnel: DealFunnel
+    title: str
+    terminal: bool
+    ai_can_suggest: bool
+    requires_owner_approval: bool
+    description: str
+
+
+class OutcomeReasonsResponse(BaseModel):
+    version: str
+    rules: list[str]
+    reasons: list[OutcomeReason]
 
 
 class ApiContract(BaseModel):

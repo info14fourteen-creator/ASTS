@@ -29,7 +29,7 @@
 | Поставщики, RFQ, КП и top-3 | planned | roadmap + economics/tenders mock | Выделить модели SupplierRequest и SupplierQuote |
 | Экономика, коэффициенты и рентабельность | planned | `/economics`, coefficient receipt | Перенести формулы в настройки организации |
 | Подача документов | planned | stage enum, `/tenders/demo` | Описать task шаблоны и deadline gate |
-| Финалы и причины отказа | planned | docs registry, roadmap | Добавить справочник outcome/reason в API |
+| Финалы и причины отказа | implemented | `/v1/outcomes`, docs registry, roadmap | Привязать outcome к карточке процедуры |
 | Роли старой системы | needs owner | `/settings`, role gates | Утвердить роли MVP и права доступа |
 | Вторая воронка исполнения | planned | `/execution`, demo execution tender | Описать handoff receipt как обязательный переход |
 | 1C/CRM/Telegram интеграции | planned | `/integrations`, platform delivery docs | Выбрать первую CRM для spike |

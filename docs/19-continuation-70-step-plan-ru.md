@@ -149,10 +149,11 @@
 11. Подготовить ingestion service layer: retry, quarantine, raw artifacts.
 12. Связать demo API с web mock data через `packages/shared/demo-data/asts-demo.json`.
 13. Описать JSON-схемы извлечения позиций и КП.
+14. Добавить справочник outcome/reason в API.
 
 Следующими брать:
 
-1. Добавить справочник outcome/reason в API.
-2. Добавить raw artifact manifest в documents API.
-3. Подготовить first connector skeleton для ЕИС.
-4. Добавить JSON schema validation script.
+1. Добавить raw artifact manifest в documents API.
+2. Подготовить first connector skeleton для ЕИС.
+3. Добавить JSON schema validation script.
+4. Привязать outcome/reason к карточке процедуры.
