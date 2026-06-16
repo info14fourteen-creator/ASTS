@@ -26,6 +26,28 @@ const routeChecks = [
     ],
   },
   {
+    path: "/tenders",
+    status: 200,
+    mustInclude: [
+      "Процедуры",
+      "Outcome filters",
+      "ожидают owner review",
+      "нет owner approval",
+      "0373100042626000001",
+    ],
+  },
+  {
+    path: "/tenders/0373100042626000001",
+    status: 200,
+    mustInclude: [
+      "Карточка процедуры",
+      "Outcome / reason",
+      "Owner approval required",
+      "tender_manager",
+      "raw-eis-0373100042626000001",
+    ],
+  },
+  {
     path: "/tasks",
     status: 200,
     mustInclude: [
