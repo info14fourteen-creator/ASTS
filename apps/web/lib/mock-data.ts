@@ -39,6 +39,26 @@ export type OwnerApprovalHistoryRow = {
   note: string;
 };
 
+export type OwnerApprovalHandoffLockRow = {
+  id: string;
+  outcome: OutcomeStatus;
+  owner: string;
+  evidence: string;
+  receipt: "present" | "missing";
+  status: "unlocked" | "locked";
+  gate: string;
+  rule: string;
+};
+
+export type OwnerApprovalHandoffLockSummary = {
+  approved: number;
+  withReceipt: number;
+  withoutReceipt: number;
+  executionReady: number;
+  blocked: number;
+  status: "ready" | "locked";
+};
+
 export type ExecutionRow = {
   id: string;
   title: string;
@@ -340,6 +360,42 @@ export const ownerApprovalHistoryRows: OwnerApprovalHistoryRow[] = demoData.tend
     };
   })
   .sort((left, right) => right.timestamp.localeCompare(left.timestamp));
+
+export const ownerApprovalHandoffLockRows: OwnerApprovalHandoffLockRow[] = demoData.tenders
+  .filter((tender) => tender.funnel === "pre_win")
+  .map((tender) => {
+    const lastAudit = tender.audit_events.at(-1);
+    const hasOwnerReceipt =
+      tender.outcome.status === "approved" &&
+      lastAudit?.action === "outcome_approved" &&
+      lastAudit.actor_role === tender.outcome.owner_role &&
+      Boolean(lastAudit.evidence_ref);
+    const isExecutionReady = tender.outcome.status === "approved" && hasOwnerReceipt;
+
+    return {
+      id: tender.tender_id,
+      outcome: outcomeStatus(tender.outcome.status),
+      owner: tender.outcome.owner_role,
+      evidence: lastAudit?.evidence_ref ?? tender.outcome.source_ref,
+      receipt: hasOwnerReceipt ? "present" : "missing",
+      status: isExecutionReady ? "unlocked" : "locked",
+      gate: isExecutionReady ? "execution handoff allowed" : "execution handoff locked",
+      rule: isExecutionReady
+        ? "approved outcome имеет owner receipt и source evidence, можно готовить вторую воронку."
+        : "approved outcome без owner receipt не попадает в execution; suggested/locked остаются в pre-win.",
+    };
+  });
+
+export const ownerApprovalHandoffLockSummary: OwnerApprovalHandoffLockSummary = {
+  approved: ownerApprovalHandoffLockRows.filter((row) => row.outcome === "approved").length,
+  withReceipt: ownerApprovalHandoffLockRows.filter((row) => row.outcome === "approved" && row.receipt === "present").length,
+  withoutReceipt: ownerApprovalHandoffLockRows.filter((row) => row.outcome === "approved" && row.receipt === "missing").length,
+  executionReady: ownerApprovalHandoffLockRows.filter((row) => row.status === "unlocked").length,
+  blocked: ownerApprovalHandoffLockRows.filter((row) => row.status === "locked").length,
+  status: ownerApprovalHandoffLockRows.some((row) => row.outcome === "approved" && row.receipt === "missing")
+    ? "locked"
+    : "ready",
+};
 
 export const executionRows: ExecutionRow[] = demoData.tenders
   .filter((tender) => tender.funnel === "execution")

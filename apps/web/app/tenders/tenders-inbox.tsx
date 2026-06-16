@@ -2,7 +2,13 @@
 
 import { useMemo, useState } from "react";
 
-import { ownerApprovalHistoryRows, tenderInboxRows, type OutcomeStatus } from "../../lib/mock-data";
+import {
+  ownerApprovalHandoffLockRows,
+  ownerApprovalHandoffLockSummary,
+  ownerApprovalHistoryRows,
+  tenderInboxRows,
+  type OutcomeStatus,
+} from "../../lib/mock-data";
 import { Sidebar } from "../app-shell";
 
 export type OutcomeKey = "all" | OutcomeStatus;
@@ -244,6 +250,56 @@ export function TendersInbox({ initialOutcome }: { initialOutcome: OutcomeKey })
                   <p>{receipt.action}</p>
                   <small>{receipt.evidence}</small>
                   <b>{receipt.handoff}</b>
+                </article>
+              ))}
+            </div>
+          </div>
+          <div
+            className={`owner-handoff-lock ${ownerApprovalHandoffLockSummary.status}`}
+            data-approved-count={ownerApprovalHandoffLockSummary.approved}
+            data-approved-with-receipt={ownerApprovalHandoffLockSummary.withReceipt}
+            data-approved-without-receipt={ownerApprovalHandoffLockSummary.withoutReceipt}
+            data-blocked-count={ownerApprovalHandoffLockSummary.blocked}
+            data-execution-ready-count={ownerApprovalHandoffLockSummary.executionReady}
+            data-status={ownerApprovalHandoffLockSummary.status}
+            data-testid="owner-approval-handoff-lock"
+          >
+            <div>
+              <span>Owner approval handoff lock</span>
+              <strong>Approved outcome не попадает в execution без receipt</strong>
+              <p>
+                Вторая воронка открывается только когда approved подтвержден владельцем, связан с source evidence и
+                записан в audit trail.
+              </p>
+            </div>
+            <dl>
+              <div>
+                <dt>Approved</dt>
+                <dd>{ownerApprovalHandoffLockSummary.approved}</dd>
+              </div>
+              <div>
+                <dt>With receipt</dt>
+                <dd>{ownerApprovalHandoffLockSummary.withReceipt}</dd>
+              </div>
+              <div>
+                <dt>Without receipt</dt>
+                <dd>{ownerApprovalHandoffLockSummary.withoutReceipt}</dd>
+              </div>
+              <div>
+                <dt>Execution ready</dt>
+                <dd>{ownerApprovalHandoffLockSummary.executionReady}</dd>
+              </div>
+            </dl>
+            <div className="owner-handoff-lock-list">
+              {ownerApprovalHandoffLockRows.map((lock) => (
+                <article className={`owner-handoff-lock-row ${lock.status}`} data-receipt={lock.receipt} key={lock.id}>
+                  <span>{lock.outcome}</span>
+                  <strong>{lock.id}</strong>
+                  <em>{lock.gate}</em>
+                  <p>{lock.rule}</p>
+                  <small>
+                    {lock.owner} · {lock.evidence}
+                  </small>
                 </article>
               ))}
             </div>
