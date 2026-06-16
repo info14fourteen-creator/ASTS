@@ -18,10 +18,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Подготовить ЕИС connector skeleton", "без реального скачивания, только интерфейс"],
-  ["2", "Добавить schema validation", "JSON schema lint + fixture examples"],
-  ["3", "Привязать outcome/reason", "карточка процедуры + audit trail"],
-  ["4", "Показать raw artifact manifest", "web documents + custody details"],
+  ["1", "Добавить schema validation", "JSON schema lint + fixture examples"],
+  ["2", "Привязать outcome/reason", "карточка процедуры + audit trail"],
+  ["3", "Показать raw artifact manifest", "web documents + custody details"],
+  ["4", "Добавить API smoke", "/v1/sources/connectors after dependencies"],
 ];
 
 const cycleRules = [

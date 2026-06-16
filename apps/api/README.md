@@ -34,5 +34,6 @@ Future FastAPI backend.
 - `GET /v1/documents` - prototype document artifacts with raw storage paths and raw artifact custody manifest.
 - `GET /v1/tasks` - prototype operator tasks with owners, priority and approval flags.
 - `GET /v1/ingestion/policy` - service-layer contract for raw artifacts, retries and quarantine reasons.
+- `GET /v1/sources/connectors` - connector registry starting with the EIS / zakupki.gov.ru contract-only stub.
 - `GET /v1/outcomes` - structured outcome/reason dictionary for pre-win and execution funnels.
 - `GET /stack` - planned technical stack and output types.

@@ -151,10 +151,11 @@
 13. Описать JSON-схемы извлечения позиций и КП.
 14. Добавить справочник outcome/reason в API.
 15. Добавить raw artifact manifest в documents API.
+16. Подготовить first connector skeleton для ЕИС.
 
 Следующими брать:
 
-1. Подготовить first connector skeleton для ЕИС.
-2. Добавить JSON schema validation script.
-3. Привязать outcome/reason к карточке процедуры.
-4. Показать raw artifact manifest в web-разделе документов.
+1. Добавить JSON schema validation script.
+2. Привязать outcome/reason к карточке процедуры.
+3. Показать raw artifact manifest в web-разделе документов.
+4. Добавить smoke-проверку `/v1/sources/connectors` после установки API-зависимостей.

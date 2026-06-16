@@ -28,6 +28,8 @@ RawArtifactCustodyStatus = Literal[
     "parsed",
     "quarantine",
 ]
+ConnectorMode = Literal["contract_only", "sandbox", "production"]
+ConnectorStatus = Literal["planned", "stub", "ready", "blocked"]
 TaskPriority = Literal["normal", "warning", "critical"]
 TaskStatus = Literal["open", "blocked", "done"]
 IngestionAction = Literal["retry", "quarantine", "manual_review"]
@@ -127,6 +129,29 @@ class DocumentArtifact(BaseModel):
     mime_type: str
 
 
+class ConnectorCapability(BaseModel):
+    name: str
+    description: str
+    evidence_fields: list[str]
+
+
+class SourceConnector(BaseModel):
+    connector_id: str
+    source_kind: SourceKind
+    display_name: str
+    status: ConnectorStatus
+    mode: ConnectorMode
+    network_enabled: bool
+    official_base_url: str
+    schedule: str
+    laws: list[str]
+    supported_objects: list[str]
+    raw_storage_template: str
+    required_secrets: list[str]
+    capabilities: list[ConnectorCapability]
+    blocked_by: list[str]
+
+
 class TaskItem(BaseModel):
     task_id: str
     tender_id: str
@@ -176,6 +201,12 @@ class OutcomeReasonsResponse(BaseModel):
     version: str
     rules: list[str]
     reasons: list[OutcomeReason]
+
+
+class SourceConnectorsResponse(BaseModel):
+    version: str
+    source_policy: str
+    connectors: list[SourceConnector]
 
 
 class ApiContract(BaseModel):

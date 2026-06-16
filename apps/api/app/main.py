@@ -10,11 +10,13 @@ from app.schemas import (
     HealthResponse,
     IngestionPolicyResponse,
     OutcomeReasonsResponse,
+    SourceConnectorsResponse,
     StackResponse,
     StatusCheck,
     TaskItem,
     TenderSummary,
 )
+from app.services.connectors import get_source_connectors
 from app.services.ingestion import get_ingestion_policy
 from app.services.outcomes import get_outcome_reasons
 
@@ -88,6 +90,18 @@ def contracts() -> ApiContractsResponse:
                 required_evidence=evidence_fields + ["raw_storage", "retry_steps"],
             ),
             ApiContract(
+                name="Source connectors",
+                route="/v1/sources/connectors",
+                model="SourceConnectorsResponse",
+                required_evidence=[
+                    "connector_id",
+                    "source_kind",
+                    "official_base_url",
+                    "raw_storage_template",
+                    "required_secrets",
+                ],
+            ),
+            ApiContract(
                 name="Outcome reasons",
                 route="/v1/outcomes",
                 model="OutcomeReasonsResponse",
@@ -115,6 +129,11 @@ def list_tasks() -> list[TaskItem]:
 @app.get("/v1/ingestion/policy", response_model=IngestionPolicyResponse, tags=["ingestion"])
 def ingestion_policy() -> IngestionPolicyResponse:
     return get_ingestion_policy()
+
+
+@app.get("/v1/sources/connectors", response_model=SourceConnectorsResponse, tags=["sources"])
+def source_connectors() -> SourceConnectorsResponse:
+    return get_source_connectors()
 
 
 @app.get("/v1/outcomes", response_model=OutcomeReasonsResponse, tags=["workflow"])
