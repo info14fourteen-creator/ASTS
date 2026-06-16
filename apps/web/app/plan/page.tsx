@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить AI review API docs", "описать /v1/ai/review-queue и owner review gate"],
-  ["2", "Добавить FNS UI source card", "показать ИНН/ЕГРЮЛ readiness на /sources"],
-  ["3", "Добавить source freshness owner action docs", "описать ручное снятие stale/missing/hash blockers"],
-  ["4", "Добавить FNS smoke docs", "описать секреты, лимиты и smoke для ИНН/ОГРН"],
+  ["1", "Добавить FNS UI source card", "показать ИНН/ЕГРЮЛ readiness на /sources"],
+  ["2", "Добавить source freshness owner action docs", "описать ручное снятие stale/missing/hash blockers"],
+  ["3", "Добавить FNS smoke docs", "описать секреты, лимиты и smoke для ИНН/ОГРН"],
+  ["4", "Добавить AI review owner action docs", "описать ручное подтверждение low-confidence facts"],
 ];
 
 const cycleRules = [

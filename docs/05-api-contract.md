@@ -125,6 +125,85 @@ Example:
 
 UI contract: `/sources` renders the same four breach types in `data-testid="source-freshness-breach-queue"` and exposes `data-ai-blocked-count`, `data-breach-types`, `data-source-url`, `data-raw-artifact-id` and `data-ai-gate`. Route smoke must fail if these markers disappear.
 
+## AI Review Queue
+
+Prototype route: `GET /v1/ai/review-queue`.
+
+Purpose: keep AI useful without letting it silently replace the proven tender
+logic. Any extracted fact below the automatic confidence threshold must carry
+primary-source evidence and wait for an owner review before it can move a deal,
+trigger a supplier request or open the execution funnel.
+
+Required response shape:
+
+- `version` - API contract version.
+- `rule` - human-readable owner-review rule.
+- `confidence_threshold` - minimum confidence for automatic flow decisions.
+- `summary.total` - number of low-confidence rows.
+- `summary.review_required` - rows that need owner confirmation.
+- `summary.blocked` - rows that cannot move forward without manual correction.
+- `summary.low_confidence` - rows below `confidence_threshold`.
+- `summary.source_evidence_present` - rows with embedded primary-source evidence.
+- `queue[].fact_type` - one of `requirement`, `supplier_quote`,
+  `economics` or another approved fact class.
+- `queue[].confidence`, `queue[].threshold`, `queue[].status` - confidence
+  decision fields. `status` is `review_required` for near-threshold facts and
+  `blocked` for facts too weak to use.
+- `queue[].owner_role`, `queue[].required_action`, `queue[].reason` - manual
+  handoff fields.
+- `queue[].source` - embedded `SourceEvidence` with `source_kind`,
+  `source_url`, `raw_artifact_id`, `checksum_sha256` and `freshness`.
+- `queue[].evidence_ref` - immutable raw artifact reference shown in UI.
+
+Example:
+
+```json
+{
+  "version": "0.1.0",
+  "rule": "Low-confidence AI facts require source evidence and owner review before workflow decisions.",
+  "confidence_threshold": 0.85,
+  "summary": {
+    "total": 3,
+    "review_required": 1,
+    "blocked": 2,
+    "low_confidence": 3,
+    "source_evidence_present": 3
+  },
+  "queue": [
+    {
+      "id": "ai-review-requirement-0373100042626000001",
+      "tender_id": "0373100042626000001",
+      "document_id": "doc-0373100042626000001-tz",
+      "fact_type": "requirement",
+      "title": "Требование к поставке серверов",
+      "extracted_value": "2 позиции требуют ручной проверки аналогов",
+      "confidence": 0.82,
+      "threshold": 0.85,
+      "status": "review_required",
+      "owner_role": "tender_manager",
+      "source": {
+        "source_kind": "eis",
+        "source_url": "https://zakupki.gov.ru/epz/order/notice/ea20/view/common-info.html?regNumber=0373100042626000001",
+        "raw_artifact_id": "raw-eis-0373100042626000001",
+        "checksum_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "freshness": "fresh"
+      },
+      "evidence_ref": "raw-eis-0373100042626000001",
+      "required_action": "confirm requirement interpretation before supplier request",
+      "reason": "Confidence is below automatic threshold and affects pre-win qualification."
+    }
+  ]
+}
+```
+
+UI contract: `/ai-review` renders this queue in
+`data-testid="ai-review-confidence-queue"` and exposes
+`data-total-count`, `data-review-required-count`, `data-blocked-count`,
+`data-source-evidence-count`, `data-threshold`, `data-status`,
+`data-evidence-ref` and `data-owner`. Route smoke also checks
+`data-testid="ai-review-confidence-browser-loop"` so the owner-review browser
+loop cannot disappear silently.
+
 ## Reports and Export
 
 - `GET /tenders/{tender_id}/report`

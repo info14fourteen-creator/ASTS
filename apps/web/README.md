@@ -78,6 +78,22 @@ Route smoke закрепляет:
 Пока есть хотя бы одна freshness breach карточка, AI не должен принимать решение
 по процедуре без обновленного raw artifact или ручного owner review.
 
+## AI Review UI Contract
+
+Маршрут `/ai-review` отображает backend contract `GET /v1/ai/review-queue`.
+Ключевой блок: `data-testid="ai-review-confidence-queue"`.
+
+Route smoke закрепляет:
+
+- `data-total-count`, `data-review-required-count` и `data-blocked-count`;
+- `data-source-evidence-count`, равный числу карточек с первоисточником;
+- `data-threshold="0.85"` как текущий автоматический confidence gate;
+- `data-status`, `data-evidence-ref` и `data-owner` на каждой карточке;
+- `data-testid="ai-review-confidence-browser-loop"` как проверяемый browser-loop selector.
+
+Пока факт ниже confidence threshold, интерфейс может показать подсказку ИИ, но
+не должен двигать процедуру без owner review и ссылки на raw artifact.
+
 ## Collaboration Rules
 
 - Работать в ветках `codex/*`, не пушить напрямую в `main`.

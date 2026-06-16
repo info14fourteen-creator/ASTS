@@ -63,6 +63,27 @@ handoff stay blocked until the row is refreshed, refetched or manually reviewed.
 
 The detailed DTO and example response live in `docs/05-api-contract.md`.
 
+## AI Review Queue Contract
+
+`GET /v1/ai/review-queue` is the backend contract behind the `/ai-review`
+owner-review surface. It returns low-confidence AI facts that must not affect
+workflow decisions until a human owner confirms or corrects them.
+
+Every queue row must include:
+
+- `fact_type`, `confidence`, `threshold` and `status`;
+- `owner_role`, `required_action` and `reason`;
+- embedded primary-source `source` evidence with `source_url`,
+  `raw_artifact_id`, `checksum_sha256` and `freshness`;
+- `evidence_ref`, matching the immutable raw artifact shown to the reviewer.
+
+Smoke checks verify that every row is below the automatic threshold and that
+all rows keep source evidence present. Facts can be shown as
+`review_required`, but flow-moving actions stay blocked for rows with
+`status="blocked"` until owner review is recorded.
+
+The detailed DTO and example response live in `docs/05-api-contract.md`.
+
 ## FNS Connector Contract
 
 `GET /v1/sources/connectors` now includes `connector_id="fns-egrul-nalog-ru"`
