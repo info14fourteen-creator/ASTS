@@ -1,0 +1,35 @@
+{
+  "schema_version": "2026-06-16",
+  "tender_id": "0373100042626000001",
+  "supplier": {
+    "name": "ООО Инфраструктурные решения",
+    "inn": "7700000000",
+    "contact": "sales@example.invalid"
+  },
+  "quote_lines": [
+    {
+      "position_id": "pos-001",
+      "supplier_item_name": "Сервер IR-512",
+      "unit_price": 3150000,
+      "quantity": 4,
+      "currency": "RUB",
+      "vat_rate": 0.2,
+      "delivery_days": 21,
+      "valid_until": "2026-06-30",
+      "is_analog": true,
+      "analog_comment": "Эквивалент с подтвержденными характеристиками",
+      "confidence": 0.78,
+      "review_status": "needs_review"
+    }
+  ],
+  "source_refs": [
+    {
+      "document_id": "doc-0373100042626000001-tz",
+      "raw_artifact_id": "raw-eis-0373100042626000001",
+      "page_or_sheet": "supplier quote sheet 1",
+      "quote": "Сервер IR-512, цена 3 150 000 RUB за единицу"
+    }
+  ],
+  "confidence": 0.78,
+  "missing_fields": []
+}

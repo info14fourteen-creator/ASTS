@@ -1,0 +1,251 @@
+import { readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+
+const checks = [
+  [
+    "tender position schema",
+    () => validateSchemaFile("ai-schemas/tender-position-extraction.schema.json", {
+      requiredRootFields: ["schema_version", "tender_id", "source_document_id", "positions"],
+      requiredEvidenceFields: ["document_id", "raw_artifact_id", "page_or_sheet", "quote"],
+    }),
+  ],
+  [
+    "supplier quote schema",
+    () => validateSchemaFile("ai-schemas/supplier-quote-normalization.schema.json", {
+      requiredRootFields: ["schema_version", "tender_id", "supplier", "quote_lines", "source_refs", "confidence"],
+      requiredEvidenceFields: ["document_id", "raw_artifact_id", "page_or_sheet", "quote"],
+    }),
+  ],
+  [
+    "tender position example",
+    () =>
+      validateAgainstSchema(
+        readJson("ai-schemas/examples/tender-position-extraction.example.json"),
+        readJson("ai-schemas/tender-position-extraction.schema.json"),
+        "tender-position-example",
+      ),
+  ],
+  [
+    "supplier quote example",
+    () =>
+      validateAgainstSchema(
+        readJson("ai-schemas/examples/supplier-quote-normalization.example.json"),
+        readJson("ai-schemas/supplier-quote-normalization.schema.json"),
+        "supplier-quote-example",
+      ),
+  ],
+  ["demo data fixture", validateDemoData],
+];
+
+const failures = [];
+
+for (const [label, check] of checks) {
+  try {
+    check();
+    console.log(`PASS ${label}`);
+  } catch (error) {
+    failures.push(`${label}: ${error.message}`);
+    console.error(`FAIL ${label}`);
+    console.error(`  ${error.message}`);
+  }
+}
+
+if (failures.length > 0) {
+  console.error(`\nShared validation failed with ${failures.length} error(s).`);
+  process.exit(1);
+}
+
+console.log(`Shared validation passed for ${checks.length} check(s).`);
+
+function readJson(relativePath) {
+  const absolutePath = resolve(packageRoot, relativePath);
+  return JSON.parse(readFileSync(absolutePath, "utf8"));
+}
+
+function validateSchemaFile(relativePath, options) {
+  const schema = readJson(relativePath);
+
+  assert(schema.$schema?.includes("json-schema.org"), `${relativePath} must declare JSON Schema draft`);
+  assert(schema.$id?.startsWith("https://asts.local/schemas/"), `${relativePath} must use ASTS schema id`);
+  assert(schema.type === "object", `${relativePath} root type must be object`);
+  assert(schema.additionalProperties === false, `${relativePath} root must reject additional properties`);
+  assertArrayIncludes(schema.required, options.requiredRootFields, `${relativePath} root required fields`);
+
+  const sourceRef = schema.definitions?.source_ref;
+  assert(sourceRef, `${relativePath} must define source_ref`);
+  assert(sourceRef.additionalProperties === false, `${relativePath} source_ref must reject additional properties`);
+  assertArrayIncludes(sourceRef.required, options.requiredEvidenceFields, `${relativePath} source_ref required fields`);
+}
+
+function validateDemoData() {
+  const demoData = readJson("demo-data/asts-demo.json");
+  assert(Array.isArray(demoData.tenders) && demoData.tenders.length > 0, "demo-data must include tenders");
+  assert(Array.isArray(demoData.documents) && demoData.documents.length > 0, "demo-data must include documents");
+  assert(Array.isArray(demoData.tasks) && demoData.tasks.length > 0, "demo-data must include tasks");
+
+  const tenderIds = new Set();
+  const tenderSources = new Map();
+
+  for (const tender of demoData.tenders) {
+    assertNonEmptyString(tender.tender_id, "tender.tender_id");
+    assert(!tenderIds.has(tender.tender_id), `duplicate tender_id ${tender.tender_id}`);
+    tenderIds.add(tender.tender_id);
+    validateSourceEvidence(tender.source, `tender ${tender.tender_id}`);
+    tenderSources.set(tender.tender_id, tender.source);
+    assert(["pre_win", "execution"].includes(tender.funnel), `invalid funnel for ${tender.tender_id}`);
+    assert(typeof tender.ai_confidence === "number", `missing ai_confidence for ${tender.tender_id}`);
+  }
+
+  for (const document of demoData.documents) {
+    assert(tenderIds.has(document.tender_id), `document ${document.document_id} references unknown tender`);
+    const source = document.source ?? tenderSources.get(document.source_ref);
+    assert(source, `document ${document.document_id} must have source or source_ref`);
+    validateSourceEvidence(source, `document ${document.document_id}`);
+    validateRawArtifact(document.raw_artifact, `document ${document.document_id}`);
+    assert(document.raw_artifact.artifact_id === source.raw_artifact_id, `artifact/source mismatch for ${document.document_id}`);
+    assert(document.raw_artifact.storage_path === document.storage_path, `storage_path mismatch for ${document.document_id}`);
+    assert(document.raw_artifact.checksum_sha256 === source.checksum_sha256, `checksum mismatch for ${document.document_id}`);
+  }
+
+  for (const task of demoData.tasks) {
+    assert(tenderIds.has(task.tender_id), `task ${task.task_id} references unknown tender`);
+    assert(typeof task.requires_human_approval === "boolean", `task ${task.task_id} must declare approval gate`);
+  }
+}
+
+function validateAgainstSchema(data, schema, label) {
+  validateNode(data, schema, schema, label);
+}
+
+function validateNode(value, node, rootSchema, path) {
+  if (node.$ref) {
+    return validateNode(value, resolveRef(rootSchema, node.$ref), rootSchema, path);
+  }
+
+  if (node.const !== undefined) {
+    assert(value === node.const, `${path} must equal ${JSON.stringify(node.const)}`);
+  }
+
+  if (node.enum) {
+    assert(node.enum.includes(value), `${path} must be one of ${node.enum.join(", ")}`);
+  }
+
+  if (node.type) {
+    validateType(value, node.type, path);
+  }
+
+  if (typeof value === "string") {
+    if (node.minLength !== undefined) {
+      assert(value.length >= node.minLength, `${path} must have length >= ${node.minLength}`);
+    }
+    if (node.format === "date") {
+      assert(/^\d{4}-\d{2}-\d{2}$/.test(value), `${path} must be YYYY-MM-DD`);
+    }
+  }
+
+  if (typeof value === "number") {
+    if (node.minimum !== undefined) {
+      assert(value >= node.minimum, `${path} must be >= ${node.minimum}`);
+    }
+    if (node.maximum !== undefined) {
+      assert(value <= node.maximum, `${path} must be <= ${node.maximum}`);
+    }
+    if (node.exclusiveMinimum !== undefined) {
+      assert(value > node.exclusiveMinimum, `${path} must be > ${node.exclusiveMinimum}`);
+    }
+  }
+
+  if (Array.isArray(value)) {
+    if (node.minItems !== undefined) {
+      assert(value.length >= node.minItems, `${path} must contain at least ${node.minItems} item(s)`);
+    }
+    if (node.items) {
+      value.forEach((item, index) => validateNode(item, node.items, rootSchema, `${path}[${index}]`));
+    }
+  }
+
+  if (value && typeof value === "object" && !Array.isArray(value)) {
+    if (node.required) {
+      for (const field of node.required) {
+        assert(Object.hasOwn(value, field), `${path}.${field} is required`);
+      }
+    }
+    if (node.additionalProperties === false && node.properties) {
+      for (const field of Object.keys(value)) {
+        assert(Object.hasOwn(node.properties, field), `${path}.${field} is not allowed`);
+      }
+    }
+    if (node.properties) {
+      for (const [field, childNode] of Object.entries(node.properties)) {
+        if (Object.hasOwn(value, field)) {
+          validateNode(value[field], childNode, rootSchema, `${path}.${field}`);
+        }
+      }
+    }
+  }
+}
+
+function resolveRef(rootSchema, ref) {
+  const parts = ref.split("/");
+  assert(parts[0] === "#" && parts[1] === "definitions", `unsupported ref ${ref}`);
+  const definition = rootSchema.definitions?.[parts[2]];
+  assert(definition, `missing definition ${ref}`);
+  return definition;
+}
+
+function validateType(value, type, path) {
+  const types = Array.isArray(type) ? type : [type];
+  const valid = types.some((candidate) => {
+    if (candidate === "array") return Array.isArray(value);
+    if (candidate === "integer") return Number.isInteger(value);
+    if (candidate === "null") return value === null;
+    if (candidate === "number") return typeof value === "number" && Number.isFinite(value);
+    if (candidate === "object") return value !== null && typeof value === "object" && !Array.isArray(value);
+    return typeof value === candidate;
+  });
+  assert(valid, `${path} must be type ${types.join(" or ")}`);
+}
+
+function validateSourceEvidence(source, label) {
+  assert(source, `${label} must include source evidence`);
+  assertNonEmptyString(source.source_kind, `${label}.source_kind`);
+  assertNonEmptyString(source.source_url, `${label}.source_url`);
+  assertNonEmptyString(source.raw_artifact_id, `${label}.raw_artifact_id`);
+  assertChecksum(source.checksum_sha256, `${label}.checksum_sha256`);
+  assertNonEmptyString(source.freshness, `${label}.freshness`);
+}
+
+function validateRawArtifact(rawArtifact, label) {
+  assert(rawArtifact, `${label} must include raw_artifact`);
+  assertNonEmptyString(rawArtifact.artifact_id, `${label}.raw_artifact.artifact_id`);
+  assertNonEmptyString(rawArtifact.storage_path, `${label}.raw_artifact.storage_path`);
+  assertNonEmptyString(rawArtifact.source_url, `${label}.raw_artifact.source_url`);
+  assertChecksum(rawArtifact.checksum_sha256, `${label}.raw_artifact.checksum_sha256`);
+  assertNonEmptyString(rawArtifact.content_type, `${label}.raw_artifact.content_type`);
+  assertNonEmptyString(rawArtifact.collected_at, `${label}.raw_artifact.collected_at`);
+  assertNonEmptyString(rawArtifact.custody_status, `${label}.raw_artifact.custody_status`);
+}
+
+function assertArrayIncludes(actual, expected, label) {
+  assert(Array.isArray(actual), `${label} must be an array`);
+  for (const item of expected) {
+    assert(actual.includes(item), `${label} must include ${item}`);
+  }
+}
+
+function assertNonEmptyString(value, label) {
+  assert(typeof value === "string" && value.length > 0, `${label} must be a non-empty string`);
+}
+
+function assertChecksum(value, label) {
+  assert(typeof value === "string" && /^[a-f0-9]{64}$/.test(value), `${label} must be sha256 hex`);
+}
+
+function assert(condition, message) {
+  if (!condition) {
+    throw new Error(message);
+  }
+}
