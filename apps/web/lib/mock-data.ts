@@ -322,6 +322,62 @@ export const fixtureCoverage = {
   },
 };
 
+const fixturePreWinTenders = demoData.tenders.filter((tender) => tender.funnel === "pre_win");
+const fixtureExecutionTenders = demoData.tenders.filter((tender) => tender.funnel === "execution");
+const fixtureExecutionDocuments = demoData.documents.filter((document) => documentTender(document)?.funnel === "execution");
+
+function outcomeCountLabel(source: typeof demoData.tenders): string {
+  const suggested = source.filter((tender) => tender.outcome.status === "suggested").length;
+  const locked = source.filter((tender) => tender.outcome.status === "locked").length;
+  const approved = source.filter((tender) => tender.outcome.status === "approved").length;
+
+  return `${suggested}/${locked}/${approved}`;
+}
+
+function inboxOutcomeCountLabel(source: TenderInboxRow[]): string {
+  const suggested = source.filter((tender) => tender.outcome === "suggested").length;
+  const locked = source.filter((tender) => tender.outcome === "locked").length;
+  const approved = source.filter((tender) => tender.outcome === "approved").length;
+
+  return `${suggested}/${locked}/${approved}`;
+}
+
+export const fixtureDriftChecks = [
+  {
+    label: "Pre-win detail routes",
+    expected: `${fixturePreWinTenders.length}`,
+    actual: `${tenderInboxRows.length}`,
+    rule: "route smoke должен строить /tenders/[id] только из pre-win fixture",
+  },
+  {
+    label: "Execution rows",
+    expected: `${fixtureExecutionTenders.length}`,
+    actual: `${executionRows.length}`,
+    rule: "вторая воронка не смешивается с pre-win inbox",
+  },
+  {
+    label: "Execution artifacts",
+    expected: `${fixtureExecutionDocuments.length}`,
+    actual: `${executionDocumentRows.length}`,
+    rule: "handoff pack в /execution совпадает с raw documents fixture",
+  },
+  {
+    label: "Outcome filter routes",
+    expected: outcomeCountLabel(fixturePreWinTenders),
+    actual: inboxOutcomeCountLabel(tenderInboxRows),
+    rule: "suggested / locked / approved фильтры сверяются по pre-win rows",
+  },
+].map((check) => ({
+  ...check,
+  status: check.expected === check.actual ? "aligned" : "drift",
+}));
+
+export const fixtureDriftSummary = {
+  status: fixtureDriftChecks.every((check) => check.status === "aligned") ? "aligned" : "drift",
+  aligned: fixtureDriftChecks.filter((check) => check.status === "aligned").length,
+  total: fixtureDriftChecks.length,
+};
+
 export const participationStages = [
   "Входящие",
   "Оценка",

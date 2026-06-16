@@ -1,5 +1,5 @@
 import { Sidebar } from "../app-shell";
-import { fixtureCoverage } from "../../lib/mock-data";
+import { fixtureCoverage, fixtureDriftChecks, fixtureDriftSummary } from "../../lib/mock-data";
 
 const currentState = [
   ["PR", "#17 codex/app-site-shell", "CLEAN, checks green"],
@@ -21,10 +21,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить owner approval browser loop", "кликать outcome filter и сверять active state"],
-  ["2", "Добавить execution artifact empty guard", "не давать второй воронке стартовать без документов"],
-  ["3", "Добавить source_url deep link", "из карточки быстро открыть первоисточник"],
-  ["4", "Добавить fixture drift warning", "подсветить, если smoke counts не совпали с shared fixture"],
+  ["1", "Добавить owner approval receipt history", "хранить последнее ручное подтверждение перед handoff"],
+  ["2", "Добавить execution artifact blocked fixture", "demo-сценарий, где вторая воронка реально заблокирована"],
+  ["3", "Добавить source_url health state", "показать, когда первоисточник недоступен или ушел в quarantine"],
+  ["4", "Добавить fixture drift quarantine copy", "объяснить владельцу, что делать при status=drift"],
 ];
 
 const cycleRules = [
@@ -208,7 +208,9 @@ export default function PlanPage() {
               <p className="eyebrow">Fixture coverage</p>
               <h2>Что сейчас покрыто demo-data и smoke</h2>
             </div>
-            <span className="status-pill green">shared fixture counts</span>
+            <span className={`status-pill ${fixtureDriftSummary.status === "aligned" ? "green" : "amber"}`}>
+              {fixtureDriftSummary.status === "aligned" ? "shared fixture counts" : "fixture drift"}
+            </span>
           </div>
           <div className="fixture-coverage-grid">
             {fixtureCoverageCards.map(([title, value, text]) => (
@@ -218,6 +220,39 @@ export default function PlanPage() {
                 <p>{text}</p>
               </article>
             ))}
+          </div>
+          <div
+            className={`fixture-drift-guard ${fixtureDriftSummary.status}`}
+            data-aligned-count={fixtureDriftSummary.aligned}
+            data-status={fixtureDriftSummary.status}
+            data-testid="fixture-drift-warning"
+            data-total-count={fixtureDriftSummary.total}
+          >
+            <div>
+              <p className="eyebrow">Fixture drift guard</p>
+              <h3>{fixtureDriftSummary.status === "aligned" ? "Нет дрейфа между smoke и fixture" : "Есть дрейф данных"}</h3>
+              <p>
+                Если route smoke или UI начнут считать строки иначе, этот блок станет warning до merge и покажет
+                конкретный расходящийся count.
+              </p>
+            </div>
+            <div className="fixture-drift-list">
+              {fixtureDriftChecks.map((check) => (
+                <article
+                  className={`fixture-drift-row ${check.status}`}
+                  data-actual={check.actual}
+                  data-drift-status={check.status}
+                  data-expected={check.expected}
+                  key={check.label}
+                >
+                  <span>{check.label}</span>
+                  <strong>
+                    {check.actual} / {check.expected}
+                  </strong>
+                  <p>{check.rule}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 

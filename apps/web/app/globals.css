@@ -324,6 +324,18 @@ h3 {
   color: var(--amber);
 }
 
+.status-pill.green {
+  border-color: rgba(40, 122, 82, 0.22);
+  background: #eef7f1;
+  color: var(--green);
+}
+
+.status-pill.amber {
+  border-color: rgba(154, 100, 27, 0.24);
+  background: #fff7e8;
+  color: var(--amber);
+}
+
 .command-panel {
   margin-bottom: 14px;
 }
@@ -637,6 +649,88 @@ h3 {
   margin: 8px 0 0;
   color: var(--muted);
   line-height: 1.38;
+}
+
+.fixture-drift-guard {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.2fr);
+  gap: 14px;
+  margin-top: 12px;
+  border: 1px solid rgba(40, 122, 82, 0.22);
+  border-radius: 8px;
+  padding: 14px;
+  background: #f7faf8;
+}
+
+.fixture-drift-guard.drift {
+  border-color: rgba(154, 100, 27, 0.28);
+  background: #fffaf0;
+}
+
+.fixture-drift-guard h3,
+.fixture-drift-guard p,
+.fixture-drift-row span,
+.fixture-drift-row strong,
+.fixture-drift-row p {
+  display: block;
+  min-width: 0;
+}
+
+.fixture-drift-guard h3 {
+  margin: 4px 0 0;
+  color: var(--accent-dark);
+}
+
+.fixture-drift-guard p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.fixture-drift-list {
+  display: grid;
+  gap: 8px;
+}
+
+.fixture-drift-row {
+  display: grid;
+  grid-template-columns: minmax(130px, 1fr) auto;
+  gap: 6px 10px;
+  align-items: start;
+  border: 1px solid rgba(40, 122, 82, 0.18);
+  border-radius: 8px;
+  padding: 10px;
+  background: var(--surface);
+}
+
+.fixture-drift-row.drift {
+  border-color: rgba(154, 100, 27, 0.28);
+}
+
+.fixture-drift-row span {
+  color: var(--accent-dark);
+  font-weight: 850;
+}
+
+.fixture-drift-row strong {
+  width: fit-content;
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: #eef7f1;
+  color: var(--green);
+  font-size: 12px;
+}
+
+.fixture-drift-row.drift strong {
+  background: #fff7e8;
+  color: var(--amber);
+}
+
+.fixture-drift-row p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.35;
 }
 
 .pr-gate-card {
@@ -6100,6 +6194,10 @@ dd {
   .fixture-coverage-grid,
   .plan-block-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fixture-drift-guard {
+    grid-template-columns: 1fr;
   }
 
   .plan-next-row {

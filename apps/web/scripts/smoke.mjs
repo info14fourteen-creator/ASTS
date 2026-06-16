@@ -8,6 +8,10 @@ const executionTenders = demoData.tenders.filter((tender) => tender.funnel === "
 const executionDocuments = demoData.documents.filter((document) =>
   executionTenders.some((tender) => tender.tender_id === document.tender_id),
 );
+const preWinOutcomeCounts = ["suggested", "locked", "approved"]
+  .map((outcome) => preWinTenders.filter((tender) => tender.outcome.status === outcome).length)
+  .join("/");
+const fixtureDriftCheckCount = 4;
 
 function htmlAttributeValue(value) {
   return value.replaceAll("&", "&amp;");
@@ -16,22 +20,22 @@ function htmlAttributeValue(value) {
 const tenderDetailRouteChecks = preWinTenders.map((tender) => ({
   path: `/tenders/${tender.tender_id}`,
   status: 200,
-    mustInclude: [
-      "Карточка процедуры",
-      "Outcome / reason",
-      "Source-id mismatch hint",
-      "tender_id / regNumber",
-      "raw artifact нужен только как evidence",
-      "Primary source deep link",
-      "data-testid=\"source-url-deep-link\"",
-      `data-source-url="${htmlAttributeValue(tender.source.source_url)}"`,
-      `href="${htmlAttributeValue(tender.source.source_url)}"`,
-      "Открыть первоисточник",
-      tender.title,
-      tender.outcome.owner_role,
-      tender.outcome.source_ref,
-      tender.source.raw_artifact_id,
-    ],
+  mustInclude: [
+    "Карточка процедуры",
+    "Outcome / reason",
+    "Source-id mismatch hint",
+    "tender_id / regNumber",
+    "raw artifact нужен только как evidence",
+    "Primary source deep link",
+    "data-testid=\"source-url-deep-link\"",
+    `data-source-url="${htmlAttributeValue(tender.source.source_url)}"`,
+    `href="${htmlAttributeValue(tender.source.source_url)}"`,
+    "Открыть первоисточник",
+    tender.title,
+    tender.outcome.owner_role,
+    tender.outcome.source_ref,
+    tender.source.raw_artifact_id,
+  ],
 }));
 
 const outcomeFilterRouteChecks = ["suggested", "locked", "approved"].map((outcome) => {
@@ -93,6 +97,20 @@ const routeChecks = [
       "Execution rows",
       "Execution artifacts",
       "Outcome states",
+      "Fixture drift guard",
+      "data-testid=\"fixture-drift-warning\"",
+      "data-status=\"aligned\"",
+      "Нет дрейфа между smoke и fixture",
+      `data-aligned-count="${fixtureDriftCheckCount}"`,
+      `data-total-count="${fixtureDriftCheckCount}"`,
+      `data-expected="${preWinTenders.length}"`,
+      `data-actual="${preWinTenders.length}"`,
+      `data-expected="${executionTenders.length}"`,
+      `data-actual="${executionTenders.length}"`,
+      `data-expected="${executionDocuments.length}"`,
+      `data-actual="${executionDocuments.length}"`,
+      `data-expected="${preWinOutcomeCounts}"`,
+      `data-actual="${preWinOutcomeCounts}"`,
       `${preWinTenders.length}`,
       `${executionTenders.length}`,
       `${demoData.documents.length}`,
