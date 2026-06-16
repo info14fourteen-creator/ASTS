@@ -148,6 +148,17 @@ export type BlockedExecutionFixture = {
   rule: string;
 };
 
+export type ExecutionBlockedBrowserLoop = {
+  status: "armed";
+  route: string;
+  selector: string;
+  expectedStatus: "blocked";
+  expectedArtifactCount: number;
+  expectedMissingArtifacts: number;
+  evidence: string;
+  checks: [string, string][];
+};
+
 export type SourceUrlHealthState = {
   id: string;
   source: string;
@@ -448,6 +459,22 @@ export const blockedExecutionFixture: BlockedExecutionFixture = {
   minArtifacts: 3,
   decision: "execution handoff blocked",
   rule: "Победа подтверждена, но вторая воронка не открывается без протокола, контракта и счета в raw artifacts.",
+};
+
+export const executionBlockedBrowserLoop: ExecutionBlockedBrowserLoop = {
+  status: "armed",
+  route: "/execution",
+  selector: "[data-testid='execution-artifact-blocked-fixture']",
+  expectedStatus: "blocked",
+  expectedArtifactCount: blockedExecutionFixture.artifactCount,
+  expectedMissingArtifacts: blockedExecutionFixture.missingArtifacts,
+  evidence: blockedExecutionFixture.evidence,
+  checks: [
+    ["Locate", "найти blocked fixture по data-testid, а не по визуальному порядку блоков"],
+    ["Assert status", "сверить data-status=blocked и data-artifact-count=0"],
+    ["Assert evidence", "сверить raw evidence и missingArtifacts=3"],
+    ["Assert copy", "проверить текст: Победа не запускает исполнение без raw artifacts"],
+  ],
 };
 
 export const sourceUrlHealthStates: SourceUrlHealthState[] = [

@@ -1,5 +1,10 @@
 import { Sidebar } from "../app-shell";
-import { blockedExecutionFixture, executionDocumentRows, executionRows } from "../../lib/mock-data";
+import {
+  blockedExecutionFixture,
+  executionBlockedBrowserLoop,
+  executionDocumentRows,
+  executionRows,
+} from "../../lib/mock-data";
 
 const executionStages = ["Договор", "Счет", "Закупка", "Поставка", "Закрывающие", "Финальный расчет"];
 
@@ -266,6 +271,34 @@ export default function ExecutionPage() {
               <strong>{blockedExecutionFixture.decision}</strong>
               <p>{blockedExecutionFixture.rule}</p>
             </article>
+          </div>
+        </section>
+
+        <section
+          className="panel execution-blocked-browser-loop-panel"
+          data-artifact-count={executionBlockedBrowserLoop.expectedArtifactCount}
+          data-evidence={executionBlockedBrowserLoop.evidence}
+          data-missing-artifacts={executionBlockedBrowserLoop.expectedMissingArtifacts}
+          data-route={executionBlockedBrowserLoop.route}
+          data-selector={executionBlockedBrowserLoop.selector}
+          data-status={executionBlockedBrowserLoop.expectedStatus}
+          data-testid="execution-blocked-browser-loop"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Execution blocked browser loop</p>
+              <h2>Как браузер сверяет заблокированный handoff</h2>
+            </div>
+            <span className="status-pill amber">{executionBlockedBrowserLoop.status}</span>
+          </div>
+          <div className="execution-blocked-browser-loop-grid">
+            {executionBlockedBrowserLoop.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>{executionBlockedBrowserLoop.selector}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
           </div>
         </section>
 
