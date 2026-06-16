@@ -24,3 +24,9 @@ Future FastAPI backend.
 - Audit log for important changes.
 - AI output stored as structured data plus raw trace.
 - Source references for extracted facts.
+
+## Current Prototype Endpoints
+
+- `GET /health` - liveness response with service name and API version.
+- `GET /v1/status` - product/API status contract: stage, primary-source policy, two funnels, module readiness checks.
+- `GET /stack` - planned technical stack and output types.

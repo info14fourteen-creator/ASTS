@@ -3,6 +3,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     app_name: str = "ASTS API"
+    app_version: str = "0.1.0"
+    app_stage: str = "prototype"
     api_host: str = "0.0.0.0"
     api_port: int = 8000
     database_url: str = "postgresql+psycopg://asts:asts_local_password@localhost:5432/asts"
