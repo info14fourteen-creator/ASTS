@@ -1,5 +1,5 @@
 import { Sidebar } from "../app-shell";
-import { sourceUrlHealthStates } from "../../lib/mock-data";
+import { sourceQuarantineBrowserLoop, sourceUrlHealthStates } from "../../lib/mock-data";
 
 const sources = [
   ["ЕИС / zakupki.gov.ru", "44-ФЗ, 223-ФЗ, извещения, протоколы, контракты", "connector stub", "primary"],
@@ -168,7 +168,7 @@ export default function SourcesPage() {
           </div>
           <div className="source-url-health-grid">
             {sourceUrlHealthStates.map((state) => (
-              <article className={`source-url-health-card ${state.status}`} key={state.id}>
+              <article className={`source-url-health-card ${state.status}`} data-status={state.status} key={state.id}>
                 <div>
                   <span>{state.status}</span>
                   <strong>{state.source}</strong>
@@ -198,6 +198,35 @@ export default function SourcesPage() {
                 <em>
                   {state.lastChecked} · {state.action}
                 </em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-ai-gate={sourceQuarantineBrowserLoop.expectedAiGate}
+          data-action={sourceQuarantineBrowserLoop.expectedAction}
+          data-owner={sourceQuarantineBrowserLoop.owner}
+          data-raw-artifact-id={sourceQuarantineBrowserLoop.rawArtifactId}
+          data-route={sourceQuarantineBrowserLoop.route}
+          data-selector={sourceQuarantineBrowserLoop.selector}
+          data-status={sourceQuarantineBrowserLoop.expectedStatus}
+          data-testid="source-quarantine-browser-loop"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source quarantine browser loop</p>
+              <h2>Как браузер сверяет блокировку AI по первоисточнику</h2>
+            </div>
+            <span className="status-pill amber">{sourceQuarantineBrowserLoop.status}</span>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {sourceQuarantineBrowserLoop.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>{sourceQuarantineBrowserLoop.selector}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>

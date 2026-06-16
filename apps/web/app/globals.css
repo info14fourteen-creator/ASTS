@@ -3263,6 +3263,59 @@ dd {
   line-height: 1.35;
 }
 
+.source-quarantine-browser-loop-panel {
+  margin-top: 14px;
+  border-color: rgba(154, 100, 27, 0.22);
+  background: #fffaf0;
+}
+
+.source-quarantine-browser-loop-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.source-quarantine-browser-loop-grid article {
+  min-height: 138px;
+  border: 1px solid rgba(154, 100, 27, 0.2);
+  border-radius: 8px;
+  padding: 13px;
+  background: var(--surface);
+}
+
+.source-quarantine-browser-loop-grid span,
+.source-quarantine-browser-loop-grid strong,
+.source-quarantine-browser-loop-grid p {
+  display: block;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.source-quarantine-browser-loop-grid span {
+  width: fit-content;
+  border: 1px solid rgba(154, 100, 27, 0.26);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: #fff7e8;
+  color: var(--amber);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.source-quarantine-browser-loop-grid strong {
+  margin-top: 10px;
+  color: var(--accent-dark);
+  font-size: 13px;
+  line-height: 1.25;
+}
+
+.source-quarantine-browser-loop-grid p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
 .source-intake-contract-panel {
   margin-top: 14px;
 }

@@ -173,6 +173,18 @@ export type SourceUrlHealthState = {
   reason: string;
 };
 
+export type SourceQuarantineBrowserLoop = {
+  status: "armed";
+  route: string;
+  selector: string;
+  expectedStatus: "quarantine";
+  expectedAiGate: "blocked";
+  expectedAction: string;
+  rawArtifactId: string;
+  owner: string;
+  checks: [string, string][];
+};
+
 export type FixtureDriftQuarantineCopy = {
   status: "standby" | "quarantine";
   owner: string;
@@ -518,6 +530,26 @@ export const sourceUrlHealthStates: SourceUrlHealthState[] = [
     reason: "площадочный status webhook не подтвержден, поэтому execution AI и handoff ждут новый raw response.",
   },
 ];
+
+const sourceQuarantineState =
+  sourceUrlHealthStates.find((state) => state.status === "quarantine") ?? sourceUrlHealthStates[0];
+
+export const sourceQuarantineBrowserLoop: SourceQuarantineBrowserLoop = {
+  status: "armed",
+  route: "/sources",
+  selector: "[data-testid='source-url-health-state'] [data-status='quarantine']",
+  expectedStatus: "quarantine",
+  expectedAiGate: "blocked",
+  expectedAction: sourceQuarantineState.action,
+  rawArtifactId: sourceQuarantineState.rawArtifactId,
+  owner: sourceQuarantineState.owner,
+  checks: [
+    ["Locate", "найти quarantine state по data-status внутри source-url-health-state"],
+    ["Assert raw", "сверить raw artifact с карточкой первоисточника и API health contract"],
+    ["Assert AI gate", "убедиться, что AI gate остается blocked до ручного решения владельца"],
+    ["Assert copy", "проверить текст manual review before AI и schema drift"],
+  ],
+};
 
 export const fixtureCoverage = {
   totalTenders: demoData.tenders.length,

@@ -13,9 +13,14 @@ const preWinOutcomeCounts = ["suggested", "locked", "approved"]
   .join("/");
 const fixtureDriftCheckCount = 4;
 const approvedPreWinTender = preWinTenders.find((tender) => tender.outcome.status === "approved");
+const lockedPreWinTender = preWinTenders.find((tender) => tender.outcome.status === "locked");
 
 if (!approvedPreWinTender) {
   throw new Error("demo fixture must include approved pre-win owner receipt");
+}
+
+if (!lockedPreWinTender) {
+  throw new Error("demo fixture must include locked pre-win quarantine source");
 }
 
 function htmlAttributeValue(value) {
@@ -238,12 +243,24 @@ const routeChecks = [
       "data-ready-count=\"1\"",
       "data-quarantine-count=\"1\"",
       "data-unavailable-count=\"1\"",
+      "Source quarantine browser loop",
+      "data-testid=\"source-quarantine-browser-loop\"",
+      "data-status=\"quarantine\"",
+      "data-ai-gate=\"blocked\"",
+      "data-selector=\"",
+      "source-url-health-state",
+      "[data-status=&#x27;quarantine&#x27;]",
+      "Assert raw",
+      "Assert AI gate",
       "quarantine blocks AI",
       "raw-eis-0373100099926000012",
       "raw-eis-0173200001426000044",
       "raw-etp-procedure-room-0373100042626000001",
+      lockedPreWinTender.source.raw_artifact_id,
+      lockedPreWinTender.outcome.owner_role,
       "connector timeout",
       "manual review before AI",
+      "schema drift",
       "Source intake contract",
       "AI blocked until complete",
     ],
