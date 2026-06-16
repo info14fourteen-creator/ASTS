@@ -36,6 +36,21 @@ export default function TenderNotFound() {
           </p>
         </section>
 
+        <section className="panel source-id-mismatch-panel">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source-id mismatch hint</p>
+              <h2>Где искать правильный номер процедуры</h2>
+            </div>
+            <span className="status-pill">regNumber first</span>
+          </div>
+          <p className="route-note">
+            Если в адрес вставили `raw-eis-*`, `raw-etp-*` или другой artifact id, это не номер сделки. Откройте
+            `/sources`, найдите `source_url` первоисточника и возьмите `regNumber` / `tender_id`: именно он открывает
+            `/tenders/[id]`.
+          </p>
+        </section>
+
         <section className="route-grid" aria-label="Куда перейти после неизвестной процедуры">
           {tenderRecoveryRoutes.map(([href, title, text]) => (
             <a className="route-card table-link" href={href} key={href}>

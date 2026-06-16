@@ -183,6 +183,23 @@ export function TenderCardView({ tenderDetail }: { tenderDetail: TenderDetail })
             </dl>
           </article>
 
+          <article className="panel source-id-hint-panel">
+            <div className="panel-head compact">
+              <div>
+                <p className="eyebrow">Source-id mismatch hint</p>
+                <h2>Как не перепутать id</h2>
+              </div>
+              <span className="status-pill">route guard</span>
+            </div>
+            <div className="source-id-hint">
+              <strong>{tenderDetail.sourceIdHint.tenderId}</strong>
+              <span>tender_id / regNumber</span>
+              <p>{tenderDetail.sourceIdHint.rule}</p>
+              <em>{tenderDetail.sourceIdHint.rawArtifactId}</em>
+              <em>{tenderDetail.sourceIdHint.sourceRef}</em>
+            </div>
+          </article>
+
           <article className="panel">
             <div className="panel-head compact">
               <div>

@@ -20,10 +20,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить source-id mismatch hint", "подсказать, где искать регномер из первоисточника"],
-  ["2", "Добавить fixture coverage count в /plan", "показывать сколько pre-win/post-win rows под smoke"],
-  ["3", "Добавить owner approval browser loop", "кликать outcome filter и сверять active state"],
-  ["4", "Добавить execution artifact empty guard", "не давать второй воронке стартовать без документов"],
+  ["1", "Добавить fixture coverage count в /plan", "показывать сколько pre-win/post-win rows под smoke"],
+  ["2", "Добавить owner approval browser loop", "кликать outcome filter и сверять active state"],
+  ["3", "Добавить execution artifact empty guard", "не давать второй воронке стартовать без документов"],
+  ["4", "Добавить source_url deep link", "из карточки быстро открыть первоисточник"],
 ];
 
 const cycleRules = [

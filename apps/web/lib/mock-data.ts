@@ -59,6 +59,12 @@ export type TenderDetail = {
     evidence: string;
     note: string;
   };
+  sourceIdHint: {
+    tenderId: string;
+    rawArtifactId: string;
+    sourceRef: string;
+    rule: string;
+  };
   sourceFacts: [string, string][];
   aiChecks: [string, string][];
   nextActions: [string, string, string][];
@@ -359,6 +365,12 @@ export function getTenderDetail(tenderId: string): TenderDetail | undefined {
       note: tender.outcome.requires_owner_approval
         ? "AI предлагает исход, но закрытие сделки требует подтверждения владельца этапа."
         : "Исход можно закрыть без дополнительного владельца по текущей policy.",
+    },
+    sourceIdHint: {
+      tenderId: tender.tender_id,
+      rawArtifactId: tender.source.raw_artifact_id,
+      sourceRef: tender.outcome.source_ref,
+      rule: "Route `/tenders/[id]` принимает tender_id/regNumber, а raw artifact нужен только как evidence.",
     },
     sourceFacts: [
       ["Источник", hostFromUrl(tender.source.source_url)],

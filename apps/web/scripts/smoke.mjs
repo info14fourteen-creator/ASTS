@@ -9,12 +9,15 @@ const executionTenders = demoData.tenders.filter((tender) => tender.funnel === "
 const tenderDetailRouteChecks = preWinTenders.map((tender) => ({
   path: `/tenders/${tender.tender_id}`,
   status: 200,
-  mustInclude: [
-    "Карточка процедуры",
-    "Outcome / reason",
-    tender.title,
-    tender.outcome.owner_role,
-    tender.outcome.source_ref,
+    mustInclude: [
+      "Карточка процедуры",
+      "Outcome / reason",
+      "Source-id mismatch hint",
+      "tender_id / regNumber",
+      "raw artifact нужен только как evidence",
+      tender.title,
+      tender.outcome.owner_role,
+      tender.outcome.source_ref,
   ],
 }));
 
@@ -83,6 +86,9 @@ const routeChecks = [
       "Карточка процедуры не найдена",
       "unknown tender id",
       "pre-win id из shared fixture",
+      "Source-id mismatch hint",
+      "raw-eis-*",
+      "regNumber",
       "/execution",
     ],
   },
