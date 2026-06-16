@@ -50,6 +50,13 @@ const secretRotation = [
   ["Emergency revoke", "подозрение на компрометацию", "сразу", "audit export и новый secret"],
 ];
 
+const environmentSecrets = [
+  ["OPENAI_API_KEY", "AI review и разбор документов", "AI выводы заблокированы"],
+  ["ZAKUPKI_GOV_API", "импорт ЕИС и файлов процедур", "новые процедуры не импортируются"],
+  ["FNS_API_KEY", "проверка ИНН и статуса компаний", "контрагент идет в ручную проверку"],
+  ["CRM_SYNC_TOKEN", "экспорт сделок, задач и файлов в CRM", "sync остается в локальной очереди"],
+];
+
 const backupPlan = [
   ["Postgres snapshot", "каждые 6 часов", "процедуры, стадии, задачи, настройки"],
   ["File vault mirror", "каждый импорт", "оригиналы ТЗ, протоколы, КП, OCR и hash"],
@@ -282,6 +289,25 @@ export default function SettingsPage() {
                   <strong>{title}</strong>
                   <p>{scope}</p>
                   <em>{action}</em>
+                </article>
+              ))}
+            </div>
+          </article>
+
+          <article className="panel span-12 environment-secrets-panel">
+            <div className="panel-head compact">
+              <div>
+                <p className="eyebrow">Environment readiness</p>
+                <h2>Какие секреты должны быть заведены до запуска</h2>
+              </div>
+              <span className="status-pill">names only</span>
+            </div>
+            <div className="environment-secrets-grid">
+              {environmentSecrets.map(([name, scope, fallback]) => (
+                <article className="environment-secret-card" key={name}>
+                  <span>{name}</span>
+                  <strong>{scope}</strong>
+                  <p>{fallback}</p>
                 </article>
               ))}
             </div>
