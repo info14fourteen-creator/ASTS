@@ -71,6 +71,11 @@ const controlPoints = [
   ["Закрывающие", "бухгалтерия", "УПД, акт, счет-фактура и hash файлов", "до финального расчета"],
 ];
 
+const minimumExecutionArtifacts = 3;
+const executionArtifactCount = executionDocumentRows.length;
+const executionStartReady = executionRows.length > 0 && executionArtifactCount >= minimumExecutionArtifacts;
+const executionGuardStatus = executionStartReady ? "ready" : "blocked";
+
 export default function ExecutionPage() {
   return (
     <main className="app-shell">
@@ -178,6 +183,49 @@ export default function ExecutionPage() {
                 </div>
               </article>
             ))}
+          </div>
+        </section>
+
+        <section
+          className={`panel execution-artifact-guard-panel ${executionGuardStatus}`}
+          data-artifact-count={executionArtifactCount}
+          data-contract-count={executionRows.length}
+          data-min-artifacts={minimumExecutionArtifacts}
+          data-status={executionGuardStatus}
+          data-testid="execution-artifact-empty-guard"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Execution artifact empty guard</p>
+              <h2>Вторая воронка стартует только с handoff-пакетом</h2>
+            </div>
+            <span className={`status-pill ${executionStartReady ? "green" : ""}`}>{executionGuardStatus}</span>
+          </div>
+          <div className="execution-artifact-guard-grid">
+            <article>
+              <span>Contracts</span>
+              <strong>{executionRows.length}</strong>
+              <p>post-win записи из shared fixture, не смешиваются с pre-win inbox.</p>
+            </article>
+            <article>
+              <span>Raw artifacts</span>
+              <strong>{executionArtifactCount}</strong>
+              <p>файлы исполнения с artifact_id, source_kind, custody и storage_path.</p>
+            </article>
+            <article>
+              <span>Minimum pack</span>
+              <strong>{minimumExecutionArtifacts}</strong>
+              <p>если документов меньше, старт исполнения блокируется до загрузки первоисточников.</p>
+            </article>
+            <article>
+              <span>Decision</span>
+              <strong>{executionStartReady ? "handoff ready" : "handoff blocked"}</strong>
+              <p>
+                {executionStartReady
+                  ? "AI может вести исполнение, но owner approval остается обязательным."
+                  : "Нет raw artifacts: открыть вторую воронку нельзя."}
+              </p>
+            </article>
           </div>
         </section>
 
