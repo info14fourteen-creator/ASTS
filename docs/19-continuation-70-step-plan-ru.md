@@ -142,10 +142,11 @@
 4. Добавить smoke-скрипт маршрутов `apps/web/scripts/smoke.mjs`.
 5. Начать backend foundation: health/status response models and `/v1/status`.
 6. Расширить API-схемы: `TenderSummary`, `SourceEvidence`, `DocumentArtifact`, `TaskItem` and `/v1/contracts`.
+7. Добавить prototype endpoints: in-memory `/v1/tenders`, `/v1/documents`, `/v1/tasks`.
 
 Следующими брать:
 
-1. Добавить prototype endpoints: in-memory tender/source/document/task lists.
-2. Сверить mind map registry со статусами `implemented / planned / needs owner`.
-3. Разделить главный экран на компоненты.
-4. Добавить PWA readiness check.
+1. Сверить mind map registry со статусами `implemented / planned / needs owner`.
+2. Разделить главный экран на компоненты.
+3. Добавить PWA readiness check.
+4. Подготовить ingestion service layer: retry, quarantine, raw artifacts.

@@ -1,13 +1,17 @@
 from fastapi import FastAPI
 
 from app.config import settings
+from app.demo_data import DEMO_DOCUMENTS, DEMO_TASKS, DEMO_TENDERS
 from app.schemas import (
     ApiContract,
     ApiContractsResponse,
     ApiStatusResponse,
+    DocumentArtifact,
     HealthResponse,
     StackResponse,
     StatusCheck,
+    TaskItem,
+    TenderSummary,
 )
 
 app = FastAPI(title=settings.app_name, version=settings.app_version)
@@ -75,6 +79,21 @@ def contracts() -> ApiContractsResponse:
             ),
         ],
     )
+
+
+@app.get("/v1/tenders", response_model=list[TenderSummary], tags=["tenders"])
+def list_tenders() -> list[TenderSummary]:
+    return DEMO_TENDERS
+
+
+@app.get("/v1/documents", response_model=list[DocumentArtifact], tags=["documents"])
+def list_documents() -> list[DocumentArtifact]:
+    return DEMO_DOCUMENTS
+
+
+@app.get("/v1/tasks", response_model=list[TaskItem], tags=["tasks"])
+def list_tasks() -> list[TaskItem]:
+    return DEMO_TASKS
 
 
 @app.get("/stack", response_model=StackResponse, tags=["system"])
