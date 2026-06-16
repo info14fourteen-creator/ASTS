@@ -33,4 +33,5 @@ Future FastAPI backend.
 - `GET /v1/tenders` - prototype tender list with source evidence and both deal funnels.
 - `GET /v1/documents` - prototype document artifacts with raw storage paths.
 - `GET /v1/tasks` - prototype operator tasks with owners, priority and approval flags.
+- `GET /v1/ingestion/policy` - service-layer contract for raw artifacts, retries and quarantine reasons.
 - `GET /stack` - planned technical stack and output types.

@@ -146,10 +146,11 @@
 8. Сверить mind map registry со статусами `implemented / planned / needs owner`.
 9. Разделить главный экран на компоненты `overview-sections.tsx`.
 10. Добавить PWA readiness check: manifest icons и install/offline статусы.
+11. Подготовить ingestion service layer: retry, quarantine, raw artifacts.
 
 Следующими брать:
 
-1. Подготовить ingestion service layer: retry, quarantine, raw artifacts.
-2. Связать demo API с web mock data.
-3. Описать JSON-схемы извлечения позиций и КП.
-4. Добавить справочник outcome/reason в API.
+1. Связать demo API с web mock data.
+2. Описать JSON-схемы извлечения позиций и КП.
+3. Добавить справочник outcome/reason в API.
+4. Добавить raw artifact manifest в documents API.

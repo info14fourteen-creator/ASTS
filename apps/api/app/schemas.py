@@ -24,6 +24,14 @@ SourceFreshness = Literal["fresh", "stale", "quarantine", "manual_review"]
 DocumentStatus = Literal["raw", "downloaded", "ocr_ready", "parsed", "reviewed", "attached"]
 TaskPriority = Literal["normal", "warning", "critical"]
 TaskStatus = Literal["open", "blocked", "done"]
+IngestionAction = Literal["retry", "quarantine", "manual_review"]
+QuarantineReason = Literal[
+    "source_unavailable",
+    "rate_limited",
+    "checksum_mismatch",
+    "schema_mismatch",
+    "manual_review_required",
+]
 
 
 class HealthResponse(BaseModel):
@@ -97,6 +105,30 @@ class TaskItem(BaseModel):
     status: TaskStatus
     due_at: str | None = None
     requires_human_approval: bool = True
+
+
+class RawArtifactContract(BaseModel):
+    artifact_id: str
+    source_kind: SourceKind
+    source_url: str
+    storage_path: str
+    checksum_sha256: str = Field(min_length=64, max_length=64)
+    content_type: str
+    collected_at: str
+
+
+class IngestionRetryStep(BaseModel):
+    attempt: int = Field(ge=1)
+    delay_seconds: int = Field(ge=0)
+    action: IngestionAction
+
+
+class IngestionPolicyResponse(BaseModel):
+    source_policy: str
+    raw_storage: str
+    evidence_required: bool
+    retry_steps: list[IngestionRetryStep]
+    quarantine_reasons: list[QuarantineReason]
 
 
 class ApiContract(BaseModel):

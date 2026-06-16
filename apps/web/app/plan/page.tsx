@@ -18,10 +18,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Подготовить ingestion service layer", "retry, quarantine, raw artifacts"],
-  ["2", "Связать demo API с web mock data", "один источник демо-правды для UI/API"],
-  ["3", "Описать JSON-схемы извлечения", "позиции, КП, риски, confidence"],
-  ["4", "Добавить outcome/reason API", "финалы первой и второй воронки"],
+  ["1", "Связать demo API с web mock data", "один источник демо-правды для UI/API"],
+  ["2", "Описать JSON-схемы извлечения", "позиции, КП, риски, confidence"],
+  ["3", "Добавить outcome/reason API", "финалы первой и второй воронки"],
+  ["4", "Добавить raw artifact manifest", "documents API + evidence chain"],
 ];
 
 const cycleRules = [
