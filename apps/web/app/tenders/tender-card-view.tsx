@@ -181,6 +181,28 @@ export function TenderCardView({ tenderDetail }: { tenderDetail: TenderDetail })
                 </div>
               ))}
             </dl>
+            <div
+              className="source-deep-link"
+              data-source-host={tenderDetail.sourceEvidence.host}
+              data-source-url={tenderDetail.sourceEvidence.url}
+              data-testid="source-url-deep-link"
+            >
+              <span>Primary source deep link</span>
+              <strong>{tenderDetail.sourceEvidence.host}</strong>
+              <p>
+                Открывает первоисточник процедуры. AI может ссылаться на этот URL, raw artifact и checksum, но не
+                подменяет их агрегатором.
+              </p>
+              <a
+                href={tenderDetail.sourceEvidence.url}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Открыть первоисточник
+              </a>
+              <em>{tenderDetail.sourceEvidence.rawArtifactId}</em>
+              <em>{tenderDetail.sourceEvidence.checksum}</em>
+            </div>
           </article>
 
           <article className="panel source-id-hint-panel">

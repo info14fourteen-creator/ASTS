@@ -9,6 +9,10 @@ const executionDocuments = demoData.documents.filter((document) =>
   executionTenders.some((tender) => tender.tender_id === document.tender_id),
 );
 
+function htmlAttributeValue(value) {
+  return value.replaceAll("&", "&amp;");
+}
+
 const tenderDetailRouteChecks = preWinTenders.map((tender) => ({
   path: `/tenders/${tender.tender_id}`,
   status: 200,
@@ -18,10 +22,16 @@ const tenderDetailRouteChecks = preWinTenders.map((tender) => ({
       "Source-id mismatch hint",
       "tender_id / regNumber",
       "raw artifact нужен только как evidence",
+      "Primary source deep link",
+      "data-testid=\"source-url-deep-link\"",
+      `data-source-url="${htmlAttributeValue(tender.source.source_url)}"`,
+      `href="${htmlAttributeValue(tender.source.source_url)}"`,
+      "Открыть первоисточник",
       tender.title,
       tender.outcome.owner_role,
       tender.outcome.source_ref,
-  ],
+      tender.source.raw_artifact_id,
+    ],
 }));
 
 const outcomeFilterRouteChecks = ["suggested", "locked", "approved"].map((outcome) => {

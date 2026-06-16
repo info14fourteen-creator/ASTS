@@ -1601,6 +1601,67 @@ dd {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.source-deep-link {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+  border: 1px solid rgba(18, 106, 113, 0.18);
+  border-radius: 8px;
+  padding: 12px;
+  background: #f7faf8;
+}
+
+.source-deep-link span,
+.source-deep-link strong,
+.source-deep-link p,
+.source-deep-link a,
+.source-deep-link em {
+  display: block;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.source-deep-link span {
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.source-deep-link strong {
+  color: var(--accent-dark);
+  line-height: 1.25;
+}
+
+.source-deep-link p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.42;
+}
+
+.source-deep-link a {
+  width: fit-content;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.source-deep-link em {
+  width: fit-content;
+  border: 1px solid rgba(18, 106, 113, 0.2);
+  border-radius: 8px;
+  padding: 5px 8px;
+  background: rgba(18, 106, 113, 0.08);
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 850;
+}
+
 .fact-list div,
 .analysis-list div,
 .action-list article {

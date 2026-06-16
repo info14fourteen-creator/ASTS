@@ -65,6 +65,12 @@ export type TenderDetail = {
     sourceRef: string;
     rule: string;
   };
+  sourceEvidence: {
+    url: string;
+    host: string;
+    rawArtifactId: string;
+    checksum: string;
+  };
   sourceFacts: [string, string][];
   aiChecks: [string, string][];
   nextActions: [string, string, string][];
@@ -385,6 +391,12 @@ export function getTenderDetail(tenderId: string): TenderDetail | undefined {
       rawArtifactId: tender.source.raw_artifact_id,
       sourceRef: tender.outcome.source_ref,
       rule: "Route `/tenders/[id]` принимает tender_id/regNumber, а raw artifact нужен только как evidence.",
+    },
+    sourceEvidence: {
+      url: tender.source.source_url,
+      host: hostFromUrl(tender.source.source_url),
+      rawArtifactId: tender.source.raw_artifact_id,
+      checksum: shortChecksum(tender.source.checksum_sha256),
     },
     sourceFacts: [
       ["Источник", hostFromUrl(tender.source.source_url)],

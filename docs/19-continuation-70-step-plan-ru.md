@@ -182,10 +182,11 @@
 44. Добавить fixture coverage count в `/plan`: план показывает pre-win, execution, documents, execution artifacts, tasks и outcome states из shared fixture.
 45. Добавить owner approval browser loop: `/tenders` показывает активный outcome receipt, а браузерный цикл кликает фильтры и сверяет `aria-pressed`, URL и visible rows.
 46. Добавить execution artifact empty guard: `/execution` не дает второй воронке стартовать без минимального handoff-пакета raw artifacts.
+47. Добавить source_url deep link: карточка `/tenders/[id]` открывает первоисточник из shared fixture и закрепляет href в route smoke.
 
 Следующими брать:
 
-1. Добавить source_url deep link: из карточки быстро открыть первоисточник.
-2. Добавить fixture drift warning: подсветить, если smoke counts не совпали с shared fixture.
-3. Добавить owner approval receipt history: хранить последнее ручное подтверждение перед handoff.
-4. Добавить execution artifact blocked fixture: отдельный demo-сценарий, где вторая воронка реально заблокирована.
+1. Добавить fixture drift warning: подсветить, если smoke counts не совпали с shared fixture.
+2. Добавить owner approval receipt history: хранить последнее ручное подтверждение перед handoff.
+3. Добавить execution artifact blocked fixture: отдельный demo-сценарий, где вторая воронка реально заблокирована.
+4. Добавить source_url health state: показать, когда первоисточник недоступен или ушел в quarantine.
