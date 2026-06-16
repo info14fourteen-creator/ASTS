@@ -100,7 +100,7 @@ export default function Home() {
               <p className="eyebrow">Mind map parity</p>
               <h2>Что уже перенесено из старой логики</h2>
             </div>
-            <span className="status-pill">3 / 4 covered</span>
+            <span className="status-pill">3 implemented</span>
           </div>
           <div className="parity-grid">
             {mindMapParity.map(([title, text, status]) => (

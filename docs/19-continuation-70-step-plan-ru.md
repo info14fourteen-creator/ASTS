@@ -143,10 +143,11 @@
 5. Начать backend foundation: health/status response models and `/v1/status`.
 6. Расширить API-схемы: `TenderSummary`, `SourceEvidence`, `DocumentArtifact`, `TaskItem` and `/v1/contracts`.
 7. Добавить prototype endpoints: in-memory `/v1/tenders`, `/v1/documents`, `/v1/tasks`.
+8. Сверить mind map registry со статусами `implemented / planned / needs owner`.
 
 Следующими брать:
 
-1. Сверить mind map registry со статусами `implemented / planned / needs owner`.
-2. Разделить главный экран на компоненты.
-3. Добавить PWA readiness check.
-4. Подготовить ingestion service layer: retry, quarantine, raw artifacts.
+1. Разделить главный экран на компоненты.
+2. Добавить PWA readiness check.
+3. Подготовить ingestion service layer: retry, quarantine, raw artifacts.
+4. Связать demo API с web mock data.

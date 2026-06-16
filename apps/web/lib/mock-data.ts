@@ -113,10 +113,12 @@ export const operatorHandoff = [
 ];
 
 export const mindMapParity = [
-  ["2 воронки", "до победы и исполнение разделены в карточке процедуры", "covered"],
-  ["Первоисточники", "ЕИС, ФНС и ЭТП отмечены как обязательные каналы", "covered"],
-  ["AI вместо рутины", "скоринг, OCR и low-confidence проверки вынесены в задачи", "covered"],
-  ["Старая схема", "оставить сверку PDF/mind map перед merge в main", "review"],
+  ["2 воронки", "pre-win и execution уже разделены в UI и API-схемах", "implemented"],
+  ["Первоисточники", "SourceEvidence обязателен для tender/document demo API", "implemented"],
+  ["Задачи и владельцы", "TaskItem хранит owner, priority и human approval", "implemented"],
+  ["AI вместо рутины", "confidence gates есть, extraction-схемы еще впереди", "planned"],
+  ["Поставщики и КП", "RFQ, quote lines и top-3 сохранены в registry", "planned"],
+  ["Роли MVP", "нужно утвердить права старых ролей в новой команде", "needs-owner"],
 ];
 
 export const previewReview = [

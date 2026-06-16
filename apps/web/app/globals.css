@@ -421,7 +421,7 @@ h3 {
 
 .parity-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   gap: 10px;
 }
 
@@ -451,10 +451,17 @@ h3 {
   text-transform: uppercase;
 }
 
-.parity-card.review span {
+.parity-card.review span,
+.parity-card.planned span {
   border-color: rgba(154, 100, 27, 0.24);
   background: #fff7e8;
   color: var(--amber);
+}
+
+.parity-card.needs-owner span {
+  border-color: rgba(176, 54, 54, 0.22);
+  background: #fff1f1;
+  color: var(--red);
 }
 
 .parity-card strong {
