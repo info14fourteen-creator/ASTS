@@ -107,6 +107,13 @@ const commandSignals = [
   ["Execution funnel", "1 контракт ждет УПД, 2 оплаты в контроле", "после победы"],
 ];
 
+const operatorHandoff = [
+  ["Sources", "проверить freshness breach и ошибки API до AI-разбора", "data"],
+  ["Deadlines", "сроки меньше 10 часов требуют владельца и решения", "pre-win"],
+  ["Execution", "победы без handoff receipt не переводим во вторую воронку", "post-win"],
+  ["Merge", "PR объединяем только после build, browser smoke и review", "delivery"],
+];
+
 const mindMapParity = [
   ["2 воронки", "до победы и исполнение разделены в карточке процедуры", "covered"],
   ["Первоисточники", "ЕИС, ФНС и ЭТП отмечены как обязательные каналы", "covered"],
@@ -195,6 +202,25 @@ export default function Home() {
                 <span>{title}</span>
                 <strong>{text}</strong>
                 <small>{status}</small>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel operator-handoff-panel" aria-label="Утренний handoff команды">
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Operator handoff</p>
+              <h2>Что фиксируем перед началом дня</h2>
+            </div>
+            <span className="status-pill green">review first</span>
+          </div>
+          <div className="operator-handoff-grid">
+            {operatorHandoff.map(([title, text, scope]) => (
+              <article className="operator-handoff-card" key={title}>
+                <span>{scope}</span>
+                <strong>{title}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>
