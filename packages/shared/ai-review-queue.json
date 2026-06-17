@@ -3,6 +3,28 @@
   "rule": "Low-confidence AI facts require source evidence and owner review before workflow decisions.",
   "confidence_threshold": 0.85,
   "blocked_below_confidence": 0.75,
+  "write_contract": {
+    "route": "/v1/ai/review-queue",
+    "method": "POST",
+    "status": "draft",
+    "owner": "AI workflow owner",
+    "idempotency_key_required": true,
+    "request_schema": [
+      "review_id",
+      "fact_id",
+      "owner_id",
+      "owner_role",
+      "action",
+      "decision",
+      "evidence_ref",
+      "confidence_at_review",
+      "source_checksum_sha256",
+      "audit_note",
+      "idempotency_key"
+    ],
+    "blocked_copy": "Write endpoint stays draft until auth, idempotency, owner role validation and immutable AI audit storage are implemented.",
+    "no_merge_copy": "Не мержить AI review receipt write endpoint, пока POST не проверяет owner role, decision, idempotency key, source evidence и immutable audit append."
+  },
   "queue": [
     {
       "tender_id": "0373100042626000001",

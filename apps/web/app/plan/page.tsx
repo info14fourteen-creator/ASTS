@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить AI review receipt write API draft", "описать будущий write endpoint для ручного AI review receipt"],
-  ["2", "Добавить source freshness write API draft", "описать будущий write endpoint для ручного freshness receipt"],
-  ["3", "Добавить EIS real-network approval API copy", "показать owner-friendly текст для будущего сетевого EIS smoke gate"],
-  ["4", "Добавить source owner receipt write smoke failure copy", "показать owner-friendly текст при падении draft write контракта"],
+  ["1", "Добавить source freshness write API draft", "описать будущий write endpoint для ручного freshness receipt"],
+  ["2", "Добавить EIS real-network approval API copy", "показать owner-friendly текст для будущего сетевого EIS smoke gate"],
+  ["3", "Добавить source owner receipt write smoke failure copy", "показать owner-friendly текст при падении draft write контракта"],
+  ["4", "Добавить AI review receipt write smoke failure copy", "показать owner-friendly текст при падении AI review write контракта"],
 ];
 
 const cycleRules = [
@@ -517,6 +517,34 @@ const aiReviewReceiptApiRenderedRouteFailureCopy = {
   ],
 };
 
+const aiReviewReceiptWriteApiDraft = {
+  apiRoute: "/v1/ai/review-queue",
+  command: "npm run smoke:ai-review-receipt-write-api-draft",
+  docsHref:
+    "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#ai-review-receipt-write-api-draft",
+  expectedQueueCount: 3,
+  expectedRequestFieldCount: 11,
+  expectedRouteCount: 16,
+  fixturePath: "packages/shared/ai-review-queue.json",
+  method: "POST",
+  noMergeCopy:
+    "Не мержить AI review receipt write endpoint, пока POST не проверяет owner role, decision, idempotency key, source evidence и immutable audit append.",
+  ownerRole: "AI workflow owner + API owner + QA owner",
+  repairTargets:
+    "packages/shared/ai-review-queue.json,apps/api/app/services/ai_review.py,apps/api/README.md,/ai-review,apps/web/scripts/ai-review-receipt-write-api-draft.mjs",
+  sourceMarkerSelector: "[data-testid='ai-review-receipt-write-api-draft']",
+  status: "draft",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Draft", "GET `/v1/ai/review-queue` отдаёт write_contract, но backend не записывает owner receipt"],
+    ["Idempotency", "future POST требует idempotency_key перед immutable AI audit append"],
+    ["Evidence", "decision должен ссылаться на evidence_ref, confidence_at_review и source checksum"],
+    ["No merge", "не мержить, пока write draft не проходит shared, API и web smoke"],
+  ],
+};
+
 const apiReadmeTriggerSmoke = {
   command: "npm run smoke:api-readme-trigger",
   domParityCommand: aiReviewApiReadmeCiNote.domParityCommand,
@@ -978,7 +1006,7 @@ const ownerReceiptDocsRenderedRouteFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 44,
+  expectedCommandCount: 45,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -991,6 +1019,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='ai-review-api-readme-ci-note']",
     "[data-testid='ai-review-queue-rendered-route-failure-copy']",
     "[data-testid='ai-review-receipt-api-rendered-route-failure-copy']",
+    "[data-testid='ai-review-receipt-write-api-draft']",
     "[data-testid='api-readme-live-route-gate-note']",
     "[data-testid='api-readme-live-route-failure-copy']",
     "[data-testid='ai-review-api-readme-failure-copy']",
@@ -1028,7 +1057,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 44 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 45 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -2078,6 +2107,53 @@ export default function PlanPage() {
                   {title === "No merge"
                     ? aiReviewReceiptApiRenderedRouteFailureCopy.noMergeCopy
                     : aiReviewReceiptApiRenderedRouteFailureCopy.apiRoute}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-route={aiReviewReceiptWriteApiDraft.apiRoute}
+          data-command={aiReviewReceiptWriteApiDraft.command}
+          data-docs-href={aiReviewReceiptWriteApiDraft.docsHref}
+          data-expected-queue-count={aiReviewReceiptWriteApiDraft.expectedQueueCount}
+          data-expected-request-field-count={aiReviewReceiptWriteApiDraft.expectedRequestFieldCount}
+          data-expected-route-count={aiReviewReceiptWriteApiDraft.expectedRouteCount}
+          data-fixture-path={aiReviewReceiptWriteApiDraft.fixturePath}
+          data-method={aiReviewReceiptWriteApiDraft.method}
+          data-no-merge-copy={aiReviewReceiptWriteApiDraft.noMergeCopy}
+          data-owner-role={aiReviewReceiptWriteApiDraft.ownerRole}
+          data-repair-targets={aiReviewReceiptWriteApiDraft.repairTargets}
+          data-source-marker-selector={aiReviewReceiptWriteApiDraft.sourceMarkerSelector}
+          data-status={aiReviewReceiptWriteApiDraft.status}
+          data-testid="ai-review-receipt-write-api-draft"
+          data-workflow-href={aiReviewReceiptWriteApiDraft.workflowHref}
+          data-workflow-name={aiReviewReceiptWriteApiDraft.workflowName}
+          data-workflow-path={aiReviewReceiptWriteApiDraft.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review receipt write API draft</p>
+              <h2>Как будущий POST сохранит AI review receipt без потери audit</h2>
+            </div>
+            <div className="panel-actions">
+              <a className="primary-link" href={aiReviewReceiptWriteApiDraft.workflowHref}>
+                {aiReviewReceiptWriteApiDraft.workflowName}
+              </a>
+              <a className="primary-link" href={aiReviewReceiptWriteApiDraft.docsHref}>
+                API contract
+              </a>
+            </div>
+          </div>
+          <div className="fixture-coverage-grid">
+            {aiReviewReceiptWriteApiDraft.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge" ? aiReviewReceiptWriteApiDraft.noMergeCopy : aiReviewReceiptWriteApiDraft.apiRoute}
                 </strong>
                 <p>{text}</p>
               </article>

@@ -2,7 +2,12 @@ import json
 from pathlib import Path
 
 from app.demo_data import DEMO_DATA, TENDER_SOURCES
-from app.schemas import AiReviewQueueItem, AiReviewQueueResponse, AiReviewQueueSummary
+from app.schemas import (
+    AiReviewQueueItem,
+    AiReviewQueueResponse,
+    AiReviewQueueSummary,
+    AiReviewReceiptWriteContract,
+)
 
 SHARED_AI_REVIEW_QUEUE_PATH = (
     Path(__file__).resolve().parents[4] / "packages/shared/ai-review-queue.json"
@@ -94,6 +99,7 @@ def get_ai_review_queue() -> AiReviewQueueResponse:
                 if item.source.source_url and item.source.raw_artifact_id and item.source.checksum_sha256
             ),
         ),
+        write_contract=AiReviewReceiptWriteContract(**fixture["write_contract"]),
         queue=queue,
     )
 

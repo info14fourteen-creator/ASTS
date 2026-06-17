@@ -131,6 +131,8 @@ const aiReviewReceiptBrowserLoop = {
   ],
 };
 
+const aiReviewReceiptWriteContract = aiReviewQueueFixture.write_contract;
+
 const evidence = [
   ["ТЗ", "Файл: tz_lighting_v4.pdf", "позиции 12-14", "manual"],
   ["Контракт", "ЕИС / проект контракта", "штрафы и сроки", "ok"],
@@ -347,6 +349,41 @@ export default function AiReviewPage() {
                 <strong>{rule.owner}</strong>
                 <p>{rule.rule}</p>
                 <em>{rule.evidenceFields.join(" + ")}</em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel ai-confidence-browser-loop-panel"
+          data-api-route={aiReviewReceiptWriteContract.route}
+          data-blocked-copy={aiReviewReceiptWriteContract.blocked_copy}
+          data-idempotency-key-required={String(aiReviewReceiptWriteContract.idempotency_key_required)}
+          data-method={aiReviewReceiptWriteContract.method}
+          data-no-merge-copy={aiReviewReceiptWriteContract.no_merge_copy}
+          data-owner={aiReviewReceiptWriteContract.owner}
+          data-request-schema={aiReviewReceiptWriteContract.request_schema.join(",")}
+          data-status={aiReviewReceiptWriteContract.status}
+          data-testid="ai-review-receipt-write-api-draft"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review receipt write API draft</p>
+              <h2>Как будущий POST сохранит ручное решение AI без потери audit</h2>
+            </div>
+            <span className="status-pill amber">{aiReviewReceiptWriteContract.status}</span>
+          </div>
+          <div className="ai-confidence-browser-loop-grid">
+            {[
+              ["Route", `${aiReviewReceiptWriteContract.method} ${aiReviewReceiptWriteContract.route}`, aiReviewReceiptWriteContract.owner],
+              ["Idempotency", "idempotency_key required", aiReviewReceiptWriteContract.request_schema.join(", ")],
+              ["Blocked", aiReviewReceiptWriteContract.blocked_copy, "no mutation until storage is immutable"],
+              ["No merge", aiReviewReceiptWriteContract.no_merge_copy, "owner role, decision and evidence first"],
+            ].map(([title, value, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>{value}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>

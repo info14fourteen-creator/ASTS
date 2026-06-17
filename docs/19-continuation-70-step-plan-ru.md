@@ -379,3 +379,4 @@
 93. [done 2026-06-18] Добавить source freshness docs rendered-route failure copy: показать owner-friendly текст при падении freshness docs route coverage.
 94. [done 2026-06-18] Добавить FNS real-network approval API copy: показать Legal owner-friendly текст будущего сетевого FNS smoke в API, `/sources` и `/plan`.
 95. [done 2026-06-18] Добавить source owner receipt write API draft: показать draft POST contract с idempotency, checksum evidence и immutable audit append.
+96. [done 2026-06-18] Добавить AI review receipt write API draft: показать draft POST contract с owner role, decision, idempotency, source evidence и immutable AI audit append.

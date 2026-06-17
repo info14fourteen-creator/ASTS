@@ -344,6 +344,7 @@ def main() -> int:
     ai_review_payload = ai_review_response.json()
     ai_review_queue = ai_review_payload.get("queue", [])
     ai_review_summary = ai_review_payload.get("summary", {})
+    ai_review_write_contract = ai_review_payload.get("write_contract", {})
     expected_ai_review_counts = {
         "total": 3,
         "review_required": 1,
@@ -358,6 +359,38 @@ def main() -> int:
                 f"expected {value!r}, got {ai_review_summary.get(field)!r}"
             )
             return 1
+
+    if ai_review_write_contract.get("route") != "/v1/ai/review-queue":
+        print("FAIL /v1/ai/review-queue write contract route changed")
+        return 1
+
+    if ai_review_write_contract.get("method") != "POST":
+        print("FAIL /v1/ai/review-queue write contract method must stay POST")
+        return 1
+
+    if ai_review_write_contract.get("status") != "draft":
+        print("FAIL /v1/ai/review-queue write contract must stay draft")
+        return 1
+
+    if ai_review_write_contract.get("owner") != "AI workflow owner":
+        print("FAIL /v1/ai/review-queue write contract owner changed")
+        return 1
+
+    if ai_review_write_contract.get("idempotency_key_required") is not True:
+        print("FAIL /v1/ai/review-queue write contract must require idempotency key")
+        return 1
+
+    if "idempotency_key" not in set(ai_review_write_contract.get("request_schema", [])):
+        print("FAIL /v1/ai/review-queue write contract request schema must include idempotency_key")
+        return 1
+
+    if "Write endpoint stays draft" not in ai_review_write_contract.get("blocked_copy", ""):
+        print("FAIL /v1/ai/review-queue write contract must keep blocked copy")
+        return 1
+
+    if "Не мержить AI review receipt write endpoint" not in ai_review_write_contract.get("no_merge_copy", ""):
+        print("FAIL /v1/ai/review-queue write contract must keep no-merge copy")
+        return 1
 
     fact_types = {item.get("fact_type") for item in ai_review_queue}
     if fact_types != {"requirement", "supplier_quote", "economics"}:

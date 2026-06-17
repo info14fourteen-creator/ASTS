@@ -166,6 +166,29 @@ The web `npm run smoke:ai-review-actions` parity check compares the backend
 `packages/shared/ai-review-queue.json` fixture with the `/ai-review` UI seed and
 visible `data-required-action` markers, so handoff actions cannot drift silently.
 
+### AI Review Receipt Write API Draft
+
+`GET /v1/ai/review-queue` also exposes `write_contract` for the future AI review
+receipt write endpoint. This is a draft contract only; the service must not
+record reviewer decisions until auth, idempotency, owner role validation and
+immutable AI audit storage are built.
+
+- `route="/v1/ai/review-queue"`;
+- `method="POST"`;
+- `status="draft"`;
+- `owner="AI workflow owner"`;
+- `idempotency_key_required=true`;
+- `request_schema` requires `review_id`, `fact_id`, `owner_id`, `owner_role`,
+  `action`, `decision`, `evidence_ref`, `confidence_at_review`,
+  `source_checksum_sha256`, `audit_note` and `idempotency_key`;
+- `blocked_copy="Write endpoint stays draft until auth, idempotency, owner role validation and immutable AI audit storage are implemented."`;
+- `no_merge_copy` blocks merging the write endpoint until owner role, decision,
+  idempotency key, source evidence and immutable audit append are enforced.
+
+When we implement the actual `POST`, it must append an AI review receipt audit
+row rather than overwrite the queue item. Workflow-moving actions remain blocked
+unless the receipt decision is backed by source evidence and checksum.
+
 ### AI Review Owner Actions
 
 Low-confidence AI facts are cleared by owner receipts, not by overwriting the

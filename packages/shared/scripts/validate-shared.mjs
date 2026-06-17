@@ -48,8 +48,8 @@ const checks = [
     "AI review queue schema",
     () =>
       validateFixtureSchemaFile("fixture-schemas/ai-review-queue.schema.json", {
-        requiredRootFields: ["version", "rule", "confidence_threshold", "blocked_below_confidence", "queue"],
-        requiredDefinitions: ["review_item", "fact_type", "owner_role", "source_host"],
+        requiredRootFields: ["version", "rule", "confidence_threshold", "blocked_below_confidence", "write_contract", "queue"],
+        requiredDefinitions: ["review_item", "write_contract", "fact_type", "owner_role", "source_host"],
       }),
   ],
   [
@@ -330,6 +330,23 @@ function validateAiReviewQueue() {
   assertNonEmptyString(fixture.rule, "AI review queue rule");
   assert(fixture.confidence_threshold === 0.85, "AI review queue threshold must stay 0.85");
   assert(fixture.blocked_below_confidence === 0.75, "AI review blocked threshold must stay 0.75");
+  assert(fixture.write_contract, "AI review queue must include write_contract draft");
+  assert(fixture.write_contract.route === "/v1/ai/review-queue", "AI review write route changed");
+  assert(fixture.write_contract.method === "POST", "AI review write method must stay POST");
+  assert(fixture.write_contract.status === "draft", "AI review write contract must stay draft");
+  assert(fixture.write_contract.owner === "AI workflow owner", "AI review write owner changed");
+  assert(fixture.write_contract.idempotency_key_required === true, "AI review write must require idempotency key");
+  assert(Array.isArray(fixture.write_contract.request_schema), "AI review write must include request_schema");
+  assert(
+    fixture.write_contract.request_schema.length === 11,
+    "AI review write request schema must keep exactly 11 fields",
+  );
+  assertArrayIncludes(fixture.write_contract.request_schema, ["idempotency_key"], "AI review write request schema");
+  assertNonEmptyString(fixture.write_contract.blocked_copy, "AI review write blocked copy");
+  assert(
+    fixture.write_contract.no_merge_copy.includes("Не мержить AI review receipt write endpoint"),
+    "AI review write no-merge copy must block unsafe merge",
+  );
   assert(Array.isArray(fixture.queue) && fixture.queue.length === 3, "AI review queue must include 3 rows");
 
   const expectedMatrix = {

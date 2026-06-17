@@ -333,6 +333,17 @@ class AiReviewQueueSummary(BaseModel):
     source_evidence_present: int = Field(ge=0)
 
 
+class AiReviewReceiptWriteContract(BaseModel):
+    route: str
+    method: Literal["POST"]
+    status: Literal["draft"]
+    owner: str
+    idempotency_key_required: bool
+    request_schema: list[str]
+    blocked_copy: str
+    no_merge_copy: str
+
+
 class OwnerApprovalHandoffLockRow(BaseModel):
     tender_id: str
     outcome: Literal["suggested", "approved", "locked"]
@@ -448,6 +459,7 @@ class AiReviewQueueResponse(BaseModel):
     rule: str
     confidence_threshold: float = Field(ge=0, le=1)
     summary: AiReviewQueueSummary
+    write_contract: AiReviewReceiptWriteContract
     queue: list[AiReviewQueueItem]
 
 
