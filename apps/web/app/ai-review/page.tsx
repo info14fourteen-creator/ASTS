@@ -96,6 +96,30 @@ const lowConfidenceBrowserLoop = {
   ],
 };
 
+const aiReviewOwnerReceiptRules = [
+  {
+    fact: "requirement",
+    owner: "tender_manager",
+    decisions: "confirmed, corrected",
+    evidenceFields: ["evidence_ref", "confidence_at_review", "source_checksum_sha256"],
+    rule: "подтвердить трактовку требования или исправить AI extraction перед запросом поставщика",
+  },
+  {
+    fact: "supplier_quote",
+    owner: "supplier_manager",
+    decisions: "confirmed, corrected, blocked",
+    evidenceFields: ["evidence_ref", "supplier_clarification_ref", "source_checksum_sha256"],
+    rule: "подтвердить логистику поставщика или оставить экономику заблокированной",
+  },
+  {
+    fact: "economics",
+    owner: "finance_owner",
+    decisions: "confirmed, corrected, blocked",
+    evidenceFields: ["evidence_ref", "confidence_at_review", "source_checksum_sha256"],
+    rule: "подтвердить маржу, исправить расчет или оставить outcome locked",
+  },
+];
+
 const evidence = [
   ["ТЗ", "Файл: tz_lighting_v4.pdf", "позиции 12-14", "manual"],
   ["Контракт", "ЕИС / проект контракта", "штрафы и сроки", "ok"],
@@ -239,6 +263,39 @@ export default function AiReviewPage() {
                   </div>
                 </dl>
                 <em>{item.action}</em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel ai-owner-receipt-panel"
+          data-allowed-decisions="confirmed,corrected,blocked"
+          data-required-fields="evidence_ref,confidence_at_review,source_checksum_sha256"
+          data-rule-count={aiReviewOwnerReceiptRules.length}
+          data-testid="ai-review-owner-receipt-rules"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review owner receipt</p>
+              <h2>Что владелец должен оставить после ручного решения</h2>
+            </div>
+            <span className="status-pill amber">receipt required</span>
+          </div>
+          <div className="ai-owner-receipt-grid">
+            {aiReviewOwnerReceiptRules.map((rule) => (
+              <article
+                className="ai-owner-receipt-card"
+                data-allowed-decisions={rule.decisions}
+                data-fact-type={rule.fact}
+                data-owner={rule.owner}
+                data-required-fields={rule.evidenceFields.join(",")}
+                key={rule.fact}
+              >
+                <span>{rule.fact}</span>
+                <strong>{rule.owner}</strong>
+                <p>{rule.rule}</p>
+                <em>{rule.evidenceFields.join(" + ")}</em>
               </article>
             ))}
           </div>

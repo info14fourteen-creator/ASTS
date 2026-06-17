@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить AI review owner UI card", "показать receipt rules на /ai-review"],
-  ["2", "Добавить source owner receipt API contract", "описать endpoint для ручных receipt"],
-  ["3", "Добавить source receipt browser loop", "закрепить restored receipt selector на /sources"],
-  ["4", "Добавить FNS network gate browser loop", "закрепить approvals selector на /sources"],
+  ["1", "Добавить source owner receipt API contract", "описать endpoint для ручных receipt"],
+  ["2", "Добавить source receipt browser loop", "закрепить restored receipt selector на /sources"],
+  ["3", "Добавить FNS network gate browser loop", "закрепить approvals selector на /sources"],
+  ["4", "Добавить AI review receipt browser loop", "закрепить owner receipt selector на /ai-review"],
 ];
 
 const cycleRules = [

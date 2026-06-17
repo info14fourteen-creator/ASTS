@@ -158,6 +158,15 @@ UI не должен менять статус карточки на прохо�
 `decision="corrected"`, `evidence_ref`, `confidence_at_review` и checksum
 первоисточника. Оригинальный AI extraction остается видимым в audit trail.
 
+Маршрут `/ai-review` показывает эти правила в блоке
+`data-testid="ai-review-owner-receipt-rules"`:
+
+- `data-rule-count="3"`;
+- `data-allowed-decisions="confirmed,corrected,blocked"`;
+- `data-required-fields="evidence_ref,confidence_at_review,source_checksum_sha256"`;
+- строки для `tender_manager`, `supplier_manager` и `finance_owner`;
+- `supplier_quote` дополнительно требует `supplier_clarification_ref`.
+
 ## Collaboration Rules
 
 - Работать в ветках `codex/*`, не пушить напрямую в `main`.
