@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить web build route gate note", "показать, что web build self-check защищен route smoke"],
-  ["2", "Добавить AI review API README failure copy", "показать owner-friendly текст при падении live parity"],
-  ["3", "Добавить schema docs README failure copy", "показать owner-friendly текст при падении schema docs parity"],
-  ["4", "Добавить shared validation failure copy", "показать owner-friendly текст при падении shared validation drift"],
+  ["1", "Добавить AI review API README failure copy", "показать owner-friendly текст при падении live parity"],
+  ["2", "Добавить schema docs README failure copy", "показать owner-friendly текст при падении schema docs parity"],
+  ["3", "Добавить shared validation failure copy", "показать owner-friendly текст при падении shared validation drift"],
+  ["4", "Добавить web build failure copy", "показать owner-friendly текст при падении workflow drift"],
 ];
 
 const cycleRules = [
@@ -449,7 +449,7 @@ const schemaDocsReadmeLiveRouteGateNote = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 18,
+  expectedCommandCount: 19,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -469,11 +469,12 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='shared-validation-workflow-step-smoke']",
     "[data-testid='shared-validation-live-route-gate-note']",
     "[data-testid='web-build-workflow-self-check-note']",
+    "[data-testid='web-build-live-route-gate-note']",
   ],
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 18 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 19 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -492,6 +493,24 @@ const webBuildWorkflowSelfCheckNote = {
     ["File smoke", "Web build сначала запускает smoke:web-build-workflow"],
     ["Self-check step", "Web build затем запускает smoke:web-build-self-check до route smoke"],
     ["Plan marker", "`/plan` показывает, что workflow smoke защищает собственный CI"],
+  ],
+};
+
+const webBuildLiveRouteGateNote = {
+  command: "npm run smoke:web-build-live-route",
+  fileSmokeSelector: webBuildWorkflowSelfCheckNote.fileSmokeSelector,
+  markerSelector: "[data-testid='web-build-workflow-self-check-note']",
+  routeSmokeCommand: "npm run smoke -- --url http://127.0.0.1:4177/",
+  sourceSmokeCommand: webBuildWorkflowSelfCheckNote.command,
+  triggerPath: webBuildWorkflowSelfCheckNote.triggerPath,
+  workflowHref: webBuildWorkflowHref,
+  workflowName: webBuildWorkflowSelfCheckNote.workflowName,
+  workflowPath: webBuildWorkflowSelfCheckNote.workflowPath,
+  checks: [
+    ["Static workflow gate", "Web build сверяет workflow file smoke и self-check step"],
+    ["Live route gate", "затем route smoke проверяет `/plan` web build markers на живом сервере"],
+    ["Plan marker", "web-build-workflow-self-check-note остается источником command и trigger path"],
+    ["Merge gate", "workflow drift должен падать до merge и быть понятным в workdesk"],
   ],
 };
 
@@ -1421,6 +1440,41 @@ export default function PlanPage() {
                 <span>{title}</span>
                 <strong>
                   {title === "Self trigger" ? webBuildWorkflowSelfCheckNote.triggerPath : webBuildWorkflowSelfCheckNote.command}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-command={webBuildLiveRouteGateNote.command}
+          data-file-smoke-selector={webBuildLiveRouteGateNote.fileSmokeSelector}
+          data-marker-selector={webBuildLiveRouteGateNote.markerSelector}
+          data-route-smoke-command={webBuildLiveRouteGateNote.routeSmokeCommand}
+          data-source-smoke-command={webBuildLiveRouteGateNote.sourceSmokeCommand}
+          data-testid="web-build-live-route-gate-note"
+          data-trigger-path={webBuildLiveRouteGateNote.triggerPath}
+          data-workflow-href={webBuildLiveRouteGateNote.workflowHref}
+          data-workflow-name={webBuildLiveRouteGateNote.workflowName}
+          data-workflow-path={webBuildLiveRouteGateNote.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Web build live route gate note</p>
+              <h2>Как live route smoke защищает Web build</h2>
+            </div>
+            <a className="primary-link" href={webBuildLiveRouteGateNote.workflowHref}>
+              {webBuildLiveRouteGateNote.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {webBuildLiveRouteGateNote.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Live route gate" ? webBuildLiveRouteGateNote.routeSmokeCommand : webBuildLiveRouteGateNote.triggerPath}
                 </strong>
                 <p>{text}</p>
               </article>

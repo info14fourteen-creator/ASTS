@@ -91,6 +91,9 @@ jobs:
       - name: Smoke web build workflow self-check
         run: npm run smoke:web-build-self-check
 
+      - name: Smoke web build live route gate
+        run: npm run smoke:web-build-live-route
+
       - name: Smoke API README trigger path
         run: npm run smoke:api-readme-trigger
 

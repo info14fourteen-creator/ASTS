@@ -22,6 +22,7 @@
     "smoke:shared-validation-workflow": "node scripts/shared-validation-workflow-file.mjs",
     "smoke:source-receipt-docs-link": "node scripts/source-receipt-docs-link-browser.mjs",
     "smoke:web-build-self-check": "node scripts/web-build-self-check-note.mjs",
+    "smoke:web-build-live-route": "node scripts/web-build-live-route-gate.mjs",
     "smoke:web-build-workflow": "node scripts/web-build-workflow-file.mjs",
     "lint": "next lint"
   },
