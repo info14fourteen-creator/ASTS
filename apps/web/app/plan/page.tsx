@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить schema docs rendered-route failure copy", "показать owner-friendly текст при падении schema docs live parity"],
-  ["2", "Добавить source owner receipts rendered-route failure copy", "показать owner-friendly текст при падении source receipts route coverage"],
-  ["3", "Добавить FNS approvals rendered-route failure copy", "показать owner-friendly текст при падении FNS approvals route coverage"],
-  ["4", "Добавить owner receipt docs rendered-route failure copy", "показать owner-friendly текст при падении owner receipt route coverage"],
+  ["1", "Добавить source owner receipts rendered-route failure copy", "показать owner-friendly текст при падении source receipts route coverage"],
+  ["2", "Добавить FNS approvals rendered-route failure copy", "показать owner-friendly текст при падении FNS approvals route coverage"],
+  ["3", "Добавить owner receipt docs rendered-route failure copy", "показать owner-friendly текст при падении owner receipt route coverage"],
+  ["4", "Добавить AI review queue rendered-route failure copy", "показать owner-friendly текст при падении AI review route coverage"],
 ];
 
 const cycleRules = [
@@ -677,9 +677,31 @@ const schemaDocsReadmeFailureCopy = {
   ],
 };
 
+const schemaDocsRenderedRouteFailureCopy = {
+  command: "npm run smoke:schema-docs-rendered-route-failure-copy",
+  expectedRouteCount: 16,
+  failingCommand: schemaDocsReadmeLiveRouteGateNote.routeSmokeCommand,
+  linkSelector: schemaDocsReadmeLiveRouteGateNote.linkSelector,
+  noMergeCopy: "Не мержить, пока rendered routes smoke снова подтверждает schema docs link и shared README parity на живом `/plan`",
+  ownerRole: "Schema owner + QA owner",
+  readmePath: schemaDocsReadmeCiNote.readmePath,
+  repairTargets:
+    "/plan,packages/shared/README.md#shared-schema-index,apps/web/scripts/smoke.mjs,[data-testid='schema-docs-link']",
+  sourceMarkerSelector: "[data-testid='schema-docs-readme-failure-copy']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "rendered routes проходят, но `/plan` потерял schema docs link, README rows или failure copy"],
+    ["Fix order", "сначала восстановить schema docs README failure copy, затем route smoke expectations и 16 routes"],
+    ["Owner", "Schema owner подтверждает README/schema rows, QA owner подтверждает живой `/plan` route"],
+    ["No merge", "не мержить, пока schema docs markers снова не проходят rendered routes smoke"],
+  ],
+};
+
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 32,
+  expectedCommandCount: 33,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -703,6 +725,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='schema-docs-readme-live-route-gate-note']",
     "[data-testid='schema-docs-live-route-failure-copy']",
     "[data-testid='schema-docs-readme-failure-copy']",
+    "[data-testid='schema-docs-rendered-route-failure-copy']",
     "[data-testid='shared-validation-workflow-ci-note']",
     "[data-testid='shared-validation-workflow-step-smoke']",
     "[data-testid='shared-validation-workflow-failure-copy']",
@@ -717,7 +740,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 32 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 33 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -2060,6 +2083,46 @@ export default function PlanPage() {
               <article className="fixture-coverage-card" key={title}>
                 <span>{title}</span>
                 <strong>{title === "No merge" ? schemaDocsReadmeFailureCopy.noMergeCopy : schemaDocsReadmeFailureCopy.readmePath}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-command={schemaDocsRenderedRouteFailureCopy.command}
+          data-expected-route-count={schemaDocsRenderedRouteFailureCopy.expectedRouteCount}
+          data-failing-command={schemaDocsRenderedRouteFailureCopy.failingCommand}
+          data-link-selector={schemaDocsRenderedRouteFailureCopy.linkSelector}
+          data-no-merge-copy={schemaDocsRenderedRouteFailureCopy.noMergeCopy}
+          data-owner-role={schemaDocsRenderedRouteFailureCopy.ownerRole}
+          data-readme-path={schemaDocsRenderedRouteFailureCopy.readmePath}
+          data-repair-targets={schemaDocsRenderedRouteFailureCopy.repairTargets}
+          data-source-marker-selector={schemaDocsRenderedRouteFailureCopy.sourceMarkerSelector}
+          data-testid="schema-docs-rendered-route-failure-copy"
+          data-workflow-href={schemaDocsRenderedRouteFailureCopy.workflowHref}
+          data-workflow-name={schemaDocsRenderedRouteFailureCopy.workflowName}
+          data-workflow-path={schemaDocsRenderedRouteFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Schema docs rendered-route failure copy</p>
+              <h2>Что делать, если schema docs пропали в rendered routes</h2>
+            </div>
+            <a className="primary-link" href={schemaDocsRenderedRouteFailureCopy.workflowHref}>
+              {schemaDocsRenderedRouteFailureCopy.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {schemaDocsRenderedRouteFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? schemaDocsRenderedRouteFailureCopy.noMergeCopy
+                    : schemaDocsRenderedRouteFailureCopy.readmePath}
+                </strong>
                 <p>{text}</p>
               </article>
             ))}

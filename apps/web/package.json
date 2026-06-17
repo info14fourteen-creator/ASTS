@@ -20,6 +20,7 @@
     "smoke:schema-docs-live-route": "node scripts/schema-docs-live-route-gate.mjs",
     "smoke:schema-docs-live-route-failure-copy": "node scripts/schema-docs-live-route-failure-copy.mjs",
     "smoke:schema-docs-readme-failure-copy": "node scripts/schema-docs-readme-failure-copy.mjs",
+    "smoke:schema-docs-rendered-route-failure-copy": "node scripts/schema-docs-rendered-route-failure-copy.mjs",
     "smoke:owner-receipts": "node scripts/owner-receipt-parity.mjs",
     "smoke:schema-docs-workflow-failure-copy": "node scripts/schema-docs-workflow-failure-copy.mjs",
     "smoke:schema-docs-workflow": "node scripts/schema-docs-workflow-smoke.mjs",
