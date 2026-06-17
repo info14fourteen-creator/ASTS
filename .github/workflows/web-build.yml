@@ -64,6 +64,9 @@ jobs:
       - name: Smoke FNS approvals parity
         run: npm run smoke:fns-approvals
 
+      - name: Smoke FNS approvals rendered routes failure copy
+        run: npm run smoke:fns-approvals-rendered-route-failure-copy
+
       - name: Smoke AI review action parity
         run: npm run smoke:ai-review-actions
 

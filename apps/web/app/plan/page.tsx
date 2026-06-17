@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить FNS approvals rendered-route failure copy", "показать owner-friendly текст при падении FNS approvals route coverage"],
-  ["2", "Добавить owner receipt docs rendered-route failure copy", "показать owner-friendly текст при падении owner receipt route coverage"],
-  ["3", "Добавить AI review queue rendered-route failure copy", "показать owner-friendly текст при падении AI review route coverage"],
-  ["4", "Добавить source freshness rendered-route failure copy", "показать owner-friendly текст при падении freshness route coverage"],
+  ["1", "Добавить owner receipt docs rendered-route failure copy", "показать owner-friendly текст при падении owner receipt route coverage"],
+  ["2", "Добавить AI review queue rendered-route failure copy", "показать owner-friendly текст при падении AI review route coverage"],
+  ["3", "Добавить source freshness rendered-route failure copy", "показать owner-friendly текст при падении freshness route coverage"],
+  ["4", "Добавить FNS approvals docs rendered-route failure copy", "показать owner-friendly текст при падении FNS docs route coverage"],
 ];
 
 const cycleRules = [
@@ -723,9 +723,33 @@ const sourceOwnerReceiptsRenderedRouteFailureCopy = {
   ],
 };
 
+const fnsApprovalsRenderedRouteFailureCopy = {
+  apiRoute: "/v1/sources/connectors",
+  command: "npm run smoke:fns-approvals-rendered-route-failure-copy",
+  docsHref: "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#fns-smoke-contract",
+  expectedApprovalCount: 5,
+  expectedRouteCount: 16,
+  failingCommand: "npm run smoke -- --url http://127.0.0.1:4177/",
+  noMergeCopy: "Не мержить, пока rendered routes smoke снова подтверждает FNS Legal approvals на живом `/sources`",
+  ownerRole: "Legal owner + QA owner",
+  parityCommand: "npm run smoke:fns-approvals",
+  repairTargets:
+    "/sources,packages/shared/fns-connector-gate.json,apps/web/scripts/fns-approvals-parity.mjs,apps/web/scripts/smoke.mjs",
+  sourceMarkerSelector: "[data-testid='fns-real-network-smoke-gate']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "rendered routes проходят, но `/sources` потерял FNS Legal approvals, safe pair или CI no-network policy"],
+    ["Fix order", "сначала восстановить shared FNS fixture parity, затем `/sources` rendered route expectations"],
+    ["Owner", "Legal owner подтверждает approvals, QA owner подтверждает живой `/sources` route"],
+    ["No merge", "не мержить, пока FNS approvals снова не проходят rendered route coverage"],
+  ],
+};
+
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 34,
+  expectedCommandCount: 35,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -751,6 +775,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='schema-docs-readme-failure-copy']",
     "[data-testid='schema-docs-rendered-route-failure-copy']",
     "[data-testid='source-owner-receipts-rendered-route-failure-copy']",
+    "[data-testid='fns-approvals-rendered-route-failure-copy']",
     "[data-testid='shared-validation-workflow-ci-note']",
     "[data-testid='shared-validation-workflow-step-smoke']",
     "[data-testid='shared-validation-workflow-failure-copy']",
@@ -765,7 +790,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 34 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 35 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -2189,6 +2214,48 @@ export default function PlanPage() {
                   {title === "No merge"
                     ? sourceOwnerReceiptsRenderedRouteFailureCopy.noMergeCopy
                     : sourceOwnerReceiptsRenderedRouteFailureCopy.apiRoute}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-route={fnsApprovalsRenderedRouteFailureCopy.apiRoute}
+          data-command={fnsApprovalsRenderedRouteFailureCopy.command}
+          data-docs-href={fnsApprovalsRenderedRouteFailureCopy.docsHref}
+          data-expected-approval-count={fnsApprovalsRenderedRouteFailureCopy.expectedApprovalCount}
+          data-expected-route-count={fnsApprovalsRenderedRouteFailureCopy.expectedRouteCount}
+          data-failing-command={fnsApprovalsRenderedRouteFailureCopy.failingCommand}
+          data-no-merge-copy={fnsApprovalsRenderedRouteFailureCopy.noMergeCopy}
+          data-owner-role={fnsApprovalsRenderedRouteFailureCopy.ownerRole}
+          data-parity-command={fnsApprovalsRenderedRouteFailureCopy.parityCommand}
+          data-repair-targets={fnsApprovalsRenderedRouteFailureCopy.repairTargets}
+          data-source-marker-selector={fnsApprovalsRenderedRouteFailureCopy.sourceMarkerSelector}
+          data-testid="fns-approvals-rendered-route-failure-copy"
+          data-workflow-href={fnsApprovalsRenderedRouteFailureCopy.workflowHref}
+          data-workflow-name={fnsApprovalsRenderedRouteFailureCopy.workflowName}
+          data-workflow-path={fnsApprovalsRenderedRouteFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">FNS approvals rendered-route failure copy</p>
+              <h2>Что делать, если FNS approvals пропали в rendered routes</h2>
+            </div>
+            <a className="primary-link" href={fnsApprovalsRenderedRouteFailureCopy.workflowHref}>
+              {fnsApprovalsRenderedRouteFailureCopy.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {fnsApprovalsRenderedRouteFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? fnsApprovalsRenderedRouteFailureCopy.noMergeCopy
+                    : fnsApprovalsRenderedRouteFailureCopy.apiRoute}
                 </strong>
                 <p>{text}</p>
               </article>
