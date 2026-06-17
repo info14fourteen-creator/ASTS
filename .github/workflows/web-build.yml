@@ -76,6 +76,9 @@ jobs:
       - name: Smoke shared validation workflow file
         run: npm run smoke:shared-validation-workflow
 
+      - name: Smoke shared validation workflow step
+        run: npm run smoke:shared-validation-workflow-step
+
       - name: Smoke web build workflow file
         run: npm run smoke:web-build-workflow
 

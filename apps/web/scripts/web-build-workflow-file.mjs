@@ -24,6 +24,7 @@ const expectedCommands = [
   "npm run smoke:schema-docs-readme",
   "npm run smoke:schema-docs-workflow",
   "npm run smoke:shared-validation-workflow",
+  "npm run smoke:shared-validation-workflow-step",
   "npm run smoke:web-build-workflow",
   "npm run smoke:api-readme-trigger",
   "npm run smoke -- --url http://127.0.0.1:4177/",
@@ -37,6 +38,7 @@ const expectedPlanMarkers = [
   'data-testid="schema-docs-readme-ci-note"',
   'data-testid="schema-docs-readme-workflow-smoke"',
   'data-testid="shared-validation-workflow-ci-note"',
+  'data-testid="shared-validation-workflow-step-smoke"',
   'data-testid="web-build-workflow-file-smoke"',
 ];
 

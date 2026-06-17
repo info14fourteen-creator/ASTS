@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить shared validation workflow step smoke", "сверить `/plan` note с Web build step"],
-  ["2", "Добавить web build workflow CI self-check note", "показать, что workflow smoke запускает сам себя"],
-  ["3", "Добавить API README live route gate note", "показать, что live DOM parity защищает API docs links"],
-  ["4", "Добавить schema docs README live route gate note", "показать, что schema docs links защищены live route smoke"],
+  ["1", "Добавить web build workflow CI self-check note", "показать, что workflow smoke запускает сам себя"],
+  ["2", "Добавить API README live route gate note", "показать, что live DOM parity защищает API docs links"],
+  ["3", "Добавить schema docs README live route gate note", "показать, что schema docs links защищены live route smoke"],
+  ["4", "Добавить shared validation live route gate note", "показать, что shared validation note защищен route smoke"],
 ];
 
 const cycleRules = [
@@ -184,6 +184,24 @@ const sharedValidationWorkflowCiNote = {
     ["Checked workflow", "smoke сверяет Shared validation workflow name, paths, Node 22 и command"],
     ["Plan marker", "`/plan` хранит selector workflow file smoke и expected paths"],
     ["Merge gate", "PR нельзя считать готовым, если shared validation workflow drift появился"],
+  ],
+};
+
+const sharedValidationWorkflowStepSmoke = {
+  command: "npm run smoke:shared-validation-workflow-step",
+  fileSmokeSelector: sharedValidationWorkflowCiNote.fileSmokeSelector,
+  sourceCiNoteSelector: "[data-testid='shared-validation-workflow-ci-note']",
+  sourceSmokeCommand: sharedValidationWorkflowCiNote.command,
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checkedWorkflowName: sharedValidationWorkflowCiNote.checkedWorkflowName,
+  checkedWorkflowPath: sharedValidationWorkflowCiNote.checkedWorkflowPath,
+  checks: [
+    ["Source step", "Web build сначала запускает shared validation workflow file smoke"],
+    ["CI step", "Web build запускает smoke:shared-validation-workflow-step до route smoke"],
+    ["Plan note", "shared-validation-workflow-ci-note остается источником command и checked workflow"],
+    ["Merge gate", "drift между `/plan` note и Web build step должен падать до live route smoke"],
   ],
 };
 
@@ -376,7 +394,7 @@ const schemaDocsReadmeWorkflowSmoke = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 13,
+  expectedCommandCount: 14,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -391,11 +409,12 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='schema-docs-readme-ci-note']",
     "[data-testid='schema-docs-readme-workflow-smoke']",
     "[data-testid='shared-validation-workflow-ci-note']",
+    "[data-testid='shared-validation-workflow-step-smoke']",
   ],
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 13 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 14 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -782,6 +801,43 @@ export default function PlanPage() {
                   {title === "Checked workflow"
                     ? sharedValidationWorkflowCiNote.checkedWorkflowPath
                     : sharedValidationWorkflowCiNote.command}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-checked-workflow-name={sharedValidationWorkflowStepSmoke.checkedWorkflowName}
+          data-checked-workflow-path={sharedValidationWorkflowStepSmoke.checkedWorkflowPath}
+          data-command={sharedValidationWorkflowStepSmoke.command}
+          data-file-smoke-selector={sharedValidationWorkflowStepSmoke.fileSmokeSelector}
+          data-source-ci-note-selector={sharedValidationWorkflowStepSmoke.sourceCiNoteSelector}
+          data-source-smoke-command={sharedValidationWorkflowStepSmoke.sourceSmokeCommand}
+          data-testid="shared-validation-workflow-step-smoke"
+          data-workflow-href={sharedValidationWorkflowStepSmoke.workflowHref}
+          data-workflow-name={sharedValidationWorkflowStepSmoke.workflowName}
+          data-workflow-path={sharedValidationWorkflowStepSmoke.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Shared validation workflow step smoke</p>
+              <h2>Как Shared validation note сверяется с Web build</h2>
+            </div>
+            <a className="primary-link" href={sharedValidationWorkflowStepSmoke.workflowHref}>
+              {sharedValidationWorkflowStepSmoke.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sharedValidationWorkflowStepSmoke.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Source step"
+                    ? sharedValidationWorkflowStepSmoke.checkedWorkflowPath
+                    : sharedValidationWorkflowStepSmoke.command}
                 </strong>
                 <p>{text}</p>
               </article>
