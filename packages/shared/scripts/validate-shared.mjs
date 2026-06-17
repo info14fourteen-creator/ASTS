@@ -39,6 +39,7 @@ const checks = [
   ],
   ["demo data fixture", validateDemoData],
   ["source owner receipts fixture", validateSourceOwnerReceipts],
+  ["FNS connector gate fixture", validateFnsConnectorGate],
 ];
 
 const failures = [];
@@ -196,6 +197,32 @@ function validateSourceOwnerReceipts() {
     fixture.history.filter((receipt) => receipt.ai_gate === "blocked_until_restored").length === 2,
     "owner receipt history must keep 2 blocked_until_restored rows",
   );
+}
+
+function validateFnsConnectorGate() {
+  const fixture = readJson("fns-connector-gate.json");
+  assert(fixture.connector_id === "fns-egrul-nalog-ru", "FNS connector gate connector_id must stay fns-egrul-nalog-ru");
+  assert(fixture.source_kind === "fns", "FNS connector gate source_kind must stay fns");
+  assert(fixture.status === "contract_only", "FNS connector gate status must stay contract_only");
+  assert(fixture.owner === "Legal", "FNS connector gate owner must stay Legal");
+  assert(fixture.safe_test_pair_required === true, "FNS connector gate must require safe test pair");
+  assert(
+    fixture.ci_policy === "CI must not call FNS until the real-network gate is explicitly approved.",
+    "FNS connector gate CI policy changed",
+  );
+  assert(Array.isArray(fixture.required_approvals), "FNS connector gate must include approvals");
+  assertArrayIncludes(
+    fixture.required_approvals,
+    [
+      "approved official access terms",
+      "approved request volume limits",
+      "GitHub secrets are present in protected environment",
+      "safe test INN and OGRN pair is recorded",
+      "raw artifact checksum and freshness receipt are asserted",
+    ],
+    "FNS connector gate approvals",
+  );
+  assert(fixture.required_approvals.length === 5, "FNS connector gate must keep exactly 5 approvals");
 }
 
 function validateOutcome(outcome, tender, outcomeFunnels) {

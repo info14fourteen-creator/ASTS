@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "apps/api/**"
+      - "packages/shared/fns-connector-gate.json"
       - "packages/shared/source-owner-receipts.json"
       - "docs/19-continuation-70-step-plan-ru.md"
       - ".github/workflows/api-smoke.yml"
@@ -13,6 +14,7 @@ on:
       - "codex/**"
     paths:
       - "apps/api/**"
+      - "packages/shared/fns-connector-gate.json"
       - "packages/shared/source-owner-receipts.json"
       - "docs/19-continuation-70-step-plan-ru.md"
       - ".github/workflows/api-smoke.yml"

@@ -1,0 +1,15 @@
+{
+  "connector_id": "fns-egrul-nalog-ru",
+  "source_kind": "fns",
+  "status": "contract_only",
+  "owner": "Legal",
+  "ci_policy": "CI must not call FNS until the real-network gate is explicitly approved.",
+  "safe_test_pair_required": true,
+  "required_approvals": [
+    "approved official access terms",
+    "approved request volume limits",
+    "GitHub secrets are present in protected environment",
+    "safe test INN and OGRN pair is recorded",
+    "raw artifact checksum and freshness receipt are asserted"
+  ]
+}

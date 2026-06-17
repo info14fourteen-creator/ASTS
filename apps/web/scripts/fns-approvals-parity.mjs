@@ -5,141 +5,62 @@ import { fileURLToPath } from "node:url";
 const webRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const repoRoot = resolve(webRoot, "../..");
 
+const fixturePath = resolve(repoRoot, "packages/shared/fns-connector-gate.json");
 const apiServicePath = resolve(repoRoot, "apps/api/app/services/connectors.py");
 const sourcesPagePath = resolve(webRoot, "app/sources/page.tsx");
 
+const fixture = JSON.parse(readFileSync(fixturePath, "utf8"));
 const apiService = readFileSync(apiServicePath, "utf8");
 const sourcesPage = readFileSync(sourcesPagePath, "utf8");
-
-const apiGate = extractApiFnsGate(apiService);
-const uiGate = extractUiFnsGate(sourcesPage);
 const failures = [];
 
-for (const field of ["status", "owner", "ciPolicy", "safeTestPairRequired"]) {
-  if (apiGate[field] !== uiGate[field]) {
-    failures.push(`${field} mismatch: api=${formatValue(apiGate[field])}, ui=${formatValue(uiGate[field])}`);
-  }
+if (!apiService.includes("packages/shared/fns-connector-gate.json")) {
+  failures.push("API connectors service must load packages/shared/fns-connector-gate.json");
 }
 
-if (apiGate.requiredApprovals.length !== uiGate.requiredApprovals.length) {
-  failures.push(
-    `approval count mismatch: api=${apiGate.requiredApprovals.length}, ui=${uiGate.requiredApprovals.length}`,
-  );
+if (!sourcesPage.includes("../../../../packages/shared/fns-connector-gate.json")) {
+  failures.push("/sources page must import packages/shared/fns-connector-gate.json");
 }
 
-const apiApprovalList = apiGate.requiredApprovals.join("\n");
-const uiApprovalList = uiGate.requiredApprovals.join("\n");
-if (apiApprovalList !== uiApprovalList) {
-  failures.push(`approval list mismatch:\napi:\n${apiApprovalList}\nui:\n${uiApprovalList}`);
-}
+validateFixture();
 
 if (failures.length > 0) {
-  console.error("FAIL FNS approvals parity");
+  console.error("FAIL FNS approvals shared fixture parity");
   for (const failure of failures) {
     console.error(`  ${failure}`);
   }
   process.exit(1);
 }
 
-console.log(`PASS FNS approvals parity (${apiGate.requiredApprovals.length} approvals)`);
+console.log(`PASS FNS approvals shared fixture parity (${fixture.required_approvals.length} approvals)`);
 
-function extractApiFnsGate(source) {
-  const approvalsBlock = extractDelimitedBlock(source, "REAL_NETWORK_SMOKE_APPROVALS = [", "[", "]");
-  const fnsConnectorBlock = extractDelimitedBlock(
-    source,
-    'SourceConnector(\n                connector_id="fns-egrul-nalog-ru"',
-    "(",
-    ")",
+function validateFixture() {
+  assert(fixture.connector_id === "fns-egrul-nalog-ru", "FNS gate connector_id must stay fns-egrul-nalog-ru");
+  assert(fixture.source_kind === "fns", "FNS gate source_kind must stay fns");
+  assert(fixture.status === "contract_only", "FNS gate status must stay contract_only");
+  assert(fixture.owner === "Legal", "FNS gate owner must stay Legal");
+  assert(fixture.safe_test_pair_required === true, "FNS gate must require safe INN/OGRN pair");
+  assert(
+    fixture.ci_policy === "CI must not call FNS until the real-network gate is explicitly approved.",
+    "FNS gate CI policy changed",
   );
-  const networkGateBlock = extractDelimitedBlock(fnsConnectorBlock, "network_smoke_gate=ConnectorNetworkSmokeGate(", "(", ")");
+  assert(Array.isArray(fixture.required_approvals), "FNS gate must include required_approvals");
 
-  return {
-    status: readPythonStringField(networkGateBlock, "status"),
-    owner: readPythonStringField(networkGateBlock, "owner"),
-    ciPolicy: readPythonStringField(networkGateBlock, "ci_policy"),
-    safeTestPairRequired: readPythonBooleanField(networkGateBlock, "safe_test_pair_required"),
-    requiredApprovals: readStringList(approvalsBlock),
-  };
+  const expectedApprovals = [
+    "approved official access terms",
+    "approved request volume limits",
+    "GitHub secrets are present in protected environment",
+    "safe test INN and OGRN pair is recorded",
+    "raw artifact checksum and freshness receipt are asserted",
+  ];
+  assert(
+    fixture.required_approvals.join("\n") === expectedApprovals.join("\n"),
+    "FNS required approvals must match the contract exactly and keep order",
+  );
 }
 
-function extractUiFnsGate(source) {
-  const gateBlock = extractDelimitedBlock(source, "const fnsRealNetworkSmokeGate = {", "{", "}");
-  const approvalsBlock = extractDelimitedBlock(gateBlock, "requiredApprovals: [", "[", "]");
-
-  return {
-    status: readTypescriptStringField(gateBlock, "status"),
-    owner: readTypescriptStringField(gateBlock, "owner"),
-    ciPolicy: readTypescriptStringField(gateBlock, "ciPolicy"),
-    safeTestPairRequired: readTypescriptBooleanField(gateBlock, "safeTestPairRequired"),
-    requiredApprovals: readStringList(approvalsBlock),
-  };
-}
-
-function extractDelimitedBlock(source, marker, openChar, closeChar) {
-  const markerIndex = source.indexOf(marker);
-  if (markerIndex === -1) {
-    throw new Error(`Marker not found: ${marker}`);
+function assert(condition, message) {
+  if (!condition) {
+    failures.push(message);
   }
-
-  const start = source.indexOf(openChar, markerIndex);
-  if (start === -1) {
-    throw new Error(`Opening delimiter not found after marker: ${marker}`);
-  }
-
-  let depth = 0;
-  for (let index = start; index < source.length; index += 1) {
-    if (source[index] === openChar) {
-      depth += 1;
-    }
-    if (source[index] === closeChar) {
-      depth -= 1;
-      if (depth === 0) {
-        return source.slice(start + 1, index);
-      }
-    }
-  }
-
-  throw new Error(`Closing delimiter not found after marker: ${marker}`);
-}
-
-function readPythonStringField(block, field) {
-  return readStringField(block, `${field}\\s*=\\s*`);
-}
-
-function readTypescriptStringField(block, field) {
-  return readStringField(block, `${field}:\\s*`);
-}
-
-function readStringField(block, prefixPattern) {
-  const pattern = new RegExp(`${prefixPattern}"([^"]*)"`);
-  const match = block.match(pattern);
-  if (!match) {
-    throw new Error(`String field not found by pattern ${pattern}`);
-  }
-  return match[1];
-}
-
-function readPythonBooleanField(block, field) {
-  return readBooleanField(block, `${field}\\s*=\\s*`, { trueValue: "True", falseValue: "False" });
-}
-
-function readTypescriptBooleanField(block, field) {
-  return readBooleanField(block, `${field}:\\s*`, { trueValue: "true", falseValue: "false" });
-}
-
-function readBooleanField(block, prefixPattern, values) {
-  const pattern = new RegExp(`${prefixPattern}(${values.trueValue}|${values.falseValue})`);
-  const match = block.match(pattern);
-  if (!match) {
-    throw new Error(`Boolean field not found by pattern ${pattern}`);
-  }
-  return match[1] === values.trueValue;
-}
-
-function readStringList(block) {
-  return [...block.matchAll(/"([^"]*)"/g)].map((match) => match[1]);
-}
-
-function formatValue(value) {
-  return value === undefined ? "<missing>" : JSON.stringify(value);
 }

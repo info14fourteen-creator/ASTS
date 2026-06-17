@@ -223,6 +223,7 @@
 85. Добавить AI review action parity check: web CI сравнивает backend owner/action matrix и `/ai-review` UI seed.
 86. Добавить source receipt docs deep link: `/sources` history loop ведет к API README Source Owner Receipt Contract.
 87. Добавить source owner receipt shared fixture: API и web читают `packages/shared/source-owner-receipts.json`.
+88. Добавить FNS connector shared fixture: API и web читают `packages/shared/fns-connector-gate.json`.
 
 Следующими брать:
 
@@ -263,7 +264,8 @@
 35. [done 2026-06-17] Добавить AI review action parity check: `npm run smoke:ai-review-actions` сравнивает backend owner/action matrix и `/ai-review` UI seed.
 36. [done 2026-06-17] Добавить source receipt docs deep link: показать API README ссылку рядом с history loop.
 37. [done 2026-06-17] Добавить source owner receipt shared fixture: перенести rules/history в общий JSON для API и web.
-38. Добавить FNS connector shared fixture: перенести network gate approvals в общий JSON для API и web.
+38. [done 2026-06-17] Добавить FNS connector shared fixture: перенести network gate approvals в общий JSON для API и web.
 39. Добавить AI review shared fixture: перенести owner/action matrix в общий JSON для API и web.
 40. Добавить source receipt docs link browser assertion: проверить ссылку через Browser DOM loop.
 41. Добавить source owner receipt fixture schema: описать JSON schema для shared owner receipts.
+42. Добавить FNS connector fixture schema: описать JSON schema для FNS network gate.

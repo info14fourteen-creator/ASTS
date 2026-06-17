@@ -6,6 +6,7 @@ import {
   sourceQuarantineBrowserLoop,
   sourceUrlHealthStates,
 } from "../../lib/mock-data";
+import fnsConnectorGate from "../../../../packages/shared/fns-connector-gate.json";
 import sourceOwnerReceiptsFixture from "../../../../packages/shared/source-owner-receipts.json";
 
 const sources = [
@@ -83,17 +84,11 @@ const fnsConnectorBrowserLoop = {
 };
 
 const fnsRealNetworkSmokeGate = {
-  status: "contract_only",
-  owner: "Legal",
-  ciPolicy: "CI must not call FNS until the real-network gate is explicitly approved.",
-  safeTestPairRequired: true,
-  requiredApprovals: [
-    "approved official access terms",
-    "approved request volume limits",
-    "GitHub secrets are present in protected environment",
-    "safe test INN and OGRN pair is recorded",
-    "raw artifact checksum and freshness receipt are asserted",
-  ],
+  status: fnsConnectorGate.status,
+  owner: fnsConnectorGate.owner,
+  ciPolicy: fnsConnectorGate.ci_policy,
+  safeTestPairRequired: fnsConnectorGate.safe_test_pair_required,
+  requiredApprovals: fnsConnectorGate.required_approvals,
 };
 
 const fnsNetworkGateBrowserLoop = {

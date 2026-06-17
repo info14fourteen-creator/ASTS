@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+
 from app.schemas import (
     ConnectorCapability,
     ConnectorNetworkSmokeGate,
@@ -6,16 +9,13 @@ from app.schemas import (
 )
 
 
-REAL_NETWORK_SMOKE_APPROVALS = [
-    "approved official access terms",
-    "approved request volume limits",
-    "GitHub secrets are present in protected environment",
-    "safe test INN and OGRN pair is recorded",
-    "raw artifact checksum and freshness receipt are asserted",
-]
+SHARED_FNS_CONNECTOR_GATE_PATH = (
+    Path(__file__).resolve().parents[4] / "packages/shared/fns-connector-gate.json"
+)
 
 
 def get_source_connectors() -> SourceConnectorsResponse:
+    fns_network_gate = _load_fns_network_gate()
     return SourceConnectorsResponse(
         version="0.1.0",
         source_policy="Primary-source connectors only; no aggregator as source of truth",
@@ -130,11 +130,11 @@ def get_source_connectors() -> SourceConnectorsResponse:
                     ),
                 ],
                 network_smoke_gate=ConnectorNetworkSmokeGate(
-                    status="contract_only",
-                    ci_policy="CI must not call FNS until the real-network gate is explicitly approved.",
-                    owner="Legal",
-                    required_approvals=REAL_NETWORK_SMOKE_APPROVALS,
-                    safe_test_pair_required=True,
+                    status=fns_network_gate["status"],
+                    ci_policy=fns_network_gate["ci_policy"],
+                    owner=fns_network_gate["owner"],
+                    required_approvals=fns_network_gate["required_approvals"],
+                    safe_test_pair_required=fns_network_gate["safe_test_pair_required"],
                 ),
                 blocked_by=[
                     "confirm official FNS access terms and allowed request volume",
@@ -144,3 +144,8 @@ def get_source_connectors() -> SourceConnectorsResponse:
             )
         ],
     )
+
+
+def _load_fns_network_gate() -> dict:
+    with SHARED_FNS_CONNECTOR_GATE_PATH.open(encoding="utf-8") as fixture_file:
+        return json.load(fixture_file)

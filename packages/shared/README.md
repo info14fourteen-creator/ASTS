@@ -13,6 +13,10 @@ MVP can generate TypeScript types from FastAPI OpenAPI once backend schemas stab
   FastAPI `/v1/sources/owner-receipts` and the `/sources` web history/rules UI.
   It keeps freshness blocker rules, required receipt fields and audit history in
   one place until the data moves into PostgreSQL.
+- `fns-connector-gate.json` is the shared Legal approval gate for the FNS
+  connector. FastAPI `/v1/sources/connectors`, `/sources` UI and web parity smoke
+  read the same contract-only status, CI policy, safe INN/OGRN requirement and
+  approval list.
 
 ## AI Schemas
 
@@ -22,4 +26,6 @@ MVP can generate TypeScript types from FastAPI OpenAPI once backend schemas stab
 - Run `npm run validate` in `packages/shared` to check schema shape, example AI outputs, demo fixture references and raw artifact custody links.
 - Shared validation also checks `source-owner-receipts.json` rule/history shape,
   owner/action matrix, restored unlock conditions and blocked AI gate counts.
+- It also checks `fns-connector-gate.json` for the Legal owner, contract-only
+  status, CI policy and exact five approval gates.
 - GitHub Actions workflow `Shared validation` runs the same check for shared schema and fixture changes.
