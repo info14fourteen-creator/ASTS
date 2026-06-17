@@ -58,6 +58,9 @@ jobs:
       - name: Smoke owner receipt parity
         run: npm run smoke:owner-receipts
 
+      - name: Smoke source owner receipts rendered routes failure copy
+        run: npm run smoke:source-owner-receipts-rendered-route-failure-copy
+
       - name: Smoke FNS approvals parity
         run: npm run smoke:fns-approvals
 

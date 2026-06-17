@@ -26,6 +26,7 @@
     "smoke:schema-docs-workflow": "node scripts/schema-docs-workflow-smoke.mjs",
     "smoke:schema-docs-readme": "node scripts/schema-docs-readme-existence.mjs",
     "smoke:shared-readme-commands": "node scripts/shared-readme-command-parity.mjs",
+    "smoke:source-owner-receipts-rendered-route-failure-copy": "node scripts/source-owner-receipts-rendered-route-failure-copy.mjs",
     "smoke:shared-validation-failure-copy": "node scripts/shared-validation-failure-copy.mjs",
     "smoke:shared-validation-live-route": "node scripts/shared-validation-live-route-gate.mjs",
     "smoke:shared-validation-rendered-route-failure-copy": "node scripts/shared-validation-rendered-route-failure-copy.mjs",

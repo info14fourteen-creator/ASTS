@@ -18,6 +18,7 @@ const expectedPaths = [
 const expectedCommands = [
   "npm run build",
   "npm run smoke:owner-receipts",
+  "npm run smoke:source-owner-receipts-rendered-route-failure-copy",
   "npm run smoke:fns-approvals",
   "npm run smoke:ai-review-actions",
   "npm run smoke:shared-readme-commands",
@@ -67,6 +68,7 @@ const expectedPlanMarkers = [
   'data-testid="schema-docs-live-route-failure-copy"',
   'data-testid="schema-docs-readme-failure-copy"',
   'data-testid="schema-docs-rendered-route-failure-copy"',
+  'data-testid="source-owner-receipts-rendered-route-failure-copy"',
   'data-testid="shared-validation-workflow-ci-note"',
   'data-testid="shared-validation-workflow-step-smoke"',
   'data-testid="shared-validation-workflow-failure-copy"',

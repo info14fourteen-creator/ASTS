@@ -270,6 +270,7 @@
 132. Добавить AI review API README rendered-route failure copy: `web-build.yml` запускает `smoke:ai-review-api-readme-rendered-route-failure-copy`, который закрепляет owner-friendly no-merge текст при падении AI review API README parity внутри rendered routes smoke.
 133. Добавить API README trigger rendered-route failure copy: `web-build.yml` запускает `smoke:api-readme-trigger-rendered-route-failure-copy`, который закрепляет owner-friendly no-merge текст при падении API README trigger/live parity chain внутри rendered routes smoke.
 134. Добавить schema docs rendered-route failure copy: `web-build.yml` запускает `smoke:schema-docs-rendered-route-failure-copy`, который закрепляет owner-friendly no-merge текст при падении schema docs markers внутри rendered routes smoke.
+135. Добавить source owner receipts rendered-route failure copy: `web-build.yml` запускает `smoke:source-owner-receipts-rendered-route-failure-copy`, который закрепляет owner-friendly no-merge текст при падении `/sources` owner receipt history и docs link внутри rendered routes smoke.
 
 Следующими брать:
 
@@ -357,7 +358,8 @@
 82. [done 2026-06-17] Добавить AI review API README rendered-route failure copy: показать owner-friendly текст при падении API docs live parity.
 83. [done 2026-06-17] Добавить API README trigger rendered-route failure copy: показать owner-friendly текст при падении trigger/live parity chain.
 84. [done 2026-06-17] Добавить schema docs rendered-route failure copy: показать owner-friendly текст при падении schema docs live parity.
-85. Добавить source owner receipts rendered-route failure copy: показать owner-friendly текст при падении source receipts route coverage.
+85. [done 2026-06-17] Добавить source owner receipts rendered-route failure copy: показать owner-friendly текст при падении source receipts route coverage.
 86. Добавить FNS approvals rendered-route failure copy: показать owner-friendly текст при падении FNS approvals route coverage.
 87. Добавить owner receipt docs rendered-route failure copy: показать owner-friendly текст при падении owner receipt route coverage.
 88. Добавить AI review queue rendered-route failure copy: показать owner-friendly текст при падении AI review route coverage.
+89. Добавить source freshness rendered-route failure copy: показать owner-friendly текст при падении freshness route coverage.
