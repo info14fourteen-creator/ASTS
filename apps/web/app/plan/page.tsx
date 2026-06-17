@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить schema docs link parity smoke", "сверить /plan link и README anchor"],
-  ["2", "Добавить shared validation CI badge link", "связать browser loop с GitHub Actions workflow"],
-  ["3", "Добавить shared README command parity smoke", "сравнить checklist commands с packages/shared/README.md"],
-  ["4", "Добавить AI review API README DOM parity smoke", "сравнить /plan marker с /ai-review API link"],
+  ["1", "Добавить shared validation CI badge link", "связать browser loop с GitHub Actions workflow"],
+  ["2", "Добавить shared README command parity smoke", "сравнить checklist commands с packages/shared/README.md"],
+  ["3", "Добавить AI review API README DOM parity smoke", "сравнить /plan marker с /ai-review API link"],
+  ["4", "Добавить schema docs README existence smoke", "проверить anchor в packages/shared/README.md"],
 ];
 
 const cycleRules = [
@@ -170,6 +170,21 @@ const aiReviewSchemaApiSmokeMarker = {
     ["API route", "закрепить backend route `/v1/ai/review-queue`"],
     ["API docs", "вести на API README AI Review Queue Contract"],
     ["Parity smoke", "держать owner/action matrix через `smoke:ai-review-actions`"],
+  ],
+};
+
+const schemaDocsLinkParitySmoke = {
+  anchor: "packages/shared/README.md#shared-schema-index",
+  docsHref: schemaDocsHref,
+  linkSelector: "[data-testid='schema-docs-link']",
+  checklistSelector: "[data-testid='fixture-schema-checklist-smoke']",
+  expectedSchemaCount: schemaValidationCards.length,
+  expectedChecklistSchemaCount: fixtureSchemaChecklistSmoke.schemaIds.length,
+  checks: [
+    ["Link href", "schema-docs-link должен вести на shared schema index"],
+    ["Checklist anchor", "fixture checklist должен хранить тот же README anchor"],
+    ["Schema count", "summary держит 3 fixture schemas, checklist держит 5 schema rows"],
+    ["Smoke marker", "route smoke проверяет оба selector и один anchor"],
   ],
 };
 
@@ -526,6 +541,36 @@ export default function PlanPage() {
               <article className="fixture-coverage-card" key={title}>
                 <span>{title}</span>
                 <strong>{title === "Schema" ? aiReviewSchemaApiSmokeMarker.schemaId : aiReviewSchemaApiSmokeMarker.apiRoute}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-anchor={schemaDocsLinkParitySmoke.anchor}
+          data-checklist-schema-count={schemaDocsLinkParitySmoke.expectedChecklistSchemaCount}
+          data-checklist-selector={schemaDocsLinkParitySmoke.checklistSelector}
+          data-docs-href={schemaDocsLinkParitySmoke.docsHref}
+          data-link-selector={schemaDocsLinkParitySmoke.linkSelector}
+          data-schema-count={schemaDocsLinkParitySmoke.expectedSchemaCount}
+          data-testid="schema-docs-link-parity-smoke"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Schema docs link parity smoke</p>
+              <h2>Как `/plan` сверяет ссылку на shared README</h2>
+            </div>
+            <a className="primary-link" href={schemaDocsLinkParitySmoke.docsHref}>
+              Shared schema README
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {schemaDocsLinkParitySmoke.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>{schemaDocsLinkParitySmoke.anchor}</strong>
                 <p>{text}</p>
               </article>
             ))}
