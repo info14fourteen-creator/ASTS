@@ -26,6 +26,7 @@ const expectedCommands = [
   "npm run smoke:schema-docs-live-route",
   "npm run smoke:shared-validation-workflow",
   "npm run smoke:shared-validation-workflow-step",
+  "npm run smoke:shared-validation-live-route",
   "npm run smoke:web-build-workflow",
   "npm run smoke:web-build-self-check",
   "npm run smoke:api-readme-trigger",
@@ -44,6 +45,7 @@ const expectedPlanMarkers = [
   'data-testid="schema-docs-readme-live-route-gate-note"',
   'data-testid="shared-validation-workflow-ci-note"',
   'data-testid="shared-validation-workflow-step-smoke"',
+  'data-testid="shared-validation-live-route-gate-note"',
   'data-testid="web-build-workflow-self-check-note"',
   'data-testid="web-build-workflow-file-smoke"',
 ];

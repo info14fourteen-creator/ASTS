@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить shared validation live route gate note", "показать, что shared validation note защищен route smoke"],
-  ["2", "Добавить web build route gate note", "показать, что web build self-check защищен route smoke"],
-  ["3", "Добавить AI review API README failure copy", "показать owner-friendly текст при падении live parity"],
-  ["4", "Добавить schema docs README failure copy", "показать owner-friendly текст при падении schema docs parity"],
+  ["1", "Добавить web build route gate note", "показать, что web build self-check защищен route smoke"],
+  ["2", "Добавить AI review API README failure copy", "показать owner-friendly текст при падении live parity"],
+  ["3", "Добавить schema docs README failure copy", "показать owner-friendly текст при падении schema docs parity"],
+  ["4", "Добавить shared validation failure copy", "показать owner-friendly текст при падении shared validation drift"],
 ];
 
 const cycleRules = [
@@ -202,6 +202,25 @@ const sharedValidationWorkflowStepSmoke = {
     ["CI step", "Web build запускает smoke:shared-validation-workflow-step до route smoke"],
     ["Plan note", "shared-validation-workflow-ci-note остается источником command и checked workflow"],
     ["Merge gate", "drift между `/plan` note и Web build step должен падать до live route smoke"],
+  ],
+};
+
+const sharedValidationLiveRouteGateNote = {
+  command: "npm run smoke:shared-validation-live-route",
+  browserLoopSelector: sharedValidationWorkflowFileSmoke.browserLoopSelector,
+  checkCount: sharedValidationBrowserLoop.checkCount,
+  markerSelector: "[data-testid='shared-validation-workflow-step-smoke']",
+  routeSmokeCommand: "npm run smoke -- --url http://127.0.0.1:4177/",
+  sourceSmokeCommand: sharedValidationWorkflowStepSmoke.command,
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checkedWorkflowPath: sharedValidationWorkflowStepSmoke.checkedWorkflowPath,
+  checks: [
+    ["Static workflow gate", "Web build сверяет Shared validation workflow file и step smoke"],
+    ["Live route gate", "затем route smoke проверяет `/plan` shared validation markers на живом сервере"],
+    ["Plan marker", "shared-validation-workflow-step-smoke остается источником command и checked workflow"],
+    ["Merge gate", "shared validation drift должен падать до merge и быть видимым в workdesk"],
   ],
 };
 
@@ -430,7 +449,7 @@ const schemaDocsReadmeLiveRouteGateNote = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 17,
+  expectedCommandCount: 18,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -448,12 +467,13 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='schema-docs-readme-live-route-gate-note']",
     "[data-testid='shared-validation-workflow-ci-note']",
     "[data-testid='shared-validation-workflow-step-smoke']",
+    "[data-testid='shared-validation-live-route-gate-note']",
     "[data-testid='web-build-workflow-self-check-note']",
   ],
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 17 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 18 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -894,6 +914,44 @@ export default function PlanPage() {
                   {title === "Source step"
                     ? sharedValidationWorkflowStepSmoke.checkedWorkflowPath
                     : sharedValidationWorkflowStepSmoke.command}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-browser-loop-selector={sharedValidationLiveRouteGateNote.browserLoopSelector}
+          data-checked-workflow-path={sharedValidationLiveRouteGateNote.checkedWorkflowPath}
+          data-check-count={sharedValidationLiveRouteGateNote.checkCount}
+          data-command={sharedValidationLiveRouteGateNote.command}
+          data-marker-selector={sharedValidationLiveRouteGateNote.markerSelector}
+          data-route-smoke-command={sharedValidationLiveRouteGateNote.routeSmokeCommand}
+          data-source-smoke-command={sharedValidationLiveRouteGateNote.sourceSmokeCommand}
+          data-testid="shared-validation-live-route-gate-note"
+          data-workflow-href={sharedValidationLiveRouteGateNote.workflowHref}
+          data-workflow-name={sharedValidationLiveRouteGateNote.workflowName}
+          data-workflow-path={sharedValidationLiveRouteGateNote.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Shared validation live route gate note</p>
+              <h2>Как live route smoke защищает shared validation</h2>
+            </div>
+            <a className="primary-link" href={sharedValidationLiveRouteGateNote.workflowHref}>
+              {sharedValidationLiveRouteGateNote.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sharedValidationLiveRouteGateNote.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Live route gate"
+                    ? sharedValidationLiveRouteGateNote.routeSmokeCommand
+                    : sharedValidationLiveRouteGateNote.checkedWorkflowPath}
                 </strong>
                 <p>{text}</p>
               </article>
