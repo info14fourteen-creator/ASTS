@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить owner receipt docs rendered-route failure copy", "показать owner-friendly текст при падении owner receipt route coverage"],
-  ["2", "Добавить AI review queue rendered-route failure copy", "показать owner-friendly текст при падении AI review route coverage"],
-  ["3", "Добавить source freshness rendered-route failure copy", "показать owner-friendly текст при падении freshness route coverage"],
-  ["4", "Добавить FNS approvals docs rendered-route failure copy", "показать owner-friendly текст при падении FNS docs route coverage"],
+  ["1", "Добавить AI review queue rendered-route failure copy", "показать owner-friendly текст при падении AI review route coverage"],
+  ["2", "Добавить source freshness rendered-route failure copy", "показать owner-friendly текст при падении freshness route coverage"],
+  ["3", "Добавить FNS approvals docs rendered-route failure copy", "показать owner-friendly текст при падении FNS docs route coverage"],
+  ["4", "Добавить owner receipt API rendered-route failure copy", "показать owner-friendly текст при падении owner receipt API route coverage"],
 ];
 
 const cycleRules = [
@@ -747,9 +747,33 @@ const fnsApprovalsRenderedRouteFailureCopy = {
   ],
 };
 
+const ownerReceiptDocsRenderedRouteFailureCopy = {
+  apiRoute: "/v1/sources/owner-receipts",
+  command: "npm run smoke:owner-receipt-docs-rendered-route-failure-copy",
+  docsHref: "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#source-owner-receipt-contract",
+  expectedHistoryCount: 4,
+  expectedRouteCount: 16,
+  failingCommand: "npm run smoke:source-receipt-docs-link -- --url http://127.0.0.1:4177",
+  noMergeCopy: "Не мержить, пока rendered routes smoke снова подтверждает owner receipt docs link и browser loop на живом `/sources`",
+  ownerRole: "Sources owner + Docs owner + QA owner",
+  parityCommand: "npm run smoke:owner-receipts",
+  repairTargets:
+    "/sources,apps/api/README.md#source-owner-receipt-contract,apps/web/scripts/source-receipt-docs-link-browser.mjs,apps/web/scripts/smoke.mjs",
+  sourceMarkerSelector: "[data-testid='source-owner-receipt-history-browser-loop']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "rendered routes проходят, но `/sources` потерял owner receipt docs link или browser loop selector"],
+    ["Fix order", "сначала восстановить `/sources` docs link, затем live docs-link assertion и rendered route expectations"],
+    ["Owner", "Sources owner подтверждает receipt history, Docs owner подтверждает README anchor, QA owner подтверждает `/sources`"],
+    ["No merge", "не мержить, пока owner receipt docs снова не проходят rendered route coverage"],
+  ],
+};
+
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 35,
+  expectedCommandCount: 36,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -776,6 +800,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='schema-docs-rendered-route-failure-copy']",
     "[data-testid='source-owner-receipts-rendered-route-failure-copy']",
     "[data-testid='fns-approvals-rendered-route-failure-copy']",
+    "[data-testid='owner-receipt-docs-rendered-route-failure-copy']",
     "[data-testid='shared-validation-workflow-ci-note']",
     "[data-testid='shared-validation-workflow-step-smoke']",
     "[data-testid='shared-validation-workflow-failure-copy']",
@@ -790,7 +815,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 35 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 36 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -2214,6 +2239,48 @@ export default function PlanPage() {
                   {title === "No merge"
                     ? sourceOwnerReceiptsRenderedRouteFailureCopy.noMergeCopy
                     : sourceOwnerReceiptsRenderedRouteFailureCopy.apiRoute}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-route={ownerReceiptDocsRenderedRouteFailureCopy.apiRoute}
+          data-command={ownerReceiptDocsRenderedRouteFailureCopy.command}
+          data-docs-href={ownerReceiptDocsRenderedRouteFailureCopy.docsHref}
+          data-expected-history-count={ownerReceiptDocsRenderedRouteFailureCopy.expectedHistoryCount}
+          data-expected-route-count={ownerReceiptDocsRenderedRouteFailureCopy.expectedRouteCount}
+          data-failing-command={ownerReceiptDocsRenderedRouteFailureCopy.failingCommand}
+          data-no-merge-copy={ownerReceiptDocsRenderedRouteFailureCopy.noMergeCopy}
+          data-owner-role={ownerReceiptDocsRenderedRouteFailureCopy.ownerRole}
+          data-parity-command={ownerReceiptDocsRenderedRouteFailureCopy.parityCommand}
+          data-repair-targets={ownerReceiptDocsRenderedRouteFailureCopy.repairTargets}
+          data-source-marker-selector={ownerReceiptDocsRenderedRouteFailureCopy.sourceMarkerSelector}
+          data-testid="owner-receipt-docs-rendered-route-failure-copy"
+          data-workflow-href={ownerReceiptDocsRenderedRouteFailureCopy.workflowHref}
+          data-workflow-name={ownerReceiptDocsRenderedRouteFailureCopy.workflowName}
+          data-workflow-path={ownerReceiptDocsRenderedRouteFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Owner receipt docs rendered-route failure copy</p>
+              <h2>Что делать, если owner receipt docs пропали в rendered routes</h2>
+            </div>
+            <a className="primary-link" href={ownerReceiptDocsRenderedRouteFailureCopy.workflowHref}>
+              {ownerReceiptDocsRenderedRouteFailureCopy.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {ownerReceiptDocsRenderedRouteFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? ownerReceiptDocsRenderedRouteFailureCopy.noMergeCopy
+                    : ownerReceiptDocsRenderedRouteFailureCopy.apiRoute}
                 </strong>
                 <p>{text}</p>
               </article>

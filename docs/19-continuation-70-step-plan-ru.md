@@ -272,6 +272,7 @@
 134. Добавить schema docs rendered-route failure copy: `web-build.yml` запускает `smoke:schema-docs-rendered-route-failure-copy`, который закрепляет owner-friendly no-merge текст при падении schema docs markers внутри rendered routes smoke.
 135. Добавить source owner receipts rendered-route failure copy: `web-build.yml` запускает `smoke:source-owner-receipts-rendered-route-failure-copy`, который закрепляет owner-friendly no-merge текст при падении `/sources` owner receipt history и docs link внутри rendered routes smoke.
 136. Добавить FNS approvals rendered-route failure copy: `web-build.yml` запускает `smoke:fns-approvals-rendered-route-failure-copy`, который закрепляет owner-friendly no-merge текст при падении FNS Legal approvals внутри rendered routes smoke.
+137. Добавить owner receipt docs rendered-route failure copy: `web-build.yml` запускает `smoke:owner-receipt-docs-rendered-route-failure-copy`, который закрепляет owner-friendly no-merge текст при падении `/sources` owner receipt docs link и browser loop внутри rendered routes smoke.
 
 Следующими брать:
 
@@ -361,6 +362,6 @@
 84. [done 2026-06-17] Добавить schema docs rendered-route failure copy: показать owner-friendly текст при падении schema docs live parity.
 85. [done 2026-06-17] Добавить source owner receipts rendered-route failure copy: показать owner-friendly текст при падении source receipts route coverage.
 86. [done 2026-06-17] Добавить FNS approvals rendered-route failure copy: показать owner-friendly текст при падении FNS approvals route coverage.
-87. Добавить owner receipt docs rendered-route failure copy: показать owner-friendly текст при падении owner receipt route coverage.
+87. [done 2026-06-17] Добавить owner receipt docs rendered-route failure copy: показать owner-friendly текст при падении owner receipt route coverage.
 88. Добавить AI review queue rendered-route failure copy: показать owner-friendly текст при падении AI review route coverage.
 89. Добавить source freshness rendered-route failure copy: показать owner-friendly текст при падении freshness route coverage.
