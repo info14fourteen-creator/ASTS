@@ -206,6 +206,7 @@
 68. Добавить source freshness owner UI card: `/sources` показывает receipt rules, владельца, restored status и AI gate до ручного решения.
 69. Добавить FNS real-network smoke gate: API contract и `/sources` показывают approvals, Legal owner, safe INN/OGRN pair и запрет CI на внешний вызов.
 70. Добавить AI review owner UI card: `/ai-review` показывает receipt rules, владельцев, allowed decisions и required evidence fields.
+71. Добавить source owner receipt API contract: `/v1/sources/owner-receipts` описывает правила receipt для снятия source freshness blockers.
 
 Следующими брать:
 
@@ -229,7 +230,8 @@
 18. [done 2026-06-17] Добавить source freshness owner UI card: показать receipt rules на `/sources`.
 19. [done 2026-06-17] Добавить FNS real-network smoke gate: описать условия включения сетевого smoke.
 20. [done 2026-06-17] Добавить AI review owner UI card: показать receipt rules на `/ai-review`.
-21. Добавить source owner receipt API contract: описать endpoint для ручных receipt.
+21. [done 2026-06-17] Добавить source owner receipt API contract: описать endpoint для ручных receipt.
 22. Добавить source receipt browser loop: закрепить restored receipt selector на `/sources`.
 23. Добавить FNS network gate browser loop: закрепить approvals selector на `/sources`.
 24. Добавить AI review receipt browser loop: закрепить owner receipt selector на `/ai-review`.
+25. Добавить source owner receipt history seed: подготовить demo rows для ручных решений по freshness blockers.

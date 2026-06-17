@@ -174,6 +174,42 @@ Every owner action receipt must include `breach_id`, `owner_id`,
 `blocked` to `ready` only when `resolution_status="restored"` and the new raw
 artifact is linked to the affected procedure.
 
+### Source Owner Receipt Rules
+
+Prototype route: `GET /v1/sources/owner-receipts`.
+
+Purpose: expose the source-owner receipt rulebook as an API contract before we
+add write endpoints. Web, mobile and Telegram clients must use the same owner
+roles, required fields and unlock conditions when they show a freshness blocker
+to a human.
+
+Required response shape:
+
+- `version` - API contract version.
+- `rule` - human-readable rule for clearing freshness blockers.
+- `summary.total` - number of receipt rules.
+- `summary.restored_required` - rules that require `resolution_status="restored"` to unlock AI.
+- `summary.blocked_until_receipt` - breach classes that remain blocked until receipt evidence exists.
+- `receipt_required_fields[]` - common audit fields every source owner receipt must carry.
+- `rules[].breach_type` - one of `stale`, `missing`, `parse_failed`, `hash_mismatch`.
+- `rules[].owner_role` - owner responsible for the manual decision.
+- `rules[].action` - required owner action for the breach type.
+- `rules[].allowed_resolution_statuses[]` - accepted receipt outcomes.
+- `rules[].required_fields[]` - common and breach-specific evidence fields.
+- `rules[].ai_gate_unlock_condition` - exact condition that allows AI to move from blocked to ready.
+- `rules[].evidence_rule` - source evidence needed for audit and future disputes.
+
+Action matrix:
+
+- `stale` - `supplier_manager`; action `refresh_primary_payload`; evidence is a newer official payload with checksum and `last_success_at` inside the freshness SLA.
+- `missing` - `document_owner`; action `fetch_missing_artifact`; evidence is the missing raw artifact or official source response proving the artifact is not published.
+- `parse_failed` - `data_steward`; action `manual_schema_review`; evidence is a normalized payload version plus the unchanged quarantined raw payload.
+- `hash_mismatch` - `security_owner`; action `refetch_and_compare`; evidence is a fresh official refetch, checksum comparison and quarantine note.
+
+AI gates can unlock only when `resolution_status="restored"` and verified raw
+artifact evidence is linked through `new_raw_artifact_id` and
+`new_checksum_sha256`.
+
 ## AI Review Queue
 
 Prototype route: `GET /v1/ai/review-queue`.

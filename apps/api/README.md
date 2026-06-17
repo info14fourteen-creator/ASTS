@@ -37,6 +37,7 @@ Future FastAPI backend.
 - `GET /v1/sources/connectors` - connector registry starting with EIS / zakupki.gov.ru and FNS / EGRUL contract-only stubs.
 - `GET /v1/sources/health` - primary-source health contract with `ready`, `quarantine` and `unavailable` AI gates.
 - `GET /v1/sources/freshness` - primary-source freshness breach queue for `stale`, `missing`, `parse_failed` and `hash_mismatch` blockers.
+- `GET /v1/sources/owner-receipts` - owner receipt rules required to clear source freshness blockers.
 - `GET /v1/ai/review-queue` - low-confidence AI fact queue with owner review and embedded source evidence.
 - `GET /v1/outcomes` - structured outcome/reason dictionary for pre-win and execution funnels.
 - `GET /v1/handoff/owner-approval` - owner receipt and source-evidence lock before opening the post-win execution funnel.
@@ -77,6 +78,24 @@ The receipt must record `breach_id`, `owner_role`, `action`,
 `resolution_status`, `new_raw_artifact_id`, `new_checksum_sha256` and
 `audit_note`. API implementations must keep `ai_gate="blocked"` unless the
 receipt is `resolution_status="restored"` and points to a verified raw artifact.
+
+## Source Owner Receipt Contract
+
+`GET /v1/sources/owner-receipts` is the read-only API contract that documents
+how freshness blockers are cleared. It does not mutate receipts yet; it gives
+web, mobile and future Telegram clients the same rulebook before we add writes.
+
+The endpoint returns four source-owner rules:
+
+- `stale` -> `refresh_primary_payload`;
+- `missing` -> `fetch_missing_artifact`;
+- `parse_failed` -> `manual_schema_review`;
+- `hash_mismatch` -> `refetch_and_compare`.
+
+Each rule names the responsible `owner_role`, allowed resolution statuses,
+required receipt fields and the `ai_gate_unlock_condition`. The unlock rule is
+deliberately strict: AI stays blocked unless the owner records
+`resolution_status="restored"` and links verified raw evidence with a checksum.
 
 ## AI Review Queue Contract
 

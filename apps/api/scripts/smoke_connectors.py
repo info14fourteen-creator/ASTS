@@ -193,6 +193,68 @@ def main() -> int:
         print("FAIL /v1/sources/freshness rows must keep source_url and raw_artifact_id")
         return 1
 
+    owner_receipts_response = client.get("/v1/sources/owner-receipts")
+    if owner_receipts_response.status_code != 200:
+        print(f"FAIL /v1/sources/owner-receipts HTTP {owner_receipts_response.status_code}")
+        return 1
+
+    owner_receipts_payload = owner_receipts_response.json()
+    owner_receipts_summary = owner_receipts_payload.get("summary", {})
+    expected_owner_receipt_counts = {
+        "total": 4,
+        "restored_required": 4,
+        "blocked_until_receipt": 4,
+    }
+    for field, value in expected_owner_receipt_counts.items():
+        if owner_receipts_summary.get(field) != value:
+            print(
+                f"FAIL /v1/sources/owner-receipts summary {field}: "
+                f"expected {value!r}, got {owner_receipts_summary.get(field)!r}"
+            )
+            return 1
+
+    owner_receipt_required_fields = set(owner_receipts_payload.get("receipt_required_fields", []))
+    if not {
+        "breach_id",
+        "owner_id",
+        "owner_role",
+        "action",
+        "resolution_status",
+        "new_raw_artifact_id",
+        "new_checksum_sha256",
+        "audit_note",
+    }.issubset(owner_receipt_required_fields):
+        print("FAIL /v1/sources/owner-receipts required fields are incomplete")
+        return 1
+
+    owner_receipt_rules = owner_receipts_payload.get("rules", [])
+    owner_receipt_breach_types = {rule.get("breach_type") for rule in owner_receipt_rules}
+    if owner_receipt_breach_types != {"stale", "missing", "parse_failed", "hash_mismatch"}:
+        got_breach_types = sorted(str(breach_type) for breach_type in owner_receipt_breach_types)
+        print(
+            "FAIL /v1/sources/owner-receipts breach types: "
+            f"expected stale/missing/parse_failed/hash_mismatch, got {got_breach_types}"
+        )
+        return 1
+
+    expected_owner_actions = {
+        "stale": "refresh_primary_payload",
+        "missing": "fetch_missing_artifact",
+        "parse_failed": "manual_schema_review",
+        "hash_mismatch": "refetch_and_compare",
+    }
+    for rule in owner_receipt_rules:
+        breach_type = rule.get("breach_type")
+        if rule.get("action") != expected_owner_actions.get(breach_type):
+            print(f"FAIL /v1/sources/owner-receipts action for {breach_type} is wrong")
+            return 1
+        if "restored" not in set(rule.get("allowed_resolution_statuses", [])):
+            print(f"FAIL /v1/sources/owner-receipts {breach_type} must allow restored status")
+            return 1
+        if "resolution_status=\"restored\"" not in rule.get("ai_gate_unlock_condition", ""):
+            print(f"FAIL /v1/sources/owner-receipts {breach_type} must require restored unlock condition")
+            return 1
+
     ai_review_response = client.get("/v1/ai/review-queue")
     if ai_review_response.status_code != 200:
         print(f"FAIL /v1/ai/review-queue HTTP {ai_review_response.status_code}")
@@ -277,7 +339,7 @@ def main() -> int:
         print("FAIL /v1/handoff/owner-approval locked rows must have missing receipts")
         return 1
 
-    print("PASS source connector, health, freshness, AI review and owner handoff contracts")
+    print("PASS source connector, health, freshness, owner receipt, AI review and owner handoff contracts")
     return 0
 
 

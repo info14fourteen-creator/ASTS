@@ -33,6 +33,13 @@ ConnectorStatus = Literal["planned", "stub", "ready", "blocked"]
 SourceHealthStatus = Literal["ready", "quarantine", "unavailable"]
 SourceHealthAiGate = Literal["allowed", "blocked"]
 SourceFreshnessBreachType = Literal["stale", "missing", "parse_failed", "hash_mismatch"]
+SourceOwnerReceiptAction = Literal[
+    "refresh_primary_payload",
+    "fetch_missing_artifact",
+    "manual_schema_review",
+    "refetch_and_compare",
+]
+SourceOwnerReceiptResolutionStatus = Literal["restored", "accepted_with_note", "still_blocked"]
 AiReviewFactType = Literal[
     "requirement",
     "deadline",
@@ -248,6 +255,22 @@ class SourceFreshnessSummary(BaseModel):
     ai_blocked: int = Field(ge=0)
 
 
+class SourceOwnerReceiptRule(BaseModel):
+    breach_type: SourceFreshnessBreachType
+    owner_role: str
+    action: SourceOwnerReceiptAction
+    allowed_resolution_statuses: list[SourceOwnerReceiptResolutionStatus]
+    required_fields: list[str]
+    ai_gate_unlock_condition: str
+    evidence_rule: str
+
+
+class SourceOwnerReceiptSummary(BaseModel):
+    total: int = Field(ge=0)
+    restored_required: int = Field(ge=0)
+    blocked_until_receipt: int = Field(ge=0)
+
+
 class AiReviewQueueItem(BaseModel):
     id: str
     tender_id: str
@@ -371,6 +394,14 @@ class SourceFreshnessResponse(BaseModel):
     sla: str
     summary: SourceFreshnessSummary
     queue: list[SourceFreshnessQueueItem]
+
+
+class SourceOwnerReceiptsResponse(BaseModel):
+    version: str
+    rule: str
+    summary: SourceOwnerReceiptSummary
+    receipt_required_fields: list[str]
+    rules: list[SourceOwnerReceiptRule]
 
 
 class AiReviewQueueResponse(BaseModel):

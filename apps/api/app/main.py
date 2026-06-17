@@ -15,6 +15,7 @@ from app.schemas import (
     SourceConnectorsResponse,
     SourceFreshnessResponse,
     SourceHealthResponse,
+    SourceOwnerReceiptsResponse,
     StackResponse,
     StatusCheck,
     TaskItem,
@@ -27,6 +28,7 @@ from app.services.ingestion import get_ingestion_policy
 from app.services.outcomes import get_outcome_reasons
 from app.services.source_freshness import get_source_freshness
 from app.services.source_health import get_source_health
+from app.services.source_owner_receipts import get_source_owner_receipts
 
 app = FastAPI(title=settings.app_name, version=settings.app_version)
 
@@ -135,6 +137,20 @@ def contracts() -> ApiContractsResponse:
                 ],
             ),
             ApiContract(
+                name="Source owner receipts",
+                route="/v1/sources/owner-receipts",
+                model="SourceOwnerReceiptsResponse",
+                required_evidence=[
+                    "breach_type",
+                    "owner_role",
+                    "action",
+                    "resolution_status",
+                    "new_raw_artifact_id",
+                    "new_checksum_sha256",
+                    "audit_note",
+                ],
+            ),
+            ApiContract(
                 name="AI review queue",
                 route="/v1/ai/review-queue",
                 model="AiReviewQueueResponse",
@@ -202,6 +218,11 @@ def source_health() -> SourceHealthResponse:
 @app.get("/v1/sources/freshness", response_model=SourceFreshnessResponse, tags=["sources"])
 def source_freshness() -> SourceFreshnessResponse:
     return get_source_freshness()
+
+
+@app.get("/v1/sources/owner-receipts", response_model=SourceOwnerReceiptsResponse, tags=["sources"])
+def source_owner_receipts() -> SourceOwnerReceiptsResponse:
+    return get_source_owner_receipts()
 
 
 @app.get("/v1/ai/review-queue", response_model=AiReviewQueueResponse, tags=["ai"])
