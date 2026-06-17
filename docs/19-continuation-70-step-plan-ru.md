@@ -230,6 +230,7 @@
 92. Добавить FNS connector fixture schema: `packages/shared/fixture-schemas/fns-connector-gate.schema.json`.
 93. Добавить AI review fixture schema: `packages/shared/fixture-schemas/ai-review-queue.schema.json`.
 94. Добавить shared schema docs index: `packages/shared/README.md` содержит индекс схем, fixtures и validation-команд.
+95. Добавить fixture schema CI path notes: `packages/shared/README.md` описывает paths для shared validation и web parity smoke.
 
 Следующими брать:
 
@@ -277,7 +278,8 @@
 42. [done 2026-06-17] Добавить FNS connector fixture schema: описать JSON schema для FNS network gate.
 43. [done 2026-06-17] Добавить AI review fixture schema: описать JSON schema для AI review queue.
 44. [done 2026-06-17] Добавить shared schema docs index: собрать ссылки на схемы и validation-команды.
-45. Добавить fixture schema CI path notes: показать какие изменения запускают shared validation.
+45. [done 2026-06-17] Добавить fixture schema CI path notes: показать какие изменения запускают shared validation.
 46. Добавить schema validation summary card: показать на `/plan` какие fixture schemas уже защищены.
 47. Добавить AI review schema browser summary: показать threshold и fact types в `/ai-review`.
 48. Добавить schema docs browser link: связать `/plan` с `packages/shared/README.md`.
+49. Добавить shared validation browser loop: закрепить 14 checks и CI paths в `/plan`.

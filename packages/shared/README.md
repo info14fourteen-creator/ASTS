@@ -50,6 +50,17 @@ cd apps/web && npm run smoke:fns-approvals
 cd apps/web && npm run smoke:ai-review-actions
 ```
 
+CI path notes:
+
+- `packages/shared/**` changes run the `Shared validation` workflow.
+- `docs/19-continuation-70-step-plan-ru.md` changes also run `Shared validation`
+  because the continuation plan names the active schema/fixture milestones.
+- `.github/workflows/shared-validation.yml` changes run the same workflow so gate
+  edits prove they still execute `npm run validate`.
+- Web parity smoke still lives in `Web build`; fixture changes that affect web
+  screens should keep the relevant `apps/web npm run smoke:*` command green
+  before pushing.
+
 ## AI Schemas
 
 - `ai-schemas/tender-position-extraction.schema.json` defines the AI output for tender positions, requirements, analog rules, confidence and source references.

@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить fixture schema CI path notes", "показать какие изменения запускают shared validation"],
-  ["2", "Добавить schema validation summary card", "показать на /plan какие fixture schemas уже защищены"],
-  ["3", "Добавить AI review schema browser summary", "показать threshold и fact types в /ai-review"],
-  ["4", "Добавить schema docs browser link", "связать /plan с packages/shared README"],
+  ["1", "Добавить schema validation summary card", "показать на /plan какие fixture schemas уже защищены"],
+  ["2", "Добавить AI review schema browser summary", "показать threshold и fact types в /ai-review"],
+  ["3", "Добавить schema docs browser link", "связать /plan с packages/shared README"],
+  ["4", "Добавить shared validation browser loop", "закрепить 14 checks и CI paths в /plan"],
 ];
 
 const cycleRules = [
