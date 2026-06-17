@@ -8,6 +8,7 @@
     "start": "next start",
     "smoke": "node scripts/smoke.mjs",
     "smoke:api-readme-trigger-failure-copy": "node scripts/api-readme-trigger-failure-copy.mjs",
+    "smoke:api-readme-trigger-rendered-route-failure-copy": "node scripts/api-readme-trigger-rendered-route-failure-copy.mjs",
     "smoke:api-readme-trigger": "node scripts/api-readme-trigger-smoke.mjs",
     "smoke:ai-review-api-readme-failure-copy": "node scripts/ai-review-api-readme-failure-copy.mjs",
     "smoke:ai-review-api-readme-rendered-route-failure-copy": "node scripts/ai-review-api-readme-rendered-route-failure-copy.mjs",
