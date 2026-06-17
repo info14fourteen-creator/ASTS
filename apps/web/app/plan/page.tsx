@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить shared validation browser loop", "закрепить 14 checks и CI paths в /plan"],
-  ["2", "Добавить fixture schema checklist smoke", "проверить schema ids и команды из shared README"],
-  ["3", "Добавить AI review schema API smoke marker", "связать schema summary с /v1/ai/review-queue"],
-  ["4", "Добавить schema docs link parity smoke", "сверить /plan link и README anchor"],
+  ["1", "Добавить fixture schema checklist smoke", "проверить schema ids и команды из shared README"],
+  ["2", "Добавить AI review schema API smoke marker", "связать schema summary с /v1/ai/review-queue"],
+  ["3", "Добавить schema docs link parity smoke", "сверить /plan link и README anchor"],
+  ["4", "Добавить shared validation CI badge link", "связать browser loop с GitHub Actions workflow"],
 ];
 
 const cycleRules = [
@@ -116,6 +116,20 @@ const schemaValidationCards = [
 
 const schemaDocsHref =
   "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/packages/shared/README.md#shared-schema-index";
+
+const sharedValidationBrowserLoop = {
+  checkCount: 14,
+  ciPaths: ["packages/shared/**", "docs/19-continuation-70-step-plan-ru.md", ".github/workflows/shared-validation.yml"],
+  command: "cd packages/shared && npm run validate",
+  selector: "[data-testid='schema-validation-summary-card'] [data-schema-id]",
+  workflow: "Shared validation",
+  checks: [
+    ["Paths", "packages/shared/** запускает shared validation"],
+    ["Plan", "docs/19-continuation-70-step-plan-ru.md держит milestones под тем же gate"],
+    ["Workflow", ".github/workflows/shared-validation.yml проверяет сам gate"],
+    ["Command", "npm run validate должен оставаться зеленым на 14 checks"],
+  ],
+};
 
 export default function PlanPage() {
   return (
@@ -374,6 +388,33 @@ export default function PlanPage() {
               <article className="fixture-coverage-card" data-schema-id={schema} key={schema}>
                 <span>{title}</span>
                 <strong>{schema}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-check-count={sharedValidationBrowserLoop.checkCount}
+          data-ci-paths={sharedValidationBrowserLoop.ciPaths.join(",")}
+          data-command={sharedValidationBrowserLoop.command}
+          data-selector={sharedValidationBrowserLoop.selector}
+          data-testid="shared-validation-browser-loop"
+          data-workflow={sharedValidationBrowserLoop.workflow}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Shared validation browser loop</p>
+              <h2>Как `/plan` закрепляет shared checks</h2>
+            </div>
+            <span className="status-pill green">{sharedValidationBrowserLoop.checkCount} shared checks</span>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sharedValidationBrowserLoop.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>{title === "Command" ? "npm run validate" : title}</strong>
                 <p>{text}</p>
               </article>
             ))}
