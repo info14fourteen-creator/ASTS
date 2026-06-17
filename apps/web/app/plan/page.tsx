@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить schema docs README workflow smoke", "сверить `/plan` note с Web build step"],
-  ["2", "Добавить shared validation workflow step smoke", "сверить `/plan` note с Web build step"],
-  ["3", "Добавить web build workflow CI self-check note", "показать, что workflow smoke запускает сам себя"],
-  ["4", "Добавить API README live route gate note", "показать, что live DOM parity защищает API docs links"],
+  ["1", "Добавить shared validation workflow step smoke", "сверить `/plan` note с Web build step"],
+  ["2", "Добавить web build workflow CI self-check note", "показать, что workflow smoke запускает сам себя"],
+  ["3", "Добавить API README live route gate note", "показать, что live DOM parity защищает API docs links"],
+  ["4", "Добавить schema docs README live route gate note", "показать, что schema docs links защищены live route smoke"],
 ];
 
 const cycleRules = [
@@ -356,9 +356,27 @@ const schemaDocsReadmeCiNote = {
   ],
 };
 
+const schemaDocsReadmeWorkflowSmoke = {
+  command: "npm run smoke:schema-docs-workflow",
+  expectedWorkflowPathCount: 2,
+  readmePath: schemaDocsReadmeCiNote.readmePath,
+  sourceCiNoteSelector: "[data-testid='schema-docs-readme-ci-note']",
+  sourceSmokeCommand: schemaDocsReadmeCiNote.smokeCommand,
+  triggerPath: schemaDocsReadmeCiNote.triggerPath,
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Trigger path", "packages/shared/README.md должен быть в pull_request и push paths"],
+    ["CI step", "Web build запускает smoke:schema-docs-workflow после README existence smoke"],
+    ["Source note", "schema-docs-readme-ci-note остается источником command, path и docs href"],
+    ["Route order", "README existence smoke должен идти до live rendered route smoke"],
+  ],
+};
+
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 12,
+  expectedCommandCount: 13,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -371,12 +389,13 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='ai-review-api-readme-ci-note']",
     "[data-testid='api-readme-trigger-smoke']",
     "[data-testid='schema-docs-readme-ci-note']",
+    "[data-testid='schema-docs-readme-workflow-smoke']",
     "[data-testid='shared-validation-workflow-ci-note']",
   ],
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 12 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 13 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -1060,6 +1079,41 @@ export default function PlanPage() {
               <article className="fixture-coverage-card" key={title}>
                 <span>{title}</span>
                 <strong>{title === "Trigger path" ? schemaDocsReadmeCiNote.triggerPath : schemaDocsReadmeCiNote.readmePath}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-command={schemaDocsReadmeWorkflowSmoke.command}
+          data-expected-workflow-path-count={schemaDocsReadmeWorkflowSmoke.expectedWorkflowPathCount}
+          data-readme-path={schemaDocsReadmeWorkflowSmoke.readmePath}
+          data-source-ci-note-selector={schemaDocsReadmeWorkflowSmoke.sourceCiNoteSelector}
+          data-source-smoke-command={schemaDocsReadmeWorkflowSmoke.sourceSmokeCommand}
+          data-testid="schema-docs-readme-workflow-smoke"
+          data-trigger-path={schemaDocsReadmeWorkflowSmoke.triggerPath}
+          data-workflow-href={schemaDocsReadmeWorkflowSmoke.workflowHref}
+          data-workflow-name={schemaDocsReadmeWorkflowSmoke.workflowName}
+          data-workflow-path={schemaDocsReadmeWorkflowSmoke.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Schema docs README workflow smoke</p>
+              <h2>Как schema docs note сверяется с Web build</h2>
+            </div>
+            <a className="primary-link" href={schemaDocsReadmeWorkflowSmoke.workflowHref}>
+              {schemaDocsReadmeWorkflowSmoke.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {schemaDocsReadmeWorkflowSmoke.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Trigger path" ? schemaDocsReadmeWorkflowSmoke.triggerPath : schemaDocsReadmeWorkflowSmoke.command}
+                </strong>
                 <p>{text}</p>
               </article>
             ))}

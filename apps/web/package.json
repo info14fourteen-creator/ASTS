@@ -12,6 +12,7 @@
     "smoke:ai-review-actions": "node scripts/ai-review-action-parity.mjs",
     "smoke:fns-approvals": "node scripts/fns-approvals-parity.mjs",
     "smoke:owner-receipts": "node scripts/owner-receipt-parity.mjs",
+    "smoke:schema-docs-workflow": "node scripts/schema-docs-workflow-smoke.mjs",
     "smoke:schema-docs-readme": "node scripts/schema-docs-readme-existence.mjs",
     "smoke:shared-readme-commands": "node scripts/shared-readme-command-parity.mjs",
     "smoke:shared-validation-workflow": "node scripts/shared-validation-workflow-file.mjs",

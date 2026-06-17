@@ -22,6 +22,7 @@ const expectedCommands = [
   "npm run smoke:ai-review-actions",
   "npm run smoke:shared-readme-commands",
   "npm run smoke:schema-docs-readme",
+  "npm run smoke:schema-docs-workflow",
   "npm run smoke:shared-validation-workflow",
   "npm run smoke:web-build-workflow",
   "npm run smoke:api-readme-trigger",
@@ -34,6 +35,7 @@ const expectedPlanMarkers = [
   'data-testid="ai-review-api-readme-ci-note"',
   'data-testid="api-readme-trigger-smoke"',
   'data-testid="schema-docs-readme-ci-note"',
+  'data-testid="schema-docs-readme-workflow-smoke"',
   'data-testid="shared-validation-workflow-ci-note"',
   'data-testid="web-build-workflow-file-smoke"',
 ];

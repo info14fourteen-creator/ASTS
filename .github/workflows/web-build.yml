@@ -70,6 +70,9 @@ jobs:
       - name: Smoke schema docs README existence
         run: npm run smoke:schema-docs-readme
 
+      - name: Smoke schema docs README workflow
+        run: npm run smoke:schema-docs-workflow
+
       - name: Smoke shared validation workflow file
         run: npm run smoke:shared-validation-workflow
 
