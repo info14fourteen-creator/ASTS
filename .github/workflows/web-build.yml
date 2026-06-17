@@ -70,6 +70,9 @@ jobs:
       - name: Smoke schema docs README existence
         run: npm run smoke:schema-docs-readme
 
+      - name: Smoke shared validation workflow file
+        run: npm run smoke:shared-validation-workflow
+
       - name: Smoke rendered routes
         run: |
           npm run start -- -H 127.0.0.1 -p 4177 > /tmp/asts-web.log 2>&1 &

@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить shared validation workflow CI note", "показать, что workflow file smoke входит в Web build"],
-  ["2", "Добавить web build workflow file smoke", "сверить `/plan` CI notes с .github/workflows/web-build.yml"],
-  ["3", "Добавить API README trigger smoke", "закрепить, что apps/api/README.md запускает web parity"],
-  ["4", "Добавить schema docs README workflow smoke", "сверить `/plan` note с Web build step"],
+  ["1", "Добавить web build workflow file smoke", "сверить `/plan` CI notes с .github/workflows/web-build.yml"],
+  ["2", "Добавить API README trigger smoke", "закрепить, что apps/api/README.md запускает web parity"],
+  ["3", "Добавить schema docs README workflow smoke", "сверить `/plan` note с Web build step"],
+  ["4", "Добавить shared validation workflow step smoke", "сверить `/plan` note с Web build step"],
 ];
 
 const cycleRules = [
@@ -166,6 +166,24 @@ const sharedValidationWorkflowFileSmoke = {
     ["Trigger paths", "workflow запускается на packages/shared, plan doc и сам workflow file"],
     ["Runtime", "Node 22 и working-directory packages/shared закреплены в CI"],
     ["Command", "Validate step выполняет npm run validate"],
+  ],
+};
+
+const sharedValidationWorkflowCiNote = {
+  command: "npm run smoke:shared-validation-workflow",
+  expectedPaths: sharedValidationWorkflowFileSmoke.expectedPaths,
+  fileSmokeSelector: "[data-testid='shared-validation-workflow-file-smoke']",
+  sourceSmokeCommand: sharedValidationWorkflowFileSmoke.smokeCommand,
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checkedWorkflowName: sharedValidationWorkflowFileSmoke.workflowName,
+  checkedWorkflowPath: sharedValidationWorkflowFileSmoke.workflowPath,
+  checks: [
+    ["CI step", "Web build запускает workflow file smoke до route smoke"],
+    ["Checked workflow", "smoke сверяет Shared validation workflow name, paths, Node 22 и command"],
+    ["Plan marker", "`/plan` хранит selector workflow file smoke и expected paths"],
+    ["Merge gate", "PR нельзя считать готовым, если shared validation workflow drift появился"],
   ],
 };
 
@@ -667,6 +685,43 @@ export default function PlanPage() {
               <article className="fixture-coverage-card" key={title}>
                 <span>{title}</span>
                 <strong>{sharedValidationWorkflowFileSmoke.workflowPath}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-checked-workflow-name={sharedValidationWorkflowCiNote.checkedWorkflowName}
+          data-checked-workflow-path={sharedValidationWorkflowCiNote.checkedWorkflowPath}
+          data-command={sharedValidationWorkflowCiNote.command}
+          data-expected-paths={sharedValidationWorkflowCiNote.expectedPaths.join(",")}
+          data-file-smoke-selector={sharedValidationWorkflowCiNote.fileSmokeSelector}
+          data-source-smoke-command={sharedValidationWorkflowCiNote.sourceSmokeCommand}
+          data-testid="shared-validation-workflow-ci-note"
+          data-workflow-href={sharedValidationWorkflowCiNote.workflowHref}
+          data-workflow-name={sharedValidationWorkflowCiNote.workflowName}
+          data-workflow-path={sharedValidationWorkflowCiNote.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Shared validation workflow CI note</p>
+              <h2>Как workflow file smoke входит в Web build</h2>
+            </div>
+            <a className="primary-link" href={sharedValidationWorkflowCiNote.workflowHref}>
+              {sharedValidationWorkflowCiNote.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sharedValidationWorkflowCiNote.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Checked workflow"
+                    ? sharedValidationWorkflowCiNote.checkedWorkflowPath
+                    : sharedValidationWorkflowCiNote.command}
+                </strong>
                 <p>{text}</p>
               </article>
             ))}

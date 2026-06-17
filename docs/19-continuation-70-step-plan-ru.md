@@ -246,6 +246,7 @@
 108. Добавить shared README command CI note: `web-build.yml` запускает `smoke:shared-readme-commands` и реагирует на `packages/shared/README.md`.
 109. Добавить AI review API README CI note: `web-build.yml` запускает `smoke:ai-review-api-readme` на живом `/plan` + `/ai-review`.
 110. Добавить schema docs README CI note: `web-build.yml` запускает `smoke:schema-docs-readme` до route smoke.
+111. Добавить shared validation workflow CI note: `web-build.yml` запускает `smoke:shared-validation-workflow` до route smoke.
 
 Следующими брать:
 
@@ -309,7 +310,8 @@
 58. [done 2026-06-17] Добавить shared README command CI note: показать, что command parity smoke входит в Web build.
 59. [done 2026-06-17] Добавить AI review API README CI note: показать, что DOM parity smoke входит в Web build.
 60. [done 2026-06-17] Добавить schema docs README CI note: показать, что README existence smoke входит в Web build.
-61. Добавить shared validation workflow CI note: показать, что workflow file smoke входит в Web build.
+61. [done 2026-06-17] Добавить shared validation workflow CI note: показать, что workflow file smoke входит в Web build.
 62. Добавить web build workflow file smoke: сверить `/plan` CI notes с `.github/workflows/web-build.yml`.
 63. Добавить API README trigger smoke: закрепить, что `apps/api/README.md` запускает web parity.
 64. Добавить schema docs README workflow smoke: сверить `/plan` note с Web build step.
+65. Добавить shared validation workflow step smoke: сверить `/plan` note с Web build step.
