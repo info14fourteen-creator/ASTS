@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить source freshness rendered-route failure copy", "показать owner-friendly текст при падении freshness route coverage"],
-  ["2", "Добавить FNS approvals docs rendered-route failure copy", "показать owner-friendly текст при падении FNS docs route coverage"],
-  ["3", "Добавить owner receipt API rendered-route failure copy", "показать owner-friendly текст при падении owner receipt API route coverage"],
-  ["4", "Добавить AI review receipt API rendered-route failure copy", "показать owner-friendly текст при падении AI review receipt route coverage"],
+  ["1", "Добавить FNS approvals docs rendered-route failure copy", "показать owner-friendly текст при падении FNS docs route coverage"],
+  ["2", "Добавить owner receipt API rendered-route failure copy", "показать owner-friendly текст при падении owner receipt API route coverage"],
+  ["3", "Добавить AI review receipt API rendered-route failure copy", "показать owner-friendly текст при падении AI review receipt route coverage"],
+  ["4", "Добавить source freshness docs rendered-route failure copy", "показать owner-friendly текст при падении freshness docs route coverage"],
 ];
 
 const cycleRules = [
@@ -747,6 +747,31 @@ const sourceOwnerReceiptsRenderedRouteFailureCopy = {
   ],
 };
 
+const sourceFreshnessRenderedRouteFailureCopy = {
+  apiRoute: "/v1/sources/freshness",
+  breachTypes: "stale,missing,parse_failed,hash_mismatch",
+  command: "npm run smoke:source-freshness-rendered-route-failure-copy",
+  docsHref: "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#source-freshness-contract",
+  expectedBlockedCount: 4,
+  expectedBreachCount: 4,
+  expectedRouteCount: 16,
+  failingCommand: "npm run smoke -- --url http://127.0.0.1:4177/",
+  noMergeCopy:
+    "Не мержить, пока rendered routes smoke снова подтверждает source freshness queue, breach types и AI gate на живом `/sources`",
+  ownerRole: "Sources owner + QA owner",
+  repairTargets: "/sources,apps/web/lib/mock-data.ts,apps/web/scripts/smoke.mjs,apps/api/README.md#source-freshness-contract",
+  sourceMarkerSelector: "[data-testid='source-freshness-breach-queue']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "rendered routes проходят, но `/sources` потерял freshness queue, breach types или blocked AI gate"],
+    ["Fix order", "сначала восстановить source freshness fixture, затем `/sources` rendered route expectations"],
+    ["Owner", "Sources owner подтверждает breach queue, QA owner подтверждает живой `/sources` route"],
+    ["No merge", "не мержить, пока source freshness снова не проходит rendered route coverage"],
+  ],
+};
+
 const fnsApprovalsRenderedRouteFailureCopy = {
   apiRoute: "/v1/sources/connectors",
   command: "npm run smoke:fns-approvals-rendered-route-failure-copy",
@@ -797,7 +822,7 @@ const ownerReceiptDocsRenderedRouteFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 37,
+  expectedCommandCount: 38,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -824,6 +849,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='schema-docs-readme-failure-copy']",
     "[data-testid='schema-docs-rendered-route-failure-copy']",
     "[data-testid='source-owner-receipts-rendered-route-failure-copy']",
+    "[data-testid='source-freshness-rendered-route-failure-copy']",
     "[data-testid='fns-approvals-rendered-route-failure-copy']",
     "[data-testid='owner-receipt-docs-rendered-route-failure-copy']",
     "[data-testid='shared-validation-workflow-ci-note']",
@@ -840,7 +866,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 37 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 38 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -2306,6 +2332,49 @@ export default function PlanPage() {
                   {title === "No merge"
                     ? sourceOwnerReceiptsRenderedRouteFailureCopy.noMergeCopy
                     : sourceOwnerReceiptsRenderedRouteFailureCopy.apiRoute}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-route={sourceFreshnessRenderedRouteFailureCopy.apiRoute}
+          data-breach-types={sourceFreshnessRenderedRouteFailureCopy.breachTypes}
+          data-command={sourceFreshnessRenderedRouteFailureCopy.command}
+          data-docs-href={sourceFreshnessRenderedRouteFailureCopy.docsHref}
+          data-expected-blocked-count={sourceFreshnessRenderedRouteFailureCopy.expectedBlockedCount}
+          data-expected-breach-count={sourceFreshnessRenderedRouteFailureCopy.expectedBreachCount}
+          data-expected-route-count={sourceFreshnessRenderedRouteFailureCopy.expectedRouteCount}
+          data-failing-command={sourceFreshnessRenderedRouteFailureCopy.failingCommand}
+          data-no-merge-copy={sourceFreshnessRenderedRouteFailureCopy.noMergeCopy}
+          data-owner-role={sourceFreshnessRenderedRouteFailureCopy.ownerRole}
+          data-repair-targets={sourceFreshnessRenderedRouteFailureCopy.repairTargets}
+          data-source-marker-selector={sourceFreshnessRenderedRouteFailureCopy.sourceMarkerSelector}
+          data-testid="source-freshness-rendered-route-failure-copy"
+          data-workflow-href={sourceFreshnessRenderedRouteFailureCopy.workflowHref}
+          data-workflow-name={sourceFreshnessRenderedRouteFailureCopy.workflowName}
+          data-workflow-path={sourceFreshnessRenderedRouteFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source freshness rendered-route failure copy</p>
+              <h2>Что делать, если source freshness пропала в rendered routes</h2>
+            </div>
+            <a className="primary-link" href={sourceFreshnessRenderedRouteFailureCopy.workflowHref}>
+              {sourceFreshnessRenderedRouteFailureCopy.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sourceFreshnessRenderedRouteFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? sourceFreshnessRenderedRouteFailureCopy.noMergeCopy
+                    : sourceFreshnessRenderedRouteFailureCopy.apiRoute}
                 </strong>
                 <p>{text}</p>
               </article>
