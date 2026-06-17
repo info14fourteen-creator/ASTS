@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$id": "https://asts.local/schemas/source-owner-receipts.schema.json",
+  "title": "ASTS Source Owner Receipts Fixture",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "rule", "receipt_required_fields", "rules", "history"],
+  "properties": {
+    "version": {
+      "const": "0.1.0"
+    },
+    "rule": {
+      "type": "string",
+      "minLength": 1
+    },
+    "receipt_required_fields": {
+      "type": "array",
+      "minItems": 9,
+      "items": {
+        "enum": [
+          "breach_id",
+          "owner_id",
+          "owner_role",
+          "action",
+          "resolution_status",
+          "resolved_at",
+          "new_raw_artifact_id",
+          "new_checksum_sha256",
+          "audit_note"
+        ]
+      }
+    },
+    "rules": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "$ref": "#/definitions/receipt_rule"
+      }
+    },
+    "history": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "$ref": "#/definitions/history_row"
+      }
+    }
+  },
+  "definitions": {
+    "breach_type": {
+      "enum": ["stale", "missing", "parse_failed", "hash_mismatch"]
+    },
+    "owner_role": {
+      "enum": ["supplier_manager", "document_owner", "data_steward", "security_owner"]
+    },
+    "action": {
+      "enum": ["refresh_primary_payload", "fetch_missing_artifact", "manual_schema_review", "refetch_and_compare"]
+    },
+    "resolution_status": {
+      "enum": ["restored", "accepted_with_note", "still_blocked"]
+    },
+    "ai_gate": {
+      "enum": ["ready_after_receipt", "blocked_until_restored"]
+    },
+    "receipt_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "breach_type",
+        "owner_role",
+        "action",
+        "allowed_resolution_statuses",
+        "required_fields_extra",
+        "ai_gate_unlock_condition",
+        "evidence_rule"
+      ],
+      "properties": {
+        "breach_type": {
+          "$ref": "#/definitions/breach_type"
+        },
+        "owner_role": {
+          "$ref": "#/definitions/owner_role"
+        },
+        "action": {
+          "$ref": "#/definitions/action"
+        },
+        "allowed_resolution_statuses": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "$ref": "#/definitions/resolution_status"
+          }
+        },
+        "required_fields_extra": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": ["last_success_at", "source_absence_note", "normalization_version", "quarantine_note"]
+          }
+        },
+        "ai_gate_unlock_condition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_rule": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "history_row": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "breach_type",
+        "owner_role",
+        "action",
+        "resolution_status",
+        "raw_artifact_id",
+        "checksum_sha256",
+        "ai_gate",
+        "audit_note"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "breach_type": {
+          "$ref": "#/definitions/breach_type"
+        },
+        "owner_role": {
+          "$ref": "#/definitions/owner_role"
+        },
+        "action": {
+          "$ref": "#/definitions/action"
+        },
+        "resolution_status": {
+          "$ref": "#/definitions/resolution_status"
+        },
+        "raw_artifact_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "checksum_sha256": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ai_gate": {
+          "$ref": "#/definitions/ai_gate"
+        },
+        "audit_note": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

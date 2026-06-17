@@ -20,15 +20,22 @@ MVP can generate TypeScript types from FastAPI OpenAPI once backend schemas stab
 - `ai-review-queue.json` is the shared low-confidence owner review queue. FastAPI
   `/v1/ai/review-queue`, `/ai-review` UI and web parity smoke read the same
   threshold, fact types, owner/action matrix and reasons.
+- `fixture-schemas/source-owner-receipts.schema.json` is the JSON Schema contract
+  for `source-owner-receipts.json`. It separates receipt rule fields from
+  read-only audit history rows and rejects drift in breach types, owner roles,
+  actions, resolution statuses and AI gates.
 
 ## AI Schemas
 
 - `ai-schemas/tender-position-extraction.schema.json` defines the AI output for tender positions, requirements, analog rules, confidence and source references.
 - `ai-schemas/supplier-quote-normalization.schema.json` defines the AI output for supplier quote lines, prices, VAT, delivery timing, analog flags and source references.
 - These schemas are source-evidence first: every extracted set must include document/raw artifact references before it can be used in workflow decisions.
-- Run `npm run validate` in `packages/shared` to check schema shape, example AI outputs, demo fixture references and raw artifact custody links.
+- Run `npm run validate` in `packages/shared` to check schema shape, fixture
+  schema examples, AI outputs, demo fixture references and raw artifact custody
+  links.
 - Shared validation also checks `source-owner-receipts.json` rule/history shape,
-  owner/action matrix, restored unlock conditions and blocked AI gate counts.
+  JSON Schema compatibility, owner/action matrix, restored unlock conditions and
+  blocked AI gate counts.
 - It also checks `fns-connector-gate.json` for the Legal owner, contract-only
   status, CI policy and exact five approval gates.
 - It checks `ai-review-queue.json` for the three low-confidence fact types,

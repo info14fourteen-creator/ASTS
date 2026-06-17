@@ -20,6 +20,14 @@ const checks = [
     }),
   ],
   [
+    "source owner receipts schema",
+    () =>
+      validateFixtureSchemaFile("fixture-schemas/source-owner-receipts.schema.json", {
+        requiredRootFields: ["version", "rule", "receipt_required_fields", "rules", "history"],
+        requiredDefinitions: ["receipt_rule", "history_row", "breach_type", "owner_role", "action", "resolution_status", "ai_gate"],
+      }),
+  ],
+  [
     "tender position example",
     () =>
       validateAgainstSchema(
@@ -35,6 +43,15 @@ const checks = [
         readJson("ai-schemas/examples/supplier-quote-normalization.example.json"),
         readJson("ai-schemas/supplier-quote-normalization.schema.json"),
         "supplier-quote-example",
+      ),
+  ],
+  [
+    "source owner receipts schema example",
+    () =>
+      validateAgainstSchema(
+        readJson("source-owner-receipts.json"),
+        readJson("fixture-schemas/source-owner-receipts.schema.json"),
+        "source-owner-receipts",
       ),
   ],
   ["demo data fixture", validateDemoData],
@@ -81,6 +98,20 @@ function validateSchemaFile(relativePath, options) {
   assert(sourceRef, `${relativePath} must define source_ref`);
   assert(sourceRef.additionalProperties === false, `${relativePath} source_ref must reject additional properties`);
   assertArrayIncludes(sourceRef.required, options.requiredEvidenceFields, `${relativePath} source_ref required fields`);
+}
+
+function validateFixtureSchemaFile(relativePath, options) {
+  const schema = readJson(relativePath);
+
+  assert(schema.$schema?.includes("json-schema.org"), `${relativePath} must declare JSON Schema draft`);
+  assert(schema.$id?.startsWith("https://asts.local/schemas/"), `${relativePath} must use ASTS schema id`);
+  assert(schema.type === "object", `${relativePath} root type must be object`);
+  assert(schema.additionalProperties === false, `${relativePath} root must reject additional properties`);
+  assertArrayIncludes(schema.required, options.requiredRootFields, `${relativePath} root required fields`);
+
+  for (const definition of options.requiredDefinitions) {
+    assert(schema.definitions?.[definition], `${relativePath} must define ${definition}`);
+  }
 }
 
 function validateDemoData() {
