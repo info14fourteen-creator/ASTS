@@ -100,6 +100,9 @@ jobs:
       - name: Smoke web build live route gate
         run: npm run smoke:web-build-live-route
 
+      - name: Smoke web build failure copy
+        run: npm run smoke:web-build-failure-copy
+
       - name: Smoke API README trigger path
         run: npm run smoke:api-readme-trigger
 

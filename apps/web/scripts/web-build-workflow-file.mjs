@@ -32,6 +32,7 @@ const expectedCommands = [
   "npm run smoke:web-build-workflow",
   "npm run smoke:web-build-self-check",
   "npm run smoke:web-build-live-route",
+  "npm run smoke:web-build-failure-copy",
   "npm run smoke:api-readme-trigger",
   "npm run smoke:api-readme-live-route",
   "npm run smoke:ai-review-api-readme-failure-copy",
@@ -55,6 +56,7 @@ const expectedPlanMarkers = [
   'data-testid="shared-validation-failure-copy"',
   'data-testid="web-build-workflow-self-check-note"',
   'data-testid="web-build-live-route-gate-note"',
+  'data-testid="web-build-failure-copy"',
   'data-testid="web-build-workflow-file-smoke"',
 ];
 

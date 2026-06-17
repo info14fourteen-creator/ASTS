@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить web build failure copy", "показать owner-friendly текст при падении workflow drift"],
-  ["2", "Добавить API README trigger failure copy", "показать owner-friendly текст при падении trigger paths"],
-  ["3", "Добавить schema docs workflow failure copy", "показать owner-friendly текст при падении workflow step/order"],
-  ["4", "Добавить shared validation workflow failure copy", "показать owner-friendly текст при падении shared validation workflow order"],
+  ["1", "Добавить API README trigger failure copy", "показать owner-friendly текст при падении trigger paths"],
+  ["2", "Добавить schema docs workflow failure copy", "показать owner-friendly текст при падении workflow step/order"],
+  ["3", "Добавить shared validation workflow failure copy", "показать owner-friendly текст при падении shared validation workflow order"],
+  ["4", "Добавить web build rendered-route failure copy", "показать owner-friendly текст при падении rendered routes"],
 ];
 
 const cycleRules = [
@@ -508,7 +508,7 @@ const schemaDocsReadmeFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 22,
+  expectedCommandCount: 23,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -532,11 +532,12 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='shared-validation-failure-copy']",
     "[data-testid='web-build-workflow-self-check-note']",
     "[data-testid='web-build-live-route-gate-note']",
+    "[data-testid='web-build-failure-copy']",
   ],
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 22 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 23 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -573,6 +574,26 @@ const webBuildLiveRouteGateNote = {
     ["Live route gate", "затем route smoke проверяет `/plan` web build markers на живом сервере"],
     ["Plan marker", "web-build-workflow-self-check-note остается источником command и trigger path"],
     ["Merge gate", "workflow drift должен падать до merge и быть понятным в workdesk"],
+  ],
+};
+
+const webBuildFailureCopy = {
+  command: "npm run smoke:web-build-failure-copy",
+  failingCommand: webBuildLiveRouteGateNote.command,
+  noMergeCopy:
+    "Не мержить, пока Web build, `/plan` и .github/workflows/web-build.yml снова не показывают один workflow gate",
+  ownerRole: "Frontend owner + CI owner",
+  repairTargets: "/plan,.github/workflows/web-build.yml,apps/web/scripts/web-build-workflow-file.mjs,apps/web/scripts/smoke.mjs",
+  sourceMarkerSelector: "[data-testid='web-build-live-route-gate-note']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  expectedCommandCount: webBuildWorkflowFileSmoke.expectedCommandCount,
+  checks: [
+    ["Symptom", "падает Web build workflow smoke, self-check, live route gate или rendered routes smoke"],
+    ["Fix order", "сначала восстановить workflow command list, затем `/plan` markers и route smoke expectations"],
+    ["Owner", "Frontend owner подтверждает `/plan`, CI owner подтверждает workflow step/order"],
+    ["No merge", "не мержить, пока Web build smoke и route smoke снова не зеленые"],
   ],
 };
 
@@ -1641,6 +1662,40 @@ export default function PlanPage() {
                 <strong>
                   {title === "Live route gate" ? webBuildLiveRouteGateNote.routeSmokeCommand : webBuildLiveRouteGateNote.triggerPath}
                 </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-command={webBuildFailureCopy.command}
+          data-expected-command-count={webBuildFailureCopy.expectedCommandCount}
+          data-failing-command={webBuildFailureCopy.failingCommand}
+          data-no-merge-copy={webBuildFailureCopy.noMergeCopy}
+          data-owner-role={webBuildFailureCopy.ownerRole}
+          data-repair-targets={webBuildFailureCopy.repairTargets}
+          data-source-marker-selector={webBuildFailureCopy.sourceMarkerSelector}
+          data-testid="web-build-failure-copy"
+          data-workflow-href={webBuildFailureCopy.workflowHref}
+          data-workflow-name={webBuildFailureCopy.workflowName}
+          data-workflow-path={webBuildFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Web build failure copy</p>
+              <h2>Что делать, если Web build gate упал</h2>
+            </div>
+            <a className="primary-link" href={webBuildFailureCopy.workflowHref}>
+              {webBuildFailureCopy.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {webBuildFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>{title === "No merge" ? webBuildFailureCopy.noMergeCopy : webBuildFailureCopy.command}</strong>
                 <p>{text}</p>
               </article>
             ))}
