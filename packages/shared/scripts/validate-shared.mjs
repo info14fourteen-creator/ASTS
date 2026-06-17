@@ -44,6 +44,14 @@ const checks = [
       }),
   ],
   [
+    "AI review queue schema",
+    () =>
+      validateFixtureSchemaFile("fixture-schemas/ai-review-queue.schema.json", {
+        requiredRootFields: ["version", "rule", "confidence_threshold", "blocked_below_confidence", "queue"],
+        requiredDefinitions: ["review_item", "fact_type", "owner_role", "source_host"],
+      }),
+  ],
+  [
     "tender position example",
     () =>
       validateAgainstSchema(
@@ -77,6 +85,15 @@ const checks = [
         readJson("fns-connector-gate.json"),
         readJson("fixture-schemas/fns-connector-gate.schema.json"),
         "fns-connector-gate",
+      ),
+  ],
+  [
+    "AI review queue schema example",
+    () =>
+      validateAgainstSchema(
+        readJson("ai-review-queue.json"),
+        readJson("fixture-schemas/ai-review-queue.schema.json"),
+        "ai-review-queue",
       ),
   ],
   ["demo data fixture", validateDemoData],

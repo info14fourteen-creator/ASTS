@@ -228,6 +228,7 @@
 90. Добавить source receipt docs link browser assertion: live DOM `/sources` проверяет docs href и API route.
 91. Добавить source owner receipt fixture schema: `packages/shared/fixture-schemas/source-owner-receipts.schema.json`.
 92. Добавить FNS connector fixture schema: `packages/shared/fixture-schemas/fns-connector-gate.schema.json`.
+93. Добавить AI review fixture schema: `packages/shared/fixture-schemas/ai-review-queue.schema.json`.
 
 Следующими брать:
 
@@ -273,7 +274,8 @@
 40. [done 2026-06-17] Добавить source receipt docs link browser assertion: проверить ссылку через Browser DOM loop.
 41. [done 2026-06-17] Добавить source owner receipt fixture schema: описать JSON schema для shared owner receipts.
 42. [done 2026-06-17] Добавить FNS connector fixture schema: описать JSON schema для FNS network gate.
-43. Добавить AI review fixture schema: описать JSON schema для AI review queue.
+43. [done 2026-06-17] Добавить AI review fixture schema: описать JSON schema для AI review queue.
 44. Добавить shared schema docs index: собрать ссылки на схемы и validation-команды.
 45. Добавить fixture schema CI path notes: показать какие изменения запускают shared validation.
 46. Добавить schema validation summary card: показать на `/plan` какие fixture schemas уже защищены.
+47. Добавить AI review schema browser summary: показать threshold и fact types в `/ai-review`.

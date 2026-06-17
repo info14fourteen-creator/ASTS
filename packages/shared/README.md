@@ -27,6 +27,9 @@ MVP can generate TypeScript types from FastAPI OpenAPI once backend schemas stab
 - `fixture-schemas/fns-connector-gate.schema.json` is the JSON Schema contract
   for `fns-connector-gate.json`. It locks the contract-only state, Legal owner,
   safe test pair requirement, CI network policy and exact approval checklist.
+- `fixture-schemas/ai-review-queue.schema.json` is the JSON Schema contract for
+  `ai-review-queue.json`. It locks the confidence thresholds, three low-confidence
+  fact types, owner roles, nullable document links and official source host.
 
 ## AI Schemas
 
@@ -42,5 +45,5 @@ MVP can generate TypeScript types from FastAPI OpenAPI once backend schemas stab
 - It also checks `fns-connector-gate.json` for the Legal owner, contract-only
   status, JSON Schema compatibility, CI policy and exact five approval gates.
 - It checks `ai-review-queue.json` for the three low-confidence fact types,
-  threshold, derived status and owner/action matrix.
+  JSON Schema compatibility, threshold, derived status and owner/action matrix.
 - GitHub Actions workflow `Shared validation` runs the same check for shared schema and fixture changes.
