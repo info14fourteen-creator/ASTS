@@ -100,6 +100,12 @@ UI не должен скрывать карточку и переводить A
 - каждая строка имеет `data-breach-type`, `data-owner` и
   `data-required-receipt-status="restored"`.
 
+История ручных решений закреплена отдельно:
+`data-testid="source-owner-receipt-history"` хранит audit rows, а
+`data-testid="source-owner-receipt-history-browser-loop"` проверяет selector
+`[data-testid='source-owner-receipt-history'] [data-resolution-status]`,
+уникальные resolution statuses, AI gates и count заблокированных receipt.
+
 ## FNS Smoke UI Contract
 
 Маршрут `/sources` показывает contract-only карточку ФНС:

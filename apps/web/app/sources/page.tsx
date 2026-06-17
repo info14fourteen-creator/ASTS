@@ -186,6 +186,21 @@ const sourceOwnerReceiptHistory = [
   },
 ];
 
+const sourceOwnerReceiptHistoryBrowserLoop = {
+  route: "/sources",
+  selector: "[data-testid='source-owner-receipt-history'] [data-resolution-status]",
+  expectedHistoryCount: sourceOwnerReceiptHistory.length,
+  expectedAiGates: Array.from(new Set(sourceOwnerReceiptHistory.map((receipt) => receipt.aiGate))),
+  expectedResolutionStatuses: Array.from(new Set(sourceOwnerReceiptHistory.map((receipt) => receipt.resolution))),
+  expectedBlockedCount: sourceOwnerReceiptHistory.filter((receipt) => receipt.aiGate === "blocked_until_restored").length,
+  checks: [
+    ["Locate", "найти audit seed ручных freshness решений по data-testid"],
+    ["Assert history", "сверить 4 receipt rows и resolution statuses"],
+    ["Assert gates", "подтвердить ready_after_receipt и blocked_until_restored"],
+    ["Assert evidence", "проверить raw artifact id и checksum на каждой строке"],
+  ],
+};
+
 const evidenceGates = [
   ["Source URL", "ссылка на карточку ЕИС, ФНС или ЭТП", "обязательно"],
   ["File hash", "оригинал документа и версия OCR", "обязательно"],
@@ -683,6 +698,34 @@ export default function SourcesPage() {
                 <em>
                   {receipt.resolution} · {receipt.rawArtifact}
                 </em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-ai-gates={sourceOwnerReceiptHistoryBrowserLoop.expectedAiGates.join(",")}
+          data-blocked-count={sourceOwnerReceiptHistoryBrowserLoop.expectedBlockedCount}
+          data-history-count={sourceOwnerReceiptHistoryBrowserLoop.expectedHistoryCount}
+          data-resolution-statuses={sourceOwnerReceiptHistoryBrowserLoop.expectedResolutionStatuses.join(",")}
+          data-route={sourceOwnerReceiptHistoryBrowserLoop.route}
+          data-selector={sourceOwnerReceiptHistoryBrowserLoop.selector}
+          data-testid="source-owner-receipt-history-browser-loop"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source owner receipt history browser loop</p>
+              <h2>Как браузер сверяет историю ручных freshness-решений</h2>
+            </div>
+            <span className="status-pill amber">audit trace armed</span>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {sourceOwnerReceiptHistoryBrowserLoop.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>{sourceOwnerReceiptHistoryBrowserLoop.selector}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>
