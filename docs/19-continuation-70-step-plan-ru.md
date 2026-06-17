@@ -267,6 +267,7 @@
 129. Добавить API README live-route failure copy: `web-build.yml` запускает `smoke:api-readme-live-route-failure-copy`, который закрепляет owner-friendly no-merge текст при API README live route order drift.
 130. Добавить schema docs live-route failure copy: `web-build.yml` запускает `smoke:schema-docs-live-route-failure-copy`, который закрепляет owner-friendly no-merge текст при schema docs live route order drift.
 131. Добавить shared validation rendered-route failure copy: `web-build.yml` запускает `smoke:shared-validation-rendered-route-failure-copy`, который закрепляет owner-friendly no-merge текст при падении shared validation markers в rendered routes smoke.
+132. Добавить AI review API README rendered-route failure copy: `web-build.yml` запускает `smoke:ai-review-api-readme-rendered-route-failure-copy`, который закрепляет owner-friendly no-merge текст при падении AI review API README parity внутри rendered routes smoke.
 
 Следующими брать:
 
@@ -351,7 +352,8 @@
 79. [done 2026-06-17] Добавить API README live-route failure copy: показать owner-friendly текст при падении live route order.
 80. [done 2026-06-17] Добавить schema docs live-route failure copy: показать owner-friendly текст при падении live route order.
 81. [done 2026-06-17] Добавить shared validation rendered-route failure copy: показать owner-friendly текст при падении rendered route coverage.
-82. Добавить AI review API README rendered-route failure copy: показать owner-friendly текст при падении API docs live parity.
+82. [done 2026-06-17] Добавить AI review API README rendered-route failure copy: показать owner-friendly текст при падении API docs live parity.
 83. Добавить API README trigger rendered-route failure copy: показать owner-friendly текст при падении trigger/live parity chain.
 84. Добавить schema docs rendered-route failure copy: показать owner-friendly текст при падении schema docs live parity.
 85. Добавить source owner receipts rendered-route failure copy: показать owner-friendly текст при падении source receipts route coverage.
+86. Добавить FNS approvals rendered-route failure copy: показать owner-friendly текст при падении FNS approvals route coverage.

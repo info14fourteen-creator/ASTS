@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить AI review API README rendered-route failure copy", "показать owner-friendly текст при падении API docs live parity"],
-  ["2", "Добавить API README trigger rendered-route failure copy", "показать owner-friendly текст при падении trigger/live parity chain"],
-  ["3", "Добавить schema docs rendered-route failure copy", "показать owner-friendly текст при падении schema docs live parity"],
-  ["4", "Добавить source owner receipts rendered-route failure copy", "показать owner-friendly текст при падении source receipts route coverage"],
+  ["1", "Добавить API README trigger rendered-route failure copy", "показать owner-friendly текст при падении trigger/live parity chain"],
+  ["2", "Добавить schema docs rendered-route failure copy", "показать owner-friendly текст при падении schema docs live parity"],
+  ["3", "Добавить source owner receipts rendered-route failure copy", "показать owner-friendly текст при падении source receipts route coverage"],
+  ["4", "Добавить FNS approvals rendered-route failure copy", "показать owner-friendly текст при падении FNS approvals route coverage"],
 ];
 
 const cycleRules = [
@@ -443,6 +443,28 @@ const apiReadmeFailureCopy = {
   ],
 };
 
+const aiReviewApiReadmeRenderedRouteFailureCopy = {
+  apiSelector: aiReviewApiReadmeCiNote.apiSelector,
+  command: "npm run smoke:ai-review-api-readme-rendered-route-failure-copy",
+  expectedRouteCount: 16,
+  failingCommand: aiReviewApiReadmeCiNote.domParityCommand,
+  liveGateSelector: "[data-testid='ai-review-api-readme-failure-copy']",
+  markerSelector: aiReviewApiReadmeCiNote.markerSelector,
+  noMergeCopy: "Не мержить, пока rendered routes smoke снова подтверждает `/plan` + `/ai-review` API README parity",
+  ownerRole: "API owner + QA owner",
+  repairTargets:
+    "/plan,/ai-review,apps/api/README.md#ai-review-queue-contract,apps/web/scripts/ai-review-api-readme-parity.mjs",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "после старта preview падает AI review API README parity или `/ai-review` потерял README anchor"],
+    ["Fix order", "сначала восстановить API README parity failure copy, затем live parity command внутри rendered routes"],
+    ["Owner", "API owner подтверждает README anchor, QA owner подтверждает `/plan` + `/ai-review` на живом сервере"],
+    ["No merge", "не мержить, пока AI review API README parity снова не зеленый внутри rendered routes smoke"],
+  ],
+};
+
 const apiReadmeTriggerSmoke = {
   command: "npm run smoke:api-readme-trigger",
   domParityCommand: aiReviewApiReadmeCiNote.domParityCommand,
@@ -634,7 +656,7 @@ const schemaDocsReadmeFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 30,
+  expectedCommandCount: 31,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -648,6 +670,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='api-readme-live-route-gate-note']",
     "[data-testid='api-readme-live-route-failure-copy']",
     "[data-testid='ai-review-api-readme-failure-copy']",
+    "[data-testid='ai-review-api-readme-rendered-route-failure-copy']",
     "[data-testid='api-readme-trigger-smoke']",
     "[data-testid='api-readme-trigger-failure-copy']",
     "[data-testid='schema-docs-readme-ci-note']",
@@ -670,7 +693,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 30 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 31 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -1589,6 +1612,46 @@ export default function PlanPage() {
               <article className="fixture-coverage-card" key={title}>
                 <span>{title}</span>
                 <strong>{title === "No merge" ? apiReadmeFailureCopy.noMergeCopy : apiReadmeFailureCopy.failingCommand}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-selector={aiReviewApiReadmeRenderedRouteFailureCopy.apiSelector}
+          data-command={aiReviewApiReadmeRenderedRouteFailureCopy.command}
+          data-expected-route-count={aiReviewApiReadmeRenderedRouteFailureCopy.expectedRouteCount}
+          data-failing-command={aiReviewApiReadmeRenderedRouteFailureCopy.failingCommand}
+          data-live-gate-selector={aiReviewApiReadmeRenderedRouteFailureCopy.liveGateSelector}
+          data-marker-selector={aiReviewApiReadmeRenderedRouteFailureCopy.markerSelector}
+          data-no-merge-copy={aiReviewApiReadmeRenderedRouteFailureCopy.noMergeCopy}
+          data-owner-role={aiReviewApiReadmeRenderedRouteFailureCopy.ownerRole}
+          data-repair-targets={aiReviewApiReadmeRenderedRouteFailureCopy.repairTargets}
+          data-testid="ai-review-api-readme-rendered-route-failure-copy"
+          data-workflow-href={aiReviewApiReadmeRenderedRouteFailureCopy.workflowHref}
+          data-workflow-name={aiReviewApiReadmeRenderedRouteFailureCopy.workflowName}
+          data-workflow-path={aiReviewApiReadmeRenderedRouteFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review API README rendered-route failure copy</p>
+              <h2>Что делать, если AI review API README parity упала в rendered routes</h2>
+            </div>
+            <a className="primary-link" href={aiReviewApiReadmeRenderedRouteFailureCopy.workflowHref}>
+              {aiReviewApiReadmeRenderedRouteFailureCopy.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {aiReviewApiReadmeRenderedRouteFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? aiReviewApiReadmeRenderedRouteFailureCopy.noMergeCopy
+                    : aiReviewApiReadmeRenderedRouteFailureCopy.failingCommand}
+                </strong>
                 <p>{text}</p>
               </article>
             ))}
