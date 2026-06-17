@@ -31,6 +31,25 @@ MVP can generate TypeScript types from FastAPI OpenAPI once backend schemas stab
   `ai-review-queue.json`. It locks the confidence thresholds, three low-confidence
   fact types, owner roles, nullable document links and official source host.
 
+## Shared Schema Index
+
+| Contract | Schema | Fixture / Example | Protected surface | Validation |
+| --- | --- | --- | --- | --- |
+| Tender position extraction | `ai-schemas/tender-position-extraction.schema.json` | `ai-schemas/examples/tender-position-extraction.example.json` | AI document extraction before workflow decisions | `npm run validate` |
+| Supplier quote normalization | `ai-schemas/supplier-quote-normalization.schema.json` | `ai-schemas/examples/supplier-quote-normalization.example.json` | AI supplier quote parsing before economics | `npm run validate` |
+| Source owner receipts | `fixture-schemas/source-owner-receipts.schema.json` | `source-owner-receipts.json` | FastAPI `/v1/sources/owner-receipts`, `/sources` receipt UI | `npm run validate`, `apps/web npm run smoke:owner-receipts` |
+| FNS connector gate | `fixture-schemas/fns-connector-gate.schema.json` | `fns-connector-gate.json` | FastAPI `/v1/sources/connectors`, `/sources` Legal gate | `npm run validate`, `apps/web npm run smoke:fns-approvals` |
+| AI review queue | `fixture-schemas/ai-review-queue.schema.json` | `ai-review-queue.json` | FastAPI `/v1/ai/review-queue`, `/ai-review` owner queue | `npm run validate`, `apps/web npm run smoke:ai-review-actions` |
+
+Local validation commands:
+
+```bash
+cd packages/shared && npm run validate
+cd apps/web && npm run smoke:owner-receipts
+cd apps/web && npm run smoke:fns-approvals
+cd apps/web && npm run smoke:ai-review-actions
+```
+
 ## AI Schemas
 
 - `ai-schemas/tender-position-extraction.schema.json` defines the AI output for tender positions, requirements, analog rules, confidence and source references.
