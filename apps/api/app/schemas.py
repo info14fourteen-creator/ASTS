@@ -297,6 +297,17 @@ class SourceOwnerReceiptHistoryItem(BaseModel):
     audit_note: str
 
 
+class SourceOwnerReceiptWriteContract(BaseModel):
+    route: str
+    method: Literal["POST"]
+    status: Literal["draft"]
+    owner: str
+    idempotency_key_required: bool
+    request_schema: list[str]
+    blocked_copy: str
+    no_merge_copy: str
+
+
 class AiReviewQueueItem(BaseModel):
     id: str
     tender_id: str
@@ -427,6 +438,7 @@ class SourceOwnerReceiptsResponse(BaseModel):
     rule: str
     summary: SourceOwnerReceiptSummary
     receipt_required_fields: list[str]
+    write_contract: SourceOwnerReceiptWriteContract
     rules: list[SourceOwnerReceiptRule]
     history: list[SourceOwnerReceiptHistoryItem]
 

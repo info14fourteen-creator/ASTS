@@ -12,6 +12,27 @@
     "new_checksum_sha256",
     "audit_note"
   ],
+  "write_contract": {
+    "route": "/v1/sources/owner-receipts",
+    "method": "POST",
+    "status": "draft",
+    "owner": "Sources owner",
+    "idempotency_key_required": true,
+    "request_schema": [
+      "breach_id",
+      "owner_id",
+      "owner_role",
+      "action",
+      "resolution_status",
+      "resolved_at",
+      "new_raw_artifact_id",
+      "new_checksum_sha256",
+      "audit_note",
+      "idempotency_key"
+    ],
+    "blocked_copy": "Write endpoint stays draft until auth, idempotency and immutable audit storage are implemented.",
+    "no_merge_copy": "Не мержить source owner receipt write endpoint, пока POST не проверяет owner role, idempotency key, checksum evidence и immutable audit append."
+  },
   "rules": [
     {
       "breach_type": "stale",

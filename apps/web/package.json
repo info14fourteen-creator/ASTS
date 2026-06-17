@@ -35,6 +35,7 @@
     "smoke:shared-readme-commands": "node scripts/shared-readme-command-parity.mjs",
     "smoke:source-freshness-docs-rendered-route-failure-copy": "node scripts/source-freshness-docs-rendered-route-failure-copy.mjs",
     "smoke:source-freshness-rendered-route-failure-copy": "node scripts/source-freshness-rendered-route-failure-copy.mjs",
+    "smoke:source-owner-receipt-write-api-draft": "node scripts/source-owner-receipt-write-api-draft.mjs",
     "smoke:source-owner-receipts-rendered-route-failure-copy": "node scripts/source-owner-receipts-rendered-route-failure-copy.mjs",
     "smoke:shared-validation-failure-copy": "node scripts/shared-validation-failure-copy.mjs",
     "smoke:shared-validation-live-route": "node scripts/shared-validation-live-route-gate.mjs",

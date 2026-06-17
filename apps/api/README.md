@@ -114,6 +114,26 @@ smoke:owner-receipts` and shared validation checks keep owner/action,
 resolution, raw artifact, checksum, AI gate and audit note changes from drifting
 silently.
 
+### Source Owner Receipt Write API Draft
+
+`GET /v1/sources/owner-receipts` also exposes `write_contract` for the future
+write endpoint. This is a draft contract only; the service must not mutate
+receipt history until auth, idempotency and immutable audit append are built.
+
+- `route="/v1/sources/owner-receipts"`;
+- `method="POST"`;
+- `status="draft"`;
+- `owner="Sources owner"`;
+- `idempotency_key_required=true`;
+- `request_schema` extends the receipt fields with `idempotency_key`;
+- `blocked_copy="Write endpoint stays draft until auth, idempotency and immutable audit storage are implemented."`;
+- `no_merge_copy` blocks merging the write endpoint until owner role,
+  idempotency key, checksum evidence and immutable audit append are enforced.
+
+When we implement the actual `POST`, it must append a receipt audit row rather
+than overwrite history, and AI unlock remains tied to
+`resolution_status="restored"` plus verified raw evidence.
+
 ## AI Review Queue Contract
 
 `GET /v1/ai/review-queue` is the backend contract behind the `/ai-review`

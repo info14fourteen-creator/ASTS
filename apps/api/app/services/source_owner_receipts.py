@@ -6,6 +6,7 @@ from app.schemas import (
     SourceOwnerReceiptRule,
     SourceOwnerReceiptsResponse,
     SourceOwnerReceiptSummary,
+    SourceOwnerReceiptWriteContract,
 )
 
 SHARED_OWNER_RECEIPTS_PATH = (
@@ -56,6 +57,7 @@ def get_source_owner_receipts() -> SourceOwnerReceiptsResponse:
                 1 for receipt in history if receipt.ai_gate == "blocked_until_restored"
             ),
         ),
+        write_contract=SourceOwnerReceiptWriteContract(**fixture["write_contract"]),
         rules=rules,
         history=history,
     )

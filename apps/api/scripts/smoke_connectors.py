@@ -250,6 +250,39 @@ def main() -> int:
         print("FAIL /v1/sources/owner-receipts required fields are incomplete")
         return 1
 
+    owner_receipt_write_contract = owner_receipts_payload.get("write_contract", {})
+    if owner_receipt_write_contract.get("route") != "/v1/sources/owner-receipts":
+        print("FAIL /v1/sources/owner-receipts write contract route changed")
+        return 1
+
+    if owner_receipt_write_contract.get("method") != "POST":
+        print("FAIL /v1/sources/owner-receipts write contract method must stay POST")
+        return 1
+
+    if owner_receipt_write_contract.get("status") != "draft":
+        print("FAIL /v1/sources/owner-receipts write contract must stay draft")
+        return 1
+
+    if owner_receipt_write_contract.get("owner") != "Sources owner":
+        print("FAIL /v1/sources/owner-receipts write contract owner changed")
+        return 1
+
+    if owner_receipt_write_contract.get("idempotency_key_required") is not True:
+        print("FAIL /v1/sources/owner-receipts write contract must require idempotency key")
+        return 1
+
+    if "idempotency_key" not in set(owner_receipt_write_contract.get("request_schema", [])):
+        print("FAIL /v1/sources/owner-receipts write contract request schema must include idempotency_key")
+        return 1
+
+    if "Write endpoint stays draft" not in owner_receipt_write_contract.get("blocked_copy", ""):
+        print("FAIL /v1/sources/owner-receipts write contract must keep blocked copy")
+        return 1
+
+    if "Не мержить source owner receipt write endpoint" not in owner_receipt_write_contract.get("no_merge_copy", ""):
+        print("FAIL /v1/sources/owner-receipts write contract must keep no-merge copy")
+        return 1
+
     owner_receipt_rules = owner_receipts_payload.get("rules", [])
     owner_receipt_breach_types = {rule.get("breach_type") for rule in owner_receipt_rules}
     if owner_receipt_breach_types != {"stale", "missing", "parse_failed", "hash_mismatch"}:

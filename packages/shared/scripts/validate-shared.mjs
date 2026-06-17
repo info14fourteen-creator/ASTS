@@ -23,7 +23,7 @@ const checks = [
     "source owner receipts schema",
     () =>
       validateFixtureSchemaFile("fixture-schemas/source-owner-receipts.schema.json", {
-        requiredRootFields: ["version", "rule", "receipt_required_fields", "rules", "history"],
+        requiredRootFields: ["version", "rule", "receipt_required_fields", "write_contract", "rules", "history"],
         requiredDefinitions: ["receipt_rule", "history_row", "breach_type", "owner_role", "action", "resolution_status", "ai_gate"],
       }),
   ],
@@ -212,6 +212,19 @@ function validateSourceOwnerReceipts() {
   assert(fixture.version === "0.1.0", "source owner receipts version must stay 0.1.0");
   assertNonEmptyString(fixture.rule, "source owner receipts rule");
   assert(Array.isArray(fixture.receipt_required_fields), "source owner receipts must include receipt_required_fields");
+  assert(fixture.write_contract, "source owner receipts must include write_contract draft");
+  assert(fixture.write_contract.route === "/v1/sources/owner-receipts", "source owner receipt write route changed");
+  assert(fixture.write_contract.method === "POST", "source owner receipt write method must stay POST");
+  assert(fixture.write_contract.status === "draft", "source owner receipt write contract must stay draft");
+  assert(fixture.write_contract.owner === "Sources owner", "source owner receipt write owner changed");
+  assert(fixture.write_contract.idempotency_key_required === true, "source owner receipt write must require idempotency key");
+  assert(Array.isArray(fixture.write_contract.request_schema), "source owner receipt write must include request_schema");
+  assertArrayIncludes(fixture.write_contract.request_schema, ["idempotency_key"], "source owner receipt write request schema");
+  assertNonEmptyString(fixture.write_contract.blocked_copy, "source owner receipt write blocked copy");
+  assert(
+    fixture.write_contract.no_merge_copy.includes("Не мержить source owner receipt write endpoint"),
+    "source owner receipt write no-merge copy must block unsafe merge",
+  );
   assert(Array.isArray(fixture.rules) && fixture.rules.length === 4, "source owner receipts must include 4 rules");
   assert(Array.isArray(fixture.history) && fixture.history.length === 4, "source owner receipts must include 4 history rows");
 

@@ -148,6 +148,8 @@ const sourceOwnerReceiptHistory = sourceOwnerReceiptsFixture.history.map((receip
   note: receipt.audit_note,
 }));
 
+const sourceOwnerReceiptWriteContract = sourceOwnerReceiptsFixture.write_contract;
+
 const sourceOwnerReceiptHistoryBrowserLoop = {
   route: "/sources",
   apiRoute: "/v1/sources/owner-receipts",
@@ -682,6 +684,35 @@ export default function SourcesPage() {
                 </em>
               </article>
             ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-freshness-owner-panel"
+          data-api-route={sourceOwnerReceiptWriteContract.route}
+          data-blocked-copy={sourceOwnerReceiptWriteContract.blocked_copy}
+          data-idempotency-key-required={String(sourceOwnerReceiptWriteContract.idempotency_key_required)}
+          data-method={sourceOwnerReceiptWriteContract.method}
+          data-no-merge-copy={sourceOwnerReceiptWriteContract.no_merge_copy}
+          data-owner={sourceOwnerReceiptWriteContract.owner}
+          data-request-schema={sourceOwnerReceiptWriteContract.request_schema.join(",")}
+          data-status={sourceOwnerReceiptWriteContract.status}
+          data-testid="source-owner-receipt-write-api-draft"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source owner receipt write API draft</p>
+              <h2>Как будем записывать ручной receipt без потери audit</h2>
+            </div>
+            <span className="status-pill amber">{sourceOwnerReceiptWriteContract.status}</span>
+          </div>
+          <div className="source-freshness-owner-grid">
+            <article className="source-freshness-owner-card">
+              <span>{sourceOwnerReceiptWriteContract.method}</span>
+              <strong>{sourceOwnerReceiptWriteContract.owner}</strong>
+              <p>{sourceOwnerReceiptWriteContract.blocked_copy}</p>
+              <em>{sourceOwnerReceiptWriteContract.no_merge_copy}</em>
+            </article>
           </div>
         </section>
 

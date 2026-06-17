@@ -280,6 +280,7 @@
 142. Добавить AI review receipt API rendered-route failure copy: `web-build.yml` запускает `smoke:ai-review-receipt-api-rendered-route-failure-copy`, который закрепляет owner-friendly no-merge текст при падении FastAPI `/v1/ai/review-queue`, shared fixture и `/ai-review` receipt markers внутри rendered routes smoke.
 143. Добавить source freshness docs rendered-route failure copy: `web-build.yml` запускает `smoke:source-freshness-docs-rendered-route-failure-copy`, который закрепляет owner-friendly no-merge текст при падении `/sources` Source Freshness docs link и API README anchor внутри rendered routes smoke.
 144. Добавить FNS real-network approval API copy: `web-build.yml` запускает `smoke:fns-real-network-approval-api-copy`, который закрепляет Legal owner-friendly текст для будущего сетевого FNS smoke без включения внешнего вызова в CI.
+145. Добавить source owner receipt write API draft: `web-build.yml` запускает `smoke:source-owner-receipt-write-api-draft`, который закрепляет draft POST contract без включения мутации receipt history.
 
 Следующими брать:
 
@@ -377,3 +378,4 @@
 92. [done 2026-06-18] Добавить AI review receipt API rendered-route failure copy: показать owner-friendly текст при падении AI review receipt route coverage.
 93. [done 2026-06-18] Добавить source freshness docs rendered-route failure copy: показать owner-friendly текст при падении freshness docs route coverage.
 94. [done 2026-06-18] Добавить FNS real-network approval API copy: показать Legal owner-friendly текст будущего сетевого FNS smoke в API, `/sources` и `/plan`.
+95. [done 2026-06-18] Добавить source owner receipt write API draft: показать draft POST contract с idempotency, checksum evidence и immutable audit append.
