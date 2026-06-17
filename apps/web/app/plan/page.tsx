@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить schema docs browser link", "связать /plan с packages/shared README"],
-  ["2", "Добавить shared validation browser loop", "закрепить 14 checks и CI paths в /plan"],
-  ["3", "Добавить fixture schema checklist smoke", "проверить schema ids и команды из shared README"],
-  ["4", "Добавить AI review schema API smoke marker", "связать schema summary с /v1/ai/review-queue"],
+  ["1", "Добавить shared validation browser loop", "закрепить 14 checks и CI paths в /plan"],
+  ["2", "Добавить fixture schema checklist smoke", "проверить schema ids и команды из shared README"],
+  ["3", "Добавить AI review schema API smoke marker", "связать schema summary с /v1/ai/review-queue"],
+  ["4", "Добавить schema docs link parity smoke", "сверить /plan link и README anchor"],
 ];
 
 const cycleRules = [
@@ -113,6 +113,9 @@ const schemaValidationCards = [
     "confidence thresholds, fact types, owner roles, zakupki.gov.ru evidence",
   ],
 ];
+
+const schemaDocsHref =
+  "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/packages/shared/README.md#shared-schema-index";
 
 export default function PlanPage() {
   return (
@@ -347,6 +350,7 @@ export default function PlanPage() {
         <section
           className="panel fixture-coverage-panel"
           data-check-count="14"
+          data-docs-href={schemaDocsHref}
           data-schema-count={schemaValidationCards.length}
           data-schema-ids={schemaValidationCards.map(([, schema]) => schema).join(",")}
           data-testid="schema-validation-summary-card"
@@ -356,7 +360,14 @@ export default function PlanPage() {
               <p className="eyebrow">Schema validation summary</p>
               <h2>Какие fixture schemas уже защищены</h2>
             </div>
-            <span className="status-pill green">14 shared checks</span>
+            <a
+              className="primary-link"
+              data-docs-href={schemaDocsHref}
+              data-testid="schema-docs-link"
+              href={schemaDocsHref}
+            >
+              Shared schema index
+            </a>
           </div>
           <div className="fixture-coverage-grid">
             {schemaValidationCards.map(([title, schema, text]) => (

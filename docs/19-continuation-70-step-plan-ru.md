@@ -233,6 +233,7 @@
 95. Добавить fixture schema CI path notes: `packages/shared/README.md` описывает paths для shared validation и web parity smoke.
 96. Добавить schema validation summary card: `/plan` показывает три fixture schemas и 14 shared checks.
 97. Добавить AI review schema browser summary: `/ai-review` показывает schema id, thresholds, fact types и source host.
+98. Добавить schema docs browser link: `/plan` связывает schema summary с `packages/shared/README.md#shared-schema-index`.
 
 Следующими брать:
 
@@ -283,7 +284,8 @@
 45. [done 2026-06-17] Добавить fixture schema CI path notes: показать какие изменения запускают shared validation.
 46. [done 2026-06-17] Добавить schema validation summary card: показать на `/plan` какие fixture schemas уже защищены.
 47. [done 2026-06-17] Добавить AI review schema browser summary: показать threshold и fact types в `/ai-review`.
-48. Добавить schema docs browser link: связать `/plan` с `packages/shared/README.md`.
+48. [done 2026-06-17] Добавить schema docs browser link: связать `/plan` с `packages/shared/README.md`.
 49. Добавить shared validation browser loop: закрепить 14 checks и CI paths в `/plan`.
 50. Добавить fixture schema checklist smoke: проверить schema ids и команды из shared README.
 51. Добавить AI review schema API smoke marker: связать schema summary с `/v1/ai/review-queue`.
+52. Добавить schema docs link parity smoke: сверить `/plan` link и README anchor.
