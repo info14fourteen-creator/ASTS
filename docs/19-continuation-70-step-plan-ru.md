@@ -384,3 +384,4 @@
 98. [done 2026-06-18] Добавить EIS real-network approval API copy: показать Data owner-friendly текст будущего сетевого EIS smoke в API, `/sources` и `/plan`.
 99. [done 2026-06-18] Добавить source owner receipt write smoke failure copy: показать owner-friendly текст при падении draft POST smoke с idempotency, checksum evidence и immutable audit append.
 100. [done 2026-06-18] Добавить AI review receipt write smoke failure copy: показать owner-friendly текст при падении draft POST smoke с owner decision, source evidence и immutable AI audit append.
+101. [done 2026-06-18] Добавить source freshness write smoke failure copy: показать owner-friendly текст при падении draft POST smoke с breach type, restored evidence и immutable freshness audit append.

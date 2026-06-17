@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить source freshness write smoke failure copy", "показать owner-friendly текст при падении freshness write контракта"],
-  ["2", "Добавить EIS real-network approval smoke failure copy", "показать owner-friendly текст при падении EIS approval API copy"],
-  ["3", "Добавить source owner receipt write docs failure copy", "показать owner-friendly текст при падении docs anchor для write контракта"],
-  ["4", "Добавить AI review receipt write docs failure copy", "показать owner-friendly текст при падении AI review write docs anchor"],
+  ["1", "Добавить EIS real-network approval smoke failure copy", "показать owner-friendly текст при падении EIS approval API copy"],
+  ["2", "Добавить source owner receipt write docs failure copy", "показать owner-friendly текст при падении docs anchor для write контракта"],
+  ["3", "Добавить AI review receipt write docs failure copy", "показать owner-friendly текст при падении AI review write docs anchor"],
+  ["4", "Добавить source freshness write docs failure copy", "показать owner-friendly текст при падении freshness write docs anchor"],
 ];
 
 const cycleRules = [
@@ -937,6 +937,33 @@ const sourceFreshnessWriteApiDraft = {
   ],
 };
 
+const sourceFreshnessWriteSmokeFailureCopy = {
+  apiRoute: "/v1/sources/freshness",
+  command: "npm run smoke:source-freshness-write-smoke-failure-copy",
+  docsHref:
+    "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#source-freshness-write-api-draft",
+  expectedBreachCount: 4,
+  expectedRequestFieldCount: 12,
+  expectedRouteCount: 16,
+  failingCommand: "npm run smoke:source-freshness-write-api-draft",
+  noMergeCopy:
+    "Не мержить, пока source freshness write smoke снова подтверждает draft POST contract, breach type, idempotency key, restored evidence и immutable freshness audit append.",
+  ownerRole: "Sources owner + API owner + QA owner",
+  parityCommand: "npm run smoke:source-freshness-write-api-draft",
+  repairTargets:
+    "apps/api/app/services/source_freshness.py,apps/api/app/schemas.py,apps/api/README.md,/sources,/plan,apps/web/scripts/source-freshness-write-api-draft.mjs",
+  sourceMarkerSelector: "[data-testid='source-freshness-write-api-draft']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "write draft smoke падает: пропал POST method, breach type, restored evidence или no-merge copy"],
+    ["Fix order", "сначала восстановить SOURCE_FRESHNESS_WRITE_CONTRACT, затем API README и `/sources` draft marker"],
+    ["Owner", "Sources owner подтверждает breach fields, API owner подтверждает DTO, QA owner подтверждает smoke"],
+    ["No merge", "не мержить, пока source freshness write smoke снова не проходит contract-only gate"],
+  ],
+};
+
 const sourceFreshnessRenderedRouteFailureCopy = {
   apiRoute: "/v1/sources/freshness",
   breachTypes: "stale,missing,parse_failed,hash_mismatch",
@@ -1110,7 +1137,7 @@ const ownerReceiptDocsRenderedRouteFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 49,
+  expectedCommandCount: 50,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -1144,6 +1171,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='source-owner-receipt-write-api-draft']",
     "[data-testid='source-owner-receipt-write-smoke-failure-copy']",
     "[data-testid='source-freshness-write-api-draft']",
+    "[data-testid='source-freshness-write-smoke-failure-copy']",
     "[data-testid='source-freshness-rendered-route-failure-copy']",
     "[data-testid='source-freshness-docs-rendered-route-failure-copy']",
     "[data-testid='fns-approvals-rendered-route-failure-copy']",
@@ -1165,7 +1193,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 49 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 50 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -2966,6 +2994,54 @@ export default function PlanPage() {
                 <span>{title}</span>
                 <strong>
                   {title === "No merge" ? sourceFreshnessWriteApiDraft.noMergeCopy : sourceFreshnessWriteApiDraft.apiRoute}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-route={sourceFreshnessWriteSmokeFailureCopy.apiRoute}
+          data-command={sourceFreshnessWriteSmokeFailureCopy.command}
+          data-docs-href={sourceFreshnessWriteSmokeFailureCopy.docsHref}
+          data-expected-breach-count={sourceFreshnessWriteSmokeFailureCopy.expectedBreachCount}
+          data-expected-request-field-count={sourceFreshnessWriteSmokeFailureCopy.expectedRequestFieldCount}
+          data-expected-route-count={sourceFreshnessWriteSmokeFailureCopy.expectedRouteCount}
+          data-failing-command={sourceFreshnessWriteSmokeFailureCopy.failingCommand}
+          data-no-merge-copy={sourceFreshnessWriteSmokeFailureCopy.noMergeCopy}
+          data-owner-role={sourceFreshnessWriteSmokeFailureCopy.ownerRole}
+          data-parity-command={sourceFreshnessWriteSmokeFailureCopy.parityCommand}
+          data-repair-targets={sourceFreshnessWriteSmokeFailureCopy.repairTargets}
+          data-source-marker-selector={sourceFreshnessWriteSmokeFailureCopy.sourceMarkerSelector}
+          data-testid="source-freshness-write-smoke-failure-copy"
+          data-workflow-href={sourceFreshnessWriteSmokeFailureCopy.workflowHref}
+          data-workflow-name={sourceFreshnessWriteSmokeFailureCopy.workflowName}
+          data-workflow-path={sourceFreshnessWriteSmokeFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source freshness write smoke failure copy</p>
+              <h2>Что делать, если freshness write smoke упал</h2>
+            </div>
+            <div className="panel-actions">
+              <a className="primary-link" href={sourceFreshnessWriteSmokeFailureCopy.workflowHref}>
+                {sourceFreshnessWriteSmokeFailureCopy.workflowName}
+              </a>
+              <a className="primary-link" href={sourceFreshnessWriteSmokeFailureCopy.docsHref}>
+                API contract
+              </a>
+            </div>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sourceFreshnessWriteSmokeFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? sourceFreshnessWriteSmokeFailureCopy.noMergeCopy
+                    : sourceFreshnessWriteSmokeFailureCopy.failingCommand}
                 </strong>
                 <p>{text}</p>
               </article>
