@@ -143,7 +143,7 @@ this section through `data-testid="ai-review-receipt-api-link"` and
 `data-api-route="/v1/ai/review-queue"` so owner receipt rules stay traceable
 from the visible workdesk to the backend contract.
 The web `npm run smoke:ai-review-actions` parity check compares the backend
-`owner_role` / `required_action` matrix with the `/ai-review` UI seed and
+`packages/shared/ai-review-queue.json` fixture with the `/ai-review` UI seed and
 visible `data-required-action` markers, so handoff actions cannot drift silently.
 
 ### AI Review Owner Actions

@@ -200,9 +200,9 @@ fields и блокировка workflow до `confirmed` или `corrected` rece
 Route/API smoke также закрепляют owner/action matrix для `requirement`,
 `supplier_quote` и `economics`; `evidence_ref` должен совпадать с raw artifact
 первоисточника.
-`npm run smoke:ai-review-actions` сравнивает backend `owner_role` /
-`required_action` matrix с `/ai-review` UI seed и видимым `data-required-action`;
-web CI запускает этот parity check после build.
+`npm run smoke:ai-review-actions` сравнивает
+`packages/shared/ai-review-queue.json` с `/ai-review` UI seed и видимым
+`data-required-action`; web CI запускает этот parity check после build.
 
 ## Collaboration Rules
 

@@ -40,6 +40,7 @@ const checks = [
   ["demo data fixture", validateDemoData],
   ["source owner receipts fixture", validateSourceOwnerReceipts],
   ["FNS connector gate fixture", validateFnsConnectorGate],
+  ["AI review queue fixture", validateAiReviewQueue],
 ];
 
 const failures = [];
@@ -223,6 +224,48 @@ function validateFnsConnectorGate() {
     "FNS connector gate approvals",
   );
   assert(fixture.required_approvals.length === 5, "FNS connector gate must keep exactly 5 approvals");
+}
+
+function validateAiReviewQueue() {
+  const fixture = readJson("ai-review-queue.json");
+  assert(fixture.version === "0.1.0", "AI review queue version must stay 0.1.0");
+  assertNonEmptyString(fixture.rule, "AI review queue rule");
+  assert(fixture.confidence_threshold === 0.85, "AI review queue threshold must stay 0.85");
+  assert(fixture.blocked_below_confidence === 0.75, "AI review blocked threshold must stay 0.75");
+  assert(Array.isArray(fixture.queue) && fixture.queue.length === 3, "AI review queue must include 3 rows");
+
+  const expectedMatrix = {
+    requirement: ["tender_manager", "confirm requirement interpretation before supplier request", "review_required", 0.82],
+    supplier_quote: ["supplier_manager", "request supplier clarification and keep economics blocked", "blocked", 0.64],
+    economics: ["finance_owner", "finance owner must approve or keep outcome locked", "blocked", 0.74],
+  };
+  const factTypes = new Set();
+
+  for (const item of fixture.queue) {
+    const expected = expectedMatrix[item.fact_type];
+    assert(expected, `unexpected AI review fact type ${item.fact_type}`);
+    if (!expected) {
+      continue;
+    }
+
+    factTypes.add(item.fact_type);
+    assertNonEmptyString(item.tender_id, `AI review tender_id for ${item.fact_type}`);
+    assert(Object.hasOwn(item, "document_id"), `AI review document_id for ${item.fact_type} must be present`);
+    assertNonEmptyString(item.title, `AI review title for ${item.fact_type}`);
+    assertNonEmptyString(item.extracted_value, `AI review extracted_value for ${item.fact_type}`);
+    assert(item.confidence === expected[3], `AI review confidence for ${item.fact_type}`);
+    assert(item.confidence < fixture.confidence_threshold, `AI review ${item.fact_type} must stay below threshold`);
+    assert(item.owner_role === expected[0], `AI review owner_role for ${item.fact_type}`);
+    assert(item.required_action === expected[1], `AI review action for ${item.fact_type}`);
+    assert(
+      (item.confidence < fixture.blocked_below_confidence ? "blocked" : "review_required") === expected[2],
+      `AI review derived status for ${item.fact_type}`,
+    );
+    assertNonEmptyString(item.reason, `AI review reason for ${item.fact_type}`);
+    assert(item.source_host === "zakupki.gov.ru", `AI review source_host for ${item.fact_type}`);
+  }
+
+  assertArrayIncludes([...factTypes], ["requirement", "supplier_quote", "economics"], "AI review fact types");
 }
 
 function validateOutcome(outcome, tender, outcomeFunnels) {

@@ -5,157 +5,104 @@ import { fileURLToPath } from "node:url";
 const webRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const repoRoot = resolve(webRoot, "../..");
 
+const fixturePath = resolve(repoRoot, "packages/shared/ai-review-queue.json");
 const apiServicePath = resolve(repoRoot, "apps/api/app/services/ai_review.py");
 const aiReviewPagePath = resolve(webRoot, "app/ai-review/page.tsx");
 
+const fixture = JSON.parse(readFileSync(fixturePath, "utf8"));
 const apiService = readFileSync(apiServicePath, "utf8");
 const aiReviewPage = readFileSync(aiReviewPagePath, "utf8");
-
-const apiQueue = extractApiReviewQueue(apiService);
-const uiQueue = extractUiReviewQueue(aiReviewPage);
 const failures = [];
 
-const parityFields = [
-  ["fact_type", "fact"],
-  ["owner_role", "owner"],
-  ["required_action", "action"],
-  ["status", "status"],
-  ["confidence", "confidence"],
-  ["threshold", "threshold"],
-];
+if (!apiService.includes("packages/shared/ai-review-queue.json")) {
+  failures.push("API AI review service must load packages/shared/ai-review-queue.json");
+}
+
+if (!aiReviewPage.includes("../../../../packages/shared/ai-review-queue.json")) {
+  failures.push("/ai-review page must import packages/shared/ai-review-queue.json");
+}
 
 if (!aiReviewPage.includes("data-required-action={item.action}")) {
   failures.push("/ai-review cards must expose data-required-action for browser smoke and handoff traceability");
 }
 
-if (apiQueue.length !== uiQueue.length) {
-  failures.push(`queue length mismatch: api=${apiQueue.length}, ui=${uiQueue.length}`);
-}
-
-for (const [index, apiItem] of apiQueue.entries()) {
-  const uiItem = uiQueue[index];
-  if (!uiItem) {
-    continue;
-  }
-
-  for (const [apiField, uiField] of parityFields) {
-    if (apiItem[apiField] !== uiItem[uiField]) {
-      failures.push(
-        `queue[${index}] ${apiField}/${uiField} mismatch: api=${formatValue(apiItem[apiField])}, ui=${formatValue(uiItem[uiField])}`,
-      );
-    }
-  }
-}
-
-const apiMatrix = apiQueue.map((item) => `${item.fact_type}:${item.owner_role}:${item.required_action}`).join("\n");
-const uiMatrix = uiQueue.map((item) => `${item.fact}:${item.owner}:${item.action}`).join("\n");
-if (apiMatrix !== uiMatrix) {
-  failures.push(`owner/action matrix mismatch:\napi:\n${apiMatrix}\nui:\n${uiMatrix}`);
-}
+validateFixture();
 
 if (failures.length > 0) {
-  console.error("FAIL AI review action parity");
+  console.error("FAIL AI review shared fixture parity");
   for (const failure of failures) {
     console.error(`  ${failure}`);
   }
   process.exit(1);
 }
 
-console.log(`PASS AI review action parity (${apiQueue.length} rows)`);
+console.log(`PASS AI review shared fixture parity (${fixture.queue.length} rows)`);
 
-function extractApiReviewQueue(source) {
-  const queueBlock = extractDelimitedBlock(source, "queue = [", "[", "]");
-  const itemBlocks = [...queueBlock.matchAll(/_review_item\(([\s\S]*?)\),/g)].map((match) => match[1]);
-  const threshold = readPythonNumberField(source, "CONFIDENCE_THRESHOLD");
+function validateFixture() {
+  assert(fixture.version === "0.1.0", "AI review fixture version must stay 0.1.0");
+  assert(fixture.confidence_threshold === 0.85, "AI review confidence threshold must stay 0.85");
+  assert(fixture.blocked_below_confidence === 0.75, "AI review blocked threshold must stay 0.75");
+  assert(Array.isArray(fixture.queue) && fixture.queue.length === 3, "AI review fixture must include 3 rows");
 
-  return itemBlocks.map((block) => {
-    const confidence = readPythonNumberField(block, "confidence");
-    return {
-      fact_type: readPythonStringField(block, "fact_type"),
-      owner_role: readPythonStringField(block, "owner_role"),
-      required_action: readPythonStringField(block, "required_action"),
-      status: confidence < 0.75 ? "blocked" : "review_required",
-      confidence: String(Math.round(confidence * 100)),
-      threshold: String(Math.round(threshold * 100)),
-    };
-  });
-}
+  const expectedMatrix = {
+    requirement: {
+      owner_role: "tender_manager",
+      required_action: "confirm requirement interpretation before supplier request",
+      status: "review_required",
+      confidence: 0.82,
+    },
+    supplier_quote: {
+      owner_role: "supplier_manager",
+      required_action: "request supplier clarification and keep economics blocked",
+      status: "blocked",
+      confidence: 0.64,
+    },
+    economics: {
+      owner_role: "finance_owner",
+      required_action: "finance owner must approve or keep outcome locked",
+      status: "blocked",
+      confidence: 0.74,
+    },
+  };
+  const seenFacts = new Set();
 
-function extractUiReviewQueue(source) {
-  const queueBlock = extractDelimitedBlock(source, "const lowConfidenceReviewQueue = [", "[", "]");
-  const objectBlocks = [...queueBlock.matchAll(/\{\n([\s\S]*?)\n  \},/g)].map((match) => match[1]);
-
-  return objectBlocks.map((block) => ({
-    fact: readTypescriptStringField(block, "fact"),
-    owner: readTypescriptStringField(block, "owner"),
-    action: readTypescriptStringField(block, "action"),
-    status: readTypescriptStringField(block, "status"),
-    confidence: readPercentField(block, "confidence"),
-    threshold: readPercentField(block, "threshold"),
-  }));
-}
-
-function extractDelimitedBlock(source, marker, openChar, closeChar) {
-  const markerIndex = source.indexOf(marker);
-  if (markerIndex === -1) {
-    throw new Error(`Marker not found: ${marker}`);
-  }
-
-  const start = source.indexOf(openChar, markerIndex);
-  if (start === -1) {
-    throw new Error(`Opening delimiter not found after marker: ${marker}`);
-  }
-
-  let depth = 0;
-  for (let index = start; index < source.length; index += 1) {
-    if (source[index] === openChar) {
-      depth += 1;
+  for (const item of fixture.queue) {
+    const expected = expectedMatrix[item.fact_type];
+    assert(Boolean(expected), `unexpected AI review fact_type ${item.fact_type}`);
+    if (!expected) {
+      continue;
     }
-    if (source[index] === closeChar) {
-      depth -= 1;
-      if (depth === 0) {
-        return source.slice(start + 1, index);
-      }
-    }
+
+    seenFacts.add(item.fact_type);
+    assert(item.owner_role === expected.owner_role, `wrong owner_role for ${item.fact_type}`);
+    assert(item.required_action === expected.required_action, `wrong required_action for ${item.fact_type}`);
+    assert(item.confidence === expected.confidence, `wrong confidence for ${item.fact_type}`);
+    assert(
+      statusForConfidence(item.confidence) === expected.status,
+      `wrong derived status for ${item.fact_type}`,
+    );
+    assert(item.confidence < fixture.confidence_threshold, `${item.fact_type} must stay below confidence threshold`);
+    assert(item.tender_id, `${item.fact_type} must keep tender_id`);
+    assert(Object.hasOwn(item, "document_id"), `${item.fact_type} must declare document_id even when null`);
+    assert(item.title, `${item.fact_type} must keep title`);
+    assert(item.extracted_value, `${item.fact_type} must keep extracted_value`);
+    assert(item.reason, `${item.fact_type} must keep reason`);
+    assert(item.source_host === "zakupki.gov.ru", `${item.fact_type} must keep source_host`);
   }
 
-  throw new Error(`Closing delimiter not found after marker: ${marker}`);
+  assert(equalSets(seenFacts, new Set(["requirement", "supplier_quote", "economics"])), "AI review fact types must match contract");
 }
 
-function readPythonStringField(block, field) {
-  return readStringField(block, `${field}\\s*=\\s*`);
+function statusForConfidence(confidence) {
+  return confidence < fixture.blocked_below_confidence ? "blocked" : "review_required";
 }
 
-function readTypescriptStringField(block, field) {
-  return readStringField(block, `${field}:\\s*`);
-}
-
-function readStringField(block, prefixPattern) {
-  const pattern = new RegExp(`${prefixPattern}"([^"]*)"`);
-  const match = block.match(pattern);
-  if (!match) {
-    throw new Error(`String field not found by pattern ${pattern}`);
+function assert(condition, message) {
+  if (!condition) {
+    failures.push(message);
   }
-  return match[1];
 }
 
-function readPythonNumberField(block, field) {
-  const pattern = new RegExp(`${field}\\s*=\\s*([0-9.]+)`);
-  const match = block.match(pattern);
-  if (!match) {
-    throw new Error(`Number field not found by pattern ${pattern}`);
-  }
-  return Number(match[1]);
-}
-
-function readPercentField(block, field) {
-  const value = readTypescriptStringField(block, field);
-  if (!value.endsWith("%")) {
-    throw new Error(`${field} must be formatted as a percent string`);
-  }
-  return value.slice(0, -1);
-}
-
-function formatValue(value) {
-  return value === undefined ? "<missing>" : JSON.stringify(value);
+function equalSets(left, right) {
+  return left.size === right.size && [...left].every((value) => right.has(value));
 }

@@ -17,6 +17,9 @@ MVP can generate TypeScript types from FastAPI OpenAPI once backend schemas stab
   connector. FastAPI `/v1/sources/connectors`, `/sources` UI and web parity smoke
   read the same contract-only status, CI policy, safe INN/OGRN requirement and
   approval list.
+- `ai-review-queue.json` is the shared low-confidence owner review queue. FastAPI
+  `/v1/ai/review-queue`, `/ai-review` UI and web parity smoke read the same
+  threshold, fact types, owner/action matrix and reasons.
 
 ## AI Schemas
 
@@ -28,4 +31,6 @@ MVP can generate TypeScript types from FastAPI OpenAPI once backend schemas stab
   owner/action matrix, restored unlock conditions and blocked AI gate counts.
 - It also checks `fns-connector-gate.json` for the Legal owner, contract-only
   status, CI policy and exact five approval gates.
+- It checks `ai-review-queue.json` for the three low-confidence fact types,
+  threshold, derived status and owner/action matrix.
 - GitHub Actions workflow `Shared validation` runs the same check for shared schema and fixture changes.

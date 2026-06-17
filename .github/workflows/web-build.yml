@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "apps/web/**"
+      - "packages/shared/ai-review-queue.json"
       - "packages/shared/fns-connector-gate.json"
       - "packages/shared/source-owner-receipts.json"
       - ".github/workflows/web-build.yml"
@@ -13,6 +14,7 @@ on:
       - "codex/**"
     paths:
       - "apps/web/**"
+      - "packages/shared/ai-review-queue.json"
       - "packages/shared/fns-connector-gate.json"
       - "packages/shared/source-owner-receipts.json"
       - ".github/workflows/web-build.yml"

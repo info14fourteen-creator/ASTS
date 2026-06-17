@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "apps/api/**"
+      - "packages/shared/ai-review-queue.json"
       - "packages/shared/fns-connector-gate.json"
       - "packages/shared/source-owner-receipts.json"
       - "docs/19-continuation-70-step-plan-ru.md"
@@ -14,6 +15,7 @@ on:
       - "codex/**"
     paths:
       - "apps/api/**"
+      - "packages/shared/ai-review-queue.json"
       - "packages/shared/fns-connector-gate.json"
       - "packages/shared/source-owner-receipts.json"
       - "docs/19-continuation-70-step-plan-ru.md"

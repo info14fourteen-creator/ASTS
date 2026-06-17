@@ -1,4 +1,5 @@
 import { Sidebar } from "../app-shell";
+import aiReviewQueueFixture from "../../../../packages/shared/ai-review-queue.json";
 
 const reviewItems = [
   ["Техническое задание", "Требования к поставке найдены, 2 позиции требуют ручной проверки", "82%", "review"],
@@ -42,44 +43,24 @@ const confidenceBands = [
   ["< 60%", "заблокировать вывод до новых данных", "blocked"],
 ];
 
-const lowConfidenceReviewQueue = [
-  {
-    fact: "requirement",
-    title: "Требование к поставке серверов",
-    value: "2 позиции требуют ручной проверки аналогов",
-    confidence: "82%",
-    threshold: "85%",
-    status: "review_required",
-    owner: "tender_manager",
-    evidence: "raw-eis-0373100042626000001",
-    source: "zakupki.gov.ru",
-    action: "confirm requirement interpretation before supplier request",
-  },
-  {
-    fact: "supplier_quote",
-    title: "Логистика поставщика по двум регионам",
-    value: "нет подтверждения логистики ЦФО",
-    confidence: "64%",
-    threshold: "85%",
-    status: "blocked",
-    owner: "supplier_manager",
-    evidence: "raw-eis-32211984571",
-    source: "zakupki.gov.ru",
-    action: "request supplier clarification and keep economics blocked",
-  },
-  {
-    fact: "economics",
-    title: "Маржинальность после обеспечения",
-    value: "плановая маржа ниже внутреннего порога",
-    confidence: "74%",
-    threshold: "85%",
-    status: "blocked",
-    owner: "finance_owner",
-    evidence: "raw-eis-0173200001426000044",
-    source: "zakupki.gov.ru",
-    action: "finance owner must approve or keep outcome locked",
-  },
-];
+const rawArtifactByTender = {
+  "0373100042626000001": "raw-eis-0373100042626000001",
+  "322119845710000001": "raw-eis-32211984571",
+  "0173200001426000044": "raw-eis-0173200001426000044",
+};
+
+const lowConfidenceReviewQueue = aiReviewQueueFixture.queue.map((item) => ({
+  fact: item.fact_type,
+  title: item.title,
+  value: item.extracted_value,
+  confidence: `${Math.round(item.confidence * 100)}%`,
+  threshold: `${Math.round(aiReviewQueueFixture.confidence_threshold * 100)}%`,
+  status: item.confidence < aiReviewQueueFixture.blocked_below_confidence ? "blocked" : "review_required",
+  owner: item.owner_role,
+  evidence: rawArtifactByTender[item.tender_id as keyof typeof rawArtifactByTender],
+  source: item.source_host,
+  action: item.required_action,
+}));
 
 const lowConfidenceBrowserLoop = {
   status: "armed",

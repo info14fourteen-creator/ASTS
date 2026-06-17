@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить AI review shared fixture", "перенести owner/action matrix в общий JSON для API и web"],
-  ["2", "Добавить source receipt docs link browser assertion", "проверить ссылку через Browser DOM loop"],
-  ["3", "Добавить source owner receipt fixture schema", "описать JSON schema для shared owner receipts"],
-  ["4", "Добавить FNS connector fixture schema", "описать JSON schema для FNS network gate"],
+  ["1", "Добавить source receipt docs link browser assertion", "проверить ссылку через Browser DOM loop"],
+  ["2", "Добавить source owner receipt fixture schema", "описать JSON schema для shared owner receipts"],
+  ["3", "Добавить FNS connector fixture schema", "описать JSON schema для FNS network gate"],
+  ["4", "Добавить AI review fixture schema", "описать JSON schema для AI review queue"],
 ];
 
 const cycleRules = [
