@@ -1,5 +1,6 @@
 import { Sidebar } from "../app-shell";
 import aiReviewQueueFixture from "../../../../packages/shared/ai-review-queue.json";
+import aiReviewQueueSchema from "../../../../packages/shared/fixture-schemas/ai-review-queue.schema.json";
 
 const reviewItems = [
   ["Техническое задание", "Требования к поставке найдены, 2 позиции требуют ручной проверки", "82%", "review"],
@@ -42,6 +43,17 @@ const confidenceBands = [
   ["60-74%", "создать задачу ручной проверки", "manual"],
   ["< 60%", "заблокировать вывод до новых данных", "blocked"],
 ];
+
+const aiReviewSchemaSummary = {
+  schemaId: aiReviewQueueSchema.$id,
+  checkCount: 14,
+  threshold: aiReviewQueueFixture.confidence_threshold,
+  blockedBelow: aiReviewQueueFixture.blocked_below_confidence,
+  factTypes: aiReviewQueueSchema.definitions.fact_type.enum,
+  ownerRoles: aiReviewQueueSchema.definitions.owner_role.enum,
+  sourceHost: aiReviewQueueSchema.definitions.source_host.const,
+  protectedSurface: "/v1/ai/review-queue + /ai-review",
+};
 
 const rawArtifactByTender = {
   "0373100042626000001": "raw-eis-0373100042626000001",
@@ -204,6 +216,45 @@ export default function AiReviewPage() {
                 <span>{band}</span>
                 <strong>{action}</strong>
                 <p>{state}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel ai-confidence-browser-loop-panel"
+          data-blocked-below={aiReviewSchemaSummary.blockedBelow}
+          data-check-count={aiReviewSchemaSummary.checkCount}
+          data-fact-types={aiReviewSchemaSummary.factTypes.join(",")}
+          data-owner-roles={aiReviewSchemaSummary.ownerRoles.join(",")}
+          data-protected-surface={aiReviewSchemaSummary.protectedSurface}
+          data-schema-id={aiReviewSchemaSummary.schemaId}
+          data-source-host={aiReviewSchemaSummary.sourceHost}
+          data-testid="ai-review-schema-summary"
+          data-threshold={aiReviewSchemaSummary.threshold}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review schema summary</p>
+              <h2>Как shared schema защищает low-confidence очередь</h2>
+            </div>
+            <span className="status-pill green">schema protected</span>
+          </div>
+          <div className="ai-confidence-browser-loop-grid">
+            {[
+              ["Schema", aiReviewSchemaSummary.schemaId, aiReviewSchemaSummary.protectedSurface],
+              [
+                "Thresholds",
+                `${aiReviewSchemaSummary.threshold} / ${aiReviewSchemaSummary.blockedBelow}`,
+                "auto threshold / blocked below confidence",
+              ],
+              ["Fact types", aiReviewSchemaSummary.factTypes.join(", "), "requirement, supplier quote, economics"],
+              ["Source host", aiReviewSchemaSummary.sourceHost, "только официальный zakupki.gov.ru"],
+            ].map(([title, value, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>{value}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>
