@@ -100,6 +100,9 @@ jobs:
       - name: Smoke shared validation failure copy
         run: npm run smoke:shared-validation-failure-copy
 
+      - name: Smoke shared validation rendered routes failure copy
+        run: npm run smoke:shared-validation-rendered-route-failure-copy
+
       - name: Smoke web build workflow file
         run: npm run smoke:web-build-workflow
 

@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить shared validation rendered-route failure copy", "показать owner-friendly текст при падении rendered route coverage"],
-  ["2", "Добавить AI review API README rendered-route failure copy", "показать owner-friendly текст при падении API docs live parity"],
-  ["3", "Добавить API README trigger rendered-route failure copy", "показать owner-friendly текст при падении trigger/live parity chain"],
-  ["4", "Добавить schema docs rendered-route failure copy", "показать owner-friendly текст при падении schema docs live parity"],
+  ["1", "Добавить AI review API README rendered-route failure copy", "показать owner-friendly текст при падении API docs live parity"],
+  ["2", "Добавить API README trigger rendered-route failure copy", "показать owner-friendly текст при падении trigger/live parity chain"],
+  ["3", "Добавить schema docs rendered-route failure copy", "показать owner-friendly текст при падении schema docs live parity"],
+  ["4", "Добавить source owner receipts rendered-route failure copy", "показать owner-friendly текст при падении source receipts route coverage"],
 ];
 
 const cycleRules = [
@@ -264,6 +264,27 @@ const sharedValidationFailureCopy = {
     ["Fix order", "сначала восстановить schemas/fixtures на 14 checks, затем `/plan` markers и Web build step"],
     ["Owner", "Schema owner подтверждает data contract, CI owner подтверждает workflow order"],
     ["No merge", "не мержить, пока shared validation smoke и route smoke снова не зеленые"],
+  ],
+};
+
+const sharedValidationRenderedRouteFailureCopy = {
+  command: "npm run smoke:shared-validation-rendered-route-failure-copy",
+  expectedRouteCount: 16,
+  failingCommand: sharedValidationLiveRouteGateNote.routeSmokeCommand,
+  noMergeCopy: "Не мержить, пока rendered routes smoke снова покрывает shared validation markers на живом `/plan`",
+  ownerRole: "Schema owner + QA owner",
+  repairTargets:
+    "apps/web/scripts/smoke.mjs,apps/web/app/plan/page.tsx,packages/shared/**,/plan,[data-testid='shared-validation-failure-copy']",
+  sourceMarkerSelector: "[data-testid='shared-validation-failure-copy']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checkCount: sharedValidationFailureCopy.checkCount,
+  checks: [
+    ["Symptom", "финальный rendered routes smoke не видит shared validation markers или no-merge copy на `/plan`"],
+    ["Fix order", "сначала восстановить shared validation failure copy, затем route smoke expectations и 16 rendered routes"],
+    ["Owner", "Schema owner подтверждает 14 shared checks, QA owner подтверждает живой route coverage"],
+    ["No merge", "не мержить, пока shared validation markers снова не проходят rendered routes smoke"],
   ],
 };
 
@@ -613,7 +634,7 @@ const schemaDocsReadmeFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 29,
+  expectedCommandCount: 30,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -640,6 +661,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='shared-validation-workflow-failure-copy']",
     "[data-testid='shared-validation-live-route-gate-note']",
     "[data-testid='shared-validation-failure-copy']",
+    "[data-testid='shared-validation-rendered-route-failure-copy']",
     "[data-testid='web-build-workflow-self-check-note']",
     "[data-testid='web-build-live-route-gate-note']",
     "[data-testid='web-build-failure-copy']",
@@ -648,7 +670,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 29 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 30 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -1259,6 +1281,45 @@ export default function PlanPage() {
               <article className="fixture-coverage-card" key={title}>
                 <span>{title}</span>
                 <strong>{title === "No merge" ? sharedValidationFailureCopy.noMergeCopy : sharedValidationFailureCopy.command}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-check-count={sharedValidationRenderedRouteFailureCopy.checkCount}
+          data-command={sharedValidationRenderedRouteFailureCopy.command}
+          data-expected-route-count={sharedValidationRenderedRouteFailureCopy.expectedRouteCount}
+          data-failing-command={sharedValidationRenderedRouteFailureCopy.failingCommand}
+          data-no-merge-copy={sharedValidationRenderedRouteFailureCopy.noMergeCopy}
+          data-owner-role={sharedValidationRenderedRouteFailureCopy.ownerRole}
+          data-repair-targets={sharedValidationRenderedRouteFailureCopy.repairTargets}
+          data-source-marker-selector={sharedValidationRenderedRouteFailureCopy.sourceMarkerSelector}
+          data-testid="shared-validation-rendered-route-failure-copy"
+          data-workflow-href={sharedValidationRenderedRouteFailureCopy.workflowHref}
+          data-workflow-name={sharedValidationRenderedRouteFailureCopy.workflowName}
+          data-workflow-path={sharedValidationRenderedRouteFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Shared validation rendered-route failure copy</p>
+              <h2>Что делать, если shared validation пропала в rendered routes</h2>
+            </div>
+            <a className="primary-link" href={sharedValidationRenderedRouteFailureCopy.workflowHref}>
+              {sharedValidationRenderedRouteFailureCopy.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sharedValidationRenderedRouteFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? sharedValidationRenderedRouteFailureCopy.noMergeCopy
+                    : sharedValidationRenderedRouteFailureCopy.failingCommand}
+                </strong>
                 <p>{text}</p>
               </article>
             ))}
