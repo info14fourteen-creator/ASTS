@@ -5,142 +5,114 @@ import { fileURLToPath } from "node:url";
 const webRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const repoRoot = resolve(webRoot, "../..");
 
+const fixturePath = resolve(repoRoot, "packages/shared/source-owner-receipts.json");
 const apiServicePath = resolve(repoRoot, "apps/api/app/services/source_owner_receipts.py");
 const sourcesPagePath = resolve(webRoot, "app/sources/page.tsx");
 
+const fixture = JSON.parse(readFileSync(fixturePath, "utf8"));
 const apiService = readFileSync(apiServicePath, "utf8");
 const sourcesPage = readFileSync(sourcesPagePath, "utf8");
 
-const apiHistory = extractApiHistory(apiService);
-const uiHistory = extractUiHistory(sourcesPage);
-
-const parityFields = [
-  ["id", "id"],
-  ["breach_type", "breachType"],
-  ["owner_role", "owner"],
-  ["action", "action"],
-  ["resolution_status", "resolution"],
-  ["raw_artifact_id", "rawArtifact"],
-  ["checksum_sha256", "checksum"],
-  ["ai_gate", "aiGate"],
-  ["audit_note", "note"],
-];
-
 const failures = [];
 
-if (apiHistory.length !== uiHistory.length) {
-  failures.push(`history length mismatch: api=${apiHistory.length}, ui=${uiHistory.length}`);
+if (!apiService.includes("packages/shared/source-owner-receipts.json")) {
+  failures.push("API service must load packages/shared/source-owner-receipts.json");
 }
 
-for (const [index, apiReceipt] of apiHistory.entries()) {
-  const uiReceipt = uiHistory[index];
-  if (!uiReceipt) {
-    continue;
-  }
-
-  for (const [apiField, uiField] of parityFields) {
-    if (apiReceipt[apiField] !== uiReceipt[uiField]) {
-      failures.push(
-        `receipt[${index}] ${apiField}/${uiField} mismatch: api=${formatValue(apiReceipt[apiField])}, ui=${formatValue(uiReceipt[uiField])}`,
-      );
-    }
-  }
+if (!sourcesPage.includes("../../../../packages/shared/source-owner-receipts.json")) {
+  failures.push("/sources page must import packages/shared/source-owner-receipts.json");
 }
 
-const apiIds = apiHistory.map((receipt) => receipt.id).join(",");
-const uiIds = uiHistory.map((receipt) => receipt.id).join(",");
-if (apiIds !== uiIds) {
-  failures.push(`history id order mismatch: api=${apiIds}, ui=${uiIds}`);
-}
+validateFixtureShape();
+validateHistoryMatrix();
+validateRuleMatrix();
 
 if (failures.length > 0) {
-  console.error("FAIL source owner receipt history parity");
+  console.error("FAIL source owner receipt shared fixture parity");
   for (const failure of failures) {
     console.error(`  ${failure}`);
   }
   process.exit(1);
 }
 
-console.log(`PASS source owner receipt history parity (${apiHistory.length} rows)`);
+console.log(`PASS source owner receipt shared fixture parity (${fixture.rules.length} rules, ${fixture.history.length} history rows)`);
 
-function extractApiHistory(source) {
-  const historyBlock = extractDelimitedBlock(source, "history = [", "[", "]");
-  const itemBlocks = [...historyBlock.matchAll(/SourceOwnerReceiptHistoryItem\(([\s\S]*?)\),/g)].map((match) => match[1]);
+function validateFixtureShape() {
+  assert(fixture.version === "0.1.0", "fixture version must stay 0.1.0");
+  assert(typeof fixture.rule === "string" && fixture.rule.includes("explicit owner receipts"), "fixture rule must describe explicit owner receipts");
+  assert(Array.isArray(fixture.receipt_required_fields), "fixture must include receipt_required_fields");
+  assert(Array.isArray(fixture.rules) && fixture.rules.length === 4, "fixture must include 4 owner receipt rules");
+  assert(Array.isArray(fixture.history) && fixture.history.length === 4, "fixture must include 4 owner receipt history rows");
 
-  return itemBlocks.map((block) => ({
-    id: readPythonStringField(block, "id"),
-    breach_type: readPythonStringField(block, "breach_type"),
-    owner_role: readPythonStringField(block, "owner_role"),
-    action: readPythonStringField(block, "action"),
-    resolution_status: readPythonStringField(block, "resolution_status"),
-    raw_artifact_id: readPythonStringField(block, "raw_artifact_id"),
-    checksum_sha256: readPythonStringField(block, "checksum_sha256"),
-    ai_gate: readPythonStringField(block, "ai_gate"),
-    audit_note: readPythonStringField(block, "audit_note"),
-  }));
+  for (const field of [
+    "breach_id",
+    "owner_id",
+    "owner_role",
+    "action",
+    "resolution_status",
+    "resolved_at",
+    "new_raw_artifact_id",
+    "new_checksum_sha256",
+    "audit_note",
+  ]) {
+    assert(fixture.receipt_required_fields.includes(field), `receipt_required_fields must include ${field}`);
+  }
 }
 
-function extractUiHistory(source) {
-  const historyBlock = extractDelimitedBlock(source, "const sourceOwnerReceiptHistory = [", "[", "]");
-  const objectBlocks = [...historyBlock.matchAll(/\{\n([\s\S]*?)\n  \},/g)].map((match) => match[1]);
+function validateRuleMatrix() {
+  const expectedActions = {
+    stale: "refresh_primary_payload",
+    missing: "fetch_missing_artifact",
+    parse_failed: "manual_schema_review",
+    hash_mismatch: "refetch_and_compare",
+  };
+  const breachTypes = new Set();
 
-  return objectBlocks.map((block) => ({
-    id: readTypescriptStringField(block, "id"),
-    breachType: readTypescriptStringField(block, "breachType"),
-    owner: readTypescriptStringField(block, "owner"),
-    action: readTypescriptStringField(block, "action"),
-    resolution: readTypescriptStringField(block, "resolution"),
-    rawArtifact: readTypescriptStringField(block, "rawArtifact"),
-    checksum: readTypescriptStringField(block, "checksum"),
-    aiGate: readTypescriptStringField(block, "aiGate"),
-    note: readTypescriptStringField(block, "note"),
-  }));
-}
-
-function extractDelimitedBlock(source, marker, openChar, closeChar) {
-  const markerIndex = source.indexOf(marker);
-  if (markerIndex === -1) {
-    throw new Error(`Marker not found: ${marker}`);
+  for (const rule of fixture.rules) {
+    breachTypes.add(rule.breach_type);
+    assert(rule.action === expectedActions[rule.breach_type], `wrong action for ${rule.breach_type}`);
+    assert(Array.isArray(rule.allowed_resolution_statuses), `${rule.breach_type} must declare allowed statuses`);
+    assert(rule.allowed_resolution_statuses.includes("restored"), `${rule.breach_type} must allow restored status`);
+    assert(Array.isArray(rule.required_fields_extra), `${rule.breach_type} must declare extra required fields`);
+    assert(rule.ai_gate_unlock_condition.includes('resolution_status="restored"'), `${rule.breach_type} must require restored unlock`);
+    assert(typeof rule.evidence_rule === "string" && rule.evidence_rule.length > 0, `${rule.breach_type} must declare evidence rule`);
   }
 
-  const start = source.indexOf(openChar, markerIndex);
-  if (start === -1) {
-    throw new Error(`Opening delimiter not found after marker: ${marker}`);
+  assert(
+    equalSets(breachTypes, new Set(["stale", "missing", "parse_failed", "hash_mismatch"])),
+    "rule breach types must be stale/missing/parse_failed/hash_mismatch",
+  );
+}
+
+function validateHistoryMatrix() {
+  const statuses = new Set();
+  const aiGates = new Set();
+  const ids = new Set();
+
+  for (const receipt of fixture.history) {
+    assert(!ids.has(receipt.id), `duplicate receipt id ${receipt.id}`);
+    ids.add(receipt.id);
+    statuses.add(receipt.resolution_status);
+    aiGates.add(receipt.ai_gate);
+    assert(receipt.raw_artifact_id, `${receipt.id} must keep raw_artifact_id`);
+    assert(receipt.checksum_sha256, `${receipt.id} must keep checksum_sha256`);
+    assert(receipt.audit_note, `${receipt.id} must keep audit_note`);
   }
 
-  let depth = 0;
-  for (let index = start; index < source.length; index += 1) {
-    if (source[index] === openChar) {
-      depth += 1;
-    }
-    if (source[index] === closeChar) {
-      depth -= 1;
-      if (depth === 0) {
-        return source.slice(start + 1, index);
-      }
-    }
+  assert(equalSets(statuses, new Set(["restored", "accepted_with_note", "still_blocked"])), "history statuses must match contract");
+  assert(equalSets(aiGates, new Set(["ready_after_receipt", "blocked_until_restored"])), "history AI gates must match contract");
+  assert(
+    fixture.history.filter((receipt) => receipt.ai_gate === "blocked_until_restored").length === 2,
+    "history must keep exactly 2 blocked_until_restored rows",
+  );
+}
+
+function assert(condition, message) {
+  if (!condition) {
+    failures.push(message);
   }
-
-  throw new Error(`Closing delimiter not found after marker: ${marker}`);
 }
 
-function readPythonStringField(block, field) {
-  return readStringField(block, `${field}\\s*=\\s*`);
-}
-
-function readTypescriptStringField(block, field) {
-  return readStringField(block, `${field}:\\s*`);
-}
-
-function readStringField(block, prefixPattern) {
-  const pattern = new RegExp(`${prefixPattern}"([^"]*)"`);
-  const match = block.match(pattern);
-  if (!match) {
-    throw new Error(`String field not found by pattern ${pattern}`);
-  }
-  return match[1];
-}
-
-function formatValue(value) {
-  return value === undefined ? "<missing>" : JSON.stringify(value);
+function equalSets(left, right) {
+  return left.size === right.size && [...left].every((value) => right.has(value));
 }

@@ -112,9 +112,9 @@ UI не должен скрывать карточку и переводить A
   `data-api-route="/v1/sources/owner-receipts"`, чтобы ручные freshness receipt
   были связаны с backend-контрактом прямо из `/sources`.
 - `npm run smoke:owner-receipts` сравнивает backend history fixture из
-  `apps/api/app/services/source_owner_receipts.py` и UI seed в `/sources` по id,
-  owner/action, resolution, raw artifact, checksum, AI gate и audit note; web CI
-  запускает этот parity check после `npm run build`.
+  `packages/shared/source-owner-receipts.json` с API/web подключением, а shared
+  validation проверяет owner/action, resolution, raw artifact, checksum, AI gate
+  и audit note; web CI запускает этот parity check после `npm run build`.
 
 ## FNS Smoke UI Contract
 

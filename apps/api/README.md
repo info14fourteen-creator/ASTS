@@ -108,9 +108,11 @@ The `/sources` UI mirrors this backend fixture through
 The visible `/sources` history loop also links back here through
 `data-testid="source-owner-receipt-docs-link"`, keeping the UI audit trace tied
 to this source owner receipt contract.
-The web `npm run smoke:owner-receipts` parity check compares this backend
-history fixture with the `/sources` UI seed so owner/action, resolution, raw
-artifact, checksum, AI gate and audit note changes cannot drift silently.
+Both this endpoint and the `/sources` UI read
+`packages/shared/source-owner-receipts.json`; the web `npm run
+smoke:owner-receipts` and shared validation checks keep owner/action,
+resolution, raw artifact, checksum, AI gate and audit note changes from drifting
+silently.
 
 ## AI Review Queue Contract
 

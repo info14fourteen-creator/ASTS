@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "apps/web/**"
+      - "packages/shared/source-owner-receipts.json"
       - ".github/workflows/web-build.yml"
   push:
     branches:
@@ -11,6 +12,7 @@ on:
       - "codex/**"
     paths:
       - "apps/web/**"
+      - "packages/shared/source-owner-receipts.json"
       - ".github/workflows/web-build.yml"
   workflow_dispatch:
 

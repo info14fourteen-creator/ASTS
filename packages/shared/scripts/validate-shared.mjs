@@ -38,6 +38,7 @@ const checks = [
       ),
   ],
   ["demo data fixture", validateDemoData],
+  ["source owner receipts fixture", validateSourceOwnerReceipts],
 ];
 
 const failures = [];
@@ -128,6 +129,73 @@ function validateDemoData() {
     assert(tenderIds.has(task.tender_id), `task ${task.task_id} references unknown tender`);
     assert(typeof task.requires_human_approval === "boolean", `task ${task.task_id} must declare approval gate`);
   }
+}
+
+function validateSourceOwnerReceipts() {
+  const fixture = readJson("source-owner-receipts.json");
+  assert(fixture.version === "0.1.0", "source owner receipts version must stay 0.1.0");
+  assertNonEmptyString(fixture.rule, "source owner receipts rule");
+  assert(Array.isArray(fixture.receipt_required_fields), "source owner receipts must include receipt_required_fields");
+  assert(Array.isArray(fixture.rules) && fixture.rules.length === 4, "source owner receipts must include 4 rules");
+  assert(Array.isArray(fixture.history) && fixture.history.length === 4, "source owner receipts must include 4 history rows");
+
+  const requiredFields = new Set(fixture.receipt_required_fields);
+  for (const field of [
+    "breach_id",
+    "owner_id",
+    "owner_role",
+    "action",
+    "resolution_status",
+    "resolved_at",
+    "new_raw_artifact_id",
+    "new_checksum_sha256",
+    "audit_note",
+  ]) {
+    assert(requiredFields.has(field), `source owner receipts missing required field ${field}`);
+  }
+
+  const expectedActions = {
+    stale: "refresh_primary_payload",
+    missing: "fetch_missing_artifact",
+    parse_failed: "manual_schema_review",
+    hash_mismatch: "refetch_and_compare",
+  };
+  const breachTypes = new Set();
+  for (const rule of fixture.rules) {
+    breachTypes.add(rule.breach_type);
+    assert(expectedActions[rule.breach_type] === rule.action, `wrong owner receipt action for ${rule.breach_type}`);
+    assertNonEmptyString(rule.owner_role, `owner receipt owner_role for ${rule.breach_type}`);
+    assertArrayIncludes(rule.allowed_resolution_statuses, ["restored"], `owner receipt statuses for ${rule.breach_type}`);
+    assert(Array.isArray(rule.required_fields_extra), `owner receipt extra fields for ${rule.breach_type}`);
+    assert(
+      rule.ai_gate_unlock_condition?.includes('resolution_status="restored"'),
+      `owner receipt unlock condition for ${rule.breach_type} must require restored`,
+    );
+    assertNonEmptyString(rule.evidence_rule, `owner receipt evidence rule for ${rule.breach_type}`);
+  }
+  assertArrayIncludes([...breachTypes], ["stale", "missing", "parse_failed", "hash_mismatch"], "owner receipt breach types");
+
+  const historyStatuses = new Set();
+  const historyAiGates = new Set();
+  const historyIds = new Set();
+  for (const receipt of fixture.history) {
+    assertNonEmptyString(receipt.id, "owner receipt history id");
+    assert(!historyIds.has(receipt.id), `duplicate owner receipt history id ${receipt.id}`);
+    historyIds.add(receipt.id);
+    assert(expectedActions[receipt.breach_type] === receipt.action, `wrong owner receipt history action for ${receipt.breach_type}`);
+    assertNonEmptyString(receipt.owner_role, `owner receipt history owner for ${receipt.id}`);
+    assertNonEmptyString(receipt.raw_artifact_id, `owner receipt history raw artifact for ${receipt.id}`);
+    assertNonEmptyString(receipt.checksum_sha256, `owner receipt history checksum for ${receipt.id}`);
+    assertNonEmptyString(receipt.audit_note, `owner receipt history audit note for ${receipt.id}`);
+    historyStatuses.add(receipt.resolution_status);
+    historyAiGates.add(receipt.ai_gate);
+  }
+  assertArrayIncludes([...historyStatuses], ["restored", "accepted_with_note", "still_blocked"], "owner receipt history statuses");
+  assertArrayIncludes([...historyAiGates], ["ready_after_receipt", "blocked_until_restored"], "owner receipt history AI gates");
+  assert(
+    fixture.history.filter((receipt) => receipt.ai_gate === "blocked_until_restored").length === 2,
+    "owner receipt history must keep 2 blocked_until_restored rows",
+  );
 }
 
 function validateOutcome(outcome, tender, outcomeFunnels) {
