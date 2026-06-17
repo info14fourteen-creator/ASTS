@@ -82,6 +82,9 @@ jobs:
       - name: Smoke web build workflow file
         run: npm run smoke:web-build-workflow
 
+      - name: Smoke web build workflow self-check
+        run: npm run smoke:web-build-self-check
+
       - name: Smoke API README trigger path
         run: npm run smoke:api-readme-trigger
 

@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить web build workflow CI self-check note", "показать, что workflow smoke запускает сам себя"],
-  ["2", "Добавить API README live route gate note", "показать, что live DOM parity защищает API docs links"],
-  ["3", "Добавить schema docs README live route gate note", "показать, что schema docs links защищены live route smoke"],
-  ["4", "Добавить shared validation live route gate note", "показать, что shared validation note защищен route smoke"],
+  ["1", "Добавить API README live route gate note", "показать, что live DOM parity защищает API docs links"],
+  ["2", "Добавить schema docs README live route gate note", "показать, что schema docs links защищены live route smoke"],
+  ["3", "Добавить shared validation live route gate note", "показать, что shared validation note защищен route smoke"],
+  ["4", "Добавить web build route gate note", "показать, что web build self-check защищен route smoke"],
 ];
 
 const cycleRules = [
@@ -394,7 +394,7 @@ const schemaDocsReadmeWorkflowSmoke = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 14,
+  expectedCommandCount: 15,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -410,12 +410,30 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='schema-docs-readme-workflow-smoke']",
     "[data-testid='shared-validation-workflow-ci-note']",
     "[data-testid='shared-validation-workflow-step-smoke']",
+    "[data-testid='web-build-workflow-self-check-note']",
   ],
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 14 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 15 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
+  ],
+};
+
+const webBuildWorkflowSelfCheckNote = {
+  command: "npm run smoke:web-build-self-check",
+  fileSmokeCommand: webBuildWorkflowFileSmoke.command,
+  fileSmokeSelector: "[data-testid='web-build-workflow-file-smoke']",
+  sourceSmokeCommand: webBuildWorkflowFileSmoke.smokeCommand,
+  triggerPath: ".github/workflows/web-build.yml",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: webBuildWorkflowFileSmoke.workflowName,
+  workflowPath: webBuildWorkflowFileSmoke.workflowPath,
+  checks: [
+    ["Self trigger", ".github/workflows/web-build.yml запускает Web build при изменении workflow"],
+    ["File smoke", "Web build сначала запускает smoke:web-build-workflow"],
+    ["Self-check step", "Web build затем запускает smoke:web-build-self-check до route smoke"],
+    ["Plan marker", "`/plan` показывает, что workflow smoke защищает собственный CI"],
   ],
 };
 
@@ -1204,6 +1222,40 @@ export default function PlanPage() {
               <article className="fixture-coverage-card" key={title}>
                 <span>{title}</span>
                 <strong>{title === "Commands" ? webBuildWorkflowFileSmoke.command : webBuildWorkflowFileSmoke.workflowPath}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-command={webBuildWorkflowSelfCheckNote.command}
+          data-file-smoke-command={webBuildWorkflowSelfCheckNote.fileSmokeCommand}
+          data-file-smoke-selector={webBuildWorkflowSelfCheckNote.fileSmokeSelector}
+          data-source-smoke-command={webBuildWorkflowSelfCheckNote.sourceSmokeCommand}
+          data-testid="web-build-workflow-self-check-note"
+          data-trigger-path={webBuildWorkflowSelfCheckNote.triggerPath}
+          data-workflow-href={webBuildWorkflowSelfCheckNote.workflowHref}
+          data-workflow-name={webBuildWorkflowSelfCheckNote.workflowName}
+          data-workflow-path={webBuildWorkflowSelfCheckNote.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Web build workflow self-check note</p>
+              <h2>Как Web build проверяет собственный workflow</h2>
+            </div>
+            <a className="primary-link" href={webBuildWorkflowSelfCheckNote.workflowHref}>
+              {webBuildWorkflowSelfCheckNote.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {webBuildWorkflowSelfCheckNote.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Self trigger" ? webBuildWorkflowSelfCheckNote.triggerPath : webBuildWorkflowSelfCheckNote.command}
+                </strong>
                 <p>{text}</p>
               </article>
             ))}
