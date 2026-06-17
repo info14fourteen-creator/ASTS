@@ -200,3 +200,6 @@ The `/sources` UI links its `fns-network-gate-browser-loop` block back to this
 section through `data-testid="fns-network-gate-docs-link"` and
 `data-api-route="/v1/sources/connectors"` so Legal approval rules and CI
 behavior stay traceable from the visible workdesk to the connector contract.
+The web `npm run smoke:fns-approvals` parity check compares
+`REAL_NETWORK_SMOKE_APPROVALS` with the `/sources` UI gate so Legal owner,
+status, CI policy, safe test pair and approval order cannot drift silently.

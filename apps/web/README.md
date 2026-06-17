@@ -147,6 +147,9 @@ FNS network gate browser loop обязан показывать ссылку н�
 Эта ссылка ведет к разделу `FNS Smoke Contract`, где описаны Legal owner,
 approval list, safe INN/OGRN pair и запрет CI на внешний вызов ФНС до явного
 разрешения.
+- `npm run smoke:fns-approvals` сравнивает API `REAL_NETWORK_SMOKE_APPROVALS`
+  и `/sources` UI gate по owner, status, CI policy, safe test pair и точному
+  порядку approval list; web CI запускает этот parity check после build.
 
 ## AI Review UI Contract
 
