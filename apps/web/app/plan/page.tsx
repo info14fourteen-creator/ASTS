@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить schema validation summary card", "показать на /plan какие fixture schemas уже защищены"],
-  ["2", "Добавить AI review schema browser summary", "показать threshold и fact types в /ai-review"],
-  ["3", "Добавить schema docs browser link", "связать /plan с packages/shared README"],
-  ["4", "Добавить shared validation browser loop", "закрепить 14 checks и CI paths в /plan"],
+  ["1", "Добавить AI review schema browser summary", "показать threshold и fact types в /ai-review"],
+  ["2", "Добавить schema docs browser link", "связать /plan с packages/shared README"],
+  ["3", "Добавить shared validation browser loop", "закрепить 14 checks и CI paths в /plan"],
+  ["4", "Добавить fixture schema checklist smoke", "проверить schema ids и команды из shared README"],
 ];
 
 const cycleRules = [
@@ -93,6 +93,24 @@ const fixtureCoverageCards = [
     "Outcome states",
     `${fixtureCoverage.outcomeStates.suggested}/${fixtureCoverage.outcomeStates.locked}/${fixtureCoverage.outcomeStates.approved}`,
     "suggested / locked / approved под route smoke",
+  ],
+];
+
+const schemaValidationCards = [
+  [
+    "Source owner receipts",
+    "source-owner-receipts.schema.json",
+    "freshness blockers, owner roles, resolution statuses, AI gates",
+  ],
+  [
+    "FNS connector gate",
+    "fns-connector-gate.schema.json",
+    "Legal owner, contract-only network policy, exact approval checklist",
+  ],
+  [
+    "AI review queue",
+    "ai-review-queue.schema.json",
+    "confidence thresholds, fact types, owner roles, zakupki.gov.ru evidence",
   ],
 ];
 
@@ -323,6 +341,31 @@ export default function PlanPage() {
                 </article>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-check-count="14"
+          data-schema-count={schemaValidationCards.length}
+          data-schema-ids={schemaValidationCards.map(([, schema]) => schema).join(",")}
+          data-testid="schema-validation-summary-card"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Schema validation summary</p>
+              <h2>Какие fixture schemas уже защищены</h2>
+            </div>
+            <span className="status-pill green">14 shared checks</span>
+          </div>
+          <div className="fixture-coverage-grid">
+            {schemaValidationCards.map(([title, schema, text]) => (
+              <article className="fixture-coverage-card" data-schema-id={schema} key={schema}>
+                <span>{title}</span>
+                <strong>{schema}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
           </div>
         </section>
 
