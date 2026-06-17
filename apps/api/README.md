@@ -175,3 +175,7 @@ to accept approved credentials later:
 Real INN/OGRN smoke is a separate future gate. It can be enabled only after the
 owner records every `network_smoke_gate.required_approvals` item. Until then,
 CI must keep testing the contract shape, not external FNS availability.
+
+The `/sources` UI links its `fns-network-gate-browser-loop` block back to this
+section through `data-testid="fns-network-gate-docs-link"` so Legal approval
+rules and CI behavior stay traceable from the visible workdesk.

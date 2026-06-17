@@ -98,6 +98,7 @@ const fnsRealNetworkSmokeGate = {
 const fnsNetworkGateBrowserLoop = {
   route: "/sources",
   selector: "[data-testid='fns-real-network-smoke-gate'] [data-approval]",
+  docsHref: "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#fns-smoke-contract",
   expectedStatus: fnsRealNetworkSmokeGate.status,
   expectedOwner: fnsRealNetworkSmokeGate.owner,
   expectedApprovalCount: fnsRealNetworkSmokeGate.requiredApprovals.length,
@@ -445,6 +446,7 @@ export default function SourcesPage() {
           data-approval-count={fnsNetworkGateBrowserLoop.expectedApprovalCount}
           data-ci-policy={fnsRealNetworkSmokeGate.ciPolicy}
           data-owner={fnsNetworkGateBrowserLoop.expectedOwner}
+          data-docs-href={fnsNetworkGateBrowserLoop.docsHref}
           data-route={fnsNetworkGateBrowserLoop.route}
           data-safe-test-pair-required={String(fnsNetworkGateBrowserLoop.expectedSafeTestPair)}
           data-selector={fnsNetworkGateBrowserLoop.selector}
@@ -456,7 +458,13 @@ export default function SourcesPage() {
               <p className="eyebrow">FNS network gate browser loop</p>
               <h2>Как браузер сверяет approvals перед сетевым smoke</h2>
             </div>
-            <span className="status-pill amber">{fnsNetworkGateBrowserLoop.expectedStatus}</span>
+            <a
+              className="primary-link"
+              data-testid="fns-network-gate-docs-link"
+              href={fnsNetworkGateBrowserLoop.docsHref}
+            >
+              API README / Legal gate
+            </a>
           </div>
           <div className="source-quarantine-browser-loop-grid">
             {fnsNetworkGateBrowserLoop.checks.map(([title, text]) => (
