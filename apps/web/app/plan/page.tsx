@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить API README trigger failure copy", "показать owner-friendly текст при падении trigger paths"],
-  ["2", "Добавить schema docs workflow failure copy", "показать owner-friendly текст при падении workflow step/order"],
-  ["3", "Добавить shared validation workflow failure copy", "показать owner-friendly текст при падении shared validation workflow order"],
-  ["4", "Добавить web build rendered-route failure copy", "показать owner-friendly текст при падении rendered routes"],
+  ["1", "Добавить schema docs workflow failure copy", "показать owner-friendly текст при падении workflow step/order"],
+  ["2", "Добавить shared validation workflow failure copy", "показать owner-friendly текст при падении shared validation workflow order"],
+  ["3", "Добавить web build rendered-route failure copy", "показать owner-friendly текст при падении rendered routes"],
+  ["4", "Добавить API README live-route failure copy", "показать owner-friendly текст при падении live route order"],
 ];
 
 const cycleRules = [
@@ -396,6 +396,26 @@ const apiReadmeTriggerSmoke = {
   ],
 };
 
+const apiReadmeTriggerFailureCopy = {
+  command: "npm run smoke:api-readme-trigger-failure-copy",
+  failingCommand: apiReadmeTriggerSmoke.command,
+  noMergeCopy: "Не мержить, пока apps/api/README.md снова не запускает Web build в pull_request и push paths",
+  ownerRole: "API owner + CI owner",
+  repairTargets: "apps/api/README.md,.github/workflows/web-build.yml,/plan,[data-testid='api-readme-trigger-smoke']",
+  sourceMarkerSelector: "[data-testid='api-readme-trigger-smoke']",
+  triggerPath: apiReadmeTriggerSmoke.triggerPath,
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  expectedWorkflowPathCount: apiReadmeTriggerSmoke.expectedWorkflowPathCount,
+  checks: [
+    ["Symptom", "падает API README trigger smoke или Web build не стартует при изменении backend contract docs"],
+    ["Fix order", "сначала вернуть apps/api/README.md в pull_request/push paths, затем `/plan` trigger marker"],
+    ["Owner", "API owner подтверждает contract docs path, CI owner подтверждает Web build triggers"],
+    ["No merge", "не мержить, пока trigger smoke и live API README parity снова не зеленые"],
+  ],
+};
+
 const schemaDocsLinkParitySmoke = {
   anchor: "packages/shared/README.md#shared-schema-index",
   anchorSlug: "shared-schema-index",
@@ -508,7 +528,7 @@ const schemaDocsReadmeFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 23,
+  expectedCommandCount: 24,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -522,6 +542,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='api-readme-live-route-gate-note']",
     "[data-testid='ai-review-api-readme-failure-copy']",
     "[data-testid='api-readme-trigger-smoke']",
+    "[data-testid='api-readme-trigger-failure-copy']",
     "[data-testid='schema-docs-readme-ci-note']",
     "[data-testid='schema-docs-readme-workflow-smoke']",
     "[data-testid='schema-docs-readme-live-route-gate-note']",
@@ -537,7 +558,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 23 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 24 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -1355,6 +1376,41 @@ export default function PlanPage() {
               <article className="fixture-coverage-card" key={title}>
                 <span>{title}</span>
                 <strong>{title === "Trigger path" ? apiReadmeTriggerSmoke.triggerPath : apiReadmeTriggerSmoke.command}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-command={apiReadmeTriggerFailureCopy.command}
+          data-expected-workflow-path-count={apiReadmeTriggerFailureCopy.expectedWorkflowPathCount}
+          data-failing-command={apiReadmeTriggerFailureCopy.failingCommand}
+          data-no-merge-copy={apiReadmeTriggerFailureCopy.noMergeCopy}
+          data-owner-role={apiReadmeTriggerFailureCopy.ownerRole}
+          data-repair-targets={apiReadmeTriggerFailureCopy.repairTargets}
+          data-source-marker-selector={apiReadmeTriggerFailureCopy.sourceMarkerSelector}
+          data-testid="api-readme-trigger-failure-copy"
+          data-trigger-path={apiReadmeTriggerFailureCopy.triggerPath}
+          data-workflow-href={apiReadmeTriggerFailureCopy.workflowHref}
+          data-workflow-name={apiReadmeTriggerFailureCopy.workflowName}
+          data-workflow-path={apiReadmeTriggerFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">API README trigger failure copy</p>
+              <h2>Что делать, если backend README trigger упал</h2>
+            </div>
+            <a className="primary-link" href={apiReadmeTriggerFailureCopy.workflowHref}>
+              {apiReadmeTriggerFailureCopy.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {apiReadmeTriggerFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>{title === "No merge" ? apiReadmeTriggerFailureCopy.noMergeCopy : apiReadmeTriggerFailureCopy.triggerPath}</strong>
                 <p>{text}</p>
               </article>
             ))}

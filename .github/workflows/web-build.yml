@@ -106,6 +106,9 @@ jobs:
       - name: Smoke API README trigger path
         run: npm run smoke:api-readme-trigger
 
+      - name: Smoke API README trigger failure copy
+        run: npm run smoke:api-readme-trigger-failure-copy
+
       - name: Smoke API README live route gate
         run: npm run smoke:api-readme-live-route
 
