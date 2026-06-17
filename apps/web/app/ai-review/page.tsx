@@ -120,6 +120,22 @@ const aiReviewOwnerReceiptRules = [
   },
 ];
 
+const aiReviewReceiptBrowserLoop = {
+  status: "armed",
+  route: "/ai-review",
+  selector: "[data-testid='ai-review-owner-receipt-rules'] [data-owner]",
+  expectedOwners: aiReviewOwnerReceiptRules.map((rule) => rule.owner),
+  expectedRuleCount: aiReviewOwnerReceiptRules.length,
+  requiredFields: ["evidence_ref", "confidence_at_review", "source_checksum_sha256"],
+  allowedDecisions: "confirmed,corrected,blocked",
+  checks: [
+    ["Locate", "найти owner receipt rules по data-testid и owner selector"],
+    ["Assert owner", "сверить tender_manager, supplier_manager и finance_owner"],
+    ["Assert decisions", "закрепить confirmed/corrected/blocked как допустимые решения"],
+    ["Assert evidence", "проверить evidence_ref, confidence_at_review и source checksum"],
+  ],
+};
+
 const evidence = [
   ["ТЗ", "Файл: tz_lighting_v4.pdf", "позиции 12-14", "manual"],
   ["Контракт", "ЕИС / проект контракта", "штрафы и сроки", "ok"],
@@ -296,6 +312,36 @@ export default function AiReviewPage() {
                 <strong>{rule.owner}</strong>
                 <p>{rule.rule}</p>
                 <em>{rule.evidenceFields.join(" + ")}</em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel ai-confidence-browser-loop-panel"
+          data-allowed-decisions={aiReviewReceiptBrowserLoop.allowedDecisions}
+          data-owner-count={aiReviewReceiptBrowserLoop.expectedOwners.length}
+          data-owners={aiReviewReceiptBrowserLoop.expectedOwners.join(",")}
+          data-required-fields={aiReviewReceiptBrowserLoop.requiredFields.join(",")}
+          data-route={aiReviewReceiptBrowserLoop.route}
+          data-rule-count={aiReviewReceiptBrowserLoop.expectedRuleCount}
+          data-selector={aiReviewReceiptBrowserLoop.selector}
+          data-status={aiReviewReceiptBrowserLoop.status}
+          data-testid="ai-review-receipt-browser-loop"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review receipt browser loop</p>
+              <h2>Как браузер сверяет owner receipt после ручного решения</h2>
+            </div>
+            <span className="status-pill amber">{aiReviewReceiptBrowserLoop.status}</span>
+          </div>
+          <div className="ai-confidence-browser-loop-grid">
+            {aiReviewReceiptBrowserLoop.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>{aiReviewReceiptBrowserLoop.selector}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>
