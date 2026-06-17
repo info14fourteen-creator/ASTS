@@ -161,7 +161,7 @@ Route smoke закрепляет:
 - `data-total-count`, `data-review-required-count` и `data-blocked-count`;
 - `data-source-evidence-count`, равный числу карточек с первоисточником;
 - `data-threshold="0.85"` как текущий автоматический confidence gate;
-- `data-status`, `data-evidence-ref` и `data-owner` на каждой карточке;
+- `data-status`, `data-evidence-ref`, `data-owner` и `data-required-action` на каждой карточке;
 - `data-testid="ai-review-confidence-browser-loop"` как проверяемый browser-loop selector.
 
 Пока факт ниже confidence threshold, интерфейс может показать подсказку ИИ, но
@@ -195,6 +195,9 @@ fields и блокировка workflow до `confirmed` или `corrected` rece
 Route/API smoke также закрепляют owner/action matrix для `requirement`,
 `supplier_quote` и `economics`; `evidence_ref` должен совпадать с raw artifact
 первоисточника.
+`npm run smoke:ai-review-actions` сравнивает backend `owner_role` /
+`required_action` matrix с `/ai-review` UI seed и видимым `data-required-action`;
+web CI запускает этот parity check после build.
 
 ## Collaboration Rules
 

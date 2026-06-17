@@ -252,6 +252,7 @@ export default function AiReviewPage() {
                 data-evidence-ref={item.evidence}
                 data-fact-type={item.fact}
                 data-owner={item.owner}
+                data-required-action={item.action}
                 data-source-host={item.source}
                 data-status={item.status}
                 data-threshold={item.threshold}

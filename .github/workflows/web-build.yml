@@ -50,3 +50,6 @@ jobs:
 
       - name: Smoke FNS approvals parity
         run: npm run smoke:fns-approvals
+
+      - name: Smoke AI review action parity
+        run: npm run smoke:ai-review-actions

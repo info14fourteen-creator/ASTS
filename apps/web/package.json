@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "smoke": "node scripts/smoke.mjs",
+    "smoke:ai-review-actions": "node scripts/ai-review-action-parity.mjs",
     "smoke:fns-approvals": "node scripts/fns-approvals-parity.mjs",
     "smoke:owner-receipts": "node scripts/owner-receipt-parity.mjs",
     "lint": "next lint"
