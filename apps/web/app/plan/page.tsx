@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить AI review receipt write smoke failure copy", "показать owner-friendly текст при падении AI review write контракта"],
-  ["2", "Добавить source freshness write smoke failure copy", "показать owner-friendly текст при падении freshness write контракта"],
-  ["3", "Добавить EIS real-network approval smoke failure copy", "показать owner-friendly текст при падении EIS approval API copy"],
-  ["4", "Добавить source owner receipt write docs failure copy", "показать owner-friendly текст при падении docs anchor для write контракта"],
+  ["1", "Добавить source freshness write smoke failure copy", "показать owner-friendly текст при падении freshness write контракта"],
+  ["2", "Добавить EIS real-network approval smoke failure copy", "показать owner-friendly текст при падении EIS approval API copy"],
+  ["3", "Добавить source owner receipt write docs failure copy", "показать owner-friendly текст при падении docs anchor для write контракта"],
+  ["4", "Добавить AI review receipt write docs failure copy", "показать owner-friendly текст при падении AI review write docs anchor"],
 ];
 
 const cycleRules = [
@@ -542,6 +542,33 @@ const aiReviewReceiptWriteApiDraft = {
     ["Idempotency", "future POST требует idempotency_key перед immutable AI audit append"],
     ["Evidence", "decision должен ссылаться на evidence_ref, confidence_at_review и source checksum"],
     ["No merge", "не мержить, пока write draft не проходит shared, API и web smoke"],
+  ],
+};
+
+const aiReviewReceiptWriteSmokeFailureCopy = {
+  apiRoute: "/v1/ai/review-queue",
+  command: "npm run smoke:ai-review-receipt-write-smoke-failure-copy",
+  docsHref:
+    "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#ai-review-receipt-write-api-draft",
+  expectedQueueCount: 3,
+  expectedRequestFieldCount: 11,
+  expectedRouteCount: 16,
+  failingCommand: "npm run smoke:ai-review-receipt-write-api-draft",
+  noMergeCopy:
+    "Не мержить, пока AI review receipt write smoke снова подтверждает draft POST contract, owner decision, idempotency key, source evidence и immutable AI audit append.",
+  ownerRole: "AI workflow owner + API owner + QA owner",
+  parityCommand: "npm run smoke:ai-review-receipt-write-api-draft",
+  repairTargets:
+    "packages/shared/ai-review-queue.json,apps/api/app/services/ai_review.py,apps/api/README.md,/ai-review,/plan,apps/web/scripts/ai-review-receipt-write-api-draft.mjs",
+  sourceMarkerSelector: "[data-testid='ai-review-receipt-write-api-draft']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "write draft smoke падает: пропал POST method, owner decision, source evidence или no-merge copy"],
+    ["Fix order", "сначала восстановить shared write_contract, затем API README и `/ai-review` draft marker"],
+    ["Owner", "AI workflow owner подтверждает decision fields, API owner подтверждает DTO, QA owner подтверждает smoke"],
+    ["No merge", "не мержить, пока AI review receipt write smoke снова не проходит contract-only gate"],
   ],
 };
 
@@ -1083,7 +1110,7 @@ const ownerReceiptDocsRenderedRouteFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 48,
+  expectedCommandCount: 49,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -1097,6 +1124,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='ai-review-queue-rendered-route-failure-copy']",
     "[data-testid='ai-review-receipt-api-rendered-route-failure-copy']",
     "[data-testid='ai-review-receipt-write-api-draft']",
+    "[data-testid='ai-review-receipt-write-smoke-failure-copy']",
     "[data-testid='api-readme-live-route-gate-note']",
     "[data-testid='api-readme-live-route-failure-copy']",
     "[data-testid='ai-review-api-readme-failure-copy']",
@@ -1137,7 +1165,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 48 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 49 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -2234,6 +2262,54 @@ export default function PlanPage() {
                 <span>{title}</span>
                 <strong>
                   {title === "No merge" ? aiReviewReceiptWriteApiDraft.noMergeCopy : aiReviewReceiptWriteApiDraft.apiRoute}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-route={aiReviewReceiptWriteSmokeFailureCopy.apiRoute}
+          data-command={aiReviewReceiptWriteSmokeFailureCopy.command}
+          data-docs-href={aiReviewReceiptWriteSmokeFailureCopy.docsHref}
+          data-expected-queue-count={aiReviewReceiptWriteSmokeFailureCopy.expectedQueueCount}
+          data-expected-request-field-count={aiReviewReceiptWriteSmokeFailureCopy.expectedRequestFieldCount}
+          data-expected-route-count={aiReviewReceiptWriteSmokeFailureCopy.expectedRouteCount}
+          data-failing-command={aiReviewReceiptWriteSmokeFailureCopy.failingCommand}
+          data-no-merge-copy={aiReviewReceiptWriteSmokeFailureCopy.noMergeCopy}
+          data-owner-role={aiReviewReceiptWriteSmokeFailureCopy.ownerRole}
+          data-parity-command={aiReviewReceiptWriteSmokeFailureCopy.parityCommand}
+          data-repair-targets={aiReviewReceiptWriteSmokeFailureCopy.repairTargets}
+          data-source-marker-selector={aiReviewReceiptWriteSmokeFailureCopy.sourceMarkerSelector}
+          data-testid="ai-review-receipt-write-smoke-failure-copy"
+          data-workflow-href={aiReviewReceiptWriteSmokeFailureCopy.workflowHref}
+          data-workflow-name={aiReviewReceiptWriteSmokeFailureCopy.workflowName}
+          data-workflow-path={aiReviewReceiptWriteSmokeFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review receipt write smoke failure copy</p>
+              <h2>Что делать, если AI write draft smoke упал</h2>
+            </div>
+            <div className="panel-actions">
+              <a className="primary-link" href={aiReviewReceiptWriteSmokeFailureCopy.workflowHref}>
+                {aiReviewReceiptWriteSmokeFailureCopy.workflowName}
+              </a>
+              <a className="primary-link" href={aiReviewReceiptWriteSmokeFailureCopy.docsHref}>
+                API contract
+              </a>
+            </div>
+          </div>
+          <div className="fixture-coverage-grid">
+            {aiReviewReceiptWriteSmokeFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? aiReviewReceiptWriteSmokeFailureCopy.noMergeCopy
+                    : aiReviewReceiptWriteSmokeFailureCopy.failingCommand}
                 </strong>
                 <p>{text}</p>
               </article>
