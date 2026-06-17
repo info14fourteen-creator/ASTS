@@ -67,6 +67,26 @@ This is the first REST shape for the MVP. Exact schemas will be generated from b
 - `PATCH /tasks/{task_id}`
 - `POST /tasks/{task_id}/complete`
 
+## Source Connectors
+
+Prototype route: `GET /v1/sources/connectors`.
+
+FNS connector `fns-egrul-nalog-ru` stays `mode="contract_only"` and
+`network_enabled=false` until `network_smoke_gate` is approved.
+
+Required FNS network gate shape:
+
+- `network_smoke_gate.status="contract_only"`;
+- `network_smoke_gate.owner="Legal"`;
+- `network_smoke_gate.ci_policy="CI must not call FNS until the real-network gate is explicitly approved."`;
+- `safe_test_pair_required=true`;
+- `required_approvals` includes approved FNS access terms, request volume
+  limits, protected GitHub secrets, safe INN/OGRN pair, raw artifact checksum
+  and freshness receipt.
+
+CI smoke must fail if the gate is removed or if `network_enabled` becomes true
+before all owner-approved conditions are represented in the connector contract.
+
 ## Source Freshness
 
 Prototype route: `GET /v1/sources/freshness`.

@@ -124,6 +124,8 @@ in `contract_only` mode. It defines:
 - raw storage template `raw/fns/{inn}/{artifact_id}`;
 - required secrets `FNS_API_BASE_URL` and `FNS_API_TOKEN`;
 - capabilities `fetch_by_inn`, `fetch_by_ogrn`, `fetch_extract`, `normalize`;
+- `network_smoke_gate.status="contract_only"` with Legal owner approval
+  required before real network calls;
 - evidence fields for `inn`, `ogrn`, `raw_artifact_id`, `checksum_sha256`,
   `content_type`, `normalization_version` and `freshness`.
 
@@ -145,8 +147,12 @@ to accept approved credentials later:
   `company status`;
 - capabilities `fetch_by_inn`, `fetch_by_ogrn`, `fetch_extract` and
   `normalize`.
+- `network_smoke_gate.status="contract_only"`;
+- `network_smoke_gate.owner="Legal"`;
+- `safe_test_pair_required=true`;
+- approvals for access terms, request volume limits, protected GitHub secrets,
+  safe INN/OGRN pair, raw artifact checksum and freshness receipt.
 
 Real INN/OGRN smoke is a separate future gate. It can be enabled only after the
-owner records approved FNS access terms, request volume limits, secret storage
-location and a safe test INN/OGRN pair. Until then, CI must keep testing the
-contract shape, not external FNS availability.
+owner records every `network_smoke_gate.required_approvals` item. Until then,
+CI must keep testing the contract shape, not external FNS availability.

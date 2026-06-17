@@ -172,6 +172,14 @@ class ConnectorCapability(BaseModel):
     evidence_fields: list[str]
 
 
+class ConnectorNetworkSmokeGate(BaseModel):
+    status: Literal["contract_only", "ready_for_network"]
+    ci_policy: str
+    owner: str
+    required_approvals: list[str]
+    safe_test_pair_required: bool
+
+
 class SourceConnector(BaseModel):
     connector_id: str
     source_kind: SourceKind
@@ -186,6 +194,7 @@ class SourceConnector(BaseModel):
     raw_storage_template: str
     required_secrets: list[str]
     capabilities: list[ConnectorCapability]
+    network_smoke_gate: ConnectorNetworkSmokeGate
     blocked_by: list[str]
 
 

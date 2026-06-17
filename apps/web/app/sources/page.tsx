@@ -80,6 +80,20 @@ const fnsConnectorBrowserLoop = {
   ],
 };
 
+const fnsRealNetworkSmokeGate = {
+  status: "contract_only",
+  owner: "Legal",
+  ciPolicy: "CI must not call FNS until the real-network gate is explicitly approved.",
+  safeTestPairRequired: true,
+  requiredApprovals: [
+    "approved official access terms",
+    "approved request volume limits",
+    "GitHub secrets are present in protected environment",
+    "safe test INN and OGRN pair is recorded",
+    "raw artifact checksum and freshness receipt are asserted",
+  ],
+};
+
 const connectorRunbook = [
   ["ЕИС", "Data", "raw XML/JSON + файлы", "retry 3x / quarantine"],
   ["ФНС", "Legal", "ответ проверки ИНН", "ручное подтверждение при расхождении"],
@@ -330,6 +344,34 @@ export default function SourcesPage() {
                 <strong>{capability}</strong>
                 <p>{text}</p>
                 <em>{fnsReadiness.rawTemplate}</em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel connector-readiness-panel"
+          data-approval-count={fnsRealNetworkSmokeGate.requiredApprovals.length}
+          data-ci-policy={fnsRealNetworkSmokeGate.ciPolicy}
+          data-network-smoke-status={fnsRealNetworkSmokeGate.status}
+          data-owner={fnsRealNetworkSmokeGate.owner}
+          data-safe-test-pair-required={String(fnsRealNetworkSmokeGate.safeTestPairRequired)}
+          data-testid="fns-real-network-smoke-gate"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">FNS real-network smoke gate</p>
+              <h2>Когда можно включить сетевой smoke ИНН/ОГРН</h2>
+            </div>
+            <span className="status-pill amber">{fnsRealNetworkSmokeGate.status}</span>
+          </div>
+          <div className="connector-readiness-grid">
+            {fnsRealNetworkSmokeGate.requiredApprovals.map((approval, index) => (
+              <article className="connector-readiness-card" data-approval={approval} key={approval}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <strong>{approval}</strong>
+                <p>{fnsRealNetworkSmokeGate.ciPolicy}</p>
+                <em>{fnsRealNetworkSmokeGate.owner}</em>
               </article>
             ))}
           </div>

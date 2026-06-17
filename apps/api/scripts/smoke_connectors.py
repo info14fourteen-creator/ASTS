@@ -95,6 +95,35 @@ def main() -> int:
         print("FAIL FNS connector capabilities are incomplete")
         return 1
 
+    fns_network_gate = fns.get("network_smoke_gate", {})
+    if fns_network_gate.get("status") != "contract_only":
+        print("FAIL FNS real-network smoke gate must stay contract_only")
+        return 1
+
+    if fns_network_gate.get("ci_policy") != "CI must not call FNS until the real-network gate is explicitly approved.":
+        print("FAIL FNS real-network smoke gate CI policy changed")
+        return 1
+
+    if fns_network_gate.get("owner") != "Legal":
+        print("FAIL FNS real-network smoke gate owner must be Legal")
+        return 1
+
+    if fns_network_gate.get("safe_test_pair_required") is not True:
+        print("FAIL FNS real-network smoke gate must require a safe test INN/OGRN pair")
+        return 1
+
+    expected_fns_network_approvals = {
+        "approved official access terms",
+        "approved request volume limits",
+        "GitHub secrets are present in protected environment",
+        "safe test INN and OGRN pair is recorded",
+        "raw artifact checksum and freshness receipt are asserted",
+    }
+    fns_network_approvals = set(fns_network_gate.get("required_approvals", []))
+    if not expected_fns_network_approvals.issubset(fns_network_approvals):
+        print("FAIL FNS real-network smoke gate approvals are incomplete")
+        return 1
+
     health_response = client.get("/v1/sources/health")
     if health_response.status_code != 200:
         print(f"FAIL /v1/sources/health HTTP {health_response.status_code}")

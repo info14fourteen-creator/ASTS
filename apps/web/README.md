@@ -116,6 +116,15 @@ Route smoke закрепляет:
 Пока backend держит `network_enabled=false`, web показывает готовность контракта,
 но не обещает реальную сетевую проверку ИНН/ОГРН.
 
+Реальный сетевой smoke закреплен отдельным gate-блоком
+`data-testid="fns-real-network-smoke-gate"`:
+
+- `data-network-smoke-status="contract_only"`;
+- `data-owner="Legal"`;
+- `data-safe-test-pair-required="true"`;
+- `data-approval-count="5"`;
+- CI policy: `CI must not call FNS until the real-network gate is explicitly approved.`
+
 Browser loop закреплен отдельным блоком
 `data-testid="fns-connector-browser-loop"`. Он проверяет selector
 `[data-testid='fns-source-readiness-card']`, два required secret имени и четыре

@@ -1,4 +1,18 @@
-from app.schemas import ConnectorCapability, SourceConnector, SourceConnectorsResponse
+from app.schemas import (
+    ConnectorCapability,
+    ConnectorNetworkSmokeGate,
+    SourceConnector,
+    SourceConnectorsResponse,
+)
+
+
+REAL_NETWORK_SMOKE_APPROVALS = [
+    "approved official access terms",
+    "approved request volume limits",
+    "GitHub secrets are present in protected environment",
+    "safe test INN and OGRN pair is recorded",
+    "raw artifact checksum and freshness receipt are asserted",
+]
 
 
 def get_source_connectors() -> SourceConnectorsResponse:
@@ -51,6 +65,19 @@ def get_source_connectors() -> SourceConnectorsResponse:
                         evidence_fields=["normalization_version", "freshness", "manual_review_reason"],
                     ),
                 ],
+                network_smoke_gate=ConnectorNetworkSmokeGate(
+                    status="contract_only",
+                    ci_policy="CI validates connector contract shape until access terms and secrets are approved.",
+                    owner="Data",
+                    required_approvals=[
+                        "approved official access terms",
+                        "approved request volume limits",
+                        "GitHub secrets are present in protected environment",
+                        "safe test purchase identifier is recorded",
+                        "raw artifact checksum and freshness receipt are asserted",
+                    ],
+                    safe_test_pair_required=True,
+                ),
                 blocked_by=[
                     "confirm official access terms",
                     "add GitHub secrets for approved credentials",
@@ -102,6 +129,13 @@ def get_source_connectors() -> SourceConnectorsResponse:
                         evidence_fields=["normalization_version", "freshness", "manual_review_reason"],
                     ),
                 ],
+                network_smoke_gate=ConnectorNetworkSmokeGate(
+                    status="contract_only",
+                    ci_policy="CI must not call FNS until the real-network gate is explicitly approved.",
+                    owner="Legal",
+                    required_approvals=REAL_NETWORK_SMOKE_APPROVALS,
+                    safe_test_pair_required=True,
+                ),
                 blocked_by=[
                     "confirm official FNS access terms and allowed request volume",
                     "add GitHub secrets for approved FNS credentials",
