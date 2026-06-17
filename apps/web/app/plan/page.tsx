@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить shared validation workflow file smoke", "сверить /plan badge с .github/workflows/shared-validation.yml"],
-  ["2", "Добавить shared README command CI note", "показать, что command parity smoke входит в Web build"],
-  ["3", "Добавить AI review API README CI note", "показать, что DOM parity smoke входит в Web build"],
-  ["4", "Добавить schema docs README CI note", "показать, что README existence smoke входит в Web build"],
+  ["1", "Добавить shared README command CI note", "показать, что command parity smoke входит в Web build"],
+  ["2", "Добавить AI review API README CI note", "показать, что DOM parity smoke входит в Web build"],
+  ["3", "Добавить schema docs README CI note", "показать, что README existence smoke входит в Web build"],
+  ["4", "Добавить shared validation workflow CI note", "показать, что workflow file smoke входит в Web build"],
 ];
 
 const cycleRules = [
@@ -148,6 +148,23 @@ const sharedValidationCiBadgeLink = {
     ["Browser loop", "shared validation browser loop закрепляет 14 checks и command"],
     ["Workflow file", ".github/workflows/shared-validation.yml входит в CI path notes"],
     ["Merge gate", "PR #17 остается CLEAN только с зеленым Shared validation"],
+  ],
+};
+
+const sharedValidationWorkflowFileSmoke = {
+  browserLoopSelector: "[data-testid='shared-validation-browser-loop']",
+  command: sharedValidationBrowserLoop.command,
+  expectedPaths: sharedValidationBrowserLoop.ciPaths,
+  nodeVersion: "22",
+  smokeCommand: "cd apps/web && npm run smoke:shared-validation-workflow",
+  workflowName: "Shared validation",
+  workflowPath: ".github/workflows/shared-validation.yml",
+  workingDirectory: "packages/shared",
+  checks: [
+    ["Workflow name", "YAML должен называться Shared validation"],
+    ["Trigger paths", "workflow запускается на packages/shared, plan doc и сам workflow file"],
+    ["Runtime", "Node 22 и working-directory packages/shared закреплены в CI"],
+    ["Command", "Validate step выполняет npm run validate"],
   ],
 };
 
@@ -562,6 +579,36 @@ export default function PlanPage() {
               <article className="fixture-coverage-card" key={title}>
                 <span>{title}</span>
                 <strong>{sharedValidationCiBadgeLink.workflowName}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-browser-loop-selector={sharedValidationWorkflowFileSmoke.browserLoopSelector}
+          data-command={sharedValidationWorkflowFileSmoke.command}
+          data-expected-paths={sharedValidationWorkflowFileSmoke.expectedPaths.join(",")}
+          data-node-version={sharedValidationWorkflowFileSmoke.nodeVersion}
+          data-smoke-command={sharedValidationWorkflowFileSmoke.smokeCommand}
+          data-testid="shared-validation-workflow-file-smoke"
+          data-workflow-name={sharedValidationWorkflowFileSmoke.workflowName}
+          data-workflow-path={sharedValidationWorkflowFileSmoke.workflowPath}
+          data-working-directory={sharedValidationWorkflowFileSmoke.workingDirectory}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Shared validation workflow file smoke</p>
+              <h2>Как `/plan` сверяет реальный GitHub Actions файл</h2>
+            </div>
+            <span className="status-pill green">{sharedValidationWorkflowFileSmoke.workflowName}</span>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sharedValidationWorkflowFileSmoke.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>{sharedValidationWorkflowFileSmoke.workflowPath}</strong>
                 <p>{text}</p>
               </article>
             ))}
