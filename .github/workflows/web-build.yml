@@ -59,3 +59,23 @@ jobs:
 
       - name: Smoke AI review action parity
         run: npm run smoke:ai-review-actions
+
+      - name: Smoke rendered routes
+        run: |
+          npm run start -- -H 127.0.0.1 -p 4177 > /tmp/asts-web.log 2>&1 &
+          server_pid=$!
+          trap 'kill $server_pid' EXIT
+
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:4177/ >/dev/null 2>&1; then
+              break
+            fi
+            if [ "$attempt" -eq 30 ]; then
+              cat /tmp/asts-web.log
+              exit 1
+            fi
+            sleep 1
+          done
+
+          npm run smoke -- --url http://127.0.0.1:4177/
+          npm run smoke:source-receipt-docs-link -- --url http://127.0.0.1:4177

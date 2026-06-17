@@ -56,7 +56,8 @@ generated-изменение с `.next/types/routes.d.ts`; файл оставл
 версии, уже лежащей в репозитории.
 
 GitHub Actions workflow `Web build` повторяет `npm ci` и `npm run build` для
-`apps/web` на Pull Request и push в `codex/**`.
+`apps/web` на Pull Request и push в `codex/**`, затем поднимает production
+preview и запускает route smoke.
 
 Дополнительные merge gates:
 
@@ -115,6 +116,10 @@ UI не должен скрывать карточку и переводить A
   `packages/shared/source-owner-receipts.json` с API/web подключением, а shared
   validation проверяет owner/action, resolution, raw artifact, checksum, AI gate
   и audit note; web CI запускает этот parity check после `npm run build`.
+- `npm run smoke:source-receipt-docs-link -- --url http://127.0.0.1:4177`
+  проверяет реальный DOM `/sources`: browser-loop panel, docs href, API route и
+  видимый deep link на `Source Owner Receipt Contract`; web CI запускает этот
+  browser assertion после старта production preview.
 
 ## FNS Smoke UI Contract
 
