@@ -76,6 +76,9 @@ jobs:
       - name: Smoke web build workflow file
         run: npm run smoke:web-build-workflow
 
+      - name: Smoke API README trigger path
+        run: npm run smoke:api-readme-trigger
+
       - name: Smoke rendered routes
         run: |
           npm run start -- -H 127.0.0.1 -p 4177 > /tmp/asts-web.log 2>&1 &

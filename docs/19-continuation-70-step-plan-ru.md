@@ -248,6 +248,7 @@
 110. Добавить schema docs README CI note: `web-build.yml` запускает `smoke:schema-docs-readme` до route smoke.
 111. Добавить shared validation workflow CI note: `web-build.yml` запускает `smoke:shared-validation-workflow` до route smoke.
 112. Добавить web build workflow file smoke: `web-build.yml` запускает `smoke:web-build-workflow`, который сверяет workflow file и `/plan` CI notes.
+113. Добавить API README trigger smoke: `web-build.yml` запускает `smoke:api-readme-trigger`, который сверяет `apps/api/README.md` в pull_request/push paths и `/plan` marker.
 
 Следующими брать:
 
@@ -313,7 +314,8 @@
 60. [done 2026-06-17] Добавить schema docs README CI note: показать, что README existence smoke входит в Web build.
 61. [done 2026-06-17] Добавить shared validation workflow CI note: показать, что workflow file smoke входит в Web build.
 62. [done 2026-06-17] Добавить web build workflow file smoke: сверить `/plan` CI notes с `.github/workflows/web-build.yml`.
-63. Добавить API README trigger smoke: закрепить, что `apps/api/README.md` запускает web parity.
+63. [done 2026-06-17] Добавить API README trigger smoke: закрепить, что `apps/api/README.md` запускает web parity.
 64. Добавить schema docs README workflow smoke: сверить `/plan` note с Web build step.
 65. Добавить shared validation workflow step smoke: сверить `/plan` note с Web build step.
 66. Добавить web build workflow CI self-check note: показать, что workflow smoke запускает сам себя.
+67. Добавить API README live route gate note: показать, что live DOM parity защищает API docs links.
