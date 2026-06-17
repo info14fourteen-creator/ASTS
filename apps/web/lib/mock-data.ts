@@ -207,6 +207,8 @@ export type SourceFreshnessBreachRow = {
 export type SourceFreshnessBrowserLoop = {
   status: "armed";
   route: string;
+  apiRoute: "/v1/sources/freshness";
+  docsHref: string;
   selector: string;
   expectedAiGate: "blocked";
   expectedBreachTypes: SourceFreshnessBreachType[];
@@ -661,6 +663,8 @@ export const sourceFreshnessBreachQueue: SourceFreshnessBreachRow[] = [
 export const sourceFreshnessBrowserLoop: SourceFreshnessBrowserLoop = {
   status: "armed",
   route: "/sources",
+  apiRoute: "/v1/sources/freshness",
+  docsHref: "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#source-freshness-contract",
   selector: "[data-testid='source-freshness-breach-queue'] [data-ai-gate='blocked']",
   expectedAiGate: "blocked",
   expectedBreachTypes: ["stale", "missing", "parse_failed", "hash_mismatch"],

@@ -67,6 +67,9 @@ jobs:
       - name: Smoke source freshness rendered routes failure copy
         run: npm run smoke:source-freshness-rendered-route-failure-copy
 
+      - name: Smoke source freshness docs rendered routes failure copy
+        run: npm run smoke:source-freshness-docs-rendered-route-failure-copy
+
       - name: Smoke owner receipt docs rendered routes failure copy
         run: npm run smoke:owner-receipt-docs-rendered-route-failure-copy
 

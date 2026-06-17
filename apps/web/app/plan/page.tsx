@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить source freshness docs rendered-route failure copy", "показать owner-friendly текст при падении freshness docs route coverage"],
-  ["2", "Добавить FNS real-network approval API copy", "показать owner-friendly текст для будущего сетевого smoke gate"],
-  ["3", "Добавить source owner receipt write API draft", "описать будущий write endpoint для ручного receipt"],
-  ["4", "Добавить AI review receipt write API draft", "описать будущий write endpoint для ручного AI review receipt"],
+  ["1", "Добавить FNS real-network approval API copy", "показать owner-friendly текст для будущего сетевого smoke gate"],
+  ["2", "Добавить source owner receipt write API draft", "описать будущий write endpoint для ручного receipt"],
+  ["3", "Добавить AI review receipt write API draft", "описать будущий write endpoint для ручного AI review receipt"],
+  ["4", "Добавить source freshness write API draft", "описать будущий write endpoint для ручного freshness receipt"],
 ];
 
 const cycleRules = [
@@ -827,6 +827,30 @@ const sourceFreshnessRenderedRouteFailureCopy = {
   ],
 };
 
+const sourceFreshnessDocsRenderedRouteFailureCopy = {
+  apiRoute: sourceFreshnessRenderedRouteFailureCopy.apiRoute,
+  command: "npm run smoke:source-freshness-docs-rendered-route-failure-copy",
+  docsHref: sourceFreshnessRenderedRouteFailureCopy.docsHref,
+  expectedBreachCount: sourceFreshnessRenderedRouteFailureCopy.expectedBreachCount,
+  expectedRouteCount: sourceFreshnessRenderedRouteFailureCopy.expectedRouteCount,
+  failingCommand: "npm run smoke -- --url http://127.0.0.1:4177/",
+  noMergeCopy:
+    "Не мержить, пока rendered routes smoke снова подтверждает source freshness docs link и API README anchor на живом `/sources`",
+  ownerRole: "Sources owner + Docs owner + QA owner",
+  repairTargets:
+    "/sources,apps/api/README.md#source-freshness-contract,apps/web/lib/mock-data.ts,apps/web/scripts/smoke.mjs",
+  sourceMarkerSelector: "[data-testid='source-freshness-docs-link']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "rendered routes проходят, но `/sources` потерял freshness docs link или API README anchor"],
+    ["Fix order", "сначала восстановить API README Source Freshness Contract, затем `/sources` docs link"],
+    ["Owner", "Sources owner подтверждает queue, Docs owner подтверждает README anchor, QA owner подтверждает `/sources`"],
+    ["No merge", "не мержить, пока source freshness docs link снова не проходит rendered route coverage"],
+  ],
+};
+
 const fnsApprovalsRenderedRouteFailureCopy = {
   apiRoute: "/v1/sources/connectors",
   command: "npm run smoke:fns-approvals-rendered-route-failure-copy",
@@ -902,7 +926,7 @@ const ownerReceiptDocsRenderedRouteFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 41,
+  expectedCommandCount: 42,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -932,6 +956,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='source-owner-receipts-rendered-route-failure-copy']",
     "[data-testid='owner-receipt-api-rendered-route-failure-copy']",
     "[data-testid='source-freshness-rendered-route-failure-copy']",
+    "[data-testid='source-freshness-docs-rendered-route-failure-copy']",
     "[data-testid='fns-approvals-rendered-route-failure-copy']",
     "[data-testid='fns-approvals-docs-rendered-route-failure-copy']",
     "[data-testid='owner-receipt-docs-rendered-route-failure-copy']",
@@ -949,7 +974,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 41 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 42 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -2559,6 +2584,52 @@ export default function PlanPage() {
                   {title === "No merge"
                     ? sourceFreshnessRenderedRouteFailureCopy.noMergeCopy
                     : sourceFreshnessRenderedRouteFailureCopy.apiRoute}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-route={sourceFreshnessDocsRenderedRouteFailureCopy.apiRoute}
+          data-command={sourceFreshnessDocsRenderedRouteFailureCopy.command}
+          data-docs-href={sourceFreshnessDocsRenderedRouteFailureCopy.docsHref}
+          data-expected-breach-count={sourceFreshnessDocsRenderedRouteFailureCopy.expectedBreachCount}
+          data-expected-route-count={sourceFreshnessDocsRenderedRouteFailureCopy.expectedRouteCount}
+          data-failing-command={sourceFreshnessDocsRenderedRouteFailureCopy.failingCommand}
+          data-no-merge-copy={sourceFreshnessDocsRenderedRouteFailureCopy.noMergeCopy}
+          data-owner-role={sourceFreshnessDocsRenderedRouteFailureCopy.ownerRole}
+          data-repair-targets={sourceFreshnessDocsRenderedRouteFailureCopy.repairTargets}
+          data-source-marker-selector={sourceFreshnessDocsRenderedRouteFailureCopy.sourceMarkerSelector}
+          data-testid="source-freshness-docs-rendered-route-failure-copy"
+          data-workflow-href={sourceFreshnessDocsRenderedRouteFailureCopy.workflowHref}
+          data-workflow-name={sourceFreshnessDocsRenderedRouteFailureCopy.workflowName}
+          data-workflow-path={sourceFreshnessDocsRenderedRouteFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source freshness docs rendered-route failure copy</p>
+              <h2>Что делать, если source freshness docs пропали в rendered routes</h2>
+            </div>
+            <div className="panel-actions">
+              <a className="primary-link" href={sourceFreshnessDocsRenderedRouteFailureCopy.workflowHref}>
+                {sourceFreshnessDocsRenderedRouteFailureCopy.workflowName}
+              </a>
+              <a className="primary-link" href={sourceFreshnessDocsRenderedRouteFailureCopy.docsHref}>
+                API contract
+              </a>
+            </div>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sourceFreshnessDocsRenderedRouteFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? sourceFreshnessDocsRenderedRouteFailureCopy.noMergeCopy
+                    : sourceFreshnessDocsRenderedRouteFailureCopy.apiRoute}
                 </strong>
                 <p>{text}</p>
               </article>

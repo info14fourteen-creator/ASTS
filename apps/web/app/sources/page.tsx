@@ -737,7 +737,9 @@ export default function SourcesPage() {
         <section
           className="panel source-quarantine-browser-loop-panel"
           data-ai-gate={sourceFreshnessBrowserLoop.expectedAiGate}
+          data-api-route={sourceFreshnessBrowserLoop.apiRoute}
           data-breach-types={sourceFreshnessBrowserLoop.expectedBreachTypes.join(",")}
+          data-docs-href={sourceFreshnessBrowserLoop.docsHref}
           data-expected-count={sourceFreshnessBrowserLoop.expectedCount}
           data-route={sourceFreshnessBrowserLoop.route}
           data-selector={sourceFreshnessBrowserLoop.selector}
@@ -749,7 +751,17 @@ export default function SourcesPage() {
               <p className="eyebrow">Freshness breach browser loop</p>
               <h2>Как браузер сверяет блокировку AI по freshness</h2>
             </div>
-            <span className="status-pill amber">{sourceFreshnessBrowserLoop.status}</span>
+            <div className="panel-actions">
+              <span className="status-pill amber">{sourceFreshnessBrowserLoop.status}</span>
+              <a
+                className="primary-link"
+                data-api-route={sourceFreshnessBrowserLoop.apiRoute}
+                data-testid="source-freshness-docs-link"
+                href={sourceFreshnessBrowserLoop.docsHref}
+              >
+                API README / freshness
+              </a>
+            </div>
           </div>
           <div className="source-quarantine-browser-loop-grid">
             {sourceFreshnessBrowserLoop.checks.map(([title, text]) => (
