@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить AI review API README CI note", "показать, что DOM parity smoke входит в Web build"],
-  ["2", "Добавить schema docs README CI note", "показать, что README existence smoke входит в Web build"],
-  ["3", "Добавить shared validation workflow CI note", "показать, что workflow file smoke входит в Web build"],
-  ["4", "Добавить web build workflow file smoke", "сверить `/plan` CI notes с .github/workflows/web-build.yml"],
+  ["1", "Добавить schema docs README CI note", "показать, что README existence smoke входит в Web build"],
+  ["2", "Добавить shared validation workflow CI note", "показать, что workflow file smoke входит в Web build"],
+  ["3", "Добавить web build workflow file smoke", "сверить `/plan` CI notes с .github/workflows/web-build.yml"],
+  ["4", "Добавить API README trigger smoke", "закрепить, что apps/api/README.md запускает web parity"],
 ];
 
 const cycleRules = [
@@ -245,6 +245,25 @@ const aiReviewSchemaApiSmokeMarker = {
     ["API docs", "вести на API README AI Review Queue Contract"],
     ["Parity smoke", "держать owner/action matrix через `smoke:ai-review-actions`"],
     ["DOM parity", "сравнить `/plan` marker с `/ai-review` API README link"],
+  ],
+};
+
+const aiReviewApiReadmeCiNote = {
+  apiReadmePath: aiReviewSchemaApiSmokeMarker.apiReadmePath,
+  apiRoute: aiReviewSchemaApiSmokeMarker.apiRoute,
+  apiSelector: aiReviewSchemaApiSmokeMarker.apiSelector,
+  domParityCommand: "npm run smoke:ai-review-api-readme -- --url http://127.0.0.1:4177",
+  markerSelector: "[data-testid='ai-review-schema-api-smoke-marker']",
+  smokeCommand: aiReviewSchemaApiSmokeMarker.domParityCommand,
+  triggerPath: "apps/api/README.md",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["CI step", "Web build запускает DOM parity smoke после route smoke"],
+    ["Trigger path", "apps/api/README.md запускает web build при смене backend contract"],
+    ["API link", "`/ai-review` должен вести на тот же API README anchor"],
+    ["Plan marker", "`/plan` хранит route, selector и command для проверки"],
   ],
 };
 
@@ -761,6 +780,40 @@ export default function PlanPage() {
               <article className="fixture-coverage-card" key={title}>
                 <span>{title}</span>
                 <strong>{title === "Schema" ? aiReviewSchemaApiSmokeMarker.schemaId : aiReviewSchemaApiSmokeMarker.apiRoute}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-readme-path={aiReviewApiReadmeCiNote.apiReadmePath}
+          data-api-route={aiReviewApiReadmeCiNote.apiRoute}
+          data-api-selector={aiReviewApiReadmeCiNote.apiSelector}
+          data-dom-parity-command={aiReviewApiReadmeCiNote.domParityCommand}
+          data-marker-selector={aiReviewApiReadmeCiNote.markerSelector}
+          data-smoke-command={aiReviewApiReadmeCiNote.smokeCommand}
+          data-testid="ai-review-api-readme-ci-note"
+          data-trigger-path={aiReviewApiReadmeCiNote.triggerPath}
+          data-workflow-href={aiReviewApiReadmeCiNote.workflowHref}
+          data-workflow-name={aiReviewApiReadmeCiNote.workflowName}
+          data-workflow-path={aiReviewApiReadmeCiNote.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review API README CI note</p>
+              <h2>Как DOM parity smoke входит в Web build</h2>
+            </div>
+            <a className="primary-link" href={aiReviewApiReadmeCiNote.workflowHref}>
+              {aiReviewApiReadmeCiNote.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {aiReviewApiReadmeCiNote.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>{title === "Trigger path" ? aiReviewApiReadmeCiNote.triggerPath : aiReviewApiReadmeCiNote.apiRoute}</strong>
                 <p>{text}</p>
               </article>
             ))}

@@ -3,6 +3,7 @@ name: Web build
 on:
   pull_request:
     paths:
+      - "apps/api/README.md"
       - "apps/web/**"
       - "packages/shared/ai-review-queue.json"
       - "packages/shared/fns-connector-gate.json"
@@ -14,6 +15,7 @@ on:
       - main
       - "codex/**"
     paths:
+      - "apps/api/README.md"
       - "apps/web/**"
       - "packages/shared/ai-review-queue.json"
       - "packages/shared/fns-connector-gate.json"
@@ -84,3 +86,4 @@ jobs:
 
           npm run smoke -- --url http://127.0.0.1:4177/
           npm run smoke:source-receipt-docs-link -- --url http://127.0.0.1:4177
+          npm run smoke:ai-review-api-readme -- --url http://127.0.0.1:4177
