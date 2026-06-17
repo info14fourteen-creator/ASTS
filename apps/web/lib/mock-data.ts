@@ -214,6 +214,17 @@ export type SourceFreshnessBrowserLoop = {
   checks: [string, string][];
 };
 
+export type SourceReceiptBrowserLoop = {
+  status: "armed";
+  route: string;
+  selector: string;
+  expectedAiGate: "blocked_until_owner_receipt";
+  expectedReceiptStatus: "restored";
+  expectedRuleCount: number;
+  requiredFields: string[];
+  checks: [string, string][];
+};
+
 export type FixtureDriftQuarantineCopy = {
   status: "standby" | "quarantine";
   owner: string;
@@ -659,6 +670,22 @@ export const sourceFreshnessBrowserLoop: SourceFreshnessBrowserLoop = {
     ["Assert breaches", "сверить stale, missing, parse_failed и hash_mismatch"],
     ["Assert evidence", "сверить source_url и raw_artifact_id для каждой строки"],
     ["Assert AI gate", "убедиться, что каждый breach держит data-ai-gate=blocked"],
+  ],
+};
+
+export const sourceReceiptBrowserLoop: SourceReceiptBrowserLoop = {
+  status: "armed",
+  route: "/sources",
+  selector: "[data-testid='source-freshness-owner-receipt-rules'] [data-required-receipt-status='restored']",
+  expectedAiGate: "blocked_until_owner_receipt",
+  expectedReceiptStatus: "restored",
+  expectedRuleCount: sourceFreshnessBreachQueue.length,
+  requiredFields: ["new_raw_artifact_id", "new_checksum_sha256", "audit_note"],
+  checks: [
+    ["Locate", "найти receipt rules по data-testid и restored selector"],
+    ["Assert restored", "сверить data-required-receipt-status=restored для всех breach rules"],
+    ["Assert fields", "закрепить new_raw_artifact_id, new_checksum_sha256 и audit_note"],
+    ["Assert AI gate", "убедиться, что AI остается blocked_until_owner_receipt до ручного решения"],
   ],
 };
 

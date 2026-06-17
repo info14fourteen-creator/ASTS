@@ -2,6 +2,7 @@ import { Sidebar } from "../app-shell";
 import {
   sourceFreshnessBreachQueue,
   sourceFreshnessBrowserLoop,
+  sourceReceiptBrowserLoop,
   sourceQuarantineBrowserLoop,
   sourceUrlHealthStates,
 } from "../../lib/mock-data";
@@ -546,6 +547,34 @@ export default function SourcesPage() {
                 <strong>{owner}</strong>
                 <p>{rule}</p>
                 <em>AI остается blocked до owner receipt и нового raw artifact</em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-ai-gate={sourceReceiptBrowserLoop.expectedAiGate}
+          data-receipt-status={sourceReceiptBrowserLoop.expectedReceiptStatus}
+          data-required-fields={sourceReceiptBrowserLoop.requiredFields.join(",")}
+          data-route={sourceReceiptBrowserLoop.route}
+          data-rule-count={sourceReceiptBrowserLoop.expectedRuleCount}
+          data-selector={sourceReceiptBrowserLoop.selector}
+          data-testid="source-receipt-browser-loop"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source receipt browser loop</p>
+              <h2>Как браузер сверяет ручное снятие freshness-блокера</h2>
+            </div>
+            <span className="status-pill amber">{sourceReceiptBrowserLoop.status}</span>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {sourceReceiptBrowserLoop.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>{sourceReceiptBrowserLoop.selector}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>
