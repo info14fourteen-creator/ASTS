@@ -88,6 +88,9 @@ jobs:
       - name: Smoke shared validation live route gate
         run: npm run smoke:shared-validation-live-route
 
+      - name: Smoke shared validation failure copy
+        run: npm run smoke:shared-validation-failure-copy
+
       - name: Smoke web build workflow file
         run: npm run smoke:web-build-workflow
 

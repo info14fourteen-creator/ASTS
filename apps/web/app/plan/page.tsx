@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить shared validation failure copy", "показать owner-friendly текст при падении shared validation drift"],
-  ["2", "Добавить web build failure copy", "показать owner-friendly текст при падении workflow drift"],
-  ["3", "Добавить API README trigger failure copy", "показать owner-friendly текст при падении trigger paths"],
-  ["4", "Добавить schema docs workflow failure copy", "показать owner-friendly текст при падении workflow step/order"],
+  ["1", "Добавить web build failure copy", "показать owner-friendly текст при падении workflow drift"],
+  ["2", "Добавить API README trigger failure copy", "показать owner-friendly текст при падении trigger paths"],
+  ["3", "Добавить schema docs workflow failure copy", "показать owner-friendly текст при падении workflow step/order"],
+  ["4", "Добавить shared validation workflow failure copy", "показать owner-friendly текст при падении shared validation workflow order"],
 ];
 
 const cycleRules = [
@@ -221,6 +221,27 @@ const sharedValidationLiveRouteGateNote = {
     ["Live route gate", "затем route smoke проверяет `/plan` shared validation markers на живом сервере"],
     ["Plan marker", "shared-validation-workflow-step-smoke остается источником command и checked workflow"],
     ["Merge gate", "shared validation drift должен падать до merge и быть видимым в workdesk"],
+  ],
+};
+
+const sharedValidationFailureCopy = {
+  command: "npm run smoke:shared-validation-failure-copy",
+  failingCommand: sharedValidationLiveRouteGateNote.command,
+  noMergeCopy:
+    "Не мержить, пока `/plan`, packages/shared/** и .github/workflows/shared-validation.yml снова не проходят 14 shared checks",
+  ownerRole: "Schema owner + CI owner",
+  repairTargets: "/plan,packages/shared/**,.github/workflows/shared-validation.yml,docs/19-continuation-70-step-plan-ru.md",
+  sourceMarkerSelector: "[data-testid='shared-validation-live-route-gate-note']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checkedWorkflowPath: sharedValidationLiveRouteGateNote.checkedWorkflowPath,
+  checkCount: sharedValidationLiveRouteGateNote.checkCount,
+  checks: [
+    ["Symptom", "падает shared validation workflow smoke, live route gate или `cd packages/shared && npm run validate`"],
+    ["Fix order", "сначала восстановить schemas/fixtures на 14 checks, затем `/plan` markers и Web build step"],
+    ["Owner", "Schema owner подтверждает data contract, CI owner подтверждает workflow order"],
+    ["No merge", "не мержить, пока shared validation smoke и route smoke снова не зеленые"],
   ],
 };
 
@@ -487,7 +508,7 @@ const schemaDocsReadmeFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 21,
+  expectedCommandCount: 22,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -508,13 +529,14 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='shared-validation-workflow-ci-note']",
     "[data-testid='shared-validation-workflow-step-smoke']",
     "[data-testid='shared-validation-live-route-gate-note']",
+    "[data-testid='shared-validation-failure-copy']",
     "[data-testid='web-build-workflow-self-check-note']",
     "[data-testid='web-build-live-route-gate-note']",
   ],
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 21 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 22 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -1012,6 +1034,41 @@ export default function PlanPage() {
                     ? sharedValidationLiveRouteGateNote.routeSmokeCommand
                     : sharedValidationLiveRouteGateNote.checkedWorkflowPath}
                 </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-checked-workflow-path={sharedValidationFailureCopy.checkedWorkflowPath}
+          data-check-count={sharedValidationFailureCopy.checkCount}
+          data-command={sharedValidationFailureCopy.command}
+          data-failing-command={sharedValidationFailureCopy.failingCommand}
+          data-no-merge-copy={sharedValidationFailureCopy.noMergeCopy}
+          data-owner-role={sharedValidationFailureCopy.ownerRole}
+          data-repair-targets={sharedValidationFailureCopy.repairTargets}
+          data-source-marker-selector={sharedValidationFailureCopy.sourceMarkerSelector}
+          data-testid="shared-validation-failure-copy"
+          data-workflow-href={sharedValidationFailureCopy.workflowHref}
+          data-workflow-name={sharedValidationFailureCopy.workflowName}
+          data-workflow-path={sharedValidationFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Shared validation failure copy</p>
+              <h2>Что делать, если shared validation drift упал</h2>
+            </div>
+            <a className="primary-link" href={sharedValidationFailureCopy.workflowHref}>
+              {sharedValidationFailureCopy.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sharedValidationFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>{title === "No merge" ? sharedValidationFailureCopy.noMergeCopy : sharedValidationFailureCopy.command}</strong>
                 <p>{text}</p>
               </article>
             ))}
