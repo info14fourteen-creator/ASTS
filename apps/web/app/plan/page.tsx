@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить schema docs README failure copy", "показать owner-friendly текст при падении schema docs parity"],
-  ["2", "Добавить shared validation failure copy", "показать owner-friendly текст при падении shared validation drift"],
-  ["3", "Добавить web build failure copy", "показать owner-friendly текст при падении workflow drift"],
-  ["4", "Добавить API README trigger failure copy", "показать owner-friendly текст при падении trigger paths"],
+  ["1", "Добавить shared validation failure copy", "показать owner-friendly текст при падении shared validation drift"],
+  ["2", "Добавить web build failure copy", "показать owner-friendly текст при падении workflow drift"],
+  ["3", "Добавить API README trigger failure copy", "показать owner-friendly текст при падении trigger paths"],
+  ["4", "Добавить schema docs workflow failure copy", "показать owner-friendly текст при падении workflow step/order"],
 ];
 
 const cycleRules = [
@@ -466,9 +466,28 @@ const schemaDocsReadmeLiveRouteGateNote = {
   ],
 };
 
+const schemaDocsReadmeFailureCopy = {
+  command: "npm run smoke:schema-docs-readme-failure-copy",
+  failingCommand: schemaDocsReadmeLiveRouteGateNote.command,
+  noMergeCopy: "Не мержить, пока `/plan` и packages/shared/README.md#shared-schema-index снова не показывают один schema index",
+  ownerRole: "Schema owner + Product owner",
+  readmePath: schemaDocsReadmeCiNote.readmePath,
+  repairTargets: "/plan,packages/shared/README.md#shared-schema-index,[data-testid='schema-docs-link']",
+  sourceMarkerSelector: "[data-testid='schema-docs-readme-live-route-gate-note']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "падает schema docs README parity или route smoke показывает missing schema docs marker"],
+    ["Fix order", "сначала восстановить `## Shared Schema Index` и 5 schema rows, затем `/plan` schema-docs-link"],
+    ["Owner", "Schema owner подтверждает README/schema rows, Product owner подтверждает visible copy"],
+    ["No merge", "не мержить, пока schema docs smoke и route smoke снова не зеленые"],
+  ],
+};
+
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 20,
+  expectedCommandCount: 21,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -485,6 +504,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='schema-docs-readme-ci-note']",
     "[data-testid='schema-docs-readme-workflow-smoke']",
     "[data-testid='schema-docs-readme-live-route-gate-note']",
+    "[data-testid='schema-docs-readme-failure-copy']",
     "[data-testid='shared-validation-workflow-ci-note']",
     "[data-testid='shared-validation-workflow-step-smoke']",
     "[data-testid='shared-validation-live-route-gate-note']",
@@ -494,7 +514,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 20 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 21 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -1427,6 +1447,40 @@ export default function PlanPage() {
                     ? schemaDocsReadmeLiveRouteGateNote.routeSmokeCommand
                     : schemaDocsReadmeLiveRouteGateNote.readmePath}
                 </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-command={schemaDocsReadmeFailureCopy.command}
+          data-failing-command={schemaDocsReadmeFailureCopy.failingCommand}
+          data-no-merge-copy={schemaDocsReadmeFailureCopy.noMergeCopy}
+          data-owner-role={schemaDocsReadmeFailureCopy.ownerRole}
+          data-readme-path={schemaDocsReadmeFailureCopy.readmePath}
+          data-repair-targets={schemaDocsReadmeFailureCopy.repairTargets}
+          data-source-marker-selector={schemaDocsReadmeFailureCopy.sourceMarkerSelector}
+          data-testid="schema-docs-readme-failure-copy"
+          data-workflow-href={schemaDocsReadmeFailureCopy.workflowHref}
+          data-workflow-name={schemaDocsReadmeFailureCopy.workflowName}
+          data-workflow-path={schemaDocsReadmeFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Schema docs README failure copy</p>
+              <h2>Что делать, если schema docs parity упал</h2>
+            </div>
+            <a className="primary-link" href={schemaDocsReadmeFailureCopy.workflowHref}>
+              {schemaDocsReadmeFailureCopy.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {schemaDocsReadmeFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>{title === "No merge" ? schemaDocsReadmeFailureCopy.noMergeCopy : schemaDocsReadmeFailureCopy.readmePath}</strong>
                 <p>{text}</p>
               </article>
             ))}

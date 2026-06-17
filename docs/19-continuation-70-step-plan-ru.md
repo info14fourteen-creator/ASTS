@@ -257,6 +257,7 @@
 119. Добавить shared validation live route gate note: `web-build.yml` запускает `smoke:shared-validation-live-route`, который сверяет workflow-step note и live route smoke защиту `/plan` shared validation markers.
 120. Добавить web build route gate note: `web-build.yml` запускает `smoke:web-build-live-route`, который сверяет self-check note и live route smoke защиту `/plan` Web build markers.
 121. Добавить AI review API README failure copy: `web-build.yml` запускает `smoke:ai-review-api-readme-failure-copy`, который закрепляет owner-friendly no-merge текст при live parity drift.
+122. Добавить schema docs README failure copy: `web-build.yml` запускает `smoke:schema-docs-readme-failure-copy`, который закрепляет owner-friendly no-merge текст при schema docs parity drift.
 
 Следующими брать:
 
@@ -331,7 +332,8 @@
 69. [done 2026-06-17] Добавить shared validation live route gate note: показать, что shared validation note защищен route smoke.
 70. [done 2026-06-17] Добавить web build route gate note: показать, что web build self-check защищен route smoke.
 71. [done 2026-06-17] Добавить AI review API README failure copy: показать owner-friendly текст при падении live parity.
-72. Добавить schema docs README failure copy: показать owner-friendly текст при падении schema docs parity.
+72. [done 2026-06-17] Добавить schema docs README failure copy: показать owner-friendly текст при падении schema docs parity.
 73. Добавить shared validation failure copy: показать owner-friendly текст при падении shared validation drift.
 74. Добавить web build failure copy: показать owner-friendly текст при падении workflow drift.
 75. Добавить API README trigger failure copy: показать owner-friendly текст при падении trigger paths.
+76. Добавить schema docs workflow failure copy: показать owner-friendly текст при падении workflow step/order.
