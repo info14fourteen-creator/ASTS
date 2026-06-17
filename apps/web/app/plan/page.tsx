@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить shared validation CI badge link", "связать browser loop с GitHub Actions workflow"],
-  ["2", "Добавить shared README command parity smoke", "сравнить checklist commands с packages/shared/README.md"],
-  ["3", "Добавить AI review API README DOM parity smoke", "сравнить /plan marker с /ai-review API link"],
-  ["4", "Добавить schema docs README existence smoke", "проверить anchor в packages/shared/README.md"],
+  ["1", "Добавить shared README command parity smoke", "сравнить checklist commands с packages/shared/README.md"],
+  ["2", "Добавить AI review API README DOM parity smoke", "сравнить /plan marker с /ai-review API link"],
+  ["3", "Добавить schema docs README existence smoke", "проверить anchor в packages/shared/README.md"],
+  ["4", "Добавить shared validation workflow file smoke", "сверить /plan badge с .github/workflows/shared-validation.yml"],
 ];
 
 const cycleRules = [
@@ -52,6 +52,9 @@ const apiDependencyNotes = [
   ["Merge", "зелёный GitHub Actions важнее локального SKIP на чистой машине"],
 ];
 
+const sharedValidationWorkflowHref =
+  "https://github.com/info14fourteen-creator/ASTS/actions/workflows/shared-validation.yml";
+
 const prGateBadges = [
   [
     "Web build",
@@ -64,7 +67,7 @@ const prGateBadges = [
     "Shared validation",
     "schemas + fixture",
     "Проверяет demo-data, чтобы web и API не разъезжались по структуре процедур.",
-    "https://github.com/info14fourteen-creator/ASTS/actions/workflows/shared-validation.yml",
+    sharedValidationWorkflowHref,
     "blue",
   ],
   [
@@ -128,6 +131,23 @@ const sharedValidationBrowserLoop = {
     ["Plan", "docs/19-continuation-70-step-plan-ru.md держит milestones под тем же gate"],
     ["Workflow", ".github/workflows/shared-validation.yml проверяет сам gate"],
     ["Command", "npm run validate должен оставаться зеленым на 14 checks"],
+  ],
+};
+
+const sharedValidationCiBadgeLink = {
+  badgeLabel: "Shared validation",
+  browserLoopSelector: "[data-testid='shared-validation-browser-loop']",
+  checkCount: sharedValidationBrowserLoop.checkCount,
+  ciPath: ".github/workflows/shared-validation.yml",
+  command: sharedValidationBrowserLoop.command,
+  prGateHref: sharedValidationWorkflowHref,
+  workflowHref: sharedValidationWorkflowHref,
+  workflowName: "Shared validation",
+  checks: [
+    ["Badge", "PR gate badge ведет на GitHub Actions workflow"],
+    ["Browser loop", "shared validation browser loop закрепляет 14 checks и command"],
+    ["Workflow file", ".github/workflows/shared-validation.yml входит в CI path notes"],
+    ["Merge gate", "PR #17 остается CLEAN только с зеленым Shared validation"],
   ],
 };
 
@@ -472,6 +492,38 @@ export default function PlanPage() {
               <article className="fixture-coverage-card" key={title}>
                 <span>{title}</span>
                 <strong>{title === "Command" ? "npm run validate" : title}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-badge-label={sharedValidationCiBadgeLink.badgeLabel}
+          data-browser-loop-selector={sharedValidationCiBadgeLink.browserLoopSelector}
+          data-check-count={sharedValidationCiBadgeLink.checkCount}
+          data-command={sharedValidationCiBadgeLink.command}
+          data-ci-path={sharedValidationCiBadgeLink.ciPath}
+          data-pr-gate-href={sharedValidationCiBadgeLink.prGateHref}
+          data-testid="shared-validation-ci-badge-link"
+          data-workflow-href={sharedValidationCiBadgeLink.workflowHref}
+          data-workflow-name={sharedValidationCiBadgeLink.workflowName}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Shared validation CI badge link</p>
+              <h2>Как browser loop связан с GitHub Actions</h2>
+            </div>
+            <a className="primary-link" href={sharedValidationCiBadgeLink.workflowHref}>
+              Shared validation workflow
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sharedValidationCiBadgeLink.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>{sharedValidationCiBadgeLink.workflowName}</strong>
                 <p>{text}</p>
               </article>
             ))}

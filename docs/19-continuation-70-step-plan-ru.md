@@ -238,6 +238,7 @@
 100. Добавить fixture schema checklist smoke: `/plan` сверяет 5 schema ids и 4 validation commands из shared README.
 101. Добавить AI review schema API smoke marker: `/plan` связывает schema summary, `/v1/ai/review-queue`, API README и parity smoke.
 102. Добавить schema docs link parity smoke: `/plan` сверяет schema docs href и fixture checklist README anchor.
+103. Добавить shared validation CI badge link: `/plan` связывает browser loop с GitHub Actions workflow.
 
 Следующими брать:
 
@@ -293,7 +294,8 @@
 50. [done 2026-06-17] Добавить fixture schema checklist smoke: проверить schema ids и команды из shared README.
 51. [done 2026-06-17] Добавить AI review schema API smoke marker: связать schema summary с `/v1/ai/review-queue`.
 52. [done 2026-06-17] Добавить schema docs link parity smoke: сверить `/plan` link и README anchor.
-53. Добавить shared validation CI badge link: связать browser loop с GitHub Actions workflow.
+53. [done 2026-06-17] Добавить shared validation CI badge link: связать browser loop с GitHub Actions workflow.
 54. Добавить shared README command parity smoke: сравнить checklist commands с `packages/shared/README.md`.
 55. Добавить AI review API README DOM parity smoke: сравнить `/plan` marker с `/ai-review` API link.
 56. Добавить schema docs README existence smoke: проверить anchor в `packages/shared/README.md`.
+57. Добавить shared validation workflow file smoke: сверить `/plan` badge с `.github/workflows/shared-validation.yml`.
