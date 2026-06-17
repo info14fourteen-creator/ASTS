@@ -204,6 +204,8 @@ def main() -> int:
         "total": 4,
         "restored_required": 4,
         "blocked_until_receipt": 4,
+        "history_total": 4,
+        "history_blocked_until_restored": 2,
     }
     for field, value in expected_owner_receipt_counts.items():
         if owner_receipts_summary.get(field) != value:
@@ -254,6 +256,31 @@ def main() -> int:
         if "resolution_status=\"restored\"" not in rule.get("ai_gate_unlock_condition", ""):
             print(f"FAIL /v1/sources/owner-receipts {breach_type} must require restored unlock condition")
             return 1
+
+    owner_receipt_history = owner_receipts_payload.get("history", [])
+    if len(owner_receipt_history) != 4:
+        print(f"FAIL /v1/sources/owner-receipts history: expected 4 rows, got {len(owner_receipt_history)}")
+        return 1
+
+    history_resolution_statuses = {receipt.get("resolution_status") for receipt in owner_receipt_history}
+    if history_resolution_statuses != {"restored", "accepted_with_note", "still_blocked"}:
+        print(
+            "FAIL /v1/sources/owner-receipts history resolution statuses: "
+            f"got {sorted(str(status) for status in history_resolution_statuses)}"
+        )
+        return 1
+
+    history_ai_gates = {receipt.get("ai_gate") for receipt in owner_receipt_history}
+    if history_ai_gates != {"ready_after_receipt", "blocked_until_restored"}:
+        print(
+            "FAIL /v1/sources/owner-receipts history AI gates: "
+            f"got {sorted(str(gate) for gate in history_ai_gates)}"
+        )
+        return 1
+
+    if any(not receipt.get("raw_artifact_id") or not receipt.get("checksum_sha256") for receipt in owner_receipt_history):
+        print("FAIL /v1/sources/owner-receipts history rows must keep raw artifact and checksum")
+        return 1
 
     ai_review_response = client.get("/v1/ai/review-queue")
     if ai_review_response.status_code != 200:

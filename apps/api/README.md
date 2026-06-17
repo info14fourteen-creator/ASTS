@@ -97,6 +97,12 @@ required receipt fields and the `ai_gate_unlock_condition`. The unlock rule is
 deliberately strict: AI stays blocked unless the owner records
 `resolution_status="restored"` and links verified raw evidence with a checksum.
 
+The response also includes a read-only `history[]` fixture with four audit rows
+that mirror the `/sources` owner receipt history seed. API smoke asserts
+`summary.history_total=4`, `summary.history_blocked_until_restored=2`, the
+three resolution statuses and both AI gates:
+`ready_after_receipt` and `blocked_until_restored`.
+
 ## AI Review Queue Contract
 
 `GET /v1/ai/review-queue` is the backend contract behind the `/ai-review`

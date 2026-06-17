@@ -40,6 +40,7 @@ SourceOwnerReceiptAction = Literal[
     "refetch_and_compare",
 ]
 SourceOwnerReceiptResolutionStatus = Literal["restored", "accepted_with_note", "still_blocked"]
+SourceOwnerReceiptAiGate = Literal["ready_after_receipt", "blocked_until_restored"]
 AiReviewFactType = Literal[
     "requirement",
     "deadline",
@@ -269,6 +270,20 @@ class SourceOwnerReceiptSummary(BaseModel):
     total: int = Field(ge=0)
     restored_required: int = Field(ge=0)
     blocked_until_receipt: int = Field(ge=0)
+    history_total: int = Field(default=0, ge=0)
+    history_blocked_until_restored: int = Field(default=0, ge=0)
+
+
+class SourceOwnerReceiptHistoryItem(BaseModel):
+    id: str
+    breach_type: SourceFreshnessBreachType
+    owner_role: str
+    action: SourceOwnerReceiptAction
+    resolution_status: SourceOwnerReceiptResolutionStatus
+    raw_artifact_id: str
+    checksum_sha256: str
+    ai_gate: SourceOwnerReceiptAiGate
+    audit_note: str
 
 
 class AiReviewQueueItem(BaseModel):
@@ -402,6 +417,7 @@ class SourceOwnerReceiptsResponse(BaseModel):
     summary: SourceOwnerReceiptSummary
     receipt_required_fields: list[str]
     rules: list[SourceOwnerReceiptRule]
+    history: list[SourceOwnerReceiptHistoryItem]
 
 
 class AiReviewQueueResponse(BaseModel):

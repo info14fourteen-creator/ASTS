@@ -190,6 +190,8 @@ Required response shape:
 - `summary.total` - number of receipt rules.
 - `summary.restored_required` - rules that require `resolution_status="restored"` to unlock AI.
 - `summary.blocked_until_receipt` - breach classes that remain blocked until receipt evidence exists.
+- `summary.history_total` - number of read-only audit fixture rows.
+- `summary.history_blocked_until_restored` - history rows still blocking AI until a restored receipt exists.
 - `receipt_required_fields[]` - common audit fields every source owner receipt must carry.
 - `rules[].breach_type` - one of `stale`, `missing`, `parse_failed`, `hash_mismatch`.
 - `rules[].owner_role` - owner responsible for the manual decision.
@@ -198,6 +200,7 @@ Required response shape:
 - `rules[].required_fields[]` - common and breach-specific evidence fields.
 - `rules[].ai_gate_unlock_condition` - exact condition that allows AI to move from blocked to ready.
 - `rules[].evidence_rule` - source evidence needed for audit and future disputes.
+- `history[]` - read-only fixture of recorded owner receipt decisions with `resolution_status`, `raw_artifact_id`, `checksum_sha256`, `ai_gate` and `audit_note`.
 
 Action matrix:
 
@@ -209,6 +212,10 @@ Action matrix:
 AI gates can unlock only when `resolution_status="restored"` and verified raw
 artifact evidence is linked through `new_raw_artifact_id` and
 `new_checksum_sha256`.
+
+The first backend fixture mirrors the `/sources` UI history seed: four rows,
+three resolution statuses (`restored`, `accepted_with_note`, `still_blocked`)
+and two AI gates (`ready_after_receipt`, `blocked_until_restored`).
 
 ## AI Review Queue
 
