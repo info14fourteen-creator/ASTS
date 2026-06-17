@@ -262,6 +262,7 @@
 124. Добавить web build failure copy: `web-build.yml` запускает `smoke:web-build-failure-copy`, который закрепляет owner-friendly no-merge текст при Web build workflow drift.
 125. Добавить API README trigger failure copy: `web-build.yml` запускает `smoke:api-readme-trigger-failure-copy`, который закрепляет owner-friendly no-merge текст при trigger path drift.
 126. Добавить schema docs workflow failure copy: `web-build.yml` запускает `smoke:schema-docs-workflow-failure-copy`, который закрепляет owner-friendly no-merge текст при schema docs workflow drift.
+127. Добавить shared validation workflow failure copy: `web-build.yml` запускает `smoke:shared-validation-workflow-failure-copy`, который закрепляет owner-friendly no-merge текст при shared validation workflow order drift.
 
 Следующими брать:
 
@@ -341,7 +342,8 @@
 74. [done 2026-06-17] Добавить web build failure copy: показать owner-friendly текст при падении workflow drift.
 75. [done 2026-06-17] Добавить API README trigger failure copy: показать owner-friendly текст при падении trigger paths.
 76. [done 2026-06-17] Добавить schema docs workflow failure copy: показать owner-friendly текст при падении workflow step/order.
-77. Добавить shared validation workflow failure copy: показать owner-friendly текст при падении shared validation workflow order.
+77. [done 2026-06-17] Добавить shared validation workflow failure copy: показать owner-friendly текст при падении shared validation workflow order.
 78. Добавить web build rendered-route failure copy: показать owner-friendly текст при падении rendered routes.
 79. Добавить API README live-route failure copy: показать owner-friendly текст при падении live route order.
 80. Добавить schema docs live-route failure copy: показать owner-friendly текст при падении live route order.
+81. Добавить shared validation rendered-route failure copy: показать owner-friendly текст при падении rendered route coverage.

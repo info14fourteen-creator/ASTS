@@ -23,6 +23,7 @@
     "smoke:shared-readme-commands": "node scripts/shared-readme-command-parity.mjs",
     "smoke:shared-validation-failure-copy": "node scripts/shared-validation-failure-copy.mjs",
     "smoke:shared-validation-live-route": "node scripts/shared-validation-live-route-gate.mjs",
+    "smoke:shared-validation-workflow-failure-copy": "node scripts/shared-validation-workflow-failure-copy.mjs",
     "smoke:shared-validation-workflow-step": "node scripts/shared-validation-workflow-step-smoke.mjs",
     "smoke:shared-validation-workflow": "node scripts/shared-validation-workflow-file.mjs",
     "smoke:source-receipt-docs-link": "node scripts/source-receipt-docs-link-browser.mjs",
