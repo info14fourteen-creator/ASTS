@@ -236,6 +236,7 @@
 98. Добавить schema docs browser link: `/plan` связывает schema summary с `packages/shared/README.md#shared-schema-index`.
 99. Добавить shared validation browser loop: `/plan` закрепляет 14 checks, CI paths и selector для schema summary.
 100. Добавить fixture schema checklist smoke: `/plan` сверяет 5 schema ids и 4 validation commands из shared README.
+101. Добавить AI review schema API smoke marker: `/plan` связывает schema summary, `/v1/ai/review-queue`, API README и parity smoke.
 
 Следующими брать:
 
@@ -289,7 +290,8 @@
 48. [done 2026-06-17] Добавить schema docs browser link: связать `/plan` с `packages/shared/README.md`.
 49. [done 2026-06-17] Добавить shared validation browser loop: закрепить 14 checks и CI paths в `/plan`.
 50. [done 2026-06-17] Добавить fixture schema checklist smoke: проверить schema ids и команды из shared README.
-51. Добавить AI review schema API smoke marker: связать schema summary с `/v1/ai/review-queue`.
+51. [done 2026-06-17] Добавить AI review schema API smoke marker: связать schema summary с `/v1/ai/review-queue`.
 52. Добавить schema docs link parity smoke: сверить `/plan` link и README anchor.
 53. Добавить shared validation CI badge link: связать browser loop с GitHub Actions workflow.
 54. Добавить shared README command parity smoke: сравнить checklist commands с `packages/shared/README.md`.
+55. Добавить AI review API README DOM parity smoke: сравнить `/plan` marker с `/ai-review` API link.

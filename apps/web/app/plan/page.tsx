@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить AI review schema API smoke marker", "связать schema summary с /v1/ai/review-queue"],
-  ["2", "Добавить schema docs link parity smoke", "сверить /plan link и README anchor"],
-  ["3", "Добавить shared validation CI badge link", "связать browser loop с GitHub Actions workflow"],
-  ["4", "Добавить shared README command parity smoke", "сравнить checklist commands с packages/shared/README.md"],
+  ["1", "Добавить schema docs link parity smoke", "сверить /plan link и README anchor"],
+  ["2", "Добавить shared validation CI badge link", "связать browser loop с GitHub Actions workflow"],
+  ["3", "Добавить shared README command parity smoke", "сравнить checklist commands с packages/shared/README.md"],
+  ["4", "Добавить AI review API README DOM parity smoke", "сравнить /plan marker с /ai-review API link"],
 ];
 
 const cycleRules = [
@@ -152,6 +152,24 @@ const fixtureSchemaChecklistSmoke = {
     ["Source owner receipts", "FastAPI `/v1/sources/owner-receipts`, `/sources` receipt UI"],
     ["FNS connector gate", "FastAPI `/v1/sources/connectors`, `/sources` Legal gate"],
     ["AI review queue", "FastAPI `/v1/ai/review-queue`, `/ai-review` owner queue"],
+  ],
+};
+
+const aiReviewSchemaApiSmokeMarker = {
+  apiHref: "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#ai-review-queue-contract",
+  apiRoute: "/v1/ai/review-queue",
+  apiSelector: "[data-testid='ai-review-receipt-api-link']",
+  checkCount: 4,
+  parityCommand: "cd apps/web && npm run smoke:ai-review-actions",
+  protectedSurface: "/v1/ai/review-queue + /ai-review",
+  schemaId: "https://asts.local/schemas/ai-review-queue.schema.json",
+  schemaSelector: "[data-testid='ai-review-schema-summary']",
+  sourceFixture: "packages/shared/ai-review-queue.json",
+  checks: [
+    ["Schema", "сверить schema id с `/ai-review` summary"],
+    ["API route", "закрепить backend route `/v1/ai/review-queue`"],
+    ["API docs", "вести на API README AI Review Queue Contract"],
+    ["Parity smoke", "держать owner/action matrix через `smoke:ai-review-actions`"],
   ],
 };
 
@@ -476,6 +494,39 @@ export default function PlanPage() {
                 <span>{index + 1}</span>
                 <strong>{command}</strong>
                 <p>{fixtureSchemaChecklistSmoke.readmeAnchor}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-href={aiReviewSchemaApiSmokeMarker.apiHref}
+          data-api-route={aiReviewSchemaApiSmokeMarker.apiRoute}
+          data-api-selector={aiReviewSchemaApiSmokeMarker.apiSelector}
+          data-check-count={aiReviewSchemaApiSmokeMarker.checkCount}
+          data-parity-command={aiReviewSchemaApiSmokeMarker.parityCommand}
+          data-protected-surface={aiReviewSchemaApiSmokeMarker.protectedSurface}
+          data-schema-id={aiReviewSchemaApiSmokeMarker.schemaId}
+          data-schema-selector={aiReviewSchemaApiSmokeMarker.schemaSelector}
+          data-source-fixture={aiReviewSchemaApiSmokeMarker.sourceFixture}
+          data-testid="ai-review-schema-api-smoke-marker"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review schema API smoke marker</p>
+              <h2>Как schema summary связан с backend contract</h2>
+            </div>
+            <a className="primary-link" href={aiReviewSchemaApiSmokeMarker.apiHref}>
+              API review queue contract
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {aiReviewSchemaApiSmokeMarker.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>{title === "Schema" ? aiReviewSchemaApiSmokeMarker.schemaId : aiReviewSchemaApiSmokeMarker.apiRoute}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>
