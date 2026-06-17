@@ -212,6 +212,7 @@
 74. Добавить AI review receipt browser loop: `/ai-review` закрепляет owner receipt selector, allowed decisions и evidence fields.
 75. Добавить source owner receipt history seed: `/sources` показывает audit rows ручных freshness решений.
 76. Добавить FNS network gate docs link: `/sources` связывает approvals selector с API README и Legal owner gate.
+77. Добавить AI review receipt API link: `/ai-review` связывает owner receipt selector с `/v1/ai/review-queue`.
 
 Следующими брать:
 
@@ -241,7 +242,8 @@
 24. [done 2026-06-17] Добавить AI review receipt browser loop: закрепить owner receipt selector на `/ai-review`.
 25. [done 2026-06-17] Добавить source owner receipt history seed: подготовить demo rows для ручных решений по freshness blockers.
 26. [done 2026-06-17] Добавить FNS network gate docs link: связать approvals selector с API README и Legal owner gate.
-27. Добавить AI review receipt API link: связать owner receipt selector с `/v1/ai/review-queue`.
+27. [done 2026-06-17] Добавить AI review receipt API link: связать owner receipt selector с `/v1/ai/review-queue`.
 28. Добавить source owner receipt history browser loop: закрепить историю ручных freshness решений на `/sources`.
 29. Добавить source owner receipt backend fixture: связать history seed с `/v1/sources/owner-receipts`.
 30. Добавить FNS network gate API smoke assertion: проверить docs link и Legal gate в web smoke.
+31. Добавить AI review receipt backend smoke assertion: закрепить `/v1/ai/review-queue` link в web smoke.

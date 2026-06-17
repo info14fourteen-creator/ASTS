@@ -172,6 +172,11 @@ UI не должен менять статус карточки на прохо�
 - строки для `tender_manager`, `supplier_manager` и `finance_owner`;
 - `supplier_quote` дополнительно требует `supplier_clarification_ref`.
 
+AI review receipt browser loop должен показывать ссылку на backend contract:
+`data-testid="ai-review-receipt-api-link"`, `data-api-route="/v1/ai/review-queue"`.
+Эта ссылка ведет к API README, где описаны threshold, owner review, evidence
+fields и блокировка workflow до `confirmed` или `corrected` receipt.
+
 ## Collaboration Rules
 
 - Работать в ветках `codex/*`, не пушить напрямую в `main`.

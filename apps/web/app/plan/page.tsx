@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить AI review receipt API link", "связать owner receipt selector с /v1/ai/review-queue"],
-  ["2", "Добавить source owner receipt history browser loop", "закрепить историю ручных freshness решений на /sources"],
-  ["3", "Добавить source owner receipt backend fixture", "связать history seed с /v1/sources/owner-receipts"],
-  ["4", "Добавить FNS network gate API smoke assertion", "проверить docs link и Legal gate в web smoke"],
+  ["1", "Добавить source owner receipt history browser loop", "закрепить историю ручных freshness решений на /sources"],
+  ["2", "Добавить source owner receipt backend fixture", "связать history seed с /v1/sources/owner-receipts"],
+  ["3", "Добавить FNS network gate API smoke assertion", "проверить docs link и Legal gate в web smoke"],
+  ["4", "Добавить AI review receipt backend smoke assertion", "закрепить /v1/ai/review-queue link в web smoke"],
 ];
 
 const cycleRules = [

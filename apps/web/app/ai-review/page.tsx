@@ -123,6 +123,8 @@ const aiReviewOwnerReceiptRules = [
 const aiReviewReceiptBrowserLoop = {
   status: "armed",
   route: "/ai-review",
+  apiRoute: "/v1/ai/review-queue",
+  apiHref: "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#ai-review-queue-contract",
   selector: "[data-testid='ai-review-owner-receipt-rules'] [data-owner]",
   expectedOwners: aiReviewOwnerReceiptRules.map((rule) => rule.owner),
   expectedRuleCount: aiReviewOwnerReceiptRules.length,
@@ -320,6 +322,8 @@ export default function AiReviewPage() {
         <section
           className="panel ai-confidence-browser-loop-panel"
           data-allowed-decisions={aiReviewReceiptBrowserLoop.allowedDecisions}
+          data-api-href={aiReviewReceiptBrowserLoop.apiHref}
+          data-api-route={aiReviewReceiptBrowserLoop.apiRoute}
           data-owner-count={aiReviewReceiptBrowserLoop.expectedOwners.length}
           data-owners={aiReviewReceiptBrowserLoop.expectedOwners.join(",")}
           data-required-fields={aiReviewReceiptBrowserLoop.requiredFields.join(",")}
@@ -334,7 +338,9 @@ export default function AiReviewPage() {
               <p className="eyebrow">AI review receipt browser loop</p>
               <h2>Как браузер сверяет owner receipt после ручного решения</h2>
             </div>
-            <span className="status-pill amber">{aiReviewReceiptBrowserLoop.status}</span>
+            <a className="primary-link" data-testid="ai-review-receipt-api-link" href={aiReviewReceiptBrowserLoop.apiHref}>
+              API / AI review queue
+            </a>
           </div>
           <div className="ai-confidence-browser-loop-grid">
             {aiReviewReceiptBrowserLoop.checks.map(([title, text]) => (

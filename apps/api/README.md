@@ -118,6 +118,11 @@ all rows keep source evidence present. Facts can be shown as
 
 The detailed DTO and example response live in `docs/05-api-contract.md`.
 
+The `/ai-review` UI links its `ai-review-receipt-browser-loop` block back to
+this section through `data-testid="ai-review-receipt-api-link"` and
+`data-api-route="/v1/ai/review-queue"` so owner receipt rules stay traceable
+from the visible workdesk to the backend contract.
+
 ### AI Review Owner Actions
 
 Low-confidence AI facts are cleared by owner receipts, not by overwriting the
