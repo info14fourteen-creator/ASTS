@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить owner receipt API rendered-route failure copy", "показать owner-friendly текст при падении owner receipt API route coverage"],
-  ["2", "Добавить AI review receipt API rendered-route failure copy", "показать owner-friendly текст при падении AI review receipt route coverage"],
-  ["3", "Добавить source freshness docs rendered-route failure copy", "показать owner-friendly текст при падении freshness docs route coverage"],
-  ["4", "Добавить FNS real-network approval API copy", "показать owner-friendly текст для будущего сетевого smoke gate"],
+  ["1", "Добавить AI review receipt API rendered-route failure copy", "показать owner-friendly текст при падении AI review receipt route coverage"],
+  ["2", "Добавить source freshness docs rendered-route failure copy", "показать owner-friendly текст при падении freshness docs route coverage"],
+  ["3", "Добавить FNS real-network approval API copy", "показать owner-friendly текст для будущего сетевого smoke gate"],
+  ["4", "Добавить source owner receipt write API draft", "описать будущий write endpoint для ручного receipt"],
 ];
 
 const cycleRules = [
@@ -747,6 +747,33 @@ const sourceOwnerReceiptsRenderedRouteFailureCopy = {
   ],
 };
 
+const ownerReceiptApiRenderedRouteFailureCopy = {
+  apiRoute: "/v1/sources/owner-receipts",
+  apiServicePath: "apps/api/app/services/source_owner_receipts.py",
+  command: "npm run smoke:owner-receipt-api-rendered-route-failure-copy",
+  docsHref: "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#source-owner-receipt-contract",
+  expectedBlockedUntilRestoredCount: 2,
+  expectedHistoryCount: 4,
+  expectedRouteCount: 16,
+  failingCommand: "npm run smoke -- --url http://127.0.0.1:4177/",
+  noMergeCopy:
+    "Не мержить, пока rendered routes smoke снова подтверждает owner receipt API route, shared fixture и `/sources` history markers",
+  ownerRole: "API owner + Sources owner + QA owner",
+  parityCommand: "npm run smoke:owner-receipts",
+  repairTargets:
+    "apps/api/app/main.py,apps/api/app/services/source_owner_receipts.py,packages/shared/source-owner-receipts.json,/sources,apps/web/scripts/smoke.mjs",
+  sourceMarkerSelector: "[data-testid='source-owner-receipt-history']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "rendered routes проходят, но API route, shared fixture или `/sources` history marker разъехались"],
+    ["Fix order", "сначала восстановить FastAPI route и shared fixture, затем `/sources` history data-api-route"],
+    ["Owner", "API owner подтверждает backend contract, Sources owner подтверждает UI history seed, QA owner подтверждает route smoke"],
+    ["No merge", "не мержить, пока owner receipt API снова не проходит rendered route coverage"],
+  ],
+};
+
 const sourceFreshnessRenderedRouteFailureCopy = {
   apiRoute: "/v1/sources/freshness",
   breachTypes: "stale,missing,parse_failed,hash_mismatch",
@@ -847,7 +874,7 @@ const ownerReceiptDocsRenderedRouteFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 39,
+  expectedCommandCount: 40,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -874,6 +901,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='schema-docs-readme-failure-copy']",
     "[data-testid='schema-docs-rendered-route-failure-copy']",
     "[data-testid='source-owner-receipts-rendered-route-failure-copy']",
+    "[data-testid='owner-receipt-api-rendered-route-failure-copy']",
     "[data-testid='source-freshness-rendered-route-failure-copy']",
     "[data-testid='fns-approvals-rendered-route-failure-copy']",
     "[data-testid='fns-approvals-docs-rendered-route-failure-copy']",
@@ -892,7 +920,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 39 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 40 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -2358,6 +2386,57 @@ export default function PlanPage() {
                   {title === "No merge"
                     ? sourceOwnerReceiptsRenderedRouteFailureCopy.noMergeCopy
                     : sourceOwnerReceiptsRenderedRouteFailureCopy.apiRoute}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-route={ownerReceiptApiRenderedRouteFailureCopy.apiRoute}
+          data-api-service-path={ownerReceiptApiRenderedRouteFailureCopy.apiServicePath}
+          data-command={ownerReceiptApiRenderedRouteFailureCopy.command}
+          data-docs-href={ownerReceiptApiRenderedRouteFailureCopy.docsHref}
+          data-expected-blocked-until-restored-count={
+            ownerReceiptApiRenderedRouteFailureCopy.expectedBlockedUntilRestoredCount
+          }
+          data-expected-history-count={ownerReceiptApiRenderedRouteFailureCopy.expectedHistoryCount}
+          data-expected-route-count={ownerReceiptApiRenderedRouteFailureCopy.expectedRouteCount}
+          data-failing-command={ownerReceiptApiRenderedRouteFailureCopy.failingCommand}
+          data-no-merge-copy={ownerReceiptApiRenderedRouteFailureCopy.noMergeCopy}
+          data-owner-role={ownerReceiptApiRenderedRouteFailureCopy.ownerRole}
+          data-parity-command={ownerReceiptApiRenderedRouteFailureCopy.parityCommand}
+          data-repair-targets={ownerReceiptApiRenderedRouteFailureCopy.repairTargets}
+          data-source-marker-selector={ownerReceiptApiRenderedRouteFailureCopy.sourceMarkerSelector}
+          data-testid="owner-receipt-api-rendered-route-failure-copy"
+          data-workflow-href={ownerReceiptApiRenderedRouteFailureCopy.workflowHref}
+          data-workflow-name={ownerReceiptApiRenderedRouteFailureCopy.workflowName}
+          data-workflow-path={ownerReceiptApiRenderedRouteFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Owner receipt API rendered-route failure copy</p>
+              <h2>Что делать, если owner receipt API пропал в rendered routes</h2>
+            </div>
+            <div className="panel-actions">
+              <a className="primary-link" href={ownerReceiptApiRenderedRouteFailureCopy.workflowHref}>
+                {ownerReceiptApiRenderedRouteFailureCopy.workflowName}
+              </a>
+              <a className="primary-link" href={ownerReceiptApiRenderedRouteFailureCopy.docsHref}>
+                API contract
+              </a>
+            </div>
+          </div>
+          <div className="fixture-coverage-grid">
+            {ownerReceiptApiRenderedRouteFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? ownerReceiptApiRenderedRouteFailureCopy.noMergeCopy
+                    : ownerReceiptApiRenderedRouteFailureCopy.apiRoute}
                 </strong>
                 <p>{text}</p>
               </article>

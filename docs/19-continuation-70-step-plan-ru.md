@@ -276,6 +276,7 @@
 138. Добавить AI review queue rendered-route failure copy: `web-build.yml` запускает `smoke:ai-review-queue-rendered-route-failure-copy`, который закрепляет owner-friendly no-merge текст при падении `/ai-review` low-confidence queue внутри rendered routes smoke.
 139. Добавить source freshness rendered-route failure copy: `web-build.yml` запускает `smoke:source-freshness-rendered-route-failure-copy`, который закрепляет owner-friendly no-merge текст при падении `/sources` freshness queue внутри rendered routes smoke.
 140. Добавить FNS approvals docs rendered-route failure copy: `web-build.yml` запускает `smoke:fns-approvals-docs-rendered-route-failure-copy`, который закрепляет owner-friendly no-merge текст при падении `/sources` FNS docs link и API README anchor внутри rendered routes smoke.
+141. Добавить owner receipt API rendered-route failure copy: `web-build.yml` запускает `smoke:owner-receipt-api-rendered-route-failure-copy`, который закрепляет owner-friendly no-merge текст при падении FastAPI `/v1/sources/owner-receipts`, shared fixture и `/sources` API markers внутри rendered routes smoke.
 
 Следующими брать:
 
@@ -369,3 +370,4 @@
 88. [done 2026-06-17] Добавить AI review queue rendered-route failure copy: показать owner-friendly текст при падении AI review route coverage.
 89. [done 2026-06-17] Добавить source freshness rendered-route failure copy: показать owner-friendly текст при падении freshness route coverage.
 90. [done 2026-06-18] Добавить FNS approvals docs rendered-route failure copy: показать owner-friendly текст при падении FNS docs route coverage.
+91. [done 2026-06-18] Добавить owner receipt API rendered-route failure copy: показать owner-friendly текст при падении owner receipt API route coverage.

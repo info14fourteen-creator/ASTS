@@ -17,6 +17,7 @@
     "smoke:ai-review-api-readme": "node scripts/ai-review-api-readme-parity.mjs",
     "smoke:ai-review-actions": "node scripts/ai-review-action-parity.mjs",
     "smoke:ai-review-queue-rendered-route-failure-copy": "node scripts/ai-review-queue-rendered-route-failure-copy.mjs",
+    "smoke:owner-receipt-api-rendered-route-failure-copy": "node scripts/owner-receipt-api-rendered-route-failure-copy.mjs",
     "smoke:fns-approvals": "node scripts/fns-approvals-parity.mjs",
     "smoke:fns-approvals-docs-rendered-route-failure-copy": "node scripts/fns-approvals-docs-rendered-route-failure-copy.mjs",
     "smoke:fns-approvals-rendered-route-failure-copy": "node scripts/fns-approvals-rendered-route-failure-copy.mjs",
