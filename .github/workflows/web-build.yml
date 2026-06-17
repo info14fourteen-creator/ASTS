@@ -79,6 +79,9 @@ jobs:
       - name: Smoke schema docs live route gate
         run: npm run smoke:schema-docs-live-route
 
+      - name: Smoke schema docs live route failure copy
+        run: npm run smoke:schema-docs-live-route-failure-copy
+
       - name: Smoke schema docs README failure copy
         run: npm run smoke:schema-docs-readme-failure-copy
 
