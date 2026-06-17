@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить fixture schema checklist smoke", "проверить schema ids и команды из shared README"],
-  ["2", "Добавить AI review schema API smoke marker", "связать schema summary с /v1/ai/review-queue"],
-  ["3", "Добавить schema docs link parity smoke", "сверить /plan link и README anchor"],
-  ["4", "Добавить shared validation CI badge link", "связать browser loop с GitHub Actions workflow"],
+  ["1", "Добавить AI review schema API smoke marker", "связать schema summary с /v1/ai/review-queue"],
+  ["2", "Добавить schema docs link parity smoke", "сверить /plan link и README anchor"],
+  ["3", "Добавить shared validation CI badge link", "связать browser loop с GitHub Actions workflow"],
+  ["4", "Добавить shared README command parity smoke", "сравнить checklist commands с packages/shared/README.md"],
 ];
 
 const cycleRules = [
@@ -128,6 +128,30 @@ const sharedValidationBrowserLoop = {
     ["Plan", "docs/19-continuation-70-step-plan-ru.md держит milestones под тем же gate"],
     ["Workflow", ".github/workflows/shared-validation.yml проверяет сам gate"],
     ["Command", "npm run validate должен оставаться зеленым на 14 checks"],
+  ],
+};
+
+const fixtureSchemaChecklistSmoke = {
+  readmeAnchor: "packages/shared/README.md#shared-schema-index",
+  schemaIds: [
+    "ai-schemas/tender-position-extraction.schema.json",
+    "ai-schemas/supplier-quote-normalization.schema.json",
+    "fixture-schemas/source-owner-receipts.schema.json",
+    "fixture-schemas/fns-connector-gate.schema.json",
+    "fixture-schemas/ai-review-queue.schema.json",
+  ],
+  commands: [
+    "cd packages/shared && npm run validate",
+    "cd apps/web && npm run smoke:owner-receipts",
+    "cd apps/web && npm run smoke:fns-approvals",
+    "cd apps/web && npm run smoke:ai-review-actions",
+  ],
+  surfaces: [
+    ["Tender position extraction", "AI document extraction before workflow decisions"],
+    ["Supplier quote normalization", "AI supplier quote parsing before economics"],
+    ["Source owner receipts", "FastAPI `/v1/sources/owner-receipts`, `/sources` receipt UI"],
+    ["FNS connector gate", "FastAPI `/v1/sources/connectors`, `/sources` Legal gate"],
+    ["AI review queue", "FastAPI `/v1/ai/review-queue`, `/ai-review` owner queue"],
   ],
 };
 
@@ -416,6 +440,42 @@ export default function PlanPage() {
                 <span>{title}</span>
                 <strong>{title === "Command" ? "npm run validate" : title}</strong>
                 <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-command-count={fixtureSchemaChecklistSmoke.commands.length}
+          data-commands={fixtureSchemaChecklistSmoke.commands.join(" | ")}
+          data-readme-anchor={fixtureSchemaChecklistSmoke.readmeAnchor}
+          data-schema-count={fixtureSchemaChecklistSmoke.schemaIds.length}
+          data-schema-ids={fixtureSchemaChecklistSmoke.schemaIds.join(",")}
+          data-testid="fixture-schema-checklist-smoke"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Fixture schema checklist smoke</p>
+              <h2>Что `/plan` сверяет с shared README</h2>
+            </div>
+            <span className="status-pill green">{fixtureSchemaChecklistSmoke.schemaIds.length} schema ids</span>
+          </div>
+          <div className="fixture-coverage-grid">
+            {fixtureSchemaChecklistSmoke.schemaIds.map((schemaId, index) => (
+              <article className="fixture-coverage-card" data-schema-id={schemaId} key={schemaId}>
+                <span>{fixtureSchemaChecklistSmoke.surfaces[index][0]}</span>
+                <strong>{schemaId}</strong>
+                <p>{fixtureSchemaChecklistSmoke.surfaces[index][1]}</p>
+              </article>
+            ))}
+          </div>
+          <div className="plan-next-list">
+            {fixtureSchemaChecklistSmoke.commands.map((command, index) => (
+              <article className="plan-next-row" data-command={command} key={command}>
+                <span>{index + 1}</span>
+                <strong>{command}</strong>
+                <p>{fixtureSchemaChecklistSmoke.readmeAnchor}</p>
               </article>
             ))}
           </div>
