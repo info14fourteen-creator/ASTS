@@ -252,6 +252,7 @@
 114. Добавить schema docs README workflow smoke: `web-build.yml` запускает `smoke:schema-docs-workflow`, который сверяет shared README trigger path, CI step и `/plan` note.
 115. Добавить shared validation workflow step smoke: `web-build.yml` запускает `smoke:shared-validation-workflow-step`, который сверяет Shared validation CI note и Web build step.
 116. Добавить web build workflow CI self-check note: `web-build.yml` запускает `smoke:web-build-self-check`, который сверяет self-trigger path, workflow file smoke step и `/plan` note.
+117. Добавить API README live route gate note: `web-build.yml` запускает `smoke:api-readme-live-route`, который сверяет live `/plan` + `/ai-review` API README parity внутри rendered routes gate.
 
 Следующими брать:
 
@@ -321,7 +322,8 @@
 64. [done 2026-06-17] Добавить schema docs README workflow smoke: сверить `/plan` note с Web build step.
 65. [done 2026-06-17] Добавить shared validation workflow step smoke: сверить `/plan` note с Web build step.
 66. [done 2026-06-17] Добавить web build workflow CI self-check note: показать, что workflow smoke запускает сам себя.
-67. Добавить API README live route gate note: показать, что live DOM parity защищает API docs links.
+67. [done 2026-06-17] Добавить API README live route gate note: показать, что live DOM parity защищает API docs links.
 68. Добавить schema docs README live route gate note: показать, что schema docs links защищены live route smoke.
 69. Добавить shared validation live route gate note: показать, что shared validation note защищен route smoke.
 70. Добавить web build route gate note: показать, что web build self-check защищен route smoke.
+71. Добавить AI review API README failure copy: показать owner-friendly текст при падении live parity.

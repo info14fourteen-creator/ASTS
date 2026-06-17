@@ -88,6 +88,9 @@ jobs:
       - name: Smoke API README trigger path
         run: npm run smoke:api-readme-trigger
 
+      - name: Smoke API README live route gate
+        run: npm run smoke:api-readme-live-route
+
       - name: Smoke rendered routes
         run: |
           npm run start -- -H 127.0.0.1 -p 4177 > /tmp/asts-web.log 2>&1 &

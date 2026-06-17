@@ -28,6 +28,7 @@ const expectedCommands = [
   "npm run smoke:web-build-workflow",
   "npm run smoke:web-build-self-check",
   "npm run smoke:api-readme-trigger",
+  "npm run smoke:api-readme-live-route",
   "npm run smoke -- --url http://127.0.0.1:4177/",
   "npm run smoke:source-receipt-docs-link -- --url http://127.0.0.1:4177",
   "npm run smoke:ai-review-api-readme -- --url http://127.0.0.1:4177",
@@ -35,6 +36,7 @@ const expectedCommands = [
 const expectedPlanMarkers = [
   'data-testid="shared-readme-command-ci-note"',
   'data-testid="ai-review-api-readme-ci-note"',
+  'data-testid="api-readme-live-route-gate-note"',
   'data-testid="api-readme-trigger-smoke"',
   'data-testid="schema-docs-readme-ci-note"',
   'data-testid="schema-docs-readme-workflow-smoke"',

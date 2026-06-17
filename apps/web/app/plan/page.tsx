@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить API README live route gate note", "показать, что live DOM parity защищает API docs links"],
-  ["2", "Добавить schema docs README live route gate note", "показать, что schema docs links защищены live route smoke"],
-  ["3", "Добавить shared validation live route gate note", "показать, что shared validation note защищен route smoke"],
-  ["4", "Добавить web build route gate note", "показать, что web build self-check защищен route smoke"],
+  ["1", "Добавить schema docs README live route gate note", "показать, что schema docs links защищены live route smoke"],
+  ["2", "Добавить shared validation live route gate note", "показать, что shared validation note защищен route smoke"],
+  ["3", "Добавить web build route gate note", "показать, что web build self-check защищен route smoke"],
+  ["4", "Добавить AI review API README failure copy", "показать owner-friendly текст при падении live parity"],
 ];
 
 const cycleRules = [
@@ -303,6 +303,23 @@ const aiReviewApiReadmeCiNote = {
   ],
 };
 
+const apiReadmeLiveRouteGateNote = {
+  command: "npm run smoke:api-readme-live-route",
+  liveCommand: aiReviewApiReadmeCiNote.domParityCommand,
+  markerSelector: "[data-testid='ai-review-api-readme-ci-note']",
+  routeSmokeCommand: "npm run smoke -- --url http://127.0.0.1:4177/",
+  sourceSmokeCommand: aiReviewApiReadmeCiNote.smokeCommand,
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Route smoke", "Web build сначала поднимает Next preview и проверяет 16 routes"],
+    ["Live parity", "затем проверяет `/plan` + `/ai-review` API README link на живом сервере"],
+    ["Plan marker", "ai-review-api-readme-ci-note остается источником route, selector и command"],
+    ["Merge gate", "API docs link drift должен падать после старта preview, до merge"],
+  ],
+};
+
 const apiReadmeTriggerSmoke = {
   command: "npm run smoke:api-readme-trigger",
   domParityCommand: aiReviewApiReadmeCiNote.domParityCommand,
@@ -394,7 +411,7 @@ const schemaDocsReadmeWorkflowSmoke = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 15,
+  expectedCommandCount: 16,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -405,6 +422,7 @@ const webBuildWorkflowFileSmoke = {
   ciNoteSelectors: [
     "[data-testid='shared-readme-command-ci-note']",
     "[data-testid='ai-review-api-readme-ci-note']",
+    "[data-testid='api-readme-live-route-gate-note']",
     "[data-testid='api-readme-trigger-smoke']",
     "[data-testid='schema-docs-readme-ci-note']",
     "[data-testid='schema-docs-readme-workflow-smoke']",
@@ -415,7 +433,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 15 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 16 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -1024,6 +1042,38 @@ export default function PlanPage() {
               <article className="fixture-coverage-card" key={title}>
                 <span>{title}</span>
                 <strong>{title === "Trigger path" ? aiReviewApiReadmeCiNote.triggerPath : aiReviewApiReadmeCiNote.apiRoute}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-command={apiReadmeLiveRouteGateNote.command}
+          data-live-command={apiReadmeLiveRouteGateNote.liveCommand}
+          data-marker-selector={apiReadmeLiveRouteGateNote.markerSelector}
+          data-route-smoke-command={apiReadmeLiveRouteGateNote.routeSmokeCommand}
+          data-source-smoke-command={apiReadmeLiveRouteGateNote.sourceSmokeCommand}
+          data-testid="api-readme-live-route-gate-note"
+          data-workflow-href={apiReadmeLiveRouteGateNote.workflowHref}
+          data-workflow-name={apiReadmeLiveRouteGateNote.workflowName}
+          data-workflow-path={apiReadmeLiveRouteGateNote.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">API README live route gate note</p>
+              <h2>Как live DOM parity защищает API docs links</h2>
+            </div>
+            <a className="primary-link" href={apiReadmeLiveRouteGateNote.workflowHref}>
+              {apiReadmeLiveRouteGateNote.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {apiReadmeLiveRouteGateNote.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>{title === "Route smoke" ? apiReadmeLiveRouteGateNote.routeSmokeCommand : apiReadmeLiveRouteGateNote.liveCommand}</strong>
                 <p>{text}</p>
               </article>
             ))}
