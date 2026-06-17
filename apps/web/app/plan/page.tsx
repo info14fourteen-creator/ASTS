@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить web build workflow file smoke", "сверить `/plan` CI notes с .github/workflows/web-build.yml"],
-  ["2", "Добавить API README trigger smoke", "закрепить, что apps/api/README.md запускает web parity"],
-  ["3", "Добавить schema docs README workflow smoke", "сверить `/plan` note с Web build step"],
-  ["4", "Добавить shared validation workflow step smoke", "сверить `/plan` note с Web build step"],
+  ["1", "Добавить API README trigger smoke", "закрепить, что apps/api/README.md запускает web parity"],
+  ["2", "Добавить schema docs README workflow smoke", "сверить `/plan` note с Web build step"],
+  ["3", "Добавить shared validation workflow step smoke", "сверить `/plan` note с Web build step"],
+  ["4", "Добавить web build workflow CI self-check note", "показать, что workflow smoke запускает сам себя"],
 ];
 
 const cycleRules = [
@@ -336,6 +336,30 @@ const schemaDocsReadmeCiNote = {
     ["Trigger path", "packages/shared/README.md уже запускает web build при смене schema index"],
     ["Docs anchor", "README должен держать `## Shared Schema Index` и 5 rows"],
     ["Plan link", "`/plan` хранит docs href и schema-docs-link selector"],
+  ],
+};
+
+const webBuildWorkflowFileSmoke = {
+  command: "npm run smoke:web-build-workflow",
+  expectedCommandCount: 11,
+  expectedPathCount: 7,
+  nodeVersion: "22",
+  smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  workingDirectory: "apps/web",
+  ciNoteSelectors: [
+    "[data-testid='shared-readme-command-ci-note']",
+    "[data-testid='ai-review-api-readme-ci-note']",
+    "[data-testid='schema-docs-readme-ci-note']",
+    "[data-testid='shared-validation-workflow-ci-note']",
+  ],
+  checks: [
+    ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
+    ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
+    ["Commands", "сверяет 11 build/smoke commands, включая live route smoke"],
+    ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
 
@@ -986,6 +1010,40 @@ export default function PlanPage() {
               <article className="fixture-coverage-card" key={title}>
                 <span>{title}</span>
                 <strong>{title === "Trigger path" ? schemaDocsReadmeCiNote.triggerPath : schemaDocsReadmeCiNote.readmePath}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-ci-note-selectors={webBuildWorkflowFileSmoke.ciNoteSelectors.join(",")}
+          data-command={webBuildWorkflowFileSmoke.command}
+          data-expected-command-count={webBuildWorkflowFileSmoke.expectedCommandCount}
+          data-expected-path-count={webBuildWorkflowFileSmoke.expectedPathCount}
+          data-node-version={webBuildWorkflowFileSmoke.nodeVersion}
+          data-smoke-command={webBuildWorkflowFileSmoke.smokeCommand}
+          data-testid="web-build-workflow-file-smoke"
+          data-workflow-href={webBuildWorkflowFileSmoke.workflowHref}
+          data-workflow-name={webBuildWorkflowFileSmoke.workflowName}
+          data-workflow-path={webBuildWorkflowFileSmoke.workflowPath}
+          data-working-directory={webBuildWorkflowFileSmoke.workingDirectory}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Web build workflow file smoke</p>
+              <h2>Как `/plan` сверяет реальный Web build workflow</h2>
+            </div>
+            <a className="primary-link" href={webBuildWorkflowFileSmoke.workflowHref}>
+              {webBuildWorkflowFileSmoke.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {webBuildWorkflowFileSmoke.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>{title === "Commands" ? webBuildWorkflowFileSmoke.command : webBuildWorkflowFileSmoke.workflowPath}</strong>
                 <p>{text}</p>
               </article>
             ))}

@@ -15,6 +15,7 @@
     "smoke:shared-readme-commands": "node scripts/shared-readme-command-parity.mjs",
     "smoke:shared-validation-workflow": "node scripts/shared-validation-workflow-file.mjs",
     "smoke:source-receipt-docs-link": "node scripts/source-receipt-docs-link-browser.mjs",
+    "smoke:web-build-workflow": "node scripts/web-build-workflow-file.mjs",
     "lint": "next lint"
   },
   "dependencies": {
