@@ -118,6 +118,9 @@ jobs:
       - name: Smoke API README live route gate
         run: npm run smoke:api-readme-live-route
 
+      - name: Smoke API README live route failure copy
+        run: npm run smoke:api-readme-live-route-failure-copy
+
       - name: Smoke AI review API README failure copy
         run: npm run smoke:ai-review-api-readme-failure-copy
 

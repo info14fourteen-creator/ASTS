@@ -11,6 +11,7 @@
     "smoke:api-readme-trigger": "node scripts/api-readme-trigger-smoke.mjs",
     "smoke:ai-review-api-readme-failure-copy": "node scripts/ai-review-api-readme-failure-copy.mjs",
     "smoke:api-readme-live-route": "node scripts/api-readme-live-route-gate.mjs",
+    "smoke:api-readme-live-route-failure-copy": "node scripts/api-readme-live-route-failure-copy.mjs",
     "smoke:ai-review-api-readme": "node scripts/ai-review-api-readme-parity.mjs",
     "smoke:ai-review-actions": "node scripts/ai-review-action-parity.mjs",
     "smoke:fns-approvals": "node scripts/fns-approvals-parity.mjs",

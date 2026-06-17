@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить API README live-route failure copy", "показать owner-friendly текст при падении live route order"],
-  ["2", "Добавить schema docs live-route failure copy", "показать owner-friendly текст при падении live route order"],
-  ["3", "Добавить shared validation rendered-route failure copy", "показать owner-friendly текст при падении rendered route coverage"],
-  ["4", "Добавить AI review API README rendered-route failure copy", "показать owner-friendly текст при падении API docs live parity"],
+  ["1", "Добавить schema docs live-route failure copy", "показать owner-friendly текст при падении live route order"],
+  ["2", "Добавить shared validation rendered-route failure copy", "показать owner-friendly текст при падении rendered route coverage"],
+  ["3", "Добавить AI review API README rendered-route failure copy", "показать owner-friendly текст при падении API docs live parity"],
+  ["4", "Добавить API README trigger rendered-route failure copy", "показать owner-friendly текст при падении trigger/live parity chain"],
 ];
 
 const cycleRules = [
@@ -382,6 +382,27 @@ const apiReadmeLiveRouteGateNote = {
   ],
 };
 
+const apiReadmeLiveRouteFailureCopy = {
+  command: "npm run smoke:api-readme-live-route-failure-copy",
+  failingCommand: apiReadmeLiveRouteGateNote.command,
+  liveCommand: apiReadmeLiveRouteGateNote.liveCommand,
+  noMergeCopy:
+    "Не мержить, пока Web build снова держит API README live-route gate перед rendered routes parity checks",
+  ownerRole: "API owner + CI owner",
+  repairTargets:
+    ".github/workflows/web-build.yml,/plan,apps/web/scripts/api-readme-live-route-gate.mjs,apps/web/scripts/smoke.mjs",
+  sourceMarkerSelector: "[data-testid='api-readme-live-route-gate-note']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "падает API README live-route gate или Web build меняет порядок live parity checks"],
+    ["Fix order", "сначала восстановить api-readme-live-route gate, затем rendered routes и AI review API README parity"],
+    ["Owner", "API owner подтверждает README anchor, CI owner подтверждает порядок шагов Web build"],
+    ["No merge", "не мержить, пока API README live-route gate снова не зеленый"],
+  ],
+};
+
 const apiReadmeFailureCopy = {
   command: "npm run smoke:ai-review-api-readme-failure-copy",
   failingCommand: aiReviewApiReadmeCiNote.domParityCommand,
@@ -572,7 +593,7 @@ const schemaDocsReadmeFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 27,
+  expectedCommandCount: 28,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -584,6 +605,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='shared-readme-command-ci-note']",
     "[data-testid='ai-review-api-readme-ci-note']",
     "[data-testid='api-readme-live-route-gate-note']",
+    "[data-testid='api-readme-live-route-failure-copy']",
     "[data-testid='ai-review-api-readme-failure-copy']",
     "[data-testid='api-readme-trigger-smoke']",
     "[data-testid='api-readme-trigger-failure-copy']",
@@ -605,7 +627,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 27 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 28 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -1415,6 +1437,42 @@ export default function PlanPage() {
               <article className="fixture-coverage-card" key={title}>
                 <span>{title}</span>
                 <strong>{title === "Route smoke" ? apiReadmeLiveRouteGateNote.routeSmokeCommand : apiReadmeLiveRouteGateNote.liveCommand}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-command={apiReadmeLiveRouteFailureCopy.command}
+          data-failing-command={apiReadmeLiveRouteFailureCopy.failingCommand}
+          data-live-command={apiReadmeLiveRouteFailureCopy.liveCommand}
+          data-no-merge-copy={apiReadmeLiveRouteFailureCopy.noMergeCopy}
+          data-owner-role={apiReadmeLiveRouteFailureCopy.ownerRole}
+          data-repair-targets={apiReadmeLiveRouteFailureCopy.repairTargets}
+          data-source-marker-selector={apiReadmeLiveRouteFailureCopy.sourceMarkerSelector}
+          data-testid="api-readme-live-route-failure-copy"
+          data-workflow-href={apiReadmeLiveRouteFailureCopy.workflowHref}
+          data-workflow-name={apiReadmeLiveRouteFailureCopy.workflowName}
+          data-workflow-path={apiReadmeLiveRouteFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">API README live-route failure copy</p>
+              <h2>Что делать, если API README live-route gate упал</h2>
+            </div>
+            <a className="primary-link" href={apiReadmeLiveRouteFailureCopy.workflowHref}>
+              {apiReadmeLiveRouteFailureCopy.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {apiReadmeLiveRouteFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge" ? apiReadmeLiveRouteFailureCopy.noMergeCopy : apiReadmeLiveRouteFailureCopy.failingCommand}
+                </strong>
                 <p>{text}</p>
               </article>
             ))}
