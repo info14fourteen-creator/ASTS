@@ -95,6 +95,21 @@ const fnsRealNetworkSmokeGate = {
   ],
 };
 
+const fnsNetworkGateBrowserLoop = {
+  route: "/sources",
+  selector: "[data-testid='fns-real-network-smoke-gate'] [data-approval]",
+  expectedStatus: fnsRealNetworkSmokeGate.status,
+  expectedOwner: fnsRealNetworkSmokeGate.owner,
+  expectedApprovalCount: fnsRealNetworkSmokeGate.requiredApprovals.length,
+  expectedSafeTestPair: fnsRealNetworkSmokeGate.safeTestPairRequired,
+  checks: [
+    ["Locate", "найти real-network gate и approval rows по data-testid"],
+    ["Assert approvals", "сверить 5 owner approvals до включения сетевого smoke"],
+    ["Assert Legal", "подтвердить Legal owner и safe INN/OGRN test pair"],
+    ["Assert CI policy", "убедиться, что CI не зовет ФНС до явного разрешения"],
+  ],
+};
+
 const connectorRunbook = [
   ["ЕИС", "Data", "raw XML/JSON + файлы", "retry 3x / quarantine"],
   ["ФНС", "Legal", "ответ проверки ИНН", "ручное подтверждение при расхождении"],
@@ -373,6 +388,35 @@ export default function SourcesPage() {
                 <strong>{approval}</strong>
                 <p>{fnsRealNetworkSmokeGate.ciPolicy}</p>
                 <em>{fnsRealNetworkSmokeGate.owner}</em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-approval-count={fnsNetworkGateBrowserLoop.expectedApprovalCount}
+          data-ci-policy={fnsRealNetworkSmokeGate.ciPolicy}
+          data-owner={fnsNetworkGateBrowserLoop.expectedOwner}
+          data-route={fnsNetworkGateBrowserLoop.route}
+          data-safe-test-pair-required={String(fnsNetworkGateBrowserLoop.expectedSafeTestPair)}
+          data-selector={fnsNetworkGateBrowserLoop.selector}
+          data-status={fnsNetworkGateBrowserLoop.expectedStatus}
+          data-testid="fns-network-gate-browser-loop"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">FNS network gate browser loop</p>
+              <h2>Как браузер сверяет approvals перед сетевым smoke</h2>
+            </div>
+            <span className="status-pill amber">{fnsNetworkGateBrowserLoop.expectedStatus}</span>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {fnsNetworkGateBrowserLoop.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>{fnsNetworkGateBrowserLoop.selector}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>
