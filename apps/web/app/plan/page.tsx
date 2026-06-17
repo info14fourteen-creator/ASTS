@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить schema docs README CI note", "показать, что README existence smoke входит в Web build"],
-  ["2", "Добавить shared validation workflow CI note", "показать, что workflow file smoke входит в Web build"],
-  ["3", "Добавить web build workflow file smoke", "сверить `/plan` CI notes с .github/workflows/web-build.yml"],
-  ["4", "Добавить API README trigger smoke", "закрепить, что apps/api/README.md запускает web parity"],
+  ["1", "Добавить shared validation workflow CI note", "показать, что workflow file smoke входит в Web build"],
+  ["2", "Добавить web build workflow file smoke", "сверить `/plan` CI notes с .github/workflows/web-build.yml"],
+  ["3", "Добавить API README trigger smoke", "закрепить, что apps/api/README.md запускает web parity"],
+  ["4", "Добавить schema docs README workflow smoke", "сверить `/plan` note с Web build step"],
 ];
 
 const cycleRules = [
@@ -298,6 +298,26 @@ const schemaDocsReadmeExistenceSmoke = {
     ["Heading", "README держит `## Shared Schema Index` для GitHub anchor"],
     ["Rows", "индекс содержит все 5 schema rows из fixture checklist"],
     ["Plan link", "`/plan` marker ведет на тот же shared-schema-index anchor"],
+  ],
+};
+
+const schemaDocsReadmeCiNote = {
+  docsHref: schemaDocsLinkParitySmoke.docsHref,
+  expectedRows: schemaDocsReadmeExistenceSmoke.expectedRows,
+  linkSelector: schemaDocsReadmeExistenceSmoke.linkSelector,
+  readmeHeading: schemaDocsReadmeExistenceSmoke.readmeHeading,
+  readmePath: schemaDocsReadmeExistenceSmoke.readmePath,
+  smokeCommand: "npm run smoke:schema-docs-readme",
+  sourceSmokeCommand: schemaDocsReadmeExistenceSmoke.smokeCommand,
+  triggerPath: "packages/shared/README.md",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["CI step", "Web build запускает README existence smoke до route smoke"],
+    ["Trigger path", "packages/shared/README.md уже запускает web build при смене schema index"],
+    ["Docs anchor", "README должен держать `## Shared Schema Index` и 5 rows"],
+    ["Plan link", "`/plan` хранит docs href и schema-docs-link selector"],
   ],
 };
 
@@ -876,6 +896,41 @@ export default function PlanPage() {
               <article className="fixture-coverage-card" key={title}>
                 <span>{title}</span>
                 <strong>{schemaDocsReadmeExistenceSmoke.readmePath}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-docs-href={schemaDocsReadmeCiNote.docsHref}
+          data-expected-rows={schemaDocsReadmeCiNote.expectedRows}
+          data-link-selector={schemaDocsReadmeCiNote.linkSelector}
+          data-readme-heading={schemaDocsReadmeCiNote.readmeHeading}
+          data-readme-path={schemaDocsReadmeCiNote.readmePath}
+          data-smoke-command={schemaDocsReadmeCiNote.smokeCommand}
+          data-source-smoke-command={schemaDocsReadmeCiNote.sourceSmokeCommand}
+          data-testid="schema-docs-readme-ci-note"
+          data-trigger-path={schemaDocsReadmeCiNote.triggerPath}
+          data-workflow-href={schemaDocsReadmeCiNote.workflowHref}
+          data-workflow-name={schemaDocsReadmeCiNote.workflowName}
+          data-workflow-path={schemaDocsReadmeCiNote.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Schema docs README CI note</p>
+              <h2>Как README existence smoke входит в Web build</h2>
+            </div>
+            <a className="primary-link" href={schemaDocsReadmeCiNote.workflowHref}>
+              {schemaDocsReadmeCiNote.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {schemaDocsReadmeCiNote.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>{title === "Trigger path" ? schemaDocsReadmeCiNote.triggerPath : schemaDocsReadmeCiNote.readmePath}</strong>
                 <p>{text}</p>
               </article>
             ))}
