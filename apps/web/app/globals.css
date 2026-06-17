@@ -3846,6 +3846,64 @@ dd {
   line-height: 1.35;
 }
 
+.source-freshness-owner-panel {
+  margin-top: 14px;
+}
+
+.source-freshness-owner-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.source-freshness-owner-card {
+  min-height: 150px;
+  border: 1px solid rgba(32, 84, 91, 0.14);
+  border-radius: 8px;
+  padding: 13px;
+  background: #f8fbfb;
+}
+
+.source-freshness-owner-card span,
+.source-freshness-owner-card strong,
+.source-freshness-owner-card p,
+.source-freshness-owner-card em {
+  display: block;
+}
+
+.source-freshness-owner-card span {
+  width: fit-content;
+  border: 1px solid rgba(32, 84, 91, 0.18);
+  border-radius: 8px;
+  padding: 4px 7px;
+  background: #eef6f5;
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.source-freshness-owner-card strong {
+  margin-top: 10px;
+  color: var(--accent-dark);
+  line-height: 1.25;
+}
+
+.source-freshness-owner-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.source-freshness-owner-card em {
+  margin-top: 11px;
+  color: var(--amber);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
 .pipeline {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -7043,6 +7101,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .source-freshness-owner-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .raw-custody-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -7444,6 +7506,10 @@ dd {
   }
 
   .freshness-breach-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .source-freshness-owner-grid {
     grid-template-columns: 1fr;
   }
 

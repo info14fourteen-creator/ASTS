@@ -101,6 +101,13 @@ const freshnessRules = [
   ["ЭТП", "webhook/API", "статусы подачи и площадочные файлы требуют подтверждения коннектора"],
 ];
 
+const sourceFreshnessOwnerReceipts = [
+  ["stale", "supplier_manager", "обновить payload из первоисточника и показать новый checksum"],
+  ["missing", "tender_manager", "загрузить отсутствующий raw artifact или официальный ответ об отсутствии публикации"],
+  ["parse_failed", "data_owner", "отправить payload на ручную схему нормализации, сохранив quarantine"],
+  ["hash_mismatch", "execution_owner", "перезапросить первоисточник и сравнить checksum"],
+];
+
 const evidenceGates = [
   ["Source URL", "ссылка на карточку ЕИС, ФНС или ЭТП", "обязательно"],
   ["File hash", "оригинал документа и версия OCR", "обязательно"],
@@ -465,6 +472,38 @@ export default function SourcesPage() {
                   </div>
                 </dl>
                 <em>{item.action}</em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-freshness-owner-panel"
+          data-ai-gate="blocked_until_owner_receipt"
+          data-receipt-status="restored"
+          data-rule-count={sourceFreshnessOwnerReceipts.length}
+          data-testid="source-freshness-owner-receipt-rules"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Freshness owner receipt</p>
+              <h2>Кто может снять блокировку первоисточника</h2>
+            </div>
+            <span className="status-pill amber">owner receipt required</span>
+          </div>
+          <div className="source-freshness-owner-grid">
+            {sourceFreshnessOwnerReceipts.map(([breachType, owner, rule]) => (
+              <article
+                className="source-freshness-owner-card"
+                data-breach-type={breachType}
+                data-owner={owner}
+                data-required-receipt-status="restored"
+                key={breachType}
+              >
+                <span>{breachType}</span>
+                <strong>{owner}</strong>
+                <p>{rule}</p>
+                <em>AI остается blocked до owner receipt и нового raw artifact</em>
               </article>
             ))}
           </div>

@@ -91,6 +91,15 @@ Route smoke закрепляет:
 UI не должен скрывать карточку и переводить AI в `ready`, пока нет owner receipt
 с `resolution_status="restored"` и ссылкой на новый raw artifact.
 
+Маршрут `/sources` закрепляет эти правила в видимом блоке
+`data-testid="source-freshness-owner-receipt-rules"`:
+
+- `data-ai-gate="blocked_until_owner_receipt"`;
+- `data-receipt-status="restored"`;
+- `data-rule-count="4"`;
+- каждая строка имеет `data-breach-type`, `data-owner` и
+  `data-required-receipt-status="restored"`.
+
 ## FNS Smoke UI Contract
 
 Маршрут `/sources` показывает contract-only карточку ФНС:
