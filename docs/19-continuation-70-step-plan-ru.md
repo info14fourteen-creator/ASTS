@@ -218,6 +218,7 @@
 80. Добавить FNS network gate API smoke assertion: web smoke закрепляет `data-api-route="/v1/sources/connectors"`, а API smoke требует точное совпадение Legal approvals.
 81. Добавить AI review receipt backend smoke assertion: API smoke закрепляет owner/action matrix и `evidence_ref == raw_artifact_id`, web smoke закрепляет `/v1/ai/review-queue` link.
 82. Добавить source owner receipt API smoke assertion: web smoke закрепляет `data-api-route="/v1/sources/owner-receipts"` на history seed и browser loop.
+83. Добавить owner receipt history parity check: web CI сравнивает backend history fixture и `/sources` UI seed.
 
 Следующими брать:
 
@@ -253,7 +254,8 @@
 30. [done 2026-06-17] Добавить FNS network gate API smoke assertion: проверить docs link и Legal gate в web smoke.
 31. [done 2026-06-17] Добавить AI review receipt backend smoke assertion: закрепить `/v1/ai/review-queue` link в web smoke.
 32. [done 2026-06-17] Добавить source owner receipt API smoke assertion: закрепить history loop и backend contract в web smoke.
-33. Добавить owner receipt history parity check: сравнить backend history fixture и `/sources` UI seed.
+33. [done 2026-06-17] Добавить owner receipt history parity check: `npm run smoke:owner-receipts` сравнивает backend fixture и `/sources` UI seed.
 34. Добавить FNS approvals parity check: сравнить `required_approvals` API и `/sources` UI gate.
 35. Добавить AI review action parity check: сравнить owner/action matrix API и `/ai-review` UI.
 36. Добавить source receipt docs deep link: показать API README ссылку рядом с history loop.
+37. Добавить source owner receipt shared fixture: перенести rules/history в общий JSON для API и web.

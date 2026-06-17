@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить owner receipt history parity check", "сравнить backend history fixture и /sources UI seed"],
-  ["2", "Добавить FNS approvals parity check", "сравнить required_approvals API и /sources UI gate"],
-  ["3", "Добавить AI review action parity check", "сравнить owner/action matrix API и /ai-review UI"],
-  ["4", "Добавить source receipt docs deep link", "показать API README ссылку рядом с history loop"],
+  ["1", "Добавить FNS approvals parity check", "сравнить required_approvals API и /sources UI gate"],
+  ["2", "Добавить AI review action parity check", "сравнить owner/action matrix API и /ai-review UI"],
+  ["3", "Добавить source receipt docs deep link", "показать API README ссылку рядом с history loop"],
+  ["4", "Добавить source owner receipt shared fixture", "перенести rules/history в общий JSON для API и web"],
 ];
 
 const cycleRules = [

@@ -107,6 +107,10 @@ UI не должен скрывать карточку и переводить A
 уникальные resolution statuses, AI gates и count заблокированных receipt. Оба
 блока несут `data-api-route="/v1/sources/owner-receipts"`, чтобы web smoke
 связывал UI history seed с backend fixture.
+- `npm run smoke:owner-receipts` сравнивает backend history fixture из
+  `apps/api/app/services/source_owner_receipts.py` и UI seed в `/sources` по id,
+  owner/action, resolution, raw artifact, checksum, AI gate и audit note; web CI
+  запускает этот parity check после `npm run build`.
 
 ## FNS Smoke UI Contract
 

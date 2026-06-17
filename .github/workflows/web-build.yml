@@ -44,3 +44,6 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Smoke owner receipt parity
+        run: npm run smoke:owner-receipts
