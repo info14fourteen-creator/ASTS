@@ -189,6 +189,7 @@ const sourceOwnerReceiptHistory = [
 
 const sourceOwnerReceiptHistoryBrowserLoop = {
   route: "/sources",
+  apiRoute: "/v1/sources/owner-receipts",
   selector: "[data-testid='source-owner-receipt-history'] [data-resolution-status]",
   expectedHistoryCount: sourceOwnerReceiptHistory.length,
   expectedAiGates: Array.from(new Set(sourceOwnerReceiptHistory.map((receipt) => receipt.aiGate))),
@@ -671,6 +672,7 @@ export default function SourcesPage() {
 
         <section
           className="panel source-freshness-owner-panel"
+          data-api-route={sourceOwnerReceiptHistoryBrowserLoop.apiRoute}
           data-history-count={sourceOwnerReceiptHistory.length}
           data-resolution-statuses={sourceOwnerReceiptHistory.map((receipt) => receipt.resolution).join(",")}
           data-testid="source-owner-receipt-history"
@@ -709,6 +711,7 @@ export default function SourcesPage() {
         <section
           className="panel source-quarantine-browser-loop-panel"
           data-ai-gates={sourceOwnerReceiptHistoryBrowserLoop.expectedAiGates.join(",")}
+          data-api-route={sourceOwnerReceiptHistoryBrowserLoop.apiRoute}
           data-blocked-count={sourceOwnerReceiptHistoryBrowserLoop.expectedBlockedCount}
           data-history-count={sourceOwnerReceiptHistoryBrowserLoop.expectedHistoryCount}
           data-resolution-statuses={sourceOwnerReceiptHistoryBrowserLoop.expectedResolutionStatuses.join(",")}

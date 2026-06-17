@@ -104,7 +104,9 @@ UI не должен скрывать карточку и переводить A
 `data-testid="source-owner-receipt-history"` хранит audit rows, а
 `data-testid="source-owner-receipt-history-browser-loop"` проверяет selector
 `[data-testid='source-owner-receipt-history'] [data-resolution-status]`,
-уникальные resolution statuses, AI gates и count заблокированных receipt.
+уникальные resolution statuses, AI gates и count заблокированных receipt. Оба
+блока несут `data-api-route="/v1/sources/owner-receipts"`, чтобы web smoke
+связывал UI history seed с backend fixture.
 
 ## FNS Smoke UI Contract
 

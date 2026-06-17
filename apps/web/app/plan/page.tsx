@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить source owner receipt API smoke assertion", "закрепить history loop и backend contract в web smoke"],
-  ["2", "Добавить owner receipt history parity check", "сравнить backend history fixture и /sources UI seed"],
-  ["3", "Добавить FNS approvals parity check", "сравнить required_approvals API и /sources UI gate"],
-  ["4", "Добавить AI review action parity check", "сравнить owner/action matrix API и /ai-review UI"],
+  ["1", "Добавить owner receipt history parity check", "сравнить backend history fixture и /sources UI seed"],
+  ["2", "Добавить FNS approvals parity check", "сравнить required_approvals API и /sources UI gate"],
+  ["3", "Добавить AI review action parity check", "сравнить owner/action matrix API и /ai-review UI"],
+  ["4", "Добавить source receipt docs deep link", "показать API README ссылку рядом с history loop"],
 ];
 
 const cycleRules = [

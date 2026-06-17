@@ -102,6 +102,9 @@ that mirror the `/sources` owner receipt history seed. API smoke asserts
 `summary.history_total=4`, `summary.history_blocked_until_restored=2`, the
 three resolution statuses and both AI gates:
 `ready_after_receipt` and `blocked_until_restored`.
+The `/sources` UI mirrors this backend fixture through
+`data-api-route="/v1/sources/owner-receipts"` on both
+`source-owner-receipt-history` and `source-owner-receipt-history-browser-loop`.
 
 ## AI Review Queue Contract
 
