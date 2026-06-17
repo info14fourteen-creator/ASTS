@@ -107,6 +107,11 @@ Route smoke закрепляет:
 Пока backend держит `network_enabled=false`, web показывает готовность контракта,
 но не обещает реальную сетевую проверку ИНН/ОГРН.
 
+Browser loop закреплен отдельным блоком
+`data-testid="fns-connector-browser-loop"`. Он проверяет selector
+`[data-testid='fns-source-readiness-card']`, два required secret имени и четыре
+capabilities, не читая сами значения секретов.
+
 ## AI Review UI Contract
 
 Маршрут `/ai-review` отображает backend contract `GET /v1/ai/review-queue`.

@@ -65,6 +65,21 @@ const fnsReadiness = {
   ],
 };
 
+const fnsConnectorBrowserLoop = {
+  route: "/sources",
+  selector: "[data-testid='fns-source-readiness-card']",
+  expectedStatus: fnsReadiness.status,
+  expectedAiGate: fnsReadiness.aiGate,
+  expectedSecretCount: fnsReadiness.requiredSecrets.length,
+  expectedCapabilityCount: fnsReadiness.checks.length,
+  checks: [
+    ["Locate", "найти contract-only карточку ФНС по data-testid"],
+    ["Assert connector", "сверить connector_id, status и AI gate"],
+    ["Assert access", "проверить required secrets без чтения значений секретов"],
+    ["Assert capabilities", "закрепить ИНН, ОГРН, выписку и normalize"],
+  ],
+};
+
 const connectorRunbook = [
   ["ЕИС", "Data", "raw XML/JSON + файлы", "retry 3x / quarantine"],
   ["ФНС", "Legal", "ответ проверки ИНН", "ручное подтверждение при расхождении"],
@@ -308,6 +323,35 @@ export default function SourcesPage() {
                 <strong>{capability}</strong>
                 <p>{text}</p>
                 <em>{fnsReadiness.rawTemplate}</em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-ai-gate={fnsConnectorBrowserLoop.expectedAiGate}
+          data-capability-count={fnsConnectorBrowserLoop.expectedCapabilityCount}
+          data-connector-id={fnsReadiness.connectorId}
+          data-route={fnsConnectorBrowserLoop.route}
+          data-secret-count={fnsConnectorBrowserLoop.expectedSecretCount}
+          data-selector={fnsConnectorBrowserLoop.selector}
+          data-status={fnsConnectorBrowserLoop.expectedStatus}
+          data-testid="fns-connector-browser-loop"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">FNS connector browser loop</p>
+              <h2>Как браузер сверяет readiness ФНС без сетевого вызова</h2>
+            </div>
+            <span className="status-pill amber">{fnsConnectorBrowserLoop.expectedStatus}</span>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {fnsConnectorBrowserLoop.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>{fnsConnectorBrowserLoop.selector}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>
