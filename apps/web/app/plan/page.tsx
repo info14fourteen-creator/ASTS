@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить shared README command CI note", "показать, что command parity smoke входит в Web build"],
-  ["2", "Добавить AI review API README CI note", "показать, что DOM parity smoke входит в Web build"],
-  ["3", "Добавить schema docs README CI note", "показать, что README existence smoke входит в Web build"],
-  ["4", "Добавить shared validation workflow CI note", "показать, что workflow file smoke входит в Web build"],
+  ["1", "Добавить AI review API README CI note", "показать, что DOM parity smoke входит в Web build"],
+  ["2", "Добавить schema docs README CI note", "показать, что README existence smoke входит в Web build"],
+  ["3", "Добавить shared validation workflow CI note", "показать, что workflow file smoke входит в Web build"],
+  ["4", "Добавить web build workflow file smoke", "сверить `/plan` CI notes с .github/workflows/web-build.yml"],
 ];
 
 const cycleRules = [
@@ -54,13 +54,14 @@ const apiDependencyNotes = [
 
 const sharedValidationWorkflowHref =
   "https://github.com/info14fourteen-creator/ASTS/actions/workflows/shared-validation.yml";
+const webBuildWorkflowHref = "https://github.com/info14fourteen-creator/ASTS/actions/workflows/web-build.yml";
 
 const prGateBadges = [
   [
     "Web build",
     "frontend shell",
     "GitHub Actions собирает Next.js и держит /plan, /tenders, /execution в рабочем состоянии.",
-    "https://github.com/info14fourteen-creator/ASTS/actions/workflows/web-build.yml",
+    webBuildWorkflowHref,
     "green",
   ],
   [
@@ -204,6 +205,24 @@ const sharedReadmeCommandParitySmoke = {
     ["Plan checklist", "fixture checklist показывает те же 4 команды в `/plan`"],
     ["Smoke", "`smoke:shared-readme-commands` падает при любом расхождении порядка или текста"],
     ["Web build", "command parity smoke можно запускать до merge рядом с route smoke"],
+  ],
+};
+
+const sharedReadmeCommandCiNote = {
+  buildCommand: "npm run build",
+  command: "npm run smoke:shared-readme-commands",
+  paritySelector: "[data-testid='shared-readme-command-parity-smoke']",
+  readmePath: sharedReadmeCommandParitySmoke.readmePath,
+  smokeCommand: sharedReadmeCommandParitySmoke.smokeCommand,
+  triggerPath: "packages/shared/README.md",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["CI step", "Web build запускает command parity smoke после shared fixture parity"],
+    ["Trigger path", "packages/shared/README.md запускает web build, когда меняется README source"],
+    ["Plan marker", "`/plan` хранит selector parity smoke и command"],
+    ["Merge gate", "PR нельзя считать готовым, если README commands разъехались с `/plan`"],
   ],
 };
 
@@ -673,6 +692,39 @@ export default function PlanPage() {
               <article className="fixture-coverage-card" key={title}>
                 <span>{title}</span>
                 <strong>{sharedReadmeCommandParitySmoke.readmePath}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-build-command={sharedReadmeCommandCiNote.buildCommand}
+          data-command={sharedReadmeCommandCiNote.command}
+          data-parity-selector={sharedReadmeCommandCiNote.paritySelector}
+          data-readme-path={sharedReadmeCommandCiNote.readmePath}
+          data-smoke-command={sharedReadmeCommandCiNote.smokeCommand}
+          data-testid="shared-readme-command-ci-note"
+          data-trigger-path={sharedReadmeCommandCiNote.triggerPath}
+          data-workflow-href={sharedReadmeCommandCiNote.workflowHref}
+          data-workflow-name={sharedReadmeCommandCiNote.workflowName}
+          data-workflow-path={sharedReadmeCommandCiNote.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Shared README command CI note</p>
+              <h2>Как command parity smoke входит в Web build</h2>
+            </div>
+            <a className="primary-link" href={sharedReadmeCommandCiNote.workflowHref}>
+              {sharedReadmeCommandCiNote.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sharedReadmeCommandCiNote.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>{title === "Trigger path" ? sharedReadmeCommandCiNote.triggerPath : sharedReadmeCommandCiNote.command}</strong>
                 <p>{text}</p>
               </article>
             ))}

@@ -6,6 +6,7 @@ on:
       - "apps/web/**"
       - "packages/shared/ai-review-queue.json"
       - "packages/shared/fns-connector-gate.json"
+      - "packages/shared/README.md"
       - "packages/shared/source-owner-receipts.json"
       - ".github/workflows/web-build.yml"
   push:
@@ -16,6 +17,7 @@ on:
       - "apps/web/**"
       - "packages/shared/ai-review-queue.json"
       - "packages/shared/fns-connector-gate.json"
+      - "packages/shared/README.md"
       - "packages/shared/source-owner-receipts.json"
       - ".github/workflows/web-build.yml"
   workflow_dispatch:
@@ -59,6 +61,9 @@ jobs:
 
       - name: Smoke AI review action parity
         run: npm run smoke:ai-review-actions
+
+      - name: Smoke shared README command parity
+        run: npm run smoke:shared-readme-commands
 
       - name: Smoke rendered routes
         run: |
