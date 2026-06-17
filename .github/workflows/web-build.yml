@@ -91,6 +91,9 @@ jobs:
       - name: Smoke FNS real-network approval API copy
         run: npm run smoke:fns-real-network-approval-api-copy
 
+      - name: Smoke EIS real-network approval API copy
+        run: npm run smoke:eis-real-network-approval-api-copy
+
       - name: Smoke AI review action parity
         run: npm run smoke:ai-review-actions
 

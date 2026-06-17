@@ -299,3 +299,23 @@ approval. It is intentionally copy-only while `status="contract_only"`:
 This copy is part of the API contract so the workdesk can show the same
 approval language that backend smoke tests enforce. CI must keep this copy in
 contract-only mode until Legal explicitly approves network access.
+
+### EIS Real-Network Approval API Copy
+
+`GET /v1/sources/connectors` exposes
+`network_smoke_gate.approval_api_copy` for the future EIS real-network smoke
+approval. It is intentionally copy-only while `status="contract_only"`:
+
+- `route="/v1/sources/connectors"`;
+- `status="contract_only"`;
+- `owner="Data"`;
+- `request_copy="Request Data owner approval before enabling real EIS network smoke."`;
+- `blocked_copy="Do not enable EIS real-network smoke until all five approvals are recorded."`;
+- `next_action="Create protected environment secrets and record safe test zakupki.gov.ru procedure after Data approval."`;
+- `no_merge_copy` blocks merging real-network EIS smoke until Data owner,
+  protected secrets, safe EIS procedure, rate limits and checksum freshness
+  receipt are visible.
+
+This copy is part of the API contract so the workdesk can show the same
+approval language that backend smoke tests enforce. CI must keep this copy in
+contract-only mode until Data explicitly approves network access.

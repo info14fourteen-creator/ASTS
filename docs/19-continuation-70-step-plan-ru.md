@@ -381,3 +381,4 @@
 95. [done 2026-06-18] Добавить source owner receipt write API draft: показать draft POST contract с idempotency, checksum evidence и immutable audit append.
 96. [done 2026-06-18] Добавить AI review receipt write API draft: показать draft POST contract с owner role, decision, idempotency, source evidence и immutable AI audit append.
 97. [done 2026-06-18] Добавить source freshness write API draft: показать draft POST contract с owner role, breach type, idempotency, restored evidence и immutable freshness audit append.
+98. [done 2026-06-18] Добавить EIS real-network approval API copy: показать Data owner-friendly текст будущего сетевого EIS smoke в API, `/sources` и `/plan`.

@@ -61,6 +61,52 @@ def main() -> int:
         print("FAIL EIS connector capabilities are incomplete")
         return 1
 
+    eis_network_gate = eis.get("network_smoke_gate", {})
+    if eis_network_gate.get("status") != "contract_only":
+        print("FAIL EIS real-network smoke gate must stay contract_only")
+        return 1
+
+    if eis_network_gate.get("owner") != "Data":
+        print("FAIL EIS real-network smoke gate owner must be Data")
+        return 1
+
+    if eis_network_gate.get("safe_test_pair_required") is not True:
+        print("FAIL EIS real-network smoke gate must require a safe test procedure")
+        return 1
+
+    expected_eis_network_approvals = {
+        "approved official EIS access terms",
+        "approved request volume limits",
+        "GitHub secrets are present in protected environment",
+        "safe test EIS procedure is recorded",
+        "raw artifact checksum and freshness receipt are asserted",
+    }
+    eis_network_approvals = set(eis_network_gate.get("required_approvals", []))
+    if eis_network_approvals != expected_eis_network_approvals:
+        print("FAIL EIS real-network smoke gate approvals must match the contract exactly")
+        return 1
+
+    eis_approval_api_copy = eis_network_gate.get("approval_api_copy", {})
+    if eis_approval_api_copy.get("route") != "/v1/sources/connectors":
+        print("FAIL EIS approval API copy route must stay /v1/sources/connectors")
+        return 1
+
+    if eis_approval_api_copy.get("status") != "contract_only":
+        print("FAIL EIS approval API copy status must stay contract_only")
+        return 1
+
+    if eis_approval_api_copy.get("owner") != "Data":
+        print("FAIL EIS approval API copy owner must stay Data")
+        return 1
+
+    if "Do not enable EIS real-network smoke" not in eis_approval_api_copy.get("blocked_copy", ""):
+        print("FAIL EIS approval API copy must block real-network smoke")
+        return 1
+
+    if "Не мержить real-network EIS smoke" not in eis_approval_api_copy.get("no_merge_copy", ""):
+        print("FAIL EIS approval API no-merge copy must block unsafe merge")
+        return 1
+
     fns = next(
         (connector for connector in connectors if connector.get("connector_id") == "fns-egrul-nalog-ru"),
         None,

@@ -83,6 +83,30 @@ const fnsConnectorBrowserLoop = {
   ],
 };
 
+const eisRealNetworkSmokeGate = {
+  status: "contract_only",
+  owner: "Data",
+  ciPolicy: "CI validates connector contract shape until access terms and secrets are approved.",
+  safeTestPairRequired: true,
+  requiredApprovals: [
+    "approved official EIS access terms",
+    "approved request volume limits",
+    "GitHub secrets are present in protected environment",
+    "safe test EIS procedure is recorded",
+    "raw artifact checksum and freshness receipt are asserted",
+  ],
+  approvalApiCopy: {
+    route: "/v1/sources/connectors",
+    status: "contract_only",
+    owner: "Data",
+    request_copy: "Request Data owner approval before enabling real EIS network smoke.",
+    blocked_copy: "Do not enable EIS real-network smoke until all five approvals are recorded.",
+    next_action: "Create protected environment secrets and record safe test zakupki.gov.ru procedure after Data approval.",
+    no_merge_copy:
+      "Не мержить real-network EIS smoke, пока approval_api_copy подтверждает Data owner, protected secrets, safe EIS procedure, rate limits и checksum freshness receipt.",
+  },
+};
+
 const fnsRealNetworkSmokeGate = {
   status: fnsConnectorGate.status,
   owner: fnsConnectorGate.owner,
@@ -415,6 +439,49 @@ export default function SourcesPage() {
                 <strong>{capability}</strong>
                 <p>{text}</p>
                 <em>{fnsReadiness.rawTemplate}</em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel connector-readiness-panel"
+          data-approval-count={eisRealNetworkSmokeGate.requiredApprovals.length}
+          data-approval-api-blocked-copy={eisRealNetworkSmokeGate.approvalApiCopy.blocked_copy}
+          data-approval-api-next-action={eisRealNetworkSmokeGate.approvalApiCopy.next_action}
+          data-approval-api-no-merge-copy={eisRealNetworkSmokeGate.approvalApiCopy.no_merge_copy}
+          data-approval-api-owner={eisRealNetworkSmokeGate.approvalApiCopy.owner}
+          data-approval-api-request-copy={eisRealNetworkSmokeGate.approvalApiCopy.request_copy}
+          data-approval-api-route={eisRealNetworkSmokeGate.approvalApiCopy.route}
+          data-approval-api-status={eisRealNetworkSmokeGate.approvalApiCopy.status}
+          data-ci-policy={eisRealNetworkSmokeGate.ciPolicy}
+          data-network-smoke-status={eisRealNetworkSmokeGate.status}
+          data-owner={eisRealNetworkSmokeGate.owner}
+          data-safe-test-pair-required={String(eisRealNetworkSmokeGate.safeTestPairRequired)}
+          data-testid="eis-real-network-smoke-gate"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">EIS real-network smoke gate</p>
+              <h2>Когда можно включить сетевой smoke zakupki.gov.ru</h2>
+            </div>
+            <span className="status-pill amber">{eisRealNetworkSmokeGate.status}</span>
+          </div>
+          <div className="connector-readiness-grid">
+            <article className="connector-readiness-card" data-testid="eis-real-network-approval-api-copy">
+              <span>API</span>
+              <strong>{eisRealNetworkSmokeGate.approvalApiCopy.request_copy}</strong>
+              <p>{eisRealNetworkSmokeGate.approvalApiCopy.blocked_copy}</p>
+              <em>{eisRealNetworkSmokeGate.approvalApiCopy.next_action}</em>
+            </article>
+          </div>
+          <div className="connector-readiness-grid">
+            {eisRealNetworkSmokeGate.requiredApprovals.map((approval, index) => (
+              <article className="connector-readiness-card" data-approval={approval} key={approval}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <strong>{approval}</strong>
+                <p>{eisRealNetworkSmokeGate.ciPolicy}</p>
+                <em>{eisRealNetworkSmokeGate.owner}</em>
               </article>
             ))}
           </div>
