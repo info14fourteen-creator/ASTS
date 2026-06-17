@@ -28,6 +28,22 @@ const checks = [
       }),
   ],
   [
+    "FNS connector gate schema",
+    () =>
+      validateFixtureSchemaFile("fixture-schemas/fns-connector-gate.schema.json", {
+        requiredRootFields: [
+          "connector_id",
+          "source_kind",
+          "status",
+          "owner",
+          "ci_policy",
+          "safe_test_pair_required",
+          "required_approvals",
+        ],
+        requiredDefinitions: [],
+      }),
+  ],
+  [
     "tender position example",
     () =>
       validateAgainstSchema(
@@ -52,6 +68,15 @@ const checks = [
         readJson("source-owner-receipts.json"),
         readJson("fixture-schemas/source-owner-receipts.schema.json"),
         "source-owner-receipts",
+      ),
+  ],
+  [
+    "FNS connector gate schema example",
+    () =>
+      validateAgainstSchema(
+        readJson("fns-connector-gate.json"),
+        readJson("fixture-schemas/fns-connector-gate.schema.json"),
+        "fns-connector-gate",
       ),
   ],
   ["demo data fixture", validateDemoData],
@@ -367,6 +392,12 @@ function validateNode(value, node, rootSchema, path) {
   if (Array.isArray(value)) {
     if (node.minItems !== undefined) {
       assert(value.length >= node.minItems, `${path} must contain at least ${node.minItems} item(s)`);
+    }
+    if (node.maxItems !== undefined) {
+      assert(value.length <= node.maxItems, `${path} must contain at most ${node.maxItems} item(s)`);
+    }
+    if (node.uniqueItems === true) {
+      assert(new Set(value.map((item) => JSON.stringify(item))).size === value.length, `${path} must contain unique items`);
     }
     if (node.items) {
       value.forEach((item, index) => validateNode(item, node.items, rootSchema, `${path}[${index}]`));

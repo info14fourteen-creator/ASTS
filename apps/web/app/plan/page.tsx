@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить FNS connector fixture schema", "описать JSON schema для FNS network gate"],
-  ["2", "Добавить AI review fixture schema", "описать JSON schema для AI review queue"],
-  ["3", "Добавить shared schema docs index", "собрать ссылки на схемы и validation-команды"],
-  ["4", "Добавить fixture schema CI path notes", "показать какие изменения запускают shared validation"],
+  ["1", "Добавить AI review fixture schema", "описать JSON schema для AI review queue"],
+  ["2", "Добавить shared schema docs index", "собрать ссылки на схемы и validation-команды"],
+  ["3", "Добавить fixture schema CI path notes", "показать какие изменения запускают shared validation"],
+  ["4", "Добавить schema validation summary card", "показать на /plan какие fixture schemas уже защищены"],
 ];
 
 const cycleRules = [

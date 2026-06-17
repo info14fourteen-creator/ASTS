@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$id": "https://asts.local/schemas/fns-connector-gate.schema.json",
+  "title": "ASTS FNS Connector Gate Fixture",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "connector_id",
+    "source_kind",
+    "status",
+    "owner",
+    "ci_policy",
+    "safe_test_pair_required",
+    "required_approvals"
+  ],
+  "properties": {
+    "connector_id": {
+      "const": "fns-egrul-nalog-ru"
+    },
+    "source_kind": {
+      "const": "fns"
+    },
+    "status": {
+      "const": "contract_only"
+    },
+    "owner": {
+      "const": "Legal"
+    },
+    "ci_policy": {
+      "const": "CI must not call FNS until the real-network gate is explicitly approved."
+    },
+    "safe_test_pair_required": {
+      "const": true
+    },
+    "required_approvals": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "approved official access terms",
+          "approved request volume limits",
+          "GitHub secrets are present in protected environment",
+          "safe test INN and OGRN pair is recorded",
+          "raw artifact checksum and freshness receipt are asserted"
+        ]
+      }
+    }
+  }
+}

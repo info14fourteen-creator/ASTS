@@ -24,6 +24,9 @@ MVP can generate TypeScript types from FastAPI OpenAPI once backend schemas stab
   for `source-owner-receipts.json`. It separates receipt rule fields from
   read-only audit history rows and rejects drift in breach types, owner roles,
   actions, resolution statuses and AI gates.
+- `fixture-schemas/fns-connector-gate.schema.json` is the JSON Schema contract
+  for `fns-connector-gate.json`. It locks the contract-only state, Legal owner,
+  safe test pair requirement, CI network policy and exact approval checklist.
 
 ## AI Schemas
 
@@ -37,7 +40,7 @@ MVP can generate TypeScript types from FastAPI OpenAPI once backend schemas stab
   JSON Schema compatibility, owner/action matrix, restored unlock conditions and
   blocked AI gate counts.
 - It also checks `fns-connector-gate.json` for the Legal owner, contract-only
-  status, CI policy and exact five approval gates.
+  status, JSON Schema compatibility, CI policy and exact five approval gates.
 - It checks `ai-review-queue.json` for the three low-confidence fact types,
   threshold, derived status and owner/action matrix.
 - GitHub Actions workflow `Shared validation` runs the same check for shared schema and fixture changes.
