@@ -73,6 +73,9 @@ jobs:
       - name: Smoke AI review action parity
         run: npm run smoke:ai-review-actions
 
+      - name: Smoke AI review queue rendered routes failure copy
+        run: npm run smoke:ai-review-queue-rendered-route-failure-copy
+
       - name: Smoke shared README command parity
         run: npm run smoke:shared-readme-commands
 

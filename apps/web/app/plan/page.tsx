@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить AI review queue rendered-route failure copy", "показать owner-friendly текст при падении AI review route coverage"],
-  ["2", "Добавить source freshness rendered-route failure copy", "показать owner-friendly текст при падении freshness route coverage"],
-  ["3", "Добавить FNS approvals docs rendered-route failure copy", "показать owner-friendly текст при падении FNS docs route coverage"],
-  ["4", "Добавить owner receipt API rendered-route failure copy", "показать owner-friendly текст при падении owner receipt API route coverage"],
+  ["1", "Добавить source freshness rendered-route failure copy", "показать owner-friendly текст при падении freshness route coverage"],
+  ["2", "Добавить FNS approvals docs rendered-route failure copy", "показать owner-friendly текст при падении FNS docs route coverage"],
+  ["3", "Добавить owner receipt API rendered-route failure copy", "показать owner-friendly текст при падении owner receipt API route coverage"],
+  ["4", "Добавить AI review receipt API rendered-route failure copy", "показать owner-friendly текст при падении AI review receipt route coverage"],
 ];
 
 const cycleRules = [
@@ -465,6 +465,30 @@ const aiReviewApiReadmeRenderedRouteFailureCopy = {
   ],
 };
 
+const aiReviewQueueRenderedRouteFailureCopy = {
+  apiRoute: aiReviewSchemaApiSmokeMarker.apiRoute,
+  command: "npm run smoke:ai-review-queue-rendered-route-failure-copy",
+  expectedBlockedCount: 2,
+  expectedQueueCount: 3,
+  expectedRouteCount: 16,
+  failingCommand: "npm run smoke -- --url http://127.0.0.1:4177/",
+  noMergeCopy: "Не мержить, пока rendered routes smoke снова подтверждает AI review queue, owners и evidence на живом `/ai-review`",
+  ownerRole: "AI workflow owner + QA owner",
+  parityCommand: "npm run smoke:ai-review-actions",
+  repairTargets:
+    "/ai-review,packages/shared/ai-review-queue.json,apps/web/scripts/ai-review-action-parity.mjs,apps/web/scripts/smoke.mjs",
+  sourceMarkerSelector: "[data-testid='ai-review-confidence-queue']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "rendered routes проходят, но `/ai-review` потерял low-confidence queue, blocked facts или owner actions"],
+    ["Fix order", "сначала восстановить AI review shared fixture parity, затем `/ai-review` rendered route expectations"],
+    ["Owner", "AI workflow owner подтверждает queue/actions, QA owner подтверждает живой `/ai-review` route"],
+    ["No merge", "не мержить, пока AI review queue снова не проходит rendered route coverage"],
+  ],
+};
+
 const apiReadmeTriggerSmoke = {
   command: "npm run smoke:api-readme-trigger",
   domParityCommand: aiReviewApiReadmeCiNote.domParityCommand,
@@ -773,7 +797,7 @@ const ownerReceiptDocsRenderedRouteFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 36,
+  expectedCommandCount: 37,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -784,6 +808,7 @@ const webBuildWorkflowFileSmoke = {
   ciNoteSelectors: [
     "[data-testid='shared-readme-command-ci-note']",
     "[data-testid='ai-review-api-readme-ci-note']",
+    "[data-testid='ai-review-queue-rendered-route-failure-copy']",
     "[data-testid='api-readme-live-route-gate-note']",
     "[data-testid='api-readme-live-route-failure-copy']",
     "[data-testid='ai-review-api-readme-failure-copy']",
@@ -815,7 +840,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 36 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 37 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -1773,6 +1798,48 @@ export default function PlanPage() {
                   {title === "No merge"
                     ? aiReviewApiReadmeRenderedRouteFailureCopy.noMergeCopy
                     : aiReviewApiReadmeRenderedRouteFailureCopy.failingCommand}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-route={aiReviewQueueRenderedRouteFailureCopy.apiRoute}
+          data-command={aiReviewQueueRenderedRouteFailureCopy.command}
+          data-expected-blocked-count={aiReviewQueueRenderedRouteFailureCopy.expectedBlockedCount}
+          data-expected-queue-count={aiReviewQueueRenderedRouteFailureCopy.expectedQueueCount}
+          data-expected-route-count={aiReviewQueueRenderedRouteFailureCopy.expectedRouteCount}
+          data-failing-command={aiReviewQueueRenderedRouteFailureCopy.failingCommand}
+          data-no-merge-copy={aiReviewQueueRenderedRouteFailureCopy.noMergeCopy}
+          data-owner-role={aiReviewQueueRenderedRouteFailureCopy.ownerRole}
+          data-parity-command={aiReviewQueueRenderedRouteFailureCopy.parityCommand}
+          data-repair-targets={aiReviewQueueRenderedRouteFailureCopy.repairTargets}
+          data-source-marker-selector={aiReviewQueueRenderedRouteFailureCopy.sourceMarkerSelector}
+          data-testid="ai-review-queue-rendered-route-failure-copy"
+          data-workflow-href={aiReviewQueueRenderedRouteFailureCopy.workflowHref}
+          data-workflow-name={aiReviewQueueRenderedRouteFailureCopy.workflowName}
+          data-workflow-path={aiReviewQueueRenderedRouteFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review queue rendered-route failure copy</p>
+              <h2>Что делать, если AI review queue пропала в rendered routes</h2>
+            </div>
+            <a className="primary-link" href={aiReviewQueueRenderedRouteFailureCopy.workflowHref}>
+              {aiReviewQueueRenderedRouteFailureCopy.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {aiReviewQueueRenderedRouteFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? aiReviewQueueRenderedRouteFailureCopy.noMergeCopy
+                    : aiReviewQueueRenderedRouteFailureCopy.apiRoute}
                 </strong>
                 <p>{text}</p>
               </article>

@@ -23,6 +23,7 @@ const expectedCommands = [
   "npm run smoke:fns-approvals",
   "npm run smoke:fns-approvals-rendered-route-failure-copy",
   "npm run smoke:ai-review-actions",
+  "npm run smoke:ai-review-queue-rendered-route-failure-copy",
   "npm run smoke:shared-readme-commands",
   "npm run smoke:schema-docs-readme",
   "npm run smoke:schema-docs-workflow",
@@ -56,6 +57,7 @@ const expectedCommands = [
 const expectedPlanMarkers = [
   'data-testid="shared-readme-command-ci-note"',
   'data-testid="ai-review-api-readme-ci-note"',
+  'data-testid="ai-review-queue-rendered-route-failure-copy"',
   'data-testid="api-readme-live-route-gate-note"',
   'data-testid="api-readme-live-route-failure-copy"',
   'data-testid="ai-review-api-readme-failure-copy"',
