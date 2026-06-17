@@ -150,6 +150,32 @@ const sourceOwnerReceiptHistory = sourceOwnerReceiptsFixture.history.map((receip
 
 const sourceOwnerReceiptWriteContract = sourceOwnerReceiptsFixture.write_contract;
 
+const sourceFreshnessWriteContract = {
+  route: "/v1/sources/freshness",
+  method: "POST",
+  status: "draft",
+  owner: "Sources owner",
+  idempotencyKeyRequired: true,
+  requestSchema: [
+    "breach_id",
+    "tender_id",
+    "source_kind",
+    "owner_id",
+    "owner_role",
+    "breach_type",
+    "resolution_status",
+    "resolved_at",
+    "new_raw_artifact_id",
+    "new_checksum_sha256",
+    "audit_note",
+    "idempotency_key",
+  ],
+  blockedCopy:
+    "Write endpoint stays draft until auth, idempotency, owner role validation and immutable freshness audit storage are implemented.",
+  noMergeCopy:
+    "Не мержить source freshness write endpoint, пока POST не проверяет owner role, breach type, idempotency key, restored evidence и immutable audit append.",
+};
+
 const sourceOwnerReceiptHistoryBrowserLoop = {
   route: "/sources",
   apiRoute: "/v1/sources/owner-receipts",
@@ -682,6 +708,41 @@ export default function SourcesPage() {
                 <em>
                   {receipt.resolution} · {receipt.rawArtifact}
                 </em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-freshness-owner-panel"
+          data-api-route={sourceFreshnessWriteContract.route}
+          data-blocked-copy={sourceFreshnessWriteContract.blockedCopy}
+          data-idempotency-key-required={String(sourceFreshnessWriteContract.idempotencyKeyRequired)}
+          data-method={sourceFreshnessWriteContract.method}
+          data-no-merge-copy={sourceFreshnessWriteContract.noMergeCopy}
+          data-owner={sourceFreshnessWriteContract.owner}
+          data-request-schema={sourceFreshnessWriteContract.requestSchema.join(",")}
+          data-status={sourceFreshnessWriteContract.status}
+          data-testid="source-freshness-write-api-draft"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source freshness write API draft</p>
+              <h2>Как будущий POST снимет freshness blocker без потери audit</h2>
+            </div>
+            <span className="status-pill amber">{sourceFreshnessWriteContract.status}</span>
+          </div>
+          <div className="source-freshness-owner-grid">
+            {[
+              ["Route", `${sourceFreshnessWriteContract.method} ${sourceFreshnessWriteContract.route}`, sourceFreshnessWriteContract.owner],
+              ["Idempotency", "idempotency_key required", sourceFreshnessWriteContract.requestSchema.join(", ")],
+              ["Blocked", sourceFreshnessWriteContract.blockedCopy, "no freshness mutation until storage is immutable"],
+              ["No merge", sourceFreshnessWriteContract.noMergeCopy, "owner role, breach type and restored evidence first"],
+            ].map(([title, value, text]) => (
+              <article className="source-freshness-owner-card" key={title}>
+                <span>{title}</span>
+                <strong>{value}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>

@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить source freshness write API draft", "описать будущий write endpoint для ручного freshness receipt"],
-  ["2", "Добавить EIS real-network approval API copy", "показать owner-friendly текст для будущего сетевого EIS smoke gate"],
-  ["3", "Добавить source owner receipt write smoke failure copy", "показать owner-friendly текст при падении draft write контракта"],
-  ["4", "Добавить AI review receipt write smoke failure copy", "показать owner-friendly текст при падении AI review write контракта"],
+  ["1", "Добавить EIS real-network approval API copy", "показать owner-friendly текст для будущего сетевого EIS smoke gate"],
+  ["2", "Добавить source owner receipt write smoke failure copy", "показать owner-friendly текст при падении draft write контракта"],
+  ["3", "Добавить AI review receipt write smoke failure copy", "показать owner-friendly текст при падении AI review write контракта"],
+  ["4", "Добавить source freshness write smoke failure copy", "показать owner-friendly текст при падении freshness write контракта"],
 ];
 
 const cycleRules = [
@@ -857,6 +857,33 @@ const sourceOwnerReceiptWriteApiDraft = {
   ],
 };
 
+const sourceFreshnessWriteApiDraft = {
+  apiRoute: "/v1/sources/freshness",
+  command: "npm run smoke:source-freshness-write-api-draft",
+  docsHref:
+    "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#source-freshness-write-api-draft",
+  expectedBreachCount: 4,
+  expectedRequestFieldCount: 12,
+  expectedRouteCount: 16,
+  method: "POST",
+  noMergeCopy:
+    "Не мержить source freshness write endpoint, пока POST не проверяет owner role, breach type, idempotency key, restored evidence и immutable audit append.",
+  ownerRole: "Sources owner + API owner + QA owner",
+  repairTargets:
+    "apps/api/app/services/source_freshness.py,apps/api/app/schemas.py,apps/api/README.md,/sources,apps/web/scripts/source-freshness-write-api-draft.mjs",
+  sourceMarkerSelector: "[data-testid='source-freshness-write-api-draft']",
+  status: "draft",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Draft", "GET `/v1/sources/freshness` отдаёт write_contract, но backend не снимает freshness blockers"],
+    ["Idempotency", "future POST требует idempotency_key перед immutable freshness audit append"],
+    ["Evidence", "resolution_status=restored должен ссылаться на new_raw_artifact_id и checksum"],
+    ["No merge", "не мержить, пока write draft не проходит API, web и route smoke"],
+  ],
+};
+
 const sourceFreshnessRenderedRouteFailureCopy = {
   apiRoute: "/v1/sources/freshness",
   breachTypes: "stale,missing,parse_failed,hash_mismatch",
@@ -1006,7 +1033,7 @@ const ownerReceiptDocsRenderedRouteFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 45,
+  expectedCommandCount: 46,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -1037,6 +1064,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='source-owner-receipts-rendered-route-failure-copy']",
     "[data-testid='owner-receipt-api-rendered-route-failure-copy']",
     "[data-testid='source-owner-receipt-write-api-draft']",
+    "[data-testid='source-freshness-write-api-draft']",
     "[data-testid='source-freshness-rendered-route-failure-copy']",
     "[data-testid='source-freshness-docs-rendered-route-failure-copy']",
     "[data-testid='fns-approvals-rendered-route-failure-copy']",
@@ -1057,7 +1085,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 45 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 46 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -2717,6 +2745,52 @@ export default function PlanPage() {
                 <span>{title}</span>
                 <strong>
                   {title === "No merge" ? sourceOwnerReceiptWriteApiDraft.noMergeCopy : sourceOwnerReceiptWriteApiDraft.apiRoute}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-route={sourceFreshnessWriteApiDraft.apiRoute}
+          data-command={sourceFreshnessWriteApiDraft.command}
+          data-docs-href={sourceFreshnessWriteApiDraft.docsHref}
+          data-expected-breach-count={sourceFreshnessWriteApiDraft.expectedBreachCount}
+          data-expected-request-field-count={sourceFreshnessWriteApiDraft.expectedRequestFieldCount}
+          data-expected-route-count={sourceFreshnessWriteApiDraft.expectedRouteCount}
+          data-method={sourceFreshnessWriteApiDraft.method}
+          data-no-merge-copy={sourceFreshnessWriteApiDraft.noMergeCopy}
+          data-owner-role={sourceFreshnessWriteApiDraft.ownerRole}
+          data-repair-targets={sourceFreshnessWriteApiDraft.repairTargets}
+          data-source-marker-selector={sourceFreshnessWriteApiDraft.sourceMarkerSelector}
+          data-status={sourceFreshnessWriteApiDraft.status}
+          data-testid="source-freshness-write-api-draft"
+          data-workflow-href={sourceFreshnessWriteApiDraft.workflowHref}
+          data-workflow-name={sourceFreshnessWriteApiDraft.workflowName}
+          data-workflow-path={sourceFreshnessWriteApiDraft.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source freshness write API draft</p>
+              <h2>Как будущий POST снимет freshness blocker без потери audit</h2>
+            </div>
+            <div className="panel-actions">
+              <a className="primary-link" href={sourceFreshnessWriteApiDraft.workflowHref}>
+                {sourceFreshnessWriteApiDraft.workflowName}
+              </a>
+              <a className="primary-link" href={sourceFreshnessWriteApiDraft.docsHref}>
+                API contract
+              </a>
+            </div>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sourceFreshnessWriteApiDraft.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge" ? sourceFreshnessWriteApiDraft.noMergeCopy : sourceFreshnessWriteApiDraft.apiRoute}
                 </strong>
                 <p>{text}</p>
               </article>

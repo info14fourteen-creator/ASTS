@@ -267,6 +267,17 @@ class SourceFreshnessSummary(BaseModel):
     ai_blocked: int = Field(ge=0)
 
 
+class SourceFreshnessWriteContract(BaseModel):
+    route: str
+    method: Literal["POST"]
+    status: Literal["draft"]
+    owner: str
+    idempotency_key_required: bool
+    request_schema: list[str]
+    blocked_copy: str
+    no_merge_copy: str
+
+
 class SourceOwnerReceiptRule(BaseModel):
     breach_type: SourceFreshnessBreachType
     owner_role: str
@@ -441,6 +452,7 @@ class SourceFreshnessResponse(BaseModel):
     source_policy: str
     sla: str
     summary: SourceFreshnessSummary
+    write_contract: SourceFreshnessWriteContract
     queue: list[SourceFreshnessQueueItem]
 
 

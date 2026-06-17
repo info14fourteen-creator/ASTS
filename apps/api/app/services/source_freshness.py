@@ -1,6 +1,35 @@
 from app.demo_data import DEMO_DATA
-from app.schemas import SourceFreshnessQueueItem, SourceFreshnessResponse, SourceFreshnessSummary
+from app.schemas import (
+    SourceFreshnessQueueItem,
+    SourceFreshnessResponse,
+    SourceFreshnessSummary,
+    SourceFreshnessWriteContract,
+)
 from app.services.source_health import SOURCE_LABELS
+
+SOURCE_FRESHNESS_WRITE_CONTRACT = {
+    "route": "/v1/sources/freshness",
+    "method": "POST",
+    "status": "draft",
+    "owner": "Sources owner",
+    "idempotency_key_required": True,
+    "request_schema": [
+        "breach_id",
+        "tender_id",
+        "source_kind",
+        "owner_id",
+        "owner_role",
+        "breach_type",
+        "resolution_status",
+        "resolved_at",
+        "new_raw_artifact_id",
+        "new_checksum_sha256",
+        "audit_note",
+        "idempotency_key",
+    ],
+    "blocked_copy": "Write endpoint stays draft until auth, idempotency, owner role validation and immutable freshness audit storage are implemented.",
+    "no_merge_copy": "Не мержить source freshness write endpoint, пока POST не проверяет owner role, breach type, idempotency key, restored evidence и immutable audit append.",
+}
 
 
 def _tender_by_id(tender_id: str) -> dict:
@@ -98,5 +127,6 @@ def get_source_freshness() -> SourceFreshnessResponse:
             ai_blocked=sum(1 for item in queue if item.ai_gate == "blocked"),
             **counts,
         ),
+        write_contract=SourceFreshnessWriteContract(**SOURCE_FRESHNESS_WRITE_CONTRACT),
         queue=queue,
     )

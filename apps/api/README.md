@@ -64,6 +64,31 @@ handoff stay blocked until the row is refreshed, refetched or manually reviewed.
 
 The detailed DTO and example response live in `docs/05-api-contract.md`.
 
+### Source Freshness Write API Draft
+
+`GET /v1/sources/freshness` also exposes `write_contract` for the future
+freshness receipt write endpoint. This is a draft contract only; the service
+must not resolve freshness blockers until auth, idempotency, owner role
+validation and immutable freshness audit storage are built.
+
+- `route="/v1/sources/freshness"`;
+- `method="POST"`;
+- `status="draft"`;
+- `owner="Sources owner"`;
+- `idempotency_key_required=true`;
+- `request_schema` requires `breach_id`, `tender_id`, `source_kind`,
+  `owner_id`, `owner_role`, `breach_type`, `resolution_status`, `resolved_at`,
+  `new_raw_artifact_id`, `new_checksum_sha256`, `audit_note` and
+  `idempotency_key`;
+- `blocked_copy="Write endpoint stays draft until auth, idempotency, owner role validation and immutable freshness audit storage are implemented."`;
+- `no_merge_copy` blocks merging the write endpoint until owner role, breach
+  type, idempotency key, restored evidence and immutable audit append are
+  enforced.
+
+When we implement the actual `POST`, it must append a freshness audit event and
+keep AI blocked unless `resolution_status="restored"` points to verified raw
+evidence with a checksum.
+
 ### Freshness Owner Actions
 
 Freshness blockers are cleared by owner receipts, not by implicit retries.

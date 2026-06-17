@@ -182,6 +182,7 @@ def main() -> int:
 
     freshness_payload = freshness_response.json()
     freshness_queue = freshness_payload.get("queue", [])
+    freshness_write_contract = freshness_payload.get("write_contract", {})
     breach_types = {item.get("breach_type") for item in freshness_queue}
     expected_breaches = {"stale", "missing", "parse_failed", "hash_mismatch"}
     if breach_types != expected_breaches:
@@ -212,6 +213,38 @@ def main() -> int:
 
     if any(not item.get("source_url") or not item.get("raw_artifact_id") for item in freshness_queue):
         print("FAIL /v1/sources/freshness rows must keep source_url and raw_artifact_id")
+        return 1
+
+    if freshness_write_contract.get("route") != "/v1/sources/freshness":
+        print("FAIL /v1/sources/freshness write contract route changed")
+        return 1
+
+    if freshness_write_contract.get("method") != "POST":
+        print("FAIL /v1/sources/freshness write contract method must stay POST")
+        return 1
+
+    if freshness_write_contract.get("status") != "draft":
+        print("FAIL /v1/sources/freshness write contract must stay draft")
+        return 1
+
+    if freshness_write_contract.get("owner") != "Sources owner":
+        print("FAIL /v1/sources/freshness write contract owner changed")
+        return 1
+
+    if freshness_write_contract.get("idempotency_key_required") is not True:
+        print("FAIL /v1/sources/freshness write contract must require idempotency key")
+        return 1
+
+    if "idempotency_key" not in set(freshness_write_contract.get("request_schema", [])):
+        print("FAIL /v1/sources/freshness write contract request schema must include idempotency_key")
+        return 1
+
+    if "Write endpoint stays draft" not in freshness_write_contract.get("blocked_copy", ""):
+        print("FAIL /v1/sources/freshness write contract must keep blocked copy")
+        return 1
+
+    if "Не мержить source freshness write endpoint" not in freshness_write_contract.get("no_merge_copy", ""):
+        print("FAIL /v1/sources/freshness write contract must keep no-merge copy")
         return 1
 
     owner_receipts_response = client.get("/v1/sources/owner-receipts")
