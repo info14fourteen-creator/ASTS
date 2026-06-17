@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить EIS real-network approval smoke failure copy", "показать owner-friendly текст при падении EIS approval API copy"],
-  ["2", "Добавить source owner receipt write docs failure copy", "показать owner-friendly текст при падении docs anchor для write контракта"],
-  ["3", "Добавить AI review receipt write docs failure copy", "показать owner-friendly текст при падении AI review write docs anchor"],
-  ["4", "Добавить source freshness write docs failure copy", "показать owner-friendly текст при падении freshness write docs anchor"],
+  ["1", "Добавить source owner receipt write docs failure copy", "показать owner-friendly текст при падении docs anchor для write контракта"],
+  ["2", "Добавить AI review receipt write docs failure copy", "показать owner-friendly текст при падении AI review write docs anchor"],
+  ["3", "Добавить source freshness write docs failure copy", "показать owner-friendly текст при падении freshness write docs anchor"],
+  ["4", "Добавить EIS real-network approval docs failure copy", "показать owner-friendly текст при падении EIS approval docs anchor"],
 ];
 
 const cycleRules = [
@@ -1111,6 +1111,32 @@ const eisRealNetworkApprovalApiCopy = {
   ],
 };
 
+const eisRealNetworkApprovalSmokeFailureCopy = {
+  apiRoute: "/v1/sources/connectors",
+  command: "npm run smoke:eis-real-network-approval-smoke-failure-copy",
+  docsHref:
+    "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#eis-real-network-approval-api-copy",
+  expectedApprovalCount: 5,
+  expectedRouteCount: 16,
+  failingCommand: "npm run smoke:eis-real-network-approval-api-copy",
+  noMergeCopy:
+    "Не мержить, пока EIS approval smoke снова подтверждает Data owner, protected secrets, safe EIS procedure, rate limits и checksum freshness receipt.",
+  ownerRole: "Data owner + API owner + QA owner",
+  parityCommand: "npm run smoke:eis-real-network-approval-api-copy",
+  repairTargets:
+    "apps/api/app/services/connectors.py,apps/api/README.md,/sources,/plan,apps/web/scripts/eis-real-network-approval-api-copy.mjs",
+  sourceMarkerSelector: "[data-testid='eis-real-network-approval-api-copy']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "EIS approval smoke падает: пропал Data owner, approvals, safe procedure или no-merge copy"],
+    ["Fix order", "сначала восстановить API network_smoke_gate.approval_api_copy, затем `/sources` и `/plan` markers"],
+    ["Owner", "Data owner подтверждает safe EIS procedure и rate limits, API owner подтверждает DTO, QA owner подтверждает smoke"],
+    ["No merge", "не мержить, пока EIS approval smoke снова не проходит contract-only gate"],
+  ],
+};
+
 const ownerReceiptDocsRenderedRouteFailureCopy = {
   apiRoute: "/v1/sources/owner-receipts",
   command: "npm run smoke:owner-receipt-docs-rendered-route-failure-copy",
@@ -1137,7 +1163,7 @@ const ownerReceiptDocsRenderedRouteFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 50,
+  expectedCommandCount: 51,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -1178,6 +1204,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='fns-approvals-docs-rendered-route-failure-copy']",
     "[data-testid='fns-real-network-approval-api-copy']",
     "[data-testid='eis-real-network-approval-api-copy']",
+    "[data-testid='eis-real-network-approval-smoke-failure-copy']",
     "[data-testid='owner-receipt-docs-rendered-route-failure-copy']",
     "[data-testid='shared-validation-workflow-ci-note']",
     "[data-testid='shared-validation-workflow-step-smoke']",
@@ -1193,7 +1220,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 50 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 51 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -3260,6 +3287,53 @@ export default function PlanPage() {
                 <span>{title}</span>
                 <strong>
                   {title === "No merge" ? eisRealNetworkApprovalApiCopy.noMergeCopy : eisRealNetworkApprovalApiCopy.apiRoute}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-route={eisRealNetworkApprovalSmokeFailureCopy.apiRoute}
+          data-command={eisRealNetworkApprovalSmokeFailureCopy.command}
+          data-docs-href={eisRealNetworkApprovalSmokeFailureCopy.docsHref}
+          data-expected-approval-count={eisRealNetworkApprovalSmokeFailureCopy.expectedApprovalCount}
+          data-expected-route-count={eisRealNetworkApprovalSmokeFailureCopy.expectedRouteCount}
+          data-failing-command={eisRealNetworkApprovalSmokeFailureCopy.failingCommand}
+          data-no-merge-copy={eisRealNetworkApprovalSmokeFailureCopy.noMergeCopy}
+          data-owner-role={eisRealNetworkApprovalSmokeFailureCopy.ownerRole}
+          data-parity-command={eisRealNetworkApprovalSmokeFailureCopy.parityCommand}
+          data-repair-targets={eisRealNetworkApprovalSmokeFailureCopy.repairTargets}
+          data-source-marker-selector={eisRealNetworkApprovalSmokeFailureCopy.sourceMarkerSelector}
+          data-testid="eis-real-network-approval-smoke-failure-copy"
+          data-workflow-href={eisRealNetworkApprovalSmokeFailureCopy.workflowHref}
+          data-workflow-name={eisRealNetworkApprovalSmokeFailureCopy.workflowName}
+          data-workflow-path={eisRealNetworkApprovalSmokeFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">EIS real-network approval smoke failure copy</p>
+              <h2>Что делать, если EIS approval smoke упал</h2>
+            </div>
+            <div className="panel-actions">
+              <a className="primary-link" href={eisRealNetworkApprovalSmokeFailureCopy.workflowHref}>
+                {eisRealNetworkApprovalSmokeFailureCopy.workflowName}
+              </a>
+              <a className="primary-link" href={eisRealNetworkApprovalSmokeFailureCopy.docsHref}>
+                API contract
+              </a>
+            </div>
+          </div>
+          <div className="fixture-coverage-grid">
+            {eisRealNetworkApprovalSmokeFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? eisRealNetworkApprovalSmokeFailureCopy.noMergeCopy
+                    : eisRealNetworkApprovalSmokeFailureCopy.failingCommand}
                 </strong>
                 <p>{text}</p>
               </article>
