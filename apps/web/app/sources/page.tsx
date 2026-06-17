@@ -138,6 +138,53 @@ const sourceFreshnessOwnerReceipts = [
   ["hash_mismatch", "execution_owner", "перезапросить первоисточник и сравнить checksum"],
 ];
 
+const sourceOwnerReceiptHistory = [
+  {
+    id: "receipt-stale-raw-eis-32211984571",
+    breachType: "stale",
+    owner: "supplier_manager",
+    action: "refresh_primary_payload",
+    resolution: "restored",
+    rawArtifact: "raw-eis-32211984571-v2",
+    checksum: "sha256:91d2f7",
+    aiGate: "ready_after_receipt",
+    note: "ЕИС payload обновлен внутри SLA, новый checksum связан с процедурой.",
+  },
+  {
+    id: "receipt-missing-raw-eis-0373100099926000012",
+    breachType: "missing",
+    owner: "document_owner",
+    action: "fetch_missing_artifact",
+    resolution: "accepted_with_note",
+    rawArtifact: "official-absence-eis-0373100099926000012",
+    checksum: "sha256:0fd18a",
+    aiGate: "blocked_until_restored",
+    note: "Официальный ответ об отсутствии файла сохранен, AI остается blocked до restored receipt.",
+  },
+  {
+    id: "receipt-parse-raw-eis-0173200001426000044",
+    breachType: "parse_failed",
+    owner: "data_steward",
+    action: "manual_schema_review",
+    resolution: "restored",
+    rawArtifact: "normalized-eis-0173200001426000044-v3",
+    checksum: "sha256:b8c442",
+    aiGate: "ready_after_receipt",
+    note: "Normalizer version обновлен, quarantined raw payload оставлен неизменным.",
+  },
+  {
+    id: "receipt-hash-raw-etp-procedure-room-0373100042626000001",
+    breachType: "hash_mismatch",
+    owner: "security_owner",
+    action: "refetch_and_compare",
+    resolution: "still_blocked",
+    rawArtifact: "raw-etp-procedure-room-0373100042626000001-refetch",
+    checksum: "sha256:blocked",
+    aiGate: "blocked_until_restored",
+    note: "Повторная загрузка не совпала с checksum, artifact остается в quarantine.",
+  },
+];
+
 const evidenceGates = [
   ["Source URL", "ссылка на карточку ЕИС, ФНС или ЭТП", "обязательно"],
   ["File hash", "оригинал документа и версия OCR", "обязательно"],
@@ -591,6 +638,43 @@ export default function SourcesPage() {
                 <strong>{owner}</strong>
                 <p>{rule}</p>
                 <em>AI остается blocked до owner receipt и нового raw artifact</em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-freshness-owner-panel"
+          data-history-count={sourceOwnerReceiptHistory.length}
+          data-resolution-statuses={sourceOwnerReceiptHistory.map((receipt) => receipt.resolution).join(",")}
+          data-testid="source-owner-receipt-history"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source owner receipt history</p>
+              <h2>Демо-история ручных решений по freshness blockers</h2>
+            </div>
+            <span className="status-pill amber">audit seed</span>
+          </div>
+          <div className="source-freshness-owner-grid">
+            {sourceOwnerReceiptHistory.map((receipt) => (
+              <article
+                className="source-freshness-owner-card"
+                data-action={receipt.action}
+                data-ai-gate={receipt.aiGate}
+                data-breach-type={receipt.breachType}
+                data-checksum={receipt.checksum}
+                data-owner={receipt.owner}
+                data-raw-artifact-id={receipt.rawArtifact}
+                data-resolution-status={receipt.resolution}
+                key={receipt.id}
+              >
+                <span>{receipt.breachType}</span>
+                <strong>{receipt.owner}</strong>
+                <p>{receipt.note}</p>
+                <em>
+                  {receipt.resolution} · {receipt.rawArtifact}
+                </em>
               </article>
             ))}
           </div>
