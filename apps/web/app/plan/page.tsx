@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить AI review API README DOM parity smoke", "сравнить /plan marker с /ai-review API link"],
-  ["2", "Добавить schema docs README existence smoke", "проверить anchor в packages/shared/README.md"],
-  ["3", "Добавить shared validation workflow file smoke", "сверить /plan badge с .github/workflows/shared-validation.yml"],
-  ["4", "Добавить shared README command CI note", "показать, что command parity smoke входит в Web build"],
+  ["1", "Добавить schema docs README existence smoke", "проверить anchor в packages/shared/README.md"],
+  ["2", "Добавить shared validation workflow file smoke", "сверить /plan badge с .github/workflows/shared-validation.yml"],
+  ["3", "Добавить shared README command CI note", "показать, что command parity smoke входит в Web build"],
+  ["4", "Добавить AI review API README CI note", "показать, что DOM parity smoke входит в Web build"],
 ];
 
 const cycleRules = [
@@ -192,9 +192,12 @@ const sharedReadmeCommandParitySmoke = {
 
 const aiReviewSchemaApiSmokeMarker = {
   apiHref: "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#ai-review-queue-contract",
+  apiReadmeAnchor: "AI Review Queue Contract",
+  apiReadmePath: "apps/api/README.md",
   apiRoute: "/v1/ai/review-queue",
   apiSelector: "[data-testid='ai-review-receipt-api-link']",
-  checkCount: 4,
+  checkCount: 5,
+  domParityCommand: "cd apps/web && npm run smoke:ai-review-api-readme -- --url http://127.0.0.1:4177",
   parityCommand: "cd apps/web && npm run smoke:ai-review-actions",
   protectedSurface: "/v1/ai/review-queue + /ai-review",
   schemaId: "https://asts.local/schemas/ai-review-queue.schema.json",
@@ -205,6 +208,7 @@ const aiReviewSchemaApiSmokeMarker = {
     ["API route", "закрепить backend route `/v1/ai/review-queue`"],
     ["API docs", "вести на API README AI Review Queue Contract"],
     ["Parity smoke", "держать owner/action matrix через `smoke:ai-review-actions`"],
+    ["DOM parity", "сравнить `/plan` marker с `/ai-review` API README link"],
   ],
 };
 
@@ -612,9 +616,12 @@ export default function PlanPage() {
         <section
           className="panel fixture-coverage-panel"
           data-api-href={aiReviewSchemaApiSmokeMarker.apiHref}
+          data-api-readme-anchor={aiReviewSchemaApiSmokeMarker.apiReadmeAnchor}
+          data-api-readme-path={aiReviewSchemaApiSmokeMarker.apiReadmePath}
           data-api-route={aiReviewSchemaApiSmokeMarker.apiRoute}
           data-api-selector={aiReviewSchemaApiSmokeMarker.apiSelector}
           data-check-count={aiReviewSchemaApiSmokeMarker.checkCount}
+          data-dom-parity-command={aiReviewSchemaApiSmokeMarker.domParityCommand}
           data-parity-command={aiReviewSchemaApiSmokeMarker.parityCommand}
           data-protected-surface={aiReviewSchemaApiSmokeMarker.protectedSurface}
           data-schema-id={aiReviewSchemaApiSmokeMarker.schemaId}
