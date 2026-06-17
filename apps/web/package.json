@@ -30,6 +30,7 @@
     "smoke:web-build-self-check": "node scripts/web-build-self-check-note.mjs",
     "smoke:web-build-failure-copy": "node scripts/web-build-failure-copy.mjs",
     "smoke:web-build-live-route": "node scripts/web-build-live-route-gate.mjs",
+    "smoke:web-build-rendered-route-failure-copy": "node scripts/web-build-rendered-route-failure-copy.mjs",
     "smoke:web-build-workflow": "node scripts/web-build-workflow-file.mjs",
     "lint": "next lint"
   },

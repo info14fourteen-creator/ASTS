@@ -39,6 +39,7 @@ const expectedCommands = [
   "npm run smoke:api-readme-trigger-failure-copy",
   "npm run smoke:api-readme-live-route",
   "npm run smoke:ai-review-api-readme-failure-copy",
+  "npm run smoke:web-build-rendered-route-failure-copy",
   "npm run smoke -- --url http://127.0.0.1:4177/",
   "npm run smoke:source-receipt-docs-link -- --url http://127.0.0.1:4177",
   "npm run smoke:ai-review-api-readme -- --url http://127.0.0.1:4177",
@@ -63,6 +64,7 @@ const expectedPlanMarkers = [
   'data-testid="web-build-workflow-self-check-note"',
   'data-testid="web-build-live-route-gate-note"',
   'data-testid="web-build-failure-copy"',
+  'data-testid="web-build-rendered-route-failure-copy"',
   'data-testid="web-build-workflow-file-smoke"',
 ];
 

@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить web build rendered-route failure copy", "показать owner-friendly текст при падении rendered routes"],
-  ["2", "Добавить API README live-route failure copy", "показать owner-friendly текст при падении live route order"],
-  ["3", "Добавить schema docs live-route failure copy", "показать owner-friendly текст при падении live route order"],
-  ["4", "Добавить shared validation rendered-route failure copy", "показать owner-friendly текст при падении rendered route coverage"],
+  ["1", "Добавить API README live-route failure copy", "показать owner-friendly текст при падении live route order"],
+  ["2", "Добавить schema docs live-route failure copy", "показать owner-friendly текст при падении live route order"],
+  ["3", "Добавить shared validation rendered-route failure copy", "показать owner-friendly текст при падении rendered route coverage"],
+  ["4", "Добавить AI review API README rendered-route failure copy", "показать owner-friendly текст при падении API docs live parity"],
 ];
 
 const cycleRules = [
@@ -572,7 +572,7 @@ const schemaDocsReadmeFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 26,
+  expectedCommandCount: 27,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -600,11 +600,12 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='web-build-workflow-self-check-note']",
     "[data-testid='web-build-live-route-gate-note']",
     "[data-testid='web-build-failure-copy']",
+    "[data-testid='web-build-rendered-route-failure-copy']",
   ],
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 26 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 27 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -661,6 +662,25 @@ const webBuildFailureCopy = {
     ["Fix order", "сначала восстановить workflow command list, затем `/plan` markers и route smoke expectations"],
     ["Owner", "Frontend owner подтверждает `/plan`, CI owner подтверждает workflow step/order"],
     ["No merge", "не мержить, пока Web build smoke и route smoke снова не зеленые"],
+  ],
+};
+
+const webBuildRenderedRouteFailureCopy = {
+  command: "npm run smoke:web-build-rendered-route-failure-copy",
+  expectedRouteCount: 16,
+  failingCommand: webBuildLiveRouteGateNote.routeSmokeCommand,
+  noMergeCopy: "Не мержить, пока rendered routes smoke снова проходит 16 маршрутов app.site.ru на живом сервере",
+  ownerRole: "Frontend owner + QA owner",
+  repairTargets: "apps/web/scripts/smoke.mjs,apps/web/app/plan/page.tsx,.github/workflows/web-build.yml,/plan",
+  sourceMarkerSelector: "[data-testid='web-build-failure-copy']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "падает финальный rendered routes smoke после поднятия `next start` на 127.0.0.1:4177"],
+    ["Fix order", "сначала восстановить route list и HTML markers, затем повторить live smoke на 16 маршрутах"],
+    ["Owner", "Frontend owner подтверждает `/plan` и routes, QA owner подтверждает маршрутное покрытие"],
+    ["No merge", "не мержить, пока rendered routes smoke снова не зеленый на PR"],
   ],
 };
 
@@ -1873,6 +1893,44 @@ export default function PlanPage() {
               <article className="fixture-coverage-card" key={title}>
                 <span>{title}</span>
                 <strong>{title === "No merge" ? webBuildFailureCopy.noMergeCopy : webBuildFailureCopy.command}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-command={webBuildRenderedRouteFailureCopy.command}
+          data-expected-route-count={webBuildRenderedRouteFailureCopy.expectedRouteCount}
+          data-failing-command={webBuildRenderedRouteFailureCopy.failingCommand}
+          data-no-merge-copy={webBuildRenderedRouteFailureCopy.noMergeCopy}
+          data-owner-role={webBuildRenderedRouteFailureCopy.ownerRole}
+          data-repair-targets={webBuildRenderedRouteFailureCopy.repairTargets}
+          data-source-marker-selector={webBuildRenderedRouteFailureCopy.sourceMarkerSelector}
+          data-testid="web-build-rendered-route-failure-copy"
+          data-workflow-href={webBuildRenderedRouteFailureCopy.workflowHref}
+          data-workflow-name={webBuildRenderedRouteFailureCopy.workflowName}
+          data-workflow-path={webBuildRenderedRouteFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Web build rendered-route failure copy</p>
+              <h2>Что делать, если rendered routes упали</h2>
+            </div>
+            <a className="primary-link" href={webBuildRenderedRouteFailureCopy.workflowHref}>
+              {webBuildRenderedRouteFailureCopy.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {webBuildRenderedRouteFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? webBuildRenderedRouteFailureCopy.noMergeCopy
+                    : webBuildRenderedRouteFailureCopy.failingCommand}
+                </strong>
                 <p>{text}</p>
               </article>
             ))}

@@ -121,6 +121,9 @@ jobs:
       - name: Smoke AI review API README failure copy
         run: npm run smoke:ai-review-api-readme-failure-copy
 
+      - name: Smoke Web build rendered routes failure copy
+        run: npm run smoke:web-build-rendered-route-failure-copy
+
       - name: Smoke rendered routes
         run: |
           npm run start -- -H 127.0.0.1 -p 4177 > /tmp/asts-web.log 2>&1 &
