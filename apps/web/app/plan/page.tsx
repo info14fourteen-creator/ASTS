@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить AI review owner action docs", "описать ручное подтверждение low-confidence facts"],
-  ["2", "Добавить FNS connector browser loop", "закрепить ФНС карточку в браузерной проверке"],
-  ["3", "Добавить source freshness owner UI card", "показать receipt rules на /sources"],
-  ["4", "Добавить FNS real-network smoke gate", "описать условия включения сетевого smoke"],
+  ["1", "Добавить FNS connector browser loop", "закрепить ФНС карточку в браузерной проверке"],
+  ["2", "Добавить source freshness owner UI card", "показать receipt rules на /sources"],
+  ["3", "Добавить FNS real-network smoke gate", "описать условия включения сетевого smoke"],
+  ["4", "Добавить AI review owner UI card", "показать receipt rules на /ai-review"],
 ];
 
 const cycleRules = [

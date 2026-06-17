@@ -123,6 +123,18 @@ Route smoke закрепляет:
 Пока факт ниже confidence threshold, интерфейс может показать подсказку ИИ, но
 не должен двигать процедуру без owner review и ссылки на raw artifact.
 
+### AI Review Owner Action Rules
+
+Ручное подтверждение low-confidence факта должно оставлять owner receipt:
+
+- `requirement` подтверждает или исправляет `tender_manager`;
+- `supplier_quote` подтверждает, уточняет или отклоняет `supplier_manager`;
+- `economics` подтверждает, исправляет или оставляет заблокированным `finance_owner`.
+
+UI не должен менять статус карточки на проходной без `decision="confirmed"` или
+`decision="corrected"`, `evidence_ref`, `confidence_at_review` и checksum
+первоисточника. Оригинальный AI extraction остается видимым в audit trail.
+
 ## Collaboration Rules
 
 - Работать в ветках `codex/*`, не пушить напрямую в `main`.

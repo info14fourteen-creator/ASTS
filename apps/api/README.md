@@ -99,6 +99,21 @@ all rows keep source evidence present. Facts can be shown as
 
 The detailed DTO and example response live in `docs/05-api-contract.md`.
 
+### AI Review Owner Actions
+
+Low-confidence AI facts are cleared by owner receipts, not by overwriting the
+AI confidence result. Each fact class has an owner:
+
+- `requirement` -> `tender_manager`;
+- `supplier_quote` -> `supplier_manager`;
+- `economics` -> `finance_owner`.
+
+The receipt must record `review_id`, `fact_id`, `owner_role`, `action`,
+`decision`, `evidence_ref`, `confidence_at_review`, `source_checksum_sha256`
+and `audit_note`. API implementations must keep workflow actions blocked unless
+`decision` is `confirmed` or `corrected` and the receipt points to source
+evidence.
+
 ## FNS Connector Contract
 
 `GET /v1/sources/connectors` now includes `connector_id="fns-egrul-nalog-ru"`

@@ -233,6 +233,32 @@ UI contract: `/ai-review` renders this queue in
 `data-testid="ai-review-confidence-browser-loop"` so the owner-review browser
 loop cannot disappear silently.
 
+### AI Review Owner Actions
+
+Low-confidence facts are resolved by an owner receipt, not by changing the
+confidence score after the fact. The original extraction stays in the audit
+trail and the owner records whether the fact was confirmed, corrected, rejected
+or kept blocked.
+
+Owner action matrix:
+
+- `requirement` - owner role `tender_manager`; actions
+  `confirm_requirement`, `correct_requirement`, `reject_requirement`; required
+  evidence is the source document page or raw artifact plus a short rationale.
+- `supplier_quote` - owner role `supplier_manager`; actions
+  `confirm_quote`, `request_supplier_clarification`, `reject_quote`; required
+  evidence is the supplier message, quote file hash or official clarification.
+- `economics` - owner role `finance_owner`; actions `confirm_margin`,
+  `correct_margin`, `keep_blocked`; required evidence is the pricing model,
+  VAT assumptions and source-backed cost line.
+
+Every AI review receipt must include `review_id`, `fact_id`, `owner_id`,
+`owner_role`, `action`, `decision`, `decided_at`, `evidence_ref`,
+`confidence_at_review`, `source_checksum_sha256` and `audit_note`. `decision`
+is one of `confirmed`, `corrected`, `rejected` or `still_blocked`. Workflow
+actions can continue only when `decision` is `confirmed` or `corrected` and the
+receipt keeps a valid `evidence_ref`.
+
 ## Reports and Export
 
 - `GET /tenders/{tender_id}/report`
