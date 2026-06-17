@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить schema docs README live route gate note", "показать, что schema docs links защищены live route smoke"],
-  ["2", "Добавить shared validation live route gate note", "показать, что shared validation note защищен route smoke"],
-  ["3", "Добавить web build route gate note", "показать, что web build self-check защищен route smoke"],
-  ["4", "Добавить AI review API README failure copy", "показать owner-friendly текст при падении live parity"],
+  ["1", "Добавить shared validation live route gate note", "показать, что shared validation note защищен route smoke"],
+  ["2", "Добавить web build route gate note", "показать, что web build self-check защищен route smoke"],
+  ["3", "Добавить AI review API README failure copy", "показать owner-friendly текст при падении live parity"],
+  ["4", "Добавить schema docs README failure copy", "показать owner-friendly текст при падении schema docs parity"],
 ];
 
 const cycleRules = [
@@ -409,9 +409,28 @@ const schemaDocsReadmeWorkflowSmoke = {
   ],
 };
 
+const schemaDocsReadmeLiveRouteGateNote = {
+  command: "npm run smoke:schema-docs-live-route",
+  linkSelector: schemaDocsReadmeCiNote.linkSelector,
+  markerSelector: "[data-testid='schema-docs-readme-ci-note']",
+  readmeCommand: schemaDocsReadmeCiNote.smokeCommand,
+  readmePath: schemaDocsReadmeCiNote.readmePath,
+  routeSmokeCommand: "npm run smoke -- --url http://127.0.0.1:4177/",
+  sourceSmokeCommand: schemaDocsReadmeCiNote.sourceSmokeCommand,
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Static README gate", "Web build сначала сверяет shared README heading и 5 schema rows"],
+    ["Live route gate", "затем route smoke проверяет `/plan` schema docs link на живом сервере"],
+    ["Plan marker", "schema-docs-readme-ci-note остается источником path, selector и command"],
+    ["Merge gate", "schema docs link drift должен падать до merge, а не после ручного просмотра"],
+  ],
+};
+
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 16,
+  expectedCommandCount: 17,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -426,6 +445,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='api-readme-trigger-smoke']",
     "[data-testid='schema-docs-readme-ci-note']",
     "[data-testid='schema-docs-readme-workflow-smoke']",
+    "[data-testid='schema-docs-readme-live-route-gate-note']",
     "[data-testid='shared-validation-workflow-ci-note']",
     "[data-testid='shared-validation-workflow-step-smoke']",
     "[data-testid='web-build-workflow-self-check-note']",
@@ -433,7 +453,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 16 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 17 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -1237,6 +1257,44 @@ export default function PlanPage() {
                 <span>{title}</span>
                 <strong>
                   {title === "Trigger path" ? schemaDocsReadmeWorkflowSmoke.triggerPath : schemaDocsReadmeWorkflowSmoke.command}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-command={schemaDocsReadmeLiveRouteGateNote.command}
+          data-link-selector={schemaDocsReadmeLiveRouteGateNote.linkSelector}
+          data-marker-selector={schemaDocsReadmeLiveRouteGateNote.markerSelector}
+          data-readme-command={schemaDocsReadmeLiveRouteGateNote.readmeCommand}
+          data-readme-path={schemaDocsReadmeLiveRouteGateNote.readmePath}
+          data-route-smoke-command={schemaDocsReadmeLiveRouteGateNote.routeSmokeCommand}
+          data-source-smoke-command={schemaDocsReadmeLiveRouteGateNote.sourceSmokeCommand}
+          data-testid="schema-docs-readme-live-route-gate-note"
+          data-workflow-href={schemaDocsReadmeLiveRouteGateNote.workflowHref}
+          data-workflow-name={schemaDocsReadmeLiveRouteGateNote.workflowName}
+          data-workflow-path={schemaDocsReadmeLiveRouteGateNote.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Schema docs README live route gate note</p>
+              <h2>Как live route smoke защищает schema docs links</h2>
+            </div>
+            <a className="primary-link" href={schemaDocsReadmeLiveRouteGateNote.workflowHref}>
+              {schemaDocsReadmeLiveRouteGateNote.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {schemaDocsReadmeLiveRouteGateNote.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Live route gate"
+                    ? schemaDocsReadmeLiveRouteGateNote.routeSmokeCommand
+                    : schemaDocsReadmeLiveRouteGateNote.readmePath}
                 </strong>
                 <p>{text}</p>
               </article>
