@@ -39,6 +39,7 @@ const checks = [
           "ci_policy",
           "safe_test_pair_required",
           "required_approvals",
+          "approval_api_copy",
         ],
         requiredDefinitions: [],
       }),
@@ -297,6 +298,17 @@ function validateFnsConnectorGate() {
     "FNS connector gate approvals",
   );
   assert(fixture.required_approvals.length === 5, "FNS connector gate must keep exactly 5 approvals");
+  assert(fixture.approval_api_copy, "FNS connector gate must include approval_api_copy");
+  assert(fixture.approval_api_copy.route === "/v1/sources/connectors", "FNS approval API copy route changed");
+  assert(fixture.approval_api_copy.status === fixture.status, "FNS approval API copy status must follow fixture status");
+  assert(fixture.approval_api_copy.owner === fixture.owner, "FNS approval API copy owner must follow Legal owner");
+  assertNonEmptyString(fixture.approval_api_copy.request_copy, "FNS approval API request copy");
+  assertNonEmptyString(fixture.approval_api_copy.blocked_copy, "FNS approval API blocked copy");
+  assertNonEmptyString(fixture.approval_api_copy.next_action, "FNS approval API next action");
+  assert(
+    fixture.approval_api_copy.no_merge_copy.includes("Не мержить real-network FNS smoke"),
+    "FNS approval API no-merge copy must block unsafe merge",
+  );
 }
 
 function validateAiReviewQueue() {

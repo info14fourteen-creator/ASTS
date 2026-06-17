@@ -11,7 +11,8 @@
     "owner",
     "ci_policy",
     "safe_test_pair_required",
-    "required_approvals"
+    "required_approvals",
+    "approval_api_copy"
   ],
   "properties": {
     "connector_id": {
@@ -45,6 +46,46 @@
           "safe test INN and OGRN pair is recorded",
           "raw artifact checksum and freshness receipt are asserted"
         ]
+      }
+    },
+    "approval_api_copy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "route",
+        "status",
+        "owner",
+        "request_copy",
+        "blocked_copy",
+        "next_action",
+        "no_merge_copy"
+      ],
+      "properties": {
+        "route": {
+          "const": "/v1/sources/connectors"
+        },
+        "status": {
+          "const": "contract_only"
+        },
+        "owner": {
+          "const": "Legal"
+        },
+        "request_copy": {
+          "type": "string",
+          "minLength": 20
+        },
+        "blocked_copy": {
+          "type": "string",
+          "minLength": 20
+        },
+        "next_action": {
+          "type": "string",
+          "minLength": 20
+        },
+        "no_merge_copy": {
+          "type": "string",
+          "minLength": 20
+        }
       }
     }
   }

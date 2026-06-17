@@ -279,6 +279,7 @@
 141. Добавить owner receipt API rendered-route failure copy: `web-build.yml` запускает `smoke:owner-receipt-api-rendered-route-failure-copy`, который закрепляет owner-friendly no-merge текст при падении FastAPI `/v1/sources/owner-receipts`, shared fixture и `/sources` API markers внутри rendered routes smoke.
 142. Добавить AI review receipt API rendered-route failure copy: `web-build.yml` запускает `smoke:ai-review-receipt-api-rendered-route-failure-copy`, который закрепляет owner-friendly no-merge текст при падении FastAPI `/v1/ai/review-queue`, shared fixture и `/ai-review` receipt markers внутри rendered routes smoke.
 143. Добавить source freshness docs rendered-route failure copy: `web-build.yml` запускает `smoke:source-freshness-docs-rendered-route-failure-copy`, который закрепляет owner-friendly no-merge текст при падении `/sources` Source Freshness docs link и API README anchor внутри rendered routes smoke.
+144. Добавить FNS real-network approval API copy: `web-build.yml` запускает `smoke:fns-real-network-approval-api-copy`, который закрепляет Legal owner-friendly текст для будущего сетевого FNS smoke без включения внешнего вызова в CI.
 
 Следующими брать:
 
@@ -375,3 +376,4 @@
 91. [done 2026-06-18] Добавить owner receipt API rendered-route failure copy: показать owner-friendly текст при падении owner receipt API route coverage.
 92. [done 2026-06-18] Добавить AI review receipt API rendered-route failure copy: показать owner-friendly текст при падении AI review receipt route coverage.
 93. [done 2026-06-18] Добавить source freshness docs rendered-route failure copy: показать owner-friendly текст при падении freshness docs route coverage.
+94. [done 2026-06-18] Добавить FNS real-network approval API copy: показать Legal owner-friendly текст будущего сетевого FNS smoke в API, `/sources` и `/plan`.

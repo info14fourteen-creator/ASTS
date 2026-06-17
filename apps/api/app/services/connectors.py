@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 from app.schemas import (
+    ConnectorApprovalApiCopy,
     ConnectorCapability,
     ConnectorNetworkSmokeGate,
     SourceConnector,
@@ -135,6 +136,7 @@ def get_source_connectors() -> SourceConnectorsResponse:
                     owner=fns_network_gate["owner"],
                     required_approvals=fns_network_gate["required_approvals"],
                     safe_test_pair_required=fns_network_gate["safe_test_pair_required"],
+                    approval_api_copy=ConnectorApprovalApiCopy(**fns_network_gate["approval_api_copy"]),
                 ),
                 blocked_by=[
                     "confirm official FNS access terms and allowed request volume",

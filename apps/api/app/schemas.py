@@ -180,12 +180,23 @@ class ConnectorCapability(BaseModel):
     evidence_fields: list[str]
 
 
+class ConnectorApprovalApiCopy(BaseModel):
+    route: str
+    status: Literal["contract_only", "ready_for_network"]
+    owner: str
+    request_copy: str
+    blocked_copy: str
+    next_action: str
+    no_merge_copy: str
+
+
 class ConnectorNetworkSmokeGate(BaseModel):
     status: Literal["contract_only", "ready_for_network"]
     ci_policy: str
     owner: str
     required_approvals: list[str]
     safe_test_pair_required: bool
+    approval_api_copy: ConnectorApprovalApiCopy | None = None
 
 
 class SourceConnector(BaseModel):

@@ -89,6 +89,7 @@ const fnsRealNetworkSmokeGate = {
   ciPolicy: fnsConnectorGate.ci_policy,
   safeTestPairRequired: fnsConnectorGate.safe_test_pair_required,
   requiredApprovals: fnsConnectorGate.required_approvals,
+  approvalApiCopy: fnsConnectorGate.approval_api_copy,
 };
 
 const fnsNetworkGateBrowserLoop = {
@@ -394,6 +395,13 @@ export default function SourcesPage() {
         <section
           className="panel connector-readiness-panel"
           data-approval-count={fnsRealNetworkSmokeGate.requiredApprovals.length}
+          data-approval-api-blocked-copy={fnsRealNetworkSmokeGate.approvalApiCopy.blocked_copy}
+          data-approval-api-next-action={fnsRealNetworkSmokeGate.approvalApiCopy.next_action}
+          data-approval-api-no-merge-copy={fnsRealNetworkSmokeGate.approvalApiCopy.no_merge_copy}
+          data-approval-api-owner={fnsRealNetworkSmokeGate.approvalApiCopy.owner}
+          data-approval-api-request-copy={fnsRealNetworkSmokeGate.approvalApiCopy.request_copy}
+          data-approval-api-route={fnsRealNetworkSmokeGate.approvalApiCopy.route}
+          data-approval-api-status={fnsRealNetworkSmokeGate.approvalApiCopy.status}
           data-ci-policy={fnsRealNetworkSmokeGate.ciPolicy}
           data-network-smoke-status={fnsRealNetworkSmokeGate.status}
           data-owner={fnsRealNetworkSmokeGate.owner}
@@ -406,6 +414,14 @@ export default function SourcesPage() {
               <h2>Когда можно включить сетевой smoke ИНН/ОГРН</h2>
             </div>
             <span className="status-pill amber">{fnsRealNetworkSmokeGate.status}</span>
+          </div>
+          <div className="connector-readiness-grid">
+            <article className="connector-readiness-card" data-testid="fns-real-network-approval-api-copy">
+              <span>API</span>
+              <strong>{fnsRealNetworkSmokeGate.approvalApiCopy.request_copy}</strong>
+              <p>{fnsRealNetworkSmokeGate.approvalApiCopy.blocked_copy}</p>
+              <em>{fnsRealNetworkSmokeGate.approvalApiCopy.next_action}</em>
+            </article>
           </div>
           <div className="connector-readiness-grid">
             {fnsRealNetworkSmokeGate.requiredApprovals.map((approval, index) => (

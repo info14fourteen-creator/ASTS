@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить FNS real-network approval API copy", "показать owner-friendly текст для будущего сетевого smoke gate"],
-  ["2", "Добавить source owner receipt write API draft", "описать будущий write endpoint для ручного receipt"],
-  ["3", "Добавить AI review receipt write API draft", "описать будущий write endpoint для ручного AI review receipt"],
-  ["4", "Добавить source freshness write API draft", "описать будущий write endpoint для ручного freshness receipt"],
+  ["1", "Добавить source owner receipt write API draft", "описать будущий write endpoint для ручного receipt"],
+  ["2", "Добавить AI review receipt write API draft", "описать будущий write endpoint для ручного AI review receipt"],
+  ["3", "Добавить source freshness write API draft", "описать будущий write endpoint для ручного freshness receipt"],
+  ["4", "Добавить EIS real-network approval API copy", "показать owner-friendly текст для будущего сетевого EIS smoke gate"],
 ];
 
 const cycleRules = [
@@ -900,6 +900,31 @@ const fnsApprovalsDocsRenderedRouteFailureCopy = {
   ],
 };
 
+const fnsRealNetworkApprovalApiCopy = {
+  apiRoute: "/v1/sources/connectors",
+  command: "npm run smoke:fns-real-network-approval-api-copy",
+  docsHref:
+    "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#fns-real-network-approval-api-copy",
+  expectedApprovalCount: 5,
+  expectedRouteCount: 16,
+  fixturePath: "packages/shared/fns-connector-gate.json",
+  noMergeCopy:
+    "Не мержить real-network FNS smoke, пока approval_api_copy подтверждает Legal owner, protected secrets, safe INN/OGRN и checksum freshness receipt.",
+  ownerRole: "Legal owner + API owner + QA owner",
+  repairTargets:
+    "packages/shared/fns-connector-gate.json,apps/api/app/services/connectors.py,apps/api/README.md,/sources,apps/web/scripts/fns-real-network-approval-api-copy.mjs",
+  sourceMarkerSelector: "[data-testid='fns-real-network-approval-api-copy']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["API copy", "GET `/v1/sources/connectors` отдаёт approval_api_copy внутри network_smoke_gate"],
+    ["Blocked", "copy запрещает включать FNS real-network smoke до пяти Legal approvals"],
+    ["Owner", "Legal owner подтверждает доступ, API owner держит DTO, QA owner подтверждает `/sources`"],
+    ["No merge", "не мержить, пока approval API copy не проходит backend, shared и web smoke"],
+  ],
+};
+
 const ownerReceiptDocsRenderedRouteFailureCopy = {
   apiRoute: "/v1/sources/owner-receipts",
   command: "npm run smoke:owner-receipt-docs-rendered-route-failure-copy",
@@ -926,7 +951,7 @@ const ownerReceiptDocsRenderedRouteFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 42,
+  expectedCommandCount: 43,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -959,6 +984,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='source-freshness-docs-rendered-route-failure-copy']",
     "[data-testid='fns-approvals-rendered-route-failure-copy']",
     "[data-testid='fns-approvals-docs-rendered-route-failure-copy']",
+    "[data-testid='fns-real-network-approval-api-copy']",
     "[data-testid='owner-receipt-docs-rendered-route-failure-copy']",
     "[data-testid='shared-validation-workflow-ci-note']",
     "[data-testid='shared-validation-workflow-step-smoke']",
@@ -974,7 +1000,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 42 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 43 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -2672,6 +2698,50 @@ export default function PlanPage() {
                   {title === "No merge"
                     ? fnsApprovalsDocsRenderedRouteFailureCopy.noMergeCopy
                     : fnsApprovalsDocsRenderedRouteFailureCopy.docsHref}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-route={fnsRealNetworkApprovalApiCopy.apiRoute}
+          data-command={fnsRealNetworkApprovalApiCopy.command}
+          data-docs-href={fnsRealNetworkApprovalApiCopy.docsHref}
+          data-expected-approval-count={fnsRealNetworkApprovalApiCopy.expectedApprovalCount}
+          data-expected-route-count={fnsRealNetworkApprovalApiCopy.expectedRouteCount}
+          data-fixture-path={fnsRealNetworkApprovalApiCopy.fixturePath}
+          data-no-merge-copy={fnsRealNetworkApprovalApiCopy.noMergeCopy}
+          data-owner-role={fnsRealNetworkApprovalApiCopy.ownerRole}
+          data-repair-targets={fnsRealNetworkApprovalApiCopy.repairTargets}
+          data-source-marker-selector={fnsRealNetworkApprovalApiCopy.sourceMarkerSelector}
+          data-testid="fns-real-network-approval-api-copy"
+          data-workflow-href={fnsRealNetworkApprovalApiCopy.workflowHref}
+          data-workflow-name={fnsRealNetworkApprovalApiCopy.workflowName}
+          data-workflow-path={fnsRealNetworkApprovalApiCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">FNS real-network approval API copy</p>
+              <h2>Что должен сказать API перед включением сетевого smoke</h2>
+            </div>
+            <div className="panel-actions">
+              <a className="primary-link" href={fnsRealNetworkApprovalApiCopy.workflowHref}>
+                {fnsRealNetworkApprovalApiCopy.workflowName}
+              </a>
+              <a className="primary-link" href={fnsRealNetworkApprovalApiCopy.docsHref}>
+                API contract
+              </a>
+            </div>
+          </div>
+          <div className="fixture-coverage-grid">
+            {fnsRealNetworkApprovalApiCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge" ? fnsRealNetworkApprovalApiCopy.noMergeCopy : fnsRealNetworkApprovalApiCopy.apiRoute}
                 </strong>
                 <p>{text}</p>
               </article>

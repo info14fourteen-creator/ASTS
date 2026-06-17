@@ -212,3 +212,22 @@ The web `npm run smoke:fns-approvals` parity check compares
 `packages/shared/fns-connector-gate.json` with this API service and the
 `/sources` UI gate so Legal owner, status, CI policy, safe test pair and
 approval order cannot drift silently.
+
+### FNS Real-Network Approval API Copy
+
+`GET /v1/sources/connectors` exposes
+`network_smoke_gate.approval_api_copy` for the future FNS real-network smoke
+approval. It is intentionally copy-only while `status="contract_only"`:
+
+- `route="/v1/sources/connectors"`;
+- `status="contract_only"`;
+- `owner="Legal"`;
+- `request_copy="Request Legal approval before enabling real FNS network smoke."`;
+- `blocked_copy="Do not enable FNS real-network smoke until all five approvals are recorded."`;
+- `next_action="Create protected environment secrets and record safe test INN/OGRN pair after Legal approval."`;
+- `no_merge_copy` blocks merging real-network FNS smoke until Legal owner,
+  protected secrets, safe INN/OGRN and checksum freshness receipt are visible.
+
+This copy is part of the API contract so the workdesk can show the same
+approval language that backend smoke tests enforce. CI must keep this copy in
+contract-only mode until Legal explicitly approves network access.

@@ -124,6 +124,27 @@ def main() -> int:
         print("FAIL FNS real-network smoke gate approvals must match the contract exactly")
         return 1
 
+    fns_approval_api_copy = fns_network_gate.get("approval_api_copy", {})
+    if fns_approval_api_copy.get("route") != "/v1/sources/connectors":
+        print("FAIL FNS approval API copy route must stay /v1/sources/connectors")
+        return 1
+
+    if fns_approval_api_copy.get("status") != "contract_only":
+        print("FAIL FNS approval API copy status must stay contract_only")
+        return 1
+
+    if fns_approval_api_copy.get("owner") != "Legal":
+        print("FAIL FNS approval API copy owner must stay Legal")
+        return 1
+
+    if "Do not enable FNS real-network smoke" not in fns_approval_api_copy.get("blocked_copy", ""):
+        print("FAIL FNS approval API copy must block real-network smoke")
+        return 1
+
+    if "Не мержить real-network FNS smoke" not in fns_approval_api_copy.get("no_merge_copy", ""):
+        print("FAIL FNS approval API no-merge copy must block unsafe merge")
+        return 1
+
     health_response = client.get("/v1/sources/health")
     if health_response.status_code != 200:
         print(f"FAIL /v1/sources/health HTTP {health_response.status_code}")
