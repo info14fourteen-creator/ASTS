@@ -241,6 +241,7 @@
 103. Добавить shared validation CI badge link: `/plan` связывает browser loop с GitHub Actions workflow.
 104. Добавить shared README command parity smoke: `apps/web` сверяет `/plan` checklist commands с `packages/shared/README.md`.
 105. Добавить AI review API README DOM parity smoke: `apps/web` сверяет `/plan` marker с `/ai-review` API README link.
+106. Добавить schema docs README existence smoke: `apps/web` проверяет `## Shared Schema Index` и 5 schema rows в `packages/shared/README.md`.
 
 Следующими брать:
 
@@ -299,7 +300,8 @@
 53. [done 2026-06-17] Добавить shared validation CI badge link: связать browser loop с GitHub Actions workflow.
 54. [done 2026-06-17] Добавить shared README command parity smoke: сравнить checklist commands с `packages/shared/README.md`.
 55. [done 2026-06-17] Добавить AI review API README DOM parity smoke: сравнить `/plan` marker с `/ai-review` API link.
-56. Добавить schema docs README existence smoke: проверить anchor в `packages/shared/README.md`.
+56. [done 2026-06-17] Добавить schema docs README existence smoke: проверить anchor в `packages/shared/README.md`.
 57. Добавить shared validation workflow file smoke: сверить `/plan` badge с `.github/workflows/shared-validation.yml`.
 58. Добавить shared README command CI note: показать, что command parity smoke входит в Web build.
 59. Добавить AI review API README CI note: показать, что DOM parity smoke входит в Web build.
+60. Добавить schema docs README CI note: показать, что README existence smoke входит в Web build.

@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить schema docs README existence smoke", "проверить anchor в packages/shared/README.md"],
-  ["2", "Добавить shared validation workflow file smoke", "сверить /plan badge с .github/workflows/shared-validation.yml"],
-  ["3", "Добавить shared README command CI note", "показать, что command parity smoke входит в Web build"],
-  ["4", "Добавить AI review API README CI note", "показать, что DOM parity smoke входит в Web build"],
+  ["1", "Добавить shared validation workflow file smoke", "сверить /plan badge с .github/workflows/shared-validation.yml"],
+  ["2", "Добавить shared README command CI note", "показать, что command parity smoke входит в Web build"],
+  ["3", "Добавить AI review API README CI note", "показать, что DOM parity smoke входит в Web build"],
+  ["4", "Добавить schema docs README CI note", "показать, что README existence smoke входит в Web build"],
 ];
 
 const cycleRules = [
@@ -214,16 +214,35 @@ const aiReviewSchemaApiSmokeMarker = {
 
 const schemaDocsLinkParitySmoke = {
   anchor: "packages/shared/README.md#shared-schema-index",
+  anchorSlug: "shared-schema-index",
   docsHref: schemaDocsHref,
   linkSelector: "[data-testid='schema-docs-link']",
   checklistSelector: "[data-testid='fixture-schema-checklist-smoke']",
   expectedSchemaCount: schemaValidationCards.length,
   expectedChecklistSchemaCount: fixtureSchemaChecklistSmoke.schemaIds.length,
+  readmeHeading: "Shared Schema Index",
+  readmePath: "packages/shared/README.md",
   checks: [
     ["Link href", "schema-docs-link должен вести на shared schema index"],
     ["Checklist anchor", "fixture checklist должен хранить тот же README anchor"],
     ["Schema count", "summary держит 3 fixture schemas, checklist держит 5 schema rows"],
     ["Smoke marker", "route smoke проверяет оба selector и один anchor"],
+  ],
+};
+
+const schemaDocsReadmeExistenceSmoke = {
+  anchor: schemaDocsLinkParitySmoke.anchor,
+  anchorSlug: schemaDocsLinkParitySmoke.anchorSlug,
+  expectedRows: fixtureSchemaChecklistSmoke.schemaIds.length,
+  linkSelector: schemaDocsLinkParitySmoke.linkSelector,
+  readmeHeading: schemaDocsLinkParitySmoke.readmeHeading,
+  readmePath: schemaDocsLinkParitySmoke.readmePath,
+  smokeCommand: "cd apps/web && npm run smoke:schema-docs-readme",
+  checks: [
+    ["README file", "packages/shared/README.md должен существовать"],
+    ["Heading", "README держит `## Shared Schema Index` для GitHub anchor"],
+    ["Rows", "индекс содержит все 5 schema rows из fixture checklist"],
+    ["Plan link", "`/plan` marker ведет на тот же shared-schema-index anchor"],
   ],
 };
 
@@ -652,10 +671,13 @@ export default function PlanPage() {
         <section
           className="panel fixture-coverage-panel"
           data-anchor={schemaDocsLinkParitySmoke.anchor}
+          data-anchor-slug={schemaDocsLinkParitySmoke.anchorSlug}
           data-checklist-schema-count={schemaDocsLinkParitySmoke.expectedChecklistSchemaCount}
           data-checklist-selector={schemaDocsLinkParitySmoke.checklistSelector}
           data-docs-href={schemaDocsLinkParitySmoke.docsHref}
           data-link-selector={schemaDocsLinkParitySmoke.linkSelector}
+          data-readme-heading={schemaDocsLinkParitySmoke.readmeHeading}
+          data-readme-path={schemaDocsLinkParitySmoke.readmePath}
           data-schema-count={schemaDocsLinkParitySmoke.expectedSchemaCount}
           data-testid="schema-docs-link-parity-smoke"
         >
@@ -673,6 +695,35 @@ export default function PlanPage() {
               <article className="fixture-coverage-card" key={title}>
                 <span>{title}</span>
                 <strong>{schemaDocsLinkParitySmoke.anchor}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-anchor={schemaDocsReadmeExistenceSmoke.anchor}
+          data-anchor-slug={schemaDocsReadmeExistenceSmoke.anchorSlug}
+          data-expected-rows={schemaDocsReadmeExistenceSmoke.expectedRows}
+          data-link-selector={schemaDocsReadmeExistenceSmoke.linkSelector}
+          data-readme-heading={schemaDocsReadmeExistenceSmoke.readmeHeading}
+          data-readme-path={schemaDocsReadmeExistenceSmoke.readmePath}
+          data-smoke-command={schemaDocsReadmeExistenceSmoke.smokeCommand}
+          data-testid="schema-docs-readme-existence-smoke"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Schema docs README existence smoke</p>
+              <h2>Как `/plan` проверяет существование shared schema index</h2>
+            </div>
+            <span className="status-pill green">{schemaDocsReadmeExistenceSmoke.expectedRows} rows</span>
+          </div>
+          <div className="fixture-coverage-grid">
+            {schemaDocsReadmeExistenceSmoke.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>{schemaDocsReadmeExistenceSmoke.readmePath}</strong>
                 <p>{text}</p>
               </article>
             ))}
