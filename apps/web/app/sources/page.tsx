@@ -190,6 +190,7 @@ const sourceOwnerReceiptHistory = [
 const sourceOwnerReceiptHistoryBrowserLoop = {
   route: "/sources",
   apiRoute: "/v1/sources/owner-receipts",
+  docsHref: "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#source-owner-receipt-contract",
   selector: "[data-testid='source-owner-receipt-history'] [data-resolution-status]",
   expectedHistoryCount: sourceOwnerReceiptHistory.length,
   expectedAiGates: Array.from(new Set(sourceOwnerReceiptHistory.map((receipt) => receipt.aiGate))),
@@ -713,6 +714,7 @@ export default function SourcesPage() {
           data-ai-gates={sourceOwnerReceiptHistoryBrowserLoop.expectedAiGates.join(",")}
           data-api-route={sourceOwnerReceiptHistoryBrowserLoop.apiRoute}
           data-blocked-count={sourceOwnerReceiptHistoryBrowserLoop.expectedBlockedCount}
+          data-docs-href={sourceOwnerReceiptHistoryBrowserLoop.docsHref}
           data-history-count={sourceOwnerReceiptHistoryBrowserLoop.expectedHistoryCount}
           data-resolution-statuses={sourceOwnerReceiptHistoryBrowserLoop.expectedResolutionStatuses.join(",")}
           data-route={sourceOwnerReceiptHistoryBrowserLoop.route}
@@ -724,7 +726,14 @@ export default function SourcesPage() {
               <p className="eyebrow">Source owner receipt history browser loop</p>
               <h2>Как браузер сверяет историю ручных freshness-решений</h2>
             </div>
-            <span className="status-pill amber">audit trace armed</span>
+            <a
+              className="primary-link"
+              data-api-route={sourceOwnerReceiptHistoryBrowserLoop.apiRoute}
+              data-testid="source-owner-receipt-docs-link"
+              href={sourceOwnerReceiptHistoryBrowserLoop.docsHref}
+            >
+              API README / owner receipts
+            </a>
           </div>
           <div className="source-quarantine-browser-loop-grid">
             {sourceOwnerReceiptHistoryBrowserLoop.checks.map(([title, text]) => (
