@@ -120,8 +120,8 @@ def main() -> int:
         "raw artifact checksum and freshness receipt are asserted",
     }
     fns_network_approvals = set(fns_network_gate.get("required_approvals", []))
-    if not expected_fns_network_approvals.issubset(fns_network_approvals):
-        print("FAIL FNS real-network smoke gate approvals are incomplete")
+    if fns_network_approvals != expected_fns_network_approvals:
+        print("FAIL FNS real-network smoke gate approvals must match the contract exactly")
         return 1
 
     health_response = client.get("/v1/sources/health")

@@ -97,6 +97,7 @@ const fnsRealNetworkSmokeGate = {
 
 const fnsNetworkGateBrowserLoop = {
   route: "/sources",
+  apiRoute: "/v1/sources/connectors",
   selector: "[data-testid='fns-real-network-smoke-gate'] [data-approval]",
   docsHref: "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#fns-smoke-contract",
   expectedStatus: fnsRealNetworkSmokeGate.status,
@@ -459,6 +460,7 @@ export default function SourcesPage() {
         <section
           className="panel source-quarantine-browser-loop-panel"
           data-approval-count={fnsNetworkGateBrowserLoop.expectedApprovalCount}
+          data-api-route={fnsNetworkGateBrowserLoop.apiRoute}
           data-ci-policy={fnsRealNetworkSmokeGate.ciPolicy}
           data-owner={fnsNetworkGateBrowserLoop.expectedOwner}
           data-docs-href={fnsNetworkGateBrowserLoop.docsHref}
@@ -475,6 +477,7 @@ export default function SourcesPage() {
             </div>
             <a
               className="primary-link"
+              data-api-route={fnsNetworkGateBrowserLoop.apiRoute}
               data-testid="fns-network-gate-docs-link"
               href={fnsNetworkGateBrowserLoop.docsHref}
             >

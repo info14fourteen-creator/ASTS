@@ -137,9 +137,10 @@ Browser loop закреплен отдельным блоком
 capabilities, не читая сами значения секретов.
 
 FNS network gate browser loop обязан показывать ссылку на API README:
-`data-testid="fns-network-gate-docs-link"`. Эта ссылка ведет к разделу
-`FNS Smoke Contract`, где описаны Legal owner, approval list, safe INN/OGRN pair
-и запрет CI на внешний вызов ФНС до явного разрешения.
+`data-testid="fns-network-gate-docs-link"` и `data-api-route="/v1/sources/connectors"`.
+Эта ссылка ведет к разделу `FNS Smoke Contract`, где описаны Legal owner,
+approval list, safe INN/OGRN pair и запрет CI на внешний вызов ФНС до явного
+разрешения.
 
 ## AI Review UI Contract
 

@@ -188,5 +188,6 @@ owner records every `network_smoke_gate.required_approvals` item. Until then,
 CI must keep testing the contract shape, not external FNS availability.
 
 The `/sources` UI links its `fns-network-gate-browser-loop` block back to this
-section through `data-testid="fns-network-gate-docs-link"` so Legal approval
-rules and CI behavior stay traceable from the visible workdesk.
+section through `data-testid="fns-network-gate-docs-link"` and
+`data-api-route="/v1/sources/connectors"` so Legal approval rules and CI
+behavior stay traceable from the visible workdesk to the connector contract.
