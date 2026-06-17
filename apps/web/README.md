@@ -183,6 +183,9 @@ AI review receipt browser loop должен показывать ссылку н
 `data-testid="ai-review-receipt-api-link"`, `data-api-route="/v1/ai/review-queue"`.
 Эта ссылка ведет к API README, где описаны threshold, owner review, evidence
 fields и блокировка workflow до `confirmed` или `corrected` receipt.
+Route/API smoke также закрепляют owner/action matrix для `requirement`,
+`supplier_quote` и `economics`; `evidence_ref` должен совпадать с raw artifact
+первоисточника.
 
 ## Collaboration Rules
 

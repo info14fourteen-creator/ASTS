@@ -338,7 +338,12 @@ export default function AiReviewPage() {
               <p className="eyebrow">AI review receipt browser loop</p>
               <h2>Как браузер сверяет owner receipt после ручного решения</h2>
             </div>
-            <a className="primary-link" data-testid="ai-review-receipt-api-link" href={aiReviewReceiptBrowserLoop.apiHref}>
+            <a
+              className="primary-link"
+              data-api-route={aiReviewReceiptBrowserLoop.apiRoute}
+              data-testid="ai-review-receipt-api-link"
+              href={aiReviewReceiptBrowserLoop.apiHref}
+            >
               API / AI review queue
             </a>
           </div>

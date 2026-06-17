@@ -121,6 +121,9 @@ Smoke checks verify that every row is below the automatic threshold and that
 all rows keep source evidence present. Facts can be shown as
 `review_required`, but flow-moving actions stay blocked for rows with
 `status="blocked"` until owner review is recorded.
+API smoke also asserts the exact owner/action matrix for `requirement`,
+`supplier_quote` and `economics`, and verifies that `evidence_ref` matches the
+embedded source `raw_artifact_id`.
 
 The detailed DTO and example response live in `docs/05-api-contract.md`.
 

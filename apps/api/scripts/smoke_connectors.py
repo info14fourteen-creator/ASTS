@@ -311,6 +311,21 @@ def main() -> int:
         print(f"FAIL /v1/ai/review-queue fact types: expected requirement/supplier_quote/economics, got {got_fact_types}")
         return 1
 
+    expected_ai_review_owner_actions = {
+        "requirement": ("tender_manager", "confirm requirement interpretation before supplier request"),
+        "supplier_quote": ("supplier_manager", "request supplier clarification and keep economics blocked"),
+        "economics": ("finance_owner", "finance owner must approve or keep outcome locked"),
+    }
+    for item in ai_review_queue:
+        fact_type = item.get("fact_type")
+        expected_owner, expected_action = expected_ai_review_owner_actions.get(fact_type, ("", ""))
+        if item.get("owner_role") != expected_owner:
+            print(f"FAIL /v1/ai/review-queue owner for {fact_type} is wrong")
+            return 1
+        if item.get("required_action") != expected_action:
+            print(f"FAIL /v1/ai/review-queue required action for {fact_type} is wrong")
+            return 1
+
     if any(item.get("confidence", 1) >= item.get("threshold", 0) for item in ai_review_queue):
         print("FAIL /v1/ai/review-queue rows must be below confidence threshold")
         return 1
@@ -323,6 +338,9 @@ def main() -> int:
         source = item.get("source", {})
         if not source.get("source_url") or not source.get("raw_artifact_id") or not source.get("checksum_sha256"):
             print("FAIL /v1/ai/review-queue rows must embed source evidence")
+            return 1
+        if item.get("evidence_ref") != source.get("raw_artifact_id"):
+            print("FAIL /v1/ai/review-queue evidence_ref must match source raw_artifact_id")
             return 1
 
     handoff_response = client.get("/v1/handoff/owner-approval")
