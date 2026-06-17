@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить shared README command parity smoke", "сравнить checklist commands с packages/shared/README.md"],
-  ["2", "Добавить AI review API README DOM parity smoke", "сравнить /plan marker с /ai-review API link"],
-  ["3", "Добавить schema docs README existence smoke", "проверить anchor в packages/shared/README.md"],
-  ["4", "Добавить shared validation workflow file smoke", "сверить /plan badge с .github/workflows/shared-validation.yml"],
+  ["1", "Добавить AI review API README DOM parity smoke", "сравнить /plan marker с /ai-review API link"],
+  ["2", "Добавить schema docs README existence smoke", "проверить anchor в packages/shared/README.md"],
+  ["3", "Добавить shared validation workflow file smoke", "сверить /plan badge с .github/workflows/shared-validation.yml"],
+  ["4", "Добавить shared README command CI note", "показать, что command parity smoke входит в Web build"],
 ];
 
 const cycleRules = [
@@ -153,6 +153,7 @@ const sharedValidationCiBadgeLink = {
 
 const fixtureSchemaChecklistSmoke = {
   readmeAnchor: "packages/shared/README.md#shared-schema-index",
+  readmePath: "packages/shared/README.md",
   schemaIds: [
     "ai-schemas/tender-position-extraction.schema.json",
     "ai-schemas/supplier-quote-normalization.schema.json",
@@ -172,6 +173,20 @@ const fixtureSchemaChecklistSmoke = {
     ["Source owner receipts", "FastAPI `/v1/sources/owner-receipts`, `/sources` receipt UI"],
     ["FNS connector gate", "FastAPI `/v1/sources/connectors`, `/sources` Legal gate"],
     ["AI review queue", "FastAPI `/v1/ai/review-queue`, `/ai-review` owner queue"],
+  ],
+};
+
+const sharedReadmeCommandParitySmoke = {
+  checklistSelector: "[data-testid='fixture-schema-checklist-smoke']",
+  commandCount: fixtureSchemaChecklistSmoke.commands.length,
+  commands: fixtureSchemaChecklistSmoke.commands,
+  readmePath: fixtureSchemaChecklistSmoke.readmePath,
+  smokeCommand: "cd apps/web && npm run smoke:shared-readme-commands",
+  checks: [
+    ["README source", "Local validation commands в shared README остаются источником правды"],
+    ["Plan checklist", "fixture checklist показывает те же 4 команды в `/plan`"],
+    ["Smoke", "`smoke:shared-readme-commands` падает при любом расхождении порядка или текста"],
+    ["Web build", "command parity smoke можно запускать до merge рядом с route smoke"],
   ],
 };
 
@@ -535,6 +550,7 @@ export default function PlanPage() {
           data-command-count={fixtureSchemaChecklistSmoke.commands.length}
           data-commands={fixtureSchemaChecklistSmoke.commands.join(" | ")}
           data-readme-anchor={fixtureSchemaChecklistSmoke.readmeAnchor}
+          data-readme-path={fixtureSchemaChecklistSmoke.readmePath}
           data-schema-count={fixtureSchemaChecklistSmoke.schemaIds.length}
           data-schema-ids={fixtureSchemaChecklistSmoke.schemaIds.join(",")}
           data-testid="fixture-schema-checklist-smoke"
@@ -561,6 +577,33 @@ export default function PlanPage() {
                 <span>{index + 1}</span>
                 <strong>{command}</strong>
                 <p>{fixtureSchemaChecklistSmoke.readmeAnchor}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-checklist-selector={sharedReadmeCommandParitySmoke.checklistSelector}
+          data-command-count={sharedReadmeCommandParitySmoke.commandCount}
+          data-commands={sharedReadmeCommandParitySmoke.commands.join(" | ")}
+          data-readme-path={sharedReadmeCommandParitySmoke.readmePath}
+          data-smoke-command={sharedReadmeCommandParitySmoke.smokeCommand}
+          data-testid="shared-readme-command-parity-smoke"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Shared README command parity smoke</p>
+              <h2>Как `/plan` сверяет команды с shared README</h2>
+            </div>
+            <span className="status-pill green">{sharedReadmeCommandParitySmoke.commandCount} commands</span>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sharedReadmeCommandParitySmoke.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>{sharedReadmeCommandParitySmoke.readmePath}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>

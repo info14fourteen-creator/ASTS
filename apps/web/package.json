@@ -10,6 +10,7 @@
     "smoke:ai-review-actions": "node scripts/ai-review-action-parity.mjs",
     "smoke:fns-approvals": "node scripts/fns-approvals-parity.mjs",
     "smoke:owner-receipts": "node scripts/owner-receipt-parity.mjs",
+    "smoke:shared-readme-commands": "node scripts/shared-readme-command-parity.mjs",
     "smoke:source-receipt-docs-link": "node scripts/source-receipt-docs-link-browser.mjs",
     "lint": "next lint"
   },
