@@ -73,6 +73,9 @@ jobs:
       - name: Smoke schema docs README workflow
         run: npm run smoke:schema-docs-workflow
 
+      - name: Smoke schema docs workflow failure copy
+        run: npm run smoke:schema-docs-workflow-failure-copy
+
       - name: Smoke schema docs live route gate
         run: npm run smoke:schema-docs-live-route
 

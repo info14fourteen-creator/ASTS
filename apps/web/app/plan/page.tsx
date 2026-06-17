@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить schema docs workflow failure copy", "показать owner-friendly текст при падении workflow step/order"],
-  ["2", "Добавить shared validation workflow failure copy", "показать owner-friendly текст при падении shared validation workflow order"],
-  ["3", "Добавить web build rendered-route failure copy", "показать owner-friendly текст при падении rendered routes"],
-  ["4", "Добавить API README live-route failure copy", "показать owner-friendly текст при падении live route order"],
+  ["1", "Добавить shared validation workflow failure copy", "показать owner-friendly текст при падении shared validation workflow order"],
+  ["2", "Добавить web build rendered-route failure copy", "показать owner-friendly текст при падении rendered routes"],
+  ["3", "Добавить API README live-route failure copy", "показать owner-friendly текст при падении live route order"],
+  ["4", "Добавить schema docs live-route failure copy", "показать owner-friendly текст при падении live route order"],
 ];
 
 const cycleRules = [
@@ -488,6 +488,28 @@ const schemaDocsReadmeWorkflowSmoke = {
   ],
 };
 
+const schemaDocsWorkflowFailureCopy = {
+  command: "npm run smoke:schema-docs-workflow-failure-copy",
+  failingCommand: schemaDocsReadmeWorkflowSmoke.command,
+  noMergeCopy:
+    "Не мержить, пока packages/shared/README.md снова не запускает Web build и schema docs workflow smoke",
+  ownerRole: "Schema owner + CI owner",
+  readmePath: schemaDocsReadmeWorkflowSmoke.readmePath,
+  repairTargets: "packages/shared/README.md,.github/workflows/web-build.yml,/plan,[data-testid='schema-docs-readme-workflow-smoke']",
+  sourceMarkerSelector: "[data-testid='schema-docs-readme-workflow-smoke']",
+  triggerPath: schemaDocsReadmeWorkflowSmoke.triggerPath,
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  expectedWorkflowPathCount: schemaDocsReadmeWorkflowSmoke.expectedWorkflowPathCount,
+  checks: [
+    ["Symptom", "падает schema docs workflow smoke или Web build не стартует при изменении shared schema index"],
+    ["Fix order", "сначала вернуть packages/shared/README.md в pull_request/push paths, затем `/plan` workflow marker"],
+    ["Owner", "Schema owner подтверждает README schema index, CI owner подтверждает Web build step/order"],
+    ["No merge", "не мержить, пока schema docs workflow smoke и README existence smoke снова не зеленые"],
+  ],
+};
+
 const schemaDocsReadmeLiveRouteGateNote = {
   command: "npm run smoke:schema-docs-live-route",
   linkSelector: schemaDocsReadmeCiNote.linkSelector,
@@ -528,7 +550,7 @@ const schemaDocsReadmeFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 24,
+  expectedCommandCount: 25,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -545,6 +567,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='api-readme-trigger-failure-copy']",
     "[data-testid='schema-docs-readme-ci-note']",
     "[data-testid='schema-docs-readme-workflow-smoke']",
+    "[data-testid='schema-docs-workflow-failure-copy']",
     "[data-testid='schema-docs-readme-live-route-gate-note']",
     "[data-testid='schema-docs-readme-failure-copy']",
     "[data-testid='shared-validation-workflow-ci-note']",
@@ -558,7 +581,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 24 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 25 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -1543,6 +1566,42 @@ export default function PlanPage() {
                 <strong>
                   {title === "Trigger path" ? schemaDocsReadmeWorkflowSmoke.triggerPath : schemaDocsReadmeWorkflowSmoke.command}
                 </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-command={schemaDocsWorkflowFailureCopy.command}
+          data-expected-workflow-path-count={schemaDocsWorkflowFailureCopy.expectedWorkflowPathCount}
+          data-failing-command={schemaDocsWorkflowFailureCopy.failingCommand}
+          data-no-merge-copy={schemaDocsWorkflowFailureCopy.noMergeCopy}
+          data-owner-role={schemaDocsWorkflowFailureCopy.ownerRole}
+          data-readme-path={schemaDocsWorkflowFailureCopy.readmePath}
+          data-repair-targets={schemaDocsWorkflowFailureCopy.repairTargets}
+          data-source-marker-selector={schemaDocsWorkflowFailureCopy.sourceMarkerSelector}
+          data-testid="schema-docs-workflow-failure-copy"
+          data-trigger-path={schemaDocsWorkflowFailureCopy.triggerPath}
+          data-workflow-href={schemaDocsWorkflowFailureCopy.workflowHref}
+          data-workflow-name={schemaDocsWorkflowFailureCopy.workflowName}
+          data-workflow-path={schemaDocsWorkflowFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Schema docs workflow failure copy</p>
+              <h2>Что делать, если schema docs workflow упал</h2>
+            </div>
+            <a className="primary-link" href={schemaDocsWorkflowFailureCopy.workflowHref}>
+              {schemaDocsWorkflowFailureCopy.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {schemaDocsWorkflowFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>{title === "No merge" ? schemaDocsWorkflowFailureCopy.noMergeCopy : schemaDocsWorkflowFailureCopy.readmePath}</strong>
                 <p>{text}</p>
               </article>
             ))}
