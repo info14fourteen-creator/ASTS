@@ -242,6 +242,12 @@ Web build must run
 live-route workflow copy so the README anchor, `/plan` docs href and immutable
 AI audit append warning drift before shared README checks. Keep the immutable AI audit append warning explicit here so docs-only drift is caught before shared
 README checks.
+It must then run
+`npm run smoke:ai-review-receipt-write-live-route-readme-trigger-copy` while
+`apps/api/README.md` remains in both Web build trigger path lists, so docs-only
+AI review receipt write drift cannot skip CI before shared README checks.
+Keep the docs-only AI review receipt write drift cannot skip CI warning
+explicit so README-only AI review changes keep exercising Web build.
 
 ### AI Review Owner Actions
 

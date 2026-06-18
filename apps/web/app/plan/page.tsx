@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить AI review receipt write live-route README trigger copy", "закрепить docs copy в README/CI trigger notes"],
-  ["2", "Добавить source freshness write live-route README trigger copy", "закрепить docs copy в README/CI trigger notes"],
-  ["3", "Добавить EIS real-network approval live-route README trigger copy", "закрепить docs copy в README/CI trigger notes"],
-  ["4", "Добавить source owner receipt write live-route README rendered copy", "закрепить trigger copy в rendered route smoke"],
+  ["1", "Добавить source freshness write live-route README trigger copy", "закрепить docs copy в README/CI trigger notes"],
+  ["2", "Добавить EIS real-network approval live-route README trigger copy", "закрепить docs copy в README/CI trigger notes"],
+  ["3", "Добавить source owner receipt write live-route README rendered copy", "закрепить trigger copy в rendered route smoke"],
+  ["4", "Добавить AI review receipt write live-route README rendered copy", "закрепить trigger copy в rendered route smoke"],
 ];
 
 const cycleRules = [
@@ -779,6 +779,35 @@ const aiReviewReceiptWriteLiveRouteDocsCopy = {
     ["Fix order", "сначала восстановить README audit note, затем `/plan` docs copy и route smoke expectations"],
     ["Owner", "AI workflow owner подтверждает write audit note, Docs owner подтверждает README anchor, CI owner подтверждает Web build order"],
     ["No merge", "не мержить, пока AI live-route docs copy снова не защищает audit note"],
+  ],
+};
+
+const aiReviewReceiptWriteLiveRouteReadmeTriggerCopy = {
+  apiRoute: aiReviewReceiptWriteLiveRouteDocsCopy.apiRoute,
+  command: "npm run smoke:ai-review-receipt-write-live-route-readme-trigger-copy",
+  docsCommand: aiReviewReceiptWriteLiveRouteDocsCopy.command,
+  docsHref: aiReviewReceiptWriteLiveRouteDocsCopy.docsHref,
+  expectedQueueCount: aiReviewReceiptWriteLiveRouteDocsCopy.expectedQueueCount,
+  expectedRequestFieldCount: aiReviewReceiptWriteLiveRouteDocsCopy.expectedRequestFieldCount,
+  expectedRouteCount: aiReviewReceiptWriteLiveRouteDocsCopy.expectedRouteCount,
+  expectedWorkflowPathCount: 2,
+  failingCommand: aiReviewReceiptWriteLiveRouteDocsCopy.command,
+  noMergeCopy:
+    "Не мержить, пока AI live-route docs copy снова закреплен в apps/api/README.md trigger path и Web build.",
+  ownerRole: "AI workflow owner + Docs owner + CI owner",
+  readmePath: "apps/api/README.md",
+  repairTargets:
+    "apps/api/README.md,.github/workflows/web-build.yml,/plan,apps/web/scripts/ai-review-receipt-write-live-route-docs-copy.mjs",
+  sourceMarkerSelector: "[data-testid='ai-review-receipt-write-live-route-docs-copy']",
+  triggerPath: "apps/api/README.md",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "AI live-route docs copy есть, но apps/api/README.md больше не запускает Web build"],
+    ["Fix order", "сначала вернуть README trigger path, затем `/plan` trigger note и Web build order"],
+    ["Owner", "AI workflow owner подтверждает write docs, Docs owner подтверждает README path, CI owner подтверждает pull_request/push triggers"],
+    ["No merge", "не мержить, пока AI README trigger copy снова не защищает docs-only drift"],
   ],
 };
 
@@ -2015,7 +2044,7 @@ const ownerReceiptDocsRenderedRouteFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 84,
+  expectedCommandCount: 85,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -2037,6 +2066,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='ai-review-receipt-write-live-route-rendered-copy']",
     "[data-testid='ai-review-receipt-write-live-route-workflow-copy']",
     "[data-testid='ai-review-receipt-write-live-route-docs-copy']",
+    "[data-testid='ai-review-receipt-write-live-route-readme-trigger-copy']",
     "[data-testid='ai-review-receipt-write-workflow-failure-copy']",
     "[data-testid='api-readme-live-route-gate-note']",
     "[data-testid='api-readme-live-route-failure-copy']",
@@ -2105,7 +2135,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 84 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 85 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -3630,6 +3660,57 @@ export default function PlanPage() {
                   {title === "No merge"
                     ? aiReviewReceiptWriteLiveRouteDocsCopy.noMergeCopy
                     : aiReviewReceiptWriteLiveRouteDocsCopy.liveWorkflowCommand}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-route={aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.apiRoute}
+          data-command={aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.command}
+          data-docs-command={aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.docsCommand}
+          data-docs-href={aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.docsHref}
+          data-expected-queue-count={aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.expectedQueueCount}
+          data-expected-request-field-count={aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.expectedRequestFieldCount}
+          data-expected-route-count={aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.expectedRouteCount}
+          data-expected-workflow-path-count={aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.expectedWorkflowPathCount}
+          data-failing-command={aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.failingCommand}
+          data-no-merge-copy={aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.noMergeCopy}
+          data-owner-role={aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.ownerRole}
+          data-readme-path={aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.readmePath}
+          data-repair-targets={aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.repairTargets}
+          data-source-marker-selector={aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.sourceMarkerSelector}
+          data-testid="ai-review-receipt-write-live-route-readme-trigger-copy"
+          data-trigger-path={aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.triggerPath}
+          data-workflow-href={aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.workflowHref}
+          data-workflow-name={aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.workflowName}
+          data-workflow-path={aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review receipt write live-route README trigger copy</p>
+              <h2>Что делать, если AI README trigger copy упал</h2>
+            </div>
+            <div className="panel-actions">
+              <a className="primary-link" href={aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.workflowHref}>
+                {aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.workflowName}
+              </a>
+              <a className="primary-link" href={aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.docsHref}>
+                API contract
+              </a>
+            </div>
+          </div>
+          <div className="fixture-coverage-grid">
+            {aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.noMergeCopy
+                    : aiReviewReceiptWriteLiveRouteReadmeTriggerCopy.triggerPath}
                 </strong>
                 <p>{text}</p>
               </article>
