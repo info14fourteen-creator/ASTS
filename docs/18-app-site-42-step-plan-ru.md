@@ -59,3 +59,5 @@
 - Нет прямого push в `main`.
 
 127. [done 2026-06-18] Добавить source owner receipt write live-route workflow copy: закрепить source owner live-route rendered copy в Web build workflow order перед workflow failure copy и source freshness checks.
+
+128. [done 2026-06-18] Добавить AI review receipt write live-route workflow copy: закрепить AI live-route rendered copy в Web build workflow order перед workflow failure copy и shared README checks.

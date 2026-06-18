@@ -190,6 +190,9 @@ jobs:
       - name: Smoke AI review receipt write live route rendered copy
         run: npm run smoke:ai-review-receipt-write-live-route-rendered-copy
 
+      - name: Smoke AI review receipt write live route workflow copy
+        run: npm run smoke:ai-review-receipt-write-live-route-workflow-copy
+
       - name: Smoke AI review receipt write workflow failure copy
         run: npm run smoke:ai-review-receipt-write-workflow-failure-copy
 

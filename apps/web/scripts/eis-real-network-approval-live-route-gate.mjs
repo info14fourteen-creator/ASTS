@@ -102,7 +102,7 @@ assert(routeSmoke.includes(`data-route-smoke-command=\\"${expectedRouteSmokeComm
 assert(routeSmoke.includes(`data-source-smoke-command=\\"${expectedSourceCommand}\\"`), "route smoke must require EIS approval source command");
 assert(routeSmoke.includes('data-expected-approval-count=\\"5\\"'), "route smoke must require EIS approval count");
 assert(routeSmoke.includes('data-expected-route-count=\\"16\\"'), "route smoke must require rendered route count");
-assert(routeSmoke.includes('data-expected-command-count=\\"76\\"'), "route smoke must require updated Web build command count");
+assert(routeSmoke.includes('data-expected-command-count=\\"77\\"'), "route smoke must require updated Web build command count");
 
 if (failures.length > 0) {
   console.error("FAIL EIS real-network approval live route gate");
