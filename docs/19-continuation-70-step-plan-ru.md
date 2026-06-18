@@ -396,3 +396,4 @@
 110. [done 2026-06-18] Добавить EIS real-network approval rendered-route failure copy: показать owner-friendly текст при падении rendered route coverage для EIS approval marker, docs href, Data owner approvals, safe EIS procedure и checksum freshness receipt.
 111. [done 2026-06-18] Добавить source owner receipt write workflow failure copy: показать owner-friendly текст при падении workflow order для source owner write API, smoke, docs и rendered-route checks перед source freshness write.
 112. [done 2026-06-18] Добавить AI review receipt write workflow failure copy: показать owner-friendly текст при падении workflow order для AI review write API, smoke, docs и rendered-route checks перед shared README checks.
+113. [done 2026-06-18] Добавить source freshness write workflow failure copy: показать owner-friendly текст при падении workflow order для freshness write API, smoke, docs и rendered-route checks перед source freshness rendered checks.
