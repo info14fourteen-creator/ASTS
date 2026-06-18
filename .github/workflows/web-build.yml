@@ -79,6 +79,9 @@ jobs:
       - name: Smoke source freshness write failure copy
         run: npm run smoke:source-freshness-write-smoke-failure-copy
 
+      - name: Smoke source freshness write docs failure copy
+        run: npm run smoke:source-freshness-write-docs-failure-copy
+
       - name: Smoke source freshness rendered routes failure copy
         run: npm run smoke:source-freshness-rendered-route-failure-copy
 

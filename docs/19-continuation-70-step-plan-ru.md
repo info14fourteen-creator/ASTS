@@ -388,3 +388,4 @@
 102. [done 2026-06-18] Добавить EIS real-network approval smoke failure copy: показать owner-friendly текст при падении EIS approval smoke с Data owner, protected secrets, safe EIS procedure, rate limits и checksum freshness receipt.
 103. [done 2026-06-18] Добавить source owner receipt write docs failure copy: показать owner-friendly текст при падении write docs anchor с README, `/plan` и contract-only smoke.
 104. [done 2026-06-18] Добавить AI review receipt write docs failure copy: показать owner-friendly текст при падении AI write docs anchor с README, `/plan` и immutable AI audit append.
+105. [done 2026-06-18] Добавить source freshness write docs failure copy: показать owner-friendly текст при падении freshness write docs anchor с README, `/plan` и immutable freshness audit append.
