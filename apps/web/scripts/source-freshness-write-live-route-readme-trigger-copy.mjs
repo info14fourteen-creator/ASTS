@@ -103,7 +103,7 @@ assert(
   "route smoke must require source freshness README trigger no-merge copy",
 );
 assert(routeSmoke.includes("Что делать, если freshness README trigger copy упал"), "route smoke must require visible README trigger heading");
-assert(routeSmoke.includes('data-expected-command-count=\\"86\\"'), "route smoke must require updated Web build command count");
+assert(routeSmoke.includes('data-expected-command-count=\\"87\\"'), "route smoke must require updated Web build command count");
 
 if (failures.length > 0) {
   console.error("FAIL source freshness write live route README trigger copy");

@@ -366,3 +366,9 @@ The web cabinet keeps that EIS real-network approval path auditable through
 Web build must run
 `npm run smoke:eis-real-network-approval-live-route-docs-copy` after the EIS
 live-route workflow copy so the README anchor, `/plan` docs href and Data owner approval warning drift before AI review checks. Keep the Data owner approval warning explicit here so docs-only drift is caught before AI review checks.
+It must then run
+`npm run smoke:eis-real-network-approval-live-route-readme-trigger-copy` while
+`apps/api/README.md` remains in both Web build trigger path lists, so docs-only
+EIS real-network approval drift cannot skip CI before AI review checks.
+Keep the docs-only EIS real-network approval drift cannot skip CI warning explicit
+so README-only approval changes keep exercising Web build.
