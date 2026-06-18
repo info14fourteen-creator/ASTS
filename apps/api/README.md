@@ -89,6 +89,14 @@ When we implement the actual `POST`, it must append a freshness audit event and
 keep AI blocked unless `resolution_status="restored"` points to verified raw
 evidence with a checksum.
 
+The web cabinet keeps that freshness write path auditable through
+`data-testid="source-freshness-write-live-route-docs-copy"` on `/plan`.
+Web build must run
+`npm run smoke:source-freshness-write-live-route-docs-copy` after the freshness
+live-route workflow copy so the README anchor, `/plan` docs href and immutable freshness audit append warning drift before source freshness rendered checks.
+Keep the immutable freshness audit append warning explicit here so docs-only
+drift is caught before downstream freshness checks.
+
 ### Freshness Owner Actions
 
 Freshness blockers are cleared by owner receipts, not by implicit retries.

@@ -118,6 +118,9 @@ jobs:
       - name: Smoke source freshness write live route workflow copy
         run: npm run smoke:source-freshness-write-live-route-workflow-copy
 
+      - name: Smoke source freshness write live route docs copy
+        run: npm run smoke:source-freshness-write-live-route-docs-copy
+
       - name: Smoke source freshness write workflow failure copy
         run: npm run smoke:source-freshness-write-workflow-failure-copy
 

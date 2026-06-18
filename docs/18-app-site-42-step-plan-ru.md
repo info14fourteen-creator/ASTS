@@ -69,3 +69,5 @@
 131. [done 2026-06-18] Добавить source owner receipt write live-route docs copy: закрепить source owner live-route workflow copy в API README audit note, `/plan` docs href и Web build перед source freshness checks.
 
 132. [done 2026-06-18] Добавить AI review receipt write live-route docs copy: закрепить AI live-route workflow copy в API README audit note, `/plan` docs href и Web build перед shared README checks.
+
+133. [done 2026-06-18] Добавить source freshness write live-route docs copy: закрепить freshness live-route workflow copy в API README audit note, `/plan` docs href и Web build перед source freshness rendered checks.
