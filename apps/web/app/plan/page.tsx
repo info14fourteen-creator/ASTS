@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить source owner receipt write live-route docs copy", "закрепить source owner live-route workflow copy в docs/audit notes"],
-  ["2", "Добавить AI review receipt write live-route docs copy", "закрепить AI live-route workflow copy в docs/audit notes"],
-  ["3", "Добавить source freshness write live-route docs copy", "закрепить freshness live-route workflow copy в docs/audit notes"],
-  ["4", "Добавить EIS real-network approval live-route docs copy", "закрепить EIS live-route workflow copy в docs/audit notes"],
+  ["1", "Добавить AI review receipt write live-route docs copy", "закрепить AI live-route workflow copy в docs/audit notes"],
+  ["2", "Добавить source freshness write live-route docs copy", "закрепить freshness live-route workflow copy в docs/audit notes"],
+  ["3", "Добавить EIS real-network approval live-route docs copy", "закрепить EIS live-route workflow copy в docs/audit notes"],
+  ["4", "Добавить source owner receipt write live-route README trigger copy", "закрепить docs copy в README/CI trigger notes"],
 ];
 
 const cycleRules = [
@@ -1267,6 +1267,33 @@ const sourceOwnerReceiptWriteLiveRouteWorkflowCopy = {
   ],
 };
 
+const sourceOwnerReceiptWriteLiveRouteDocsCopy = {
+  apiRoute: sourceOwnerReceiptWriteRenderedRouteFailureCopy.apiRoute,
+  auditNote:
+    "README anchor, /plan docs href and immutable audit append warning must drift before source freshness checks.",
+  command: "npm run smoke:source-owner-receipt-write-live-route-docs-copy",
+  docsHref: sourceOwnerReceiptWriteRenderedRouteFailureCopy.docsHref,
+  expectedRequestFieldCount: sourceOwnerReceiptWriteRenderedRouteFailureCopy.expectedRequestFieldCount,
+  expectedRouteCount: sourceOwnerReceiptWriteRenderedRouteFailureCopy.expectedRouteCount,
+  failingCommand: sourceOwnerReceiptWriteLiveRouteWorkflowCopy.command,
+  liveWorkflowCommand: sourceOwnerReceiptWriteLiveRouteWorkflowCopy.command,
+  noMergeCopy:
+    "Не мержить, пока source owner live-route workflow copy снова закреплен в API README audit note, `/plan` docs href и Web build.",
+  ownerRole: "Sources owner + Docs owner + CI owner",
+  repairTargets:
+    "apps/api/README.md#source-owner-receipt-write-api-draft,/plan,apps/web/scripts/source-owner-receipt-write-live-route-workflow-copy.mjs,.github/workflows/web-build.yml",
+  sourceMarkerSelector: "[data-testid='source-owner-receipt-write-live-route-workflow-copy']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "source owner live-route workflow copy проходит, но API README или `/plan` больше не объясняют audit drift"],
+    ["Fix order", "сначала восстановить README audit note, затем `/plan` docs copy и route smoke expectations"],
+    ["Owner", "Sources owner подтверждает write audit note, Docs owner подтверждает README anchor, CI owner подтверждает Web build order"],
+    ["No merge", "не мержить, пока source owner live-route docs copy снова не защищает audit note"],
+  ],
+};
+
 const sourceFreshnessWriteApiDraft = {
   apiRoute: "/v1/sources/freshness",
   command: "npm run smoke:source-freshness-write-api-draft",
@@ -1877,7 +1904,7 @@ const ownerReceiptDocsRenderedRouteFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 79,
+  expectedCommandCount: 80,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -1923,6 +1950,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='source-owner-receipt-write-live-route-failure-copy']",
     "[data-testid='source-owner-receipt-write-live-route-rendered-copy']",
     "[data-testid='source-owner-receipt-write-live-route-workflow-copy']",
+    "[data-testid='source-owner-receipt-write-live-route-docs-copy']",
     "[data-testid='source-owner-receipt-write-workflow-failure-copy']",
     "[data-testid='source-freshness-write-api-draft']",
     "[data-testid='source-freshness-write-smoke-failure-copy']",
@@ -1962,7 +1990,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 79 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 80 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -4376,6 +4404,54 @@ export default function PlanPage() {
                   {title === "No merge"
                     ? sourceOwnerReceiptWriteLiveRouteWorkflowCopy.noMergeCopy
                     : sourceOwnerReceiptWriteLiveRouteWorkflowCopy.liveRenderedCommand}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-route={sourceOwnerReceiptWriteLiveRouteDocsCopy.apiRoute}
+          data-audit-note={sourceOwnerReceiptWriteLiveRouteDocsCopy.auditNote}
+          data-command={sourceOwnerReceiptWriteLiveRouteDocsCopy.command}
+          data-docs-href={sourceOwnerReceiptWriteLiveRouteDocsCopy.docsHref}
+          data-expected-request-field-count={sourceOwnerReceiptWriteLiveRouteDocsCopy.expectedRequestFieldCount}
+          data-expected-route-count={sourceOwnerReceiptWriteLiveRouteDocsCopy.expectedRouteCount}
+          data-failing-command={sourceOwnerReceiptWriteLiveRouteDocsCopy.failingCommand}
+          data-live-workflow-command={sourceOwnerReceiptWriteLiveRouteDocsCopy.liveWorkflowCommand}
+          data-no-merge-copy={sourceOwnerReceiptWriteLiveRouteDocsCopy.noMergeCopy}
+          data-owner-role={sourceOwnerReceiptWriteLiveRouteDocsCopy.ownerRole}
+          data-repair-targets={sourceOwnerReceiptWriteLiveRouteDocsCopy.repairTargets}
+          data-source-marker-selector={sourceOwnerReceiptWriteLiveRouteDocsCopy.sourceMarkerSelector}
+          data-testid="source-owner-receipt-write-live-route-docs-copy"
+          data-workflow-href={sourceOwnerReceiptWriteLiveRouteDocsCopy.workflowHref}
+          data-workflow-name={sourceOwnerReceiptWriteLiveRouteDocsCopy.workflowName}
+          data-workflow-path={sourceOwnerReceiptWriteLiveRouteDocsCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source owner receipt write live-route docs copy</p>
+              <h2>Что делать, если source owner live-route docs copy упал</h2>
+            </div>
+            <div className="panel-actions">
+              <a className="primary-link" href={sourceOwnerReceiptWriteLiveRouteDocsCopy.workflowHref}>
+                {sourceOwnerReceiptWriteLiveRouteDocsCopy.workflowName}
+              </a>
+              <a className="primary-link" href={sourceOwnerReceiptWriteLiveRouteDocsCopy.docsHref}>
+                API contract
+              </a>
+            </div>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sourceOwnerReceiptWriteLiveRouteDocsCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? sourceOwnerReceiptWriteLiveRouteDocsCopy.noMergeCopy
+                    : sourceOwnerReceiptWriteLiveRouteDocsCopy.liveWorkflowCommand}
                 </strong>
                 <p>{text}</p>
               </article>

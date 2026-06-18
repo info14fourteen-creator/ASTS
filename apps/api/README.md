@@ -159,6 +159,13 @@ When we implement the actual `POST`, it must append a receipt audit row rather
 than overwrite history, and AI unlock remains tied to
 `resolution_status="restored"` plus verified raw evidence.
 
+The web cabinet keeps that draft write path auditable through
+`data-testid="source-owner-receipt-write-live-route-docs-copy"` on `/plan`.
+Web build must run
+`npm run smoke:source-owner-receipt-write-live-route-docs-copy` after the
+source owner live-route workflow copy so the README anchor, `/plan` docs href
+and immutable audit append warning drift before source freshness checks.
+
 ## AI Review Queue Contract
 
 `GET /v1/ai/review-queue` is the backend contract behind the `/ai-review`

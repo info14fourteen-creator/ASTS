@@ -65,3 +65,5 @@
 129. [done 2026-06-18] Добавить source freshness write live-route workflow copy: закрепить freshness live-route rendered copy в Web build workflow order перед workflow failure copy и source freshness rendered checks.
 
 130. [done 2026-06-18] Добавить EIS real-network approval live-route workflow copy: закрепить EIS live-route rendered copy в Web build workflow order перед workflow failure copy и AI review checks.
+
+131. [done 2026-06-18] Добавить source owner receipt write live-route docs copy: закрепить source owner live-route workflow copy в API README audit note, `/plan` docs href и Web build перед source freshness checks.
