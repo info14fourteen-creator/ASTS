@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить source owner receipt write docs failure copy", "показать owner-friendly текст при падении docs anchor для write контракта"],
-  ["2", "Добавить AI review receipt write docs failure copy", "показать owner-friendly текст при падении AI review write docs anchor"],
-  ["3", "Добавить source freshness write docs failure copy", "показать owner-friendly текст при падении freshness write docs anchor"],
-  ["4", "Добавить EIS real-network approval docs failure copy", "показать owner-friendly текст при падении EIS approval docs anchor"],
+  ["1", "Добавить AI review receipt write docs failure copy", "показать owner-friendly текст при падении AI review write docs anchor"],
+  ["2", "Добавить source freshness write docs failure copy", "показать owner-friendly текст при падении freshness write docs anchor"],
+  ["3", "Добавить EIS real-network approval docs failure copy", "показать owner-friendly текст при падении EIS approval docs anchor"],
+  ["4", "Добавить source owner receipt write rendered-route failure copy", "показать owner-friendly текст при падении rendered route coverage для write контракта"],
 ];
 
 const cycleRules = [
@@ -910,6 +910,32 @@ const sourceOwnerReceiptWriteSmokeFailureCopy = {
   ],
 };
 
+const sourceOwnerReceiptWriteDocsFailureCopy = {
+  apiRoute: "/v1/sources/owner-receipts",
+  command: "npm run smoke:source-owner-receipt-write-docs-failure-copy",
+  docsHref:
+    "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#source-owner-receipt-write-api-draft",
+  expectedRequestFieldCount: 10,
+  expectedRouteCount: 16,
+  failingCommand: "npm run smoke:source-owner-receipt-write-api-draft",
+  noMergeCopy:
+    "Не мержить, пока source owner receipt write docs снова подтверждают README anchor, `/plan` docs href и immutable audit append.",
+  ownerRole: "Sources owner + Docs owner + QA owner",
+  parityCommand: "npm run smoke:source-owner-receipt-write-api-draft",
+  repairTargets:
+    "apps/api/README.md#source-owner-receipt-write-api-draft,/plan,apps/web/scripts/source-owner-receipt-write-api-draft.mjs,apps/web/scripts/source-owner-receipt-write-docs-failure-copy.mjs",
+  sourceMarkerSelector: "[data-testid='source-owner-receipt-write-api-draft']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "write draft smoke проходит частично, но потерян README anchor или `/plan` docs href"],
+    ["Fix order", "сначала восстановить API README anchor, затем `/plan` docsHref и route smoke expectations"],
+    ["Owner", "Docs owner подтверждает README anchor, Sources owner подтверждает write contract, QA owner подтверждает smoke"],
+    ["No merge", "не мержить, пока source owner receipt write docs снова не проходят contract-only gate"],
+  ],
+};
+
 const sourceFreshnessWriteApiDraft = {
   apiRoute: "/v1/sources/freshness",
   command: "npm run smoke:source-freshness-write-api-draft",
@@ -1163,7 +1189,7 @@ const ownerReceiptDocsRenderedRouteFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 51,
+  expectedCommandCount: 52,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -1196,6 +1222,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='owner-receipt-api-rendered-route-failure-copy']",
     "[data-testid='source-owner-receipt-write-api-draft']",
     "[data-testid='source-owner-receipt-write-smoke-failure-copy']",
+    "[data-testid='source-owner-receipt-write-docs-failure-copy']",
     "[data-testid='source-freshness-write-api-draft']",
     "[data-testid='source-freshness-write-smoke-failure-copy']",
     "[data-testid='source-freshness-rendered-route-failure-copy']",
@@ -1220,7 +1247,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 51 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 52 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -2975,6 +3002,53 @@ export default function PlanPage() {
                   {title === "No merge"
                     ? sourceOwnerReceiptWriteSmokeFailureCopy.noMergeCopy
                     : sourceOwnerReceiptWriteSmokeFailureCopy.failingCommand}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-route={sourceOwnerReceiptWriteDocsFailureCopy.apiRoute}
+          data-command={sourceOwnerReceiptWriteDocsFailureCopy.command}
+          data-docs-href={sourceOwnerReceiptWriteDocsFailureCopy.docsHref}
+          data-expected-request-field-count={sourceOwnerReceiptWriteDocsFailureCopy.expectedRequestFieldCount}
+          data-expected-route-count={sourceOwnerReceiptWriteDocsFailureCopy.expectedRouteCount}
+          data-failing-command={sourceOwnerReceiptWriteDocsFailureCopy.failingCommand}
+          data-no-merge-copy={sourceOwnerReceiptWriteDocsFailureCopy.noMergeCopy}
+          data-owner-role={sourceOwnerReceiptWriteDocsFailureCopy.ownerRole}
+          data-parity-command={sourceOwnerReceiptWriteDocsFailureCopy.parityCommand}
+          data-repair-targets={sourceOwnerReceiptWriteDocsFailureCopy.repairTargets}
+          data-source-marker-selector={sourceOwnerReceiptWriteDocsFailureCopy.sourceMarkerSelector}
+          data-testid="source-owner-receipt-write-docs-failure-copy"
+          data-workflow-href={sourceOwnerReceiptWriteDocsFailureCopy.workflowHref}
+          data-workflow-name={sourceOwnerReceiptWriteDocsFailureCopy.workflowName}
+          data-workflow-path={sourceOwnerReceiptWriteDocsFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source owner receipt write docs failure copy</p>
+              <h2>Что делать, если write docs anchor упал</h2>
+            </div>
+            <div className="panel-actions">
+              <a className="primary-link" href={sourceOwnerReceiptWriteDocsFailureCopy.workflowHref}>
+                {sourceOwnerReceiptWriteDocsFailureCopy.workflowName}
+              </a>
+              <a className="primary-link" href={sourceOwnerReceiptWriteDocsFailureCopy.docsHref}>
+                API contract
+              </a>
+            </div>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sourceOwnerReceiptWriteDocsFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? sourceOwnerReceiptWriteDocsFailureCopy.noMergeCopy
+                    : sourceOwnerReceiptWriteDocsFailureCopy.docsHref}
                 </strong>
                 <p>{text}</p>
               </article>

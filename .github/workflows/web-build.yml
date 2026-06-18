@@ -70,6 +70,9 @@ jobs:
       - name: Smoke source owner receipt write failure copy
         run: npm run smoke:source-owner-receipt-write-smoke-failure-copy
 
+      - name: Smoke source owner receipt write docs failure copy
+        run: npm run smoke:source-owner-receipt-write-docs-failure-copy
+
       - name: Smoke source freshness write API draft
         run: npm run smoke:source-freshness-write-api-draft
 
