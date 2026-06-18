@@ -68,7 +68,7 @@ assert(routeSmoke.includes(`data-failing-command=\\"${expectedFailingCommand}\\"
 assert(routeSmoke.includes(`data-live-failure-command=\\"${expectedLiveFailureCommand}\\"`), "route smoke must require live route failure copy command");
 assert(routeSmoke.includes(`data-no-merge-copy=\\"${expectedNoMergeCopy}\\"`), "route smoke must require source freshness write live route rendered no-merge copy");
 assert(routeSmoke.includes("Что делать, если freshness write live-route copy пропал в rendered routes"), "route smoke must require visible source freshness write live route rendered heading");
-assert(routeSmoke.includes('data-expected-command-count=\\"78\\"'), "route smoke must require updated Web build command count");
+assert(routeSmoke.includes('data-expected-command-count=\\"79\\"'), "route smoke must require updated Web build command count");
 
 if (failures.length > 0) {
   console.error("FAIL source freshness write live route rendered copy");

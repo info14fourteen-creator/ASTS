@@ -127,7 +127,7 @@ assert(routeSmoke.includes(`data-failing-command=\\"${expectedFailingCommand}\\"
 assert(routeSmoke.includes(`data-no-merge-copy=\\"${expectedNoMergeCopy}\\"`), "route smoke must require EIS approval workflow no-merge copy");
 assert(routeSmoke.includes("Что делать, если EIS approval workflow order упал"), "route smoke must require visible EIS approval workflow heading");
 assert(routeSmoke.includes("не мержить, пока EIS real-network approval workflow order снова не защищает всю approval цепочку"), "route smoke must require visible EIS approval workflow no-merge text");
-assert(routeSmoke.includes('data-expected-command-count=\\"78\\"'), "route smoke must require updated Web build command count");
+assert(routeSmoke.includes('data-expected-command-count=\\"79\\"'), "route smoke must require updated Web build command count");
 
 if (failures.length > 0) {
   console.error("FAIL EIS real-network approval workflow failure copy");
