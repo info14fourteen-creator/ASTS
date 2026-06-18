@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить source freshness write live-route workflow copy", "закрепить freshness live-route rendered copy в workflow order"],
-  ["2", "Добавить EIS real-network approval live-route workflow copy", "закрепить EIS approval live-route rendered copy в workflow order"],
-  ["3", "Добавить source owner receipt write live-route docs copy", "закрепить source owner live-route workflow copy в docs/audit notes"],
-  ["4", "Добавить AI review receipt write live-route docs copy", "закрепить AI live-route workflow copy в docs/audit notes"],
+  ["1", "Добавить EIS real-network approval live-route workflow copy", "закрепить EIS approval live-route rendered copy в workflow order"],
+  ["2", "Добавить source owner receipt write live-route docs copy", "закрепить source owner live-route workflow copy в docs/audit notes"],
+  ["3", "Добавить AI review receipt write live-route docs copy", "закрепить AI live-route workflow copy в docs/audit notes"],
+  ["4", "Добавить source freshness write live-route docs copy", "закрепить freshness live-route workflow copy в docs/audit notes"],
 ];
 
 const cycleRules = [
@@ -1476,6 +1476,33 @@ const sourceFreshnessWriteLiveRouteRenderedCopy = {
   ],
 };
 
+const sourceFreshnessWriteLiveRouteWorkflowCopy = {
+  apiRoute: sourceFreshnessWriteRenderedRouteFailureCopy.apiRoute,
+  command: "npm run smoke:source-freshness-write-live-route-workflow-copy",
+  docsHref: sourceFreshnessWriteRenderedRouteFailureCopy.docsHref,
+  expectedBreachCount: sourceFreshnessWriteRenderedRouteFailureCopy.expectedBreachCount,
+  expectedRequestFieldCount: sourceFreshnessWriteRenderedRouteFailureCopy.expectedRequestFieldCount,
+  expectedRouteCount: sourceFreshnessWriteRenderedRouteFailureCopy.expectedRouteCount,
+  failingCommand: "npm run smoke:web-build-workflow",
+  liveRenderedCommand: sourceFreshnessWriteLiveRouteRenderedCopy.command,
+  workflowFailureCommand: sourceFreshnessWriteWorkflowFailureCopy.command,
+  noMergeCopy:
+    "Не мержить, пока Web build снова запускает source freshness write live-route rendered copy перед workflow failure copy и source freshness rendered checks.",
+  ownerRole: "Sources owner + CI owner + QA owner",
+  repairTargets:
+    ".github/workflows/web-build.yml,/plan,apps/web/scripts/source-freshness-write-live-route-rendered-copy.mjs,apps/web/scripts/web-build-workflow-file.mjs",
+  sourceMarkerSelector: "[data-testid='source-freshness-write-live-route-rendered-copy']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "freshness live-route rendered copy есть на `/plan`, но Web build не держит его перед workflow failure copy"],
+    ["Fix order", "сначала восстановить live-route rendered copy, затем live-route workflow copy и только потом workflow failure copy"],
+    ["Owner", "Sources owner подтверждает freshness live-route copy, CI owner подтверждает порядок Web build, QA owner подтверждает route smoke"],
+    ["No merge", "не мержить, пока freshness write live-route workflow order снова не защищает rendered copy"],
+  ],
+};
+
 const sourceFreshnessRenderedRouteFailureCopy = {
   apiRoute: "/v1/sources/freshness",
   breachTypes: "stale,missing,parse_failed,hash_mismatch",
@@ -1824,7 +1851,7 @@ const ownerReceiptDocsRenderedRouteFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 77,
+  expectedCommandCount: 78,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -1878,6 +1905,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='source-freshness-write-live-route-gate-note']",
     "[data-testid='source-freshness-write-live-route-failure-copy']",
     "[data-testid='source-freshness-write-live-route-rendered-copy']",
+    "[data-testid='source-freshness-write-live-route-workflow-copy']",
     "[data-testid='source-freshness-write-workflow-failure-copy']",
     "[data-testid='source-freshness-rendered-route-failure-copy']",
     "[data-testid='source-freshness-docs-rendered-route-failure-copy']",
@@ -1907,7 +1935,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 77 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 78 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -4699,6 +4727,55 @@ export default function PlanPage() {
                   {title === "No merge"
                     ? sourceFreshnessWriteLiveRouteRenderedCopy.noMergeCopy
                     : sourceFreshnessWriteLiveRouteRenderedCopy.failingCommand}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-route={sourceFreshnessWriteLiveRouteWorkflowCopy.apiRoute}
+          data-command={sourceFreshnessWriteLiveRouteWorkflowCopy.command}
+          data-docs-href={sourceFreshnessWriteLiveRouteWorkflowCopy.docsHref}
+          data-expected-breach-count={sourceFreshnessWriteLiveRouteWorkflowCopy.expectedBreachCount}
+          data-expected-request-field-count={sourceFreshnessWriteLiveRouteWorkflowCopy.expectedRequestFieldCount}
+          data-expected-route-count={sourceFreshnessWriteLiveRouteWorkflowCopy.expectedRouteCount}
+          data-failing-command={sourceFreshnessWriteLiveRouteWorkflowCopy.failingCommand}
+          data-live-rendered-command={sourceFreshnessWriteLiveRouteWorkflowCopy.liveRenderedCommand}
+          data-no-merge-copy={sourceFreshnessWriteLiveRouteWorkflowCopy.noMergeCopy}
+          data-owner-role={sourceFreshnessWriteLiveRouteWorkflowCopy.ownerRole}
+          data-repair-targets={sourceFreshnessWriteLiveRouteWorkflowCopy.repairTargets}
+          data-source-marker-selector={sourceFreshnessWriteLiveRouteWorkflowCopy.sourceMarkerSelector}
+          data-testid="source-freshness-write-live-route-workflow-copy"
+          data-workflow-failure-command={sourceFreshnessWriteLiveRouteWorkflowCopy.workflowFailureCommand}
+          data-workflow-href={sourceFreshnessWriteLiveRouteWorkflowCopy.workflowHref}
+          data-workflow-name={sourceFreshnessWriteLiveRouteWorkflowCopy.workflowName}
+          data-workflow-path={sourceFreshnessWriteLiveRouteWorkflowCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source freshness write live-route workflow copy</p>
+              <h2>Что делать, если freshness write live-route workflow order упал</h2>
+            </div>
+            <div className="panel-actions">
+              <a className="primary-link" href={sourceFreshnessWriteLiveRouteWorkflowCopy.workflowHref}>
+                {sourceFreshnessWriteLiveRouteWorkflowCopy.workflowName}
+              </a>
+              <a className="primary-link" href={sourceFreshnessWriteLiveRouteWorkflowCopy.docsHref}>
+                API contract
+              </a>
+            </div>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sourceFreshnessWriteLiveRouteWorkflowCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? sourceFreshnessWriteLiveRouteWorkflowCopy.noMergeCopy
+                    : sourceFreshnessWriteLiveRouteWorkflowCopy.liveRenderedCommand}
                 </strong>
                 <p>{text}</p>
               </article>
