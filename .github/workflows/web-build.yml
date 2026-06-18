@@ -91,6 +91,9 @@ jobs:
       - name: Smoke source owner receipt write live route docs copy
         run: npm run smoke:source-owner-receipt-write-live-route-docs-copy
 
+      - name: Smoke source owner receipt write live route README trigger copy
+        run: npm run smoke:source-owner-receipt-write-live-route-readme-trigger-copy
+
       - name: Smoke source owner receipt write workflow failure copy
         run: npm run smoke:source-owner-receipt-write-workflow-failure-copy
 

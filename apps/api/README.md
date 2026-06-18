@@ -173,6 +173,12 @@ Web build must run
 `npm run smoke:source-owner-receipt-write-live-route-docs-copy` after the
 source owner live-route workflow copy so the README anchor, `/plan` docs href
 and immutable audit append warning drift before source freshness checks.
+It must then run
+`npm run smoke:source-owner-receipt-write-live-route-readme-trigger-copy` while
+`apps/api/README.md` remains in both Web build trigger path lists, so docs-only
+owner receipt write drift cannot skip CI before source freshness checks.
+Keep the docs-only owner receipt write drift cannot skip CI warning explicit so
+README-only changes keep exercising Web build.
 
 ## AI Review Queue Contract
 
