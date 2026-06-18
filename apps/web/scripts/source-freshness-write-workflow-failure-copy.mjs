@@ -128,7 +128,7 @@ assert(routeSmoke.includes(`data-failing-command=\\"${expectedFailingCommand}\\"
 assert(routeSmoke.includes(`data-no-merge-copy=\\"${expectedNoMergeCopy}\\"`), "route smoke must require source freshness write workflow no-merge copy");
 assert(routeSmoke.includes("Что делать, если freshness write workflow order упал"), "route smoke must require visible source freshness write workflow heading");
 assert(routeSmoke.includes("не мержить, пока source freshness write workflow order снова не защищает всю write цепочку"), "route smoke must require visible source freshness write workflow no-merge text");
-assert(routeSmoke.includes('data-expected-command-count=\\"64\\"'), "route smoke must require updated Web build command count");
+assert(routeSmoke.includes('data-expected-command-count=\\"65\\"'), "route smoke must require updated Web build command count");
 
 if (failures.length > 0) {
   console.error("FAIL source freshness write workflow failure copy");

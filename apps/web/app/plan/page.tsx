@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить AI review receipt write live-route gate note", "показать связь AI write smoke с live rendered route gate"],
-  ["2", "Добавить source freshness write live-route gate note", "показать связь freshness write smoke с live rendered route gate"],
-  ["3", "Добавить EIS real-network approval live-route gate note", "показать связь EIS approval smoke с live rendered route gate"],
-  ["4", "Добавить source owner receipt write live-route failure copy", "показать owner-friendly текст при падении source owner write live gate"],
+  ["1", "Добавить source freshness write live-route gate note", "показать связь freshness write smoke с live rendered route gate"],
+  ["2", "Добавить EIS real-network approval live-route gate note", "показать связь EIS approval smoke с live rendered route gate"],
+  ["3", "Добавить source owner receipt write live-route failure copy", "показать owner-friendly текст при падении source owner write live gate"],
+  ["4", "Добавить AI review receipt write live-route failure copy", "показать owner-friendly текст при падении AI write live gate"],
 ];
 
 const cycleRules = [
@@ -650,6 +650,28 @@ const aiReviewReceiptWriteWorkflowFailureCopy = {
     ["Fix order", "вернуть API draft, smoke failure, docs failure, rendered-route failure и workflow failure copy перед shared README checks"],
     ["Owner", "AI workflow owner подтверждает write contract, CI owner подтверждает порядок Web build, QA owner подтверждает route coverage"],
     ["No merge", "не мержить, пока AI review receipt write workflow order снова не защищает всю write цепочку"],
+  ],
+};
+
+const aiReviewReceiptWriteLiveRouteGateNote = {
+  apiRoute: aiReviewReceiptWriteRenderedRouteFailureCopy.apiRoute,
+  command: "npm run smoke:ai-review-receipt-write-live-route",
+  docsHref: aiReviewReceiptWriteRenderedRouteFailureCopy.docsHref,
+  expectedQueueCount: aiReviewReceiptWriteRenderedRouteFailureCopy.expectedQueueCount,
+  expectedRequestFieldCount: aiReviewReceiptWriteRenderedRouteFailureCopy.expectedRequestFieldCount,
+  expectedRouteCount: aiReviewReceiptWriteRenderedRouteFailureCopy.expectedRouteCount,
+  markerSelector: "[data-testid='ai-review-receipt-write-rendered-route-failure-copy']",
+  parityCommand: aiReviewReceiptWriteRenderedRouteFailureCopy.parityCommand,
+  routeSmokeCommand: "npm run smoke -- --url http://127.0.0.1:4177/",
+  sourceSmokeCommand: aiReviewReceiptWriteApiDraft.command,
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Static write gate", "Web build сначала сверяет AI draft POST contract, docs href, request schema и rendered-route failure copy"],
+    ["Live route gate", "затем route smoke проверяет `/plan` + `/ai-review` write markers на живом сервере"],
+    ["Plan marker", "ai-review-receipt-write-rendered-route-failure-copy остается источником route, docsHref и parity command"],
+    ["Merge gate", "AI write draft drift должен падать до shared README checks и до merge"],
   ],
 };
 
@@ -1502,7 +1524,7 @@ const ownerReceiptDocsRenderedRouteFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 64,
+  expectedCommandCount: 65,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -1519,6 +1541,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='ai-review-receipt-write-smoke-failure-copy']",
     "[data-testid='ai-review-receipt-write-docs-failure-copy']",
     "[data-testid='ai-review-receipt-write-rendered-route-failure-copy']",
+    "[data-testid='ai-review-receipt-write-live-route-gate-note']",
     "[data-testid='ai-review-receipt-write-workflow-failure-copy']",
     "[data-testid='api-readme-live-route-gate-note']",
     "[data-testid='api-readme-live-route-failure-copy']",
@@ -1572,7 +1595,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 64 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 65 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -2859,6 +2882,52 @@ export default function PlanPage() {
                   {title === "No merge"
                     ? aiReviewReceiptWriteWorkflowFailureCopy.noMergeCopy
                     : aiReviewReceiptWriteWorkflowFailureCopy.failingCommand}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-route={aiReviewReceiptWriteLiveRouteGateNote.apiRoute}
+          data-command={aiReviewReceiptWriteLiveRouteGateNote.command}
+          data-docs-href={aiReviewReceiptWriteLiveRouteGateNote.docsHref}
+          data-expected-queue-count={aiReviewReceiptWriteLiveRouteGateNote.expectedQueueCount}
+          data-expected-request-field-count={aiReviewReceiptWriteLiveRouteGateNote.expectedRequestFieldCount}
+          data-expected-route-count={aiReviewReceiptWriteLiveRouteGateNote.expectedRouteCount}
+          data-marker-selector={aiReviewReceiptWriteLiveRouteGateNote.markerSelector}
+          data-parity-command={aiReviewReceiptWriteLiveRouteGateNote.parityCommand}
+          data-route-smoke-command={aiReviewReceiptWriteLiveRouteGateNote.routeSmokeCommand}
+          data-source-smoke-command={aiReviewReceiptWriteLiveRouteGateNote.sourceSmokeCommand}
+          data-testid="ai-review-receipt-write-live-route-gate-note"
+          data-workflow-href={aiReviewReceiptWriteLiveRouteGateNote.workflowHref}
+          data-workflow-name={aiReviewReceiptWriteLiveRouteGateNote.workflowName}
+          data-workflow-path={aiReviewReceiptWriteLiveRouteGateNote.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review receipt write live route gate note</p>
+              <h2>Как live route smoke защищает AI write draft</h2>
+            </div>
+            <div className="panel-actions">
+              <a className="primary-link" href={aiReviewReceiptWriteLiveRouteGateNote.workflowHref}>
+                {aiReviewReceiptWriteLiveRouteGateNote.workflowName}
+              </a>
+              <a className="primary-link" href={aiReviewReceiptWriteLiveRouteGateNote.docsHref}>
+                API contract
+              </a>
+            </div>
+          </div>
+          <div className="fixture-coverage-grid">
+            {aiReviewReceiptWriteLiveRouteGateNote.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Live route gate"
+                    ? aiReviewReceiptWriteLiveRouteGateNote.routeSmokeCommand
+                    : aiReviewReceiptWriteLiveRouteGateNote.sourceSmokeCommand}
                 </strong>
                 <p>{text}</p>
               </article>

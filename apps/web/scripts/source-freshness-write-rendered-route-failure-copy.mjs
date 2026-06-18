@@ -89,7 +89,7 @@ assert(routeSmoke.includes(`data-command=\\"${expectedCommand}\\"`), "route smok
 assert(routeSmoke.includes(`data-failing-command=\\"${expectedFailingCommand}\\"`), "route smoke must require failing rendered route command");
 assert(routeSmoke.includes(`data-no-merge-copy=\\"${expectedNoMergeCopy}\\"`), "route smoke must require source freshness write rendered route no-merge copy");
 assert(routeSmoke.includes("Что делать, если freshness write draft пропал в rendered routes"), "route smoke must require visible source freshness write rendered route heading");
-assert(routeSmoke.includes('data-expected-command-count=\\"64\\"'), "route smoke must require updated Web build command count");
+assert(routeSmoke.includes('data-expected-command-count=\\"65\\"'), "route smoke must require updated Web build command count");
 
 assert(workflow.includes(`name: ${expectedWorkflowName}`), "workflow must keep Web build name");
 assert(workflow.includes(`run: ${expectedCommand}`), "Web build must run source freshness write rendered route failure copy smoke");
