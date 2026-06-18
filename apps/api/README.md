@@ -221,6 +221,14 @@ When we implement the actual `POST`, it must append an AI review receipt audit
 row rather than overwrite the queue item. Workflow-moving actions remain blocked
 unless the receipt decision is backed by source evidence and checksum.
 
+The web cabinet keeps that AI review write path auditable through
+`data-testid="ai-review-receipt-write-live-route-docs-copy"` on `/plan`.
+Web build must run
+`npm run smoke:ai-review-receipt-write-live-route-docs-copy` after the AI
+live-route workflow copy so the README anchor, `/plan` docs href and immutable
+AI audit append warning drift before shared README checks. Keep the immutable AI audit append warning explicit here so docs-only drift is caught before shared
+README checks.
+
 ### AI Review Owner Actions
 
 Low-confidence AI facts are cleared by owner receipts, not by overwriting the

@@ -68,7 +68,7 @@ assert(routeSmoke.includes(`data-failing-command=\\"${expectedFailingCommand}\\"
 assert(routeSmoke.includes(`data-live-failure-command=\\"${expectedLiveFailureCommand}\\"`), "route smoke must require live route failure copy command");
 assert(routeSmoke.includes(`data-no-merge-copy=\\"${expectedNoMergeCopy}\\"`), "route smoke must require EIS approval live route rendered no-merge copy");
 assert(routeSmoke.includes("Что делать, если EIS approval live-route copy пропал в rendered routes"), "route smoke must require visible EIS approval live route rendered heading");
-assert(routeSmoke.includes('data-expected-command-count=\\"80\\"'), "route smoke must require updated Web build command count");
+assert(routeSmoke.includes('data-expected-command-count=\\"81\\"'), "route smoke must require updated Web build command count");
 
 if (failures.length > 0) {
   console.error("FAIL EIS real-network approval live route rendered copy");
