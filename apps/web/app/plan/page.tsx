@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить source freshness write live-route gate note", "показать связь freshness write smoke с live rendered route gate"],
-  ["2", "Добавить EIS real-network approval live-route gate note", "показать связь EIS approval smoke с live rendered route gate"],
-  ["3", "Добавить source owner receipt write live-route failure copy", "показать owner-friendly текст при падении source owner write live gate"],
-  ["4", "Добавить AI review receipt write live-route failure copy", "показать owner-friendly текст при падении AI write live gate"],
+  ["1", "Добавить EIS real-network approval live-route gate note", "показать связь EIS approval smoke с live rendered route gate"],
+  ["2", "Добавить source owner receipt write live-route failure copy", "показать owner-friendly текст при падении source owner write live gate"],
+  ["3", "Добавить AI review receipt write live-route failure copy", "показать owner-friendly текст при падении AI write live gate"],
+  ["4", "Добавить source freshness write live-route failure copy", "показать owner-friendly текст при падении freshness write live gate"],
 ];
 
 const cycleRules = [
@@ -1247,6 +1247,28 @@ const sourceFreshnessWriteWorkflowFailureCopy = {
   ],
 };
 
+const sourceFreshnessWriteLiveRouteGateNote = {
+  apiRoute: sourceFreshnessWriteRenderedRouteFailureCopy.apiRoute,
+  command: "npm run smoke:source-freshness-write-live-route",
+  docsHref: sourceFreshnessWriteRenderedRouteFailureCopy.docsHref,
+  expectedBreachCount: sourceFreshnessWriteRenderedRouteFailureCopy.expectedBreachCount,
+  expectedRequestFieldCount: sourceFreshnessWriteRenderedRouteFailureCopy.expectedRequestFieldCount,
+  expectedRouteCount: sourceFreshnessWriteRenderedRouteFailureCopy.expectedRouteCount,
+  markerSelector: "[data-testid='source-freshness-write-rendered-route-failure-copy']",
+  parityCommand: sourceFreshnessWriteRenderedRouteFailureCopy.parityCommand,
+  routeSmokeCommand: "npm run smoke -- --url http://127.0.0.1:4177/",
+  sourceSmokeCommand: sourceFreshnessWriteApiDraft.command,
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Static write gate", "Web build сначала сверяет freshness draft POST contract, docs href, request schema и rendered-route failure copy"],
+    ["Live route gate", "затем route smoke проверяет `/plan` + `/sources` freshness write markers на живом сервере"],
+    ["Plan marker", "source-freshness-write-rendered-route-failure-copy остается источником route, docsHref и parity command"],
+    ["Merge gate", "freshness write drift должен падать до freshness rendered checks и до merge"],
+  ],
+};
+
 const sourceFreshnessRenderedRouteFailureCopy = {
   apiRoute: "/v1/sources/freshness",
   breachTypes: "stale,missing,parse_failed,hash_mismatch",
@@ -1524,7 +1546,7 @@ const ownerReceiptDocsRenderedRouteFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 65,
+  expectedCommandCount: 66,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -1569,6 +1591,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='source-freshness-write-smoke-failure-copy']",
     "[data-testid='source-freshness-write-docs-failure-copy']",
     "[data-testid='source-freshness-write-rendered-route-failure-copy']",
+    "[data-testid='source-freshness-write-live-route-gate-note']",
     "[data-testid='source-freshness-write-workflow-failure-copy']",
     "[data-testid='source-freshness-rendered-route-failure-copy']",
     "[data-testid='source-freshness-docs-rendered-route-failure-copy']",
@@ -1595,7 +1618,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 65 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 66 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -3960,6 +3983,52 @@ export default function PlanPage() {
                   {title === "No merge"
                     ? sourceFreshnessWriteWorkflowFailureCopy.noMergeCopy
                     : sourceFreshnessWriteWorkflowFailureCopy.failingCommand}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-route={sourceFreshnessWriteLiveRouteGateNote.apiRoute}
+          data-command={sourceFreshnessWriteLiveRouteGateNote.command}
+          data-docs-href={sourceFreshnessWriteLiveRouteGateNote.docsHref}
+          data-expected-breach-count={sourceFreshnessWriteLiveRouteGateNote.expectedBreachCount}
+          data-expected-request-field-count={sourceFreshnessWriteLiveRouteGateNote.expectedRequestFieldCount}
+          data-expected-route-count={sourceFreshnessWriteLiveRouteGateNote.expectedRouteCount}
+          data-marker-selector={sourceFreshnessWriteLiveRouteGateNote.markerSelector}
+          data-parity-command={sourceFreshnessWriteLiveRouteGateNote.parityCommand}
+          data-route-smoke-command={sourceFreshnessWriteLiveRouteGateNote.routeSmokeCommand}
+          data-source-smoke-command={sourceFreshnessWriteLiveRouteGateNote.sourceSmokeCommand}
+          data-testid="source-freshness-write-live-route-gate-note"
+          data-workflow-href={sourceFreshnessWriteLiveRouteGateNote.workflowHref}
+          data-workflow-name={sourceFreshnessWriteLiveRouteGateNote.workflowName}
+          data-workflow-path={sourceFreshnessWriteLiveRouteGateNote.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source freshness write live route gate note</p>
+              <h2>Как live route smoke защищает freshness write draft</h2>
+            </div>
+            <div className="panel-actions">
+              <a className="primary-link" href={sourceFreshnessWriteLiveRouteGateNote.workflowHref}>
+                {sourceFreshnessWriteLiveRouteGateNote.workflowName}
+              </a>
+              <a className="primary-link" href={sourceFreshnessWriteLiveRouteGateNote.docsHref}>
+                API contract
+              </a>
+            </div>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sourceFreshnessWriteLiveRouteGateNote.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Live route gate"
+                    ? sourceFreshnessWriteLiveRouteGateNote.routeSmokeCommand
+                    : sourceFreshnessWriteLiveRouteGateNote.sourceSmokeCommand}
                 </strong>
                 <p>{text}</p>
               </article>

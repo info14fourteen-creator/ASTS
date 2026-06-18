@@ -105,7 +105,7 @@ assert(routeSmoke.includes(`data-command=\\"${expectedCommand}\\"`), "route smok
 assert(routeSmoke.includes(`data-failing-command=\\"${expectedFailingCommand}\\"`), "route smoke must require failing web build workflow command");
 assert(routeSmoke.includes(`data-no-merge-copy=\\"${expectedNoMergeCopy}\\"`), "route smoke must require source owner write workflow no-merge copy");
 assert(routeSmoke.includes("Что делать, если source owner write workflow order упал"), "route smoke must require visible source owner write workflow heading");
-assert(routeSmoke.includes('data-expected-command-count=\\"65\\"'), "route smoke must require updated Web build command count");
+assert(routeSmoke.includes('data-expected-command-count=\\"66\\"'), "route smoke must require updated Web build command count");
 
 if (failures.length > 0) {
   console.error("FAIL source owner receipt write workflow failure copy");
