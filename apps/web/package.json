@@ -55,6 +55,7 @@
     "smoke:source-freshness-write-api-draft": "node scripts/source-freshness-write-api-draft.mjs",
     "smoke:source-owner-receipt-write-rendered-route-failure-copy": "node scripts/source-owner-receipt-write-rendered-route-failure-copy.mjs",
     "smoke:source-owner-receipt-write-live-route": "node scripts/source-owner-receipt-write-live-route-gate.mjs",
+    "smoke:source-owner-receipt-write-live-route-failure-copy": "node scripts/source-owner-receipt-write-live-route-failure-copy.mjs",
     "smoke:source-owner-receipt-write-workflow-failure-copy": "node scripts/source-owner-receipt-write-workflow-failure-copy.mjs",
     "smoke:source-owner-receipt-write-docs-failure-copy": "node scripts/source-owner-receipt-write-docs-failure-copy.mjs",
     "smoke:source-owner-receipt-write-smoke-failure-copy": "node scripts/source-owner-receipt-write-smoke-failure-copy.mjs",

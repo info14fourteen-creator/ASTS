@@ -133,7 +133,7 @@ assert(routeSmoke.includes(`data-failing-command=\\"${expectedFailingCommand}\\"
 assert(routeSmoke.includes(`data-no-merge-copy=\\"${expectedNoMergeCopy}\\"`), "route smoke must require AI write workflow no-merge copy");
 assert(routeSmoke.includes("Что делать, если AI write workflow order упал"), "route smoke must require visible AI write workflow heading");
 assert(routeSmoke.includes("не мержить, пока AI review receipt write workflow order снова не защищает всю write цепочку"), "route smoke must require visible AI write workflow no-merge text");
-assert(routeSmoke.includes('data-expected-command-count=\\"67\\"'), "route smoke must require updated Web build command count");
+assert(routeSmoke.includes('data-expected-command-count=\\"68\\"'), "route smoke must require updated Web build command count");
 
 if (failures.length > 0) {
   console.error("FAIL AI review receipt write workflow failure copy");
