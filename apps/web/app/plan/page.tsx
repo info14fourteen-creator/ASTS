@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить AI review receipt write live-route failure copy", "показать owner-friendly текст при падении AI write live gate"],
-  ["2", "Добавить source freshness write live-route failure copy", "показать owner-friendly текст при падении freshness write live gate"],
-  ["3", "Добавить EIS real-network approval live-route failure copy", "показать owner-friendly текст при падении EIS approval live gate"],
-  ["4", "Добавить source owner receipt write live-route rendered copy", "закрепить live-route copy в rendered route coverage"],
+  ["1", "Добавить source freshness write live-route failure copy", "показать owner-friendly текст при падении freshness write live gate"],
+  ["2", "Добавить EIS real-network approval live-route failure copy", "показать owner-friendly текст при падении EIS approval live gate"],
+  ["3", "Добавить source owner receipt write live-route rendered copy", "закрепить live-route copy в rendered route coverage"],
+  ["4", "Добавить AI review receipt write live-route rendered copy", "закрепить AI live-route copy в rendered route coverage"],
 ];
 
 const cycleRules = [
@@ -672,6 +672,32 @@ const aiReviewReceiptWriteLiveRouteGateNote = {
     ["Live route gate", "затем route smoke проверяет `/plan` + `/ai-review` write markers на живом сервере"],
     ["Plan marker", "ai-review-receipt-write-rendered-route-failure-copy остается источником route, docsHref и parity command"],
     ["Merge gate", "AI write draft drift должен падать до shared README checks и до merge"],
+  ],
+};
+
+const aiReviewReceiptWriteLiveRouteFailureCopy = {
+  apiRoute: aiReviewReceiptWriteRenderedRouteFailureCopy.apiRoute,
+  command: "npm run smoke:ai-review-receipt-write-live-route-failure-copy",
+  docsHref: aiReviewReceiptWriteRenderedRouteFailureCopy.docsHref,
+  expectedQueueCount: aiReviewReceiptWriteRenderedRouteFailureCopy.expectedQueueCount,
+  expectedRequestFieldCount: aiReviewReceiptWriteRenderedRouteFailureCopy.expectedRequestFieldCount,
+  expectedRouteCount: aiReviewReceiptWriteRenderedRouteFailureCopy.expectedRouteCount,
+  failingCommand: aiReviewReceiptWriteLiveRouteGateNote.command,
+  noMergeCopy:
+    "Не мержить, пока Web build снова держит AI review receipt write live-route gate перед workflow failure copy и shared README checks.",
+  ownerRole: "AI workflow owner + CI owner + QA owner",
+  repairTargets:
+    ".github/workflows/web-build.yml,/plan,apps/web/scripts/ai-review-receipt-write-live-route-gate.mjs,apps/web/scripts/smoke.mjs",
+  routeSmokeCommand: aiReviewReceiptWriteLiveRouteGateNote.routeSmokeCommand,
+  sourceMarkerSelector: "[data-testid='ai-review-receipt-write-live-route-gate-note']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "live route gate упал после AI rendered-route write checks или потерял `/plan` + `/ai-review` markers"],
+    ["Fix order", "сначала восстановить AI write live route gate, затем workflow failure copy и shared README checks"],
+    ["Owner", "AI workflow owner подтверждает write markers, CI owner подтверждает порядок Web build, QA owner подтверждает live route smoke"],
+    ["No merge", "не мержить, пока AI write live-route gate снова не защищает write draft на живом сервере"],
   ],
 };
 
@@ -1592,7 +1618,7 @@ const ownerReceiptDocsRenderedRouteFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 68,
+  expectedCommandCount: 69,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -1610,6 +1636,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='ai-review-receipt-write-docs-failure-copy']",
     "[data-testid='ai-review-receipt-write-rendered-route-failure-copy']",
     "[data-testid='ai-review-receipt-write-live-route-gate-note']",
+    "[data-testid='ai-review-receipt-write-live-route-failure-copy']",
     "[data-testid='ai-review-receipt-write-workflow-failure-copy']",
     "[data-testid='api-readme-live-route-gate-note']",
     "[data-testid='api-readme-live-route-failure-copy']",
@@ -1666,7 +1693,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 68 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 69 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -2999,6 +3026,52 @@ export default function PlanPage() {
                   {title === "Live route gate"
                     ? aiReviewReceiptWriteLiveRouteGateNote.routeSmokeCommand
                     : aiReviewReceiptWriteLiveRouteGateNote.sourceSmokeCommand}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-route={aiReviewReceiptWriteLiveRouteFailureCopy.apiRoute}
+          data-command={aiReviewReceiptWriteLiveRouteFailureCopy.command}
+          data-docs-href={aiReviewReceiptWriteLiveRouteFailureCopy.docsHref}
+          data-expected-queue-count={aiReviewReceiptWriteLiveRouteFailureCopy.expectedQueueCount}
+          data-expected-request-field-count={aiReviewReceiptWriteLiveRouteFailureCopy.expectedRequestFieldCount}
+          data-expected-route-count={aiReviewReceiptWriteLiveRouteFailureCopy.expectedRouteCount}
+          data-failing-command={aiReviewReceiptWriteLiveRouteFailureCopy.failingCommand}
+          data-no-merge-copy={aiReviewReceiptWriteLiveRouteFailureCopy.noMergeCopy}
+          data-owner-role={aiReviewReceiptWriteLiveRouteFailureCopy.ownerRole}
+          data-repair-targets={aiReviewReceiptWriteLiveRouteFailureCopy.repairTargets}
+          data-route-smoke-command={aiReviewReceiptWriteLiveRouteFailureCopy.routeSmokeCommand}
+          data-source-marker-selector={aiReviewReceiptWriteLiveRouteFailureCopy.sourceMarkerSelector}
+          data-testid="ai-review-receipt-write-live-route-failure-copy"
+          data-workflow-href={aiReviewReceiptWriteLiveRouteFailureCopy.workflowHref}
+          data-workflow-name={aiReviewReceiptWriteLiveRouteFailureCopy.workflowName}
+          data-workflow-path={aiReviewReceiptWriteLiveRouteFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review receipt write live-route failure copy</p>
+              <h2>Что делать, если AI write live-route gate упал</h2>
+            </div>
+            <div className="panel-actions">
+              <a className="primary-link" href={aiReviewReceiptWriteLiveRouteFailureCopy.workflowHref}>
+                {aiReviewReceiptWriteLiveRouteFailureCopy.workflowName}
+              </a>
+              <a className="primary-link" href={aiReviewReceiptWriteLiveRouteFailureCopy.docsHref}>
+                API contract
+              </a>
+            </div>
+          </div>
+          <div className="fixture-coverage-grid">
+            {aiReviewReceiptWriteLiveRouteFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge" ? aiReviewReceiptWriteLiveRouteFailureCopy.noMergeCopy : aiReviewReceiptWriteLiveRouteFailureCopy.failingCommand}
                 </strong>
                 <p>{text}</p>
               </article>
