@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить source owner receipt write live-route workflow copy", "закрепить source owner live-route rendered copy в workflow order"],
-  ["2", "Добавить AI review receipt write live-route workflow copy", "закрепить AI live-route rendered copy в workflow order"],
-  ["3", "Добавить source freshness write live-route workflow copy", "закрепить freshness live-route rendered copy в workflow order"],
-  ["4", "Добавить EIS real-network approval live-route workflow copy", "закрепить EIS approval live-route rendered copy в workflow order"],
+  ["1", "Добавить AI review receipt write live-route workflow copy", "закрепить AI live-route rendered copy в workflow order"],
+  ["2", "Добавить source freshness write live-route workflow copy", "закрепить freshness live-route rendered copy в workflow order"],
+  ["3", "Добавить EIS real-network approval live-route workflow copy", "закрепить EIS approval live-route rendered copy в workflow order"],
+  ["4", "Добавить source owner receipt write live-route docs copy", "закрепить source owner live-route workflow copy в docs/audit notes"],
 ];
 
 const cycleRules = [
@@ -1214,6 +1214,32 @@ const sourceOwnerReceiptWriteLiveRouteRenderedCopy = {
   ],
 };
 
+const sourceOwnerReceiptWriteLiveRouteWorkflowCopy = {
+  apiRoute: sourceOwnerReceiptWriteRenderedRouteFailureCopy.apiRoute,
+  command: "npm run smoke:source-owner-receipt-write-live-route-workflow-copy",
+  docsHref: sourceOwnerReceiptWriteRenderedRouteFailureCopy.docsHref,
+  expectedRequestFieldCount: sourceOwnerReceiptWriteRenderedRouteFailureCopy.expectedRequestFieldCount,
+  expectedRouteCount: sourceOwnerReceiptWriteRenderedRouteFailureCopy.expectedRouteCount,
+  failingCommand: "npm run smoke:web-build-workflow",
+  liveRenderedCommand: sourceOwnerReceiptWriteLiveRouteRenderedCopy.command,
+  workflowFailureCommand: sourceOwnerReceiptWriteWorkflowFailureCopy.command,
+  noMergeCopy:
+    "Не мержить, пока Web build снова запускает source owner receipt write live-route rendered copy перед workflow failure copy и source freshness checks.",
+  ownerRole: "Sources owner + CI owner + QA owner",
+  repairTargets:
+    ".github/workflows/web-build.yml,/plan,apps/web/scripts/source-owner-receipt-write-live-route-rendered-copy.mjs,apps/web/scripts/web-build-workflow-file.mjs",
+  sourceMarkerSelector: "[data-testid='source-owner-receipt-write-live-route-rendered-copy']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "source owner live-route rendered copy есть на `/plan`, но Web build не держит его перед workflow failure copy"],
+    ["Fix order", "сначала восстановить live-route rendered copy, затем live-route workflow copy и только потом workflow failure copy"],
+    ["Owner", "Sources owner подтверждает live-route copy, CI owner подтверждает порядок Web build, QA owner подтверждает route smoke"],
+    ["No merge", "не мержить, пока source owner live-route workflow order снова не защищает rendered copy"],
+  ],
+};
+
 const sourceFreshnessWriteApiDraft = {
   apiRoute: "/v1/sources/freshness",
   command: "npm run smoke:source-freshness-write-api-draft",
@@ -1771,7 +1797,7 @@ const ownerReceiptDocsRenderedRouteFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 75,
+  expectedCommandCount: 76,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -1815,6 +1841,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='source-owner-receipt-write-live-route-gate-note']",
     "[data-testid='source-owner-receipt-write-live-route-failure-copy']",
     "[data-testid='source-owner-receipt-write-live-route-rendered-copy']",
+    "[data-testid='source-owner-receipt-write-live-route-workflow-copy']",
     "[data-testid='source-owner-receipt-write-workflow-failure-copy']",
     "[data-testid='source-freshness-write-api-draft']",
     "[data-testid='source-freshness-write-smoke-failure-copy']",
@@ -1852,7 +1879,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 75 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 76 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -4169,6 +4196,54 @@ export default function PlanPage() {
                   {title === "No merge"
                     ? sourceOwnerReceiptWriteLiveRouteRenderedCopy.noMergeCopy
                     : sourceOwnerReceiptWriteLiveRouteRenderedCopy.liveFailureCommand}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-route={sourceOwnerReceiptWriteLiveRouteWorkflowCopy.apiRoute}
+          data-command={sourceOwnerReceiptWriteLiveRouteWorkflowCopy.command}
+          data-docs-href={sourceOwnerReceiptWriteLiveRouteWorkflowCopy.docsHref}
+          data-expected-request-field-count={sourceOwnerReceiptWriteLiveRouteWorkflowCopy.expectedRequestFieldCount}
+          data-expected-route-count={sourceOwnerReceiptWriteLiveRouteWorkflowCopy.expectedRouteCount}
+          data-failing-command={sourceOwnerReceiptWriteLiveRouteWorkflowCopy.failingCommand}
+          data-live-rendered-command={sourceOwnerReceiptWriteLiveRouteWorkflowCopy.liveRenderedCommand}
+          data-no-merge-copy={sourceOwnerReceiptWriteLiveRouteWorkflowCopy.noMergeCopy}
+          data-owner-role={sourceOwnerReceiptWriteLiveRouteWorkflowCopy.ownerRole}
+          data-repair-targets={sourceOwnerReceiptWriteLiveRouteWorkflowCopy.repairTargets}
+          data-source-marker-selector={sourceOwnerReceiptWriteLiveRouteWorkflowCopy.sourceMarkerSelector}
+          data-testid="source-owner-receipt-write-live-route-workflow-copy"
+          data-workflow-failure-command={sourceOwnerReceiptWriteLiveRouteWorkflowCopy.workflowFailureCommand}
+          data-workflow-href={sourceOwnerReceiptWriteLiveRouteWorkflowCopy.workflowHref}
+          data-workflow-name={sourceOwnerReceiptWriteLiveRouteWorkflowCopy.workflowName}
+          data-workflow-path={sourceOwnerReceiptWriteLiveRouteWorkflowCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source owner receipt write live-route workflow copy</p>
+              <h2>Что делать, если source owner live-route workflow order упал</h2>
+            </div>
+            <div className="panel-actions">
+              <a className="primary-link" href={sourceOwnerReceiptWriteLiveRouteWorkflowCopy.workflowHref}>
+                {sourceOwnerReceiptWriteLiveRouteWorkflowCopy.workflowName}
+              </a>
+              <a className="primary-link" href={sourceOwnerReceiptWriteLiveRouteWorkflowCopy.docsHref}>
+                API contract
+              </a>
+            </div>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sourceOwnerReceiptWriteLiveRouteWorkflowCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? sourceOwnerReceiptWriteLiveRouteWorkflowCopy.noMergeCopy
+                    : sourceOwnerReceiptWriteLiveRouteWorkflowCopy.liveRenderedCommand}
                 </strong>
                 <p>{text}</p>
               </article>

@@ -57,3 +57,5 @@
 - `npm run build` проходит.
 - Есть PR с инструкцией проверки.
 - Нет прямого push в `main`.
+
+127. [done 2026-06-18] Добавить source owner receipt write live-route workflow copy: закрепить source owner live-route rendered copy в Web build workflow order перед workflow failure copy и source freshness checks.
