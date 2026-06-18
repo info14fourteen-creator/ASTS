@@ -404,3 +404,4 @@
 118. [done 2026-06-18] Добавить EIS real-network approval live-route gate note: показать связь EIS approval smoke с live rendered route gate перед workflow failure copy и AI review checks.
 119. [done 2026-06-18] Добавить source owner receipt write live-route failure copy: показать owner-friendly текст при падении source owner write live gate перед workflow failure copy и source freshness checks.
 120. [done 2026-06-18] Добавить AI review receipt write live-route failure copy: показать owner-friendly текст при падении AI write live gate перед workflow failure copy и shared README checks.
+121. [done 2026-06-18] Добавить source freshness write live-route failure copy: показать owner-friendly текст при падении freshness write live gate перед workflow failure copy и source freshness rendered checks.

@@ -94,7 +94,7 @@ assert(routeSmoke.includes(`data-source-smoke-command=\\"${expectedSourceCommand
 assert(routeSmoke.includes('data-expected-queue-count=\\"3\\"'), "route smoke must require AI queue count");
 assert(routeSmoke.includes('data-expected-request-field-count=\\"11\\"'), "route smoke must require AI write request field count");
 assert(routeSmoke.includes('data-expected-route-count=\\"16\\"'), "route smoke must require rendered route count");
-assert(routeSmoke.includes('data-expected-command-count=\\"69\\"'), "route smoke must require updated Web build command count");
+assert(routeSmoke.includes('data-expected-command-count=\\"70\\"'), "route smoke must require updated Web build command count");
 
 if (failures.length > 0) {
   console.error("FAIL AI review receipt write live route gate");
