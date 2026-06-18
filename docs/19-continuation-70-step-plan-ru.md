@@ -409,3 +409,4 @@
 123. [done 2026-06-18] Добавить source owner receipt write live-route rendered copy: закрепить source owner live-route failure copy в rendered route coverage перед workflow failure copy и source freshness checks.
 124. [done 2026-06-18] Добавить AI review receipt write live-route rendered copy: закрепить AI review live-route failure copy в rendered route coverage перед workflow failure copy и shared README checks.
 125. [done 2026-06-18] Добавить source freshness write live-route rendered copy: закрепить freshness write live-route failure copy в rendered route coverage перед workflow failure copy и source freshness rendered checks.
+126. [done 2026-06-18] Добавить EIS real-network approval live-route rendered copy: закрепить EIS approval live-route failure copy в rendered route coverage перед workflow failure copy и AI review checks.
