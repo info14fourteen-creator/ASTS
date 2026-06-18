@@ -43,6 +43,7 @@
     "smoke:source-freshness-docs-rendered-route-failure-copy": "node scripts/source-freshness-docs-rendered-route-failure-copy.mjs",
     "smoke:source-freshness-rendered-route-failure-copy": "node scripts/source-freshness-rendered-route-failure-copy.mjs",
     "smoke:source-freshness-write-docs-failure-copy": "node scripts/source-freshness-write-docs-failure-copy.mjs",
+    "smoke:source-freshness-write-rendered-route-failure-copy": "node scripts/source-freshness-write-rendered-route-failure-copy.mjs",
     "smoke:source-freshness-write-smoke-failure-copy": "node scripts/source-freshness-write-smoke-failure-copy.mjs",
     "smoke:source-freshness-write-api-draft": "node scripts/source-freshness-write-api-draft.mjs",
     "smoke:source-owner-receipt-write-rendered-route-failure-copy": "node scripts/source-owner-receipt-write-rendered-route-failure-copy.mjs",

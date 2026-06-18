@@ -392,3 +392,4 @@
 106. [done 2026-06-18] Добавить EIS real-network approval docs failure copy: показать owner-friendly текст при падении EIS approval docs anchor с README, `/plan`, Data owner approvals и checksum freshness receipt.
 107. [done 2026-06-18] Добавить source owner receipt write rendered-route failure copy: показать owner-friendly текст при падении rendered route coverage для write draft marker, docs href, request schema и immutable audit append.
 108. [done 2026-06-18] Добавить AI review receipt write rendered-route failure copy: показать owner-friendly текст при падении rendered route coverage для AI write draft marker, docs href, request schema и immutable AI audit append.
+109. [done 2026-06-18] Добавить source freshness write rendered-route failure copy: показать owner-friendly текст при падении rendered route coverage для freshness write draft marker, docs href, request schema и immutable freshness audit append.
