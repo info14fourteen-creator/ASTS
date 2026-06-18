@@ -342,3 +342,9 @@ approval. It is intentionally copy-only while `status="contract_only"`:
 This copy is part of the API contract so the workdesk can show the same
 approval language that backend smoke tests enforce. CI must keep this copy in
 contract-only mode until Data explicitly approves network access.
+
+The web cabinet keeps that EIS real-network approval path auditable through
+`data-testid="eis-real-network-approval-live-route-docs-copy"` on `/plan`.
+Web build must run
+`npm run smoke:eis-real-network-approval-live-route-docs-copy` after the EIS
+live-route workflow copy so the README anchor, `/plan` docs href and Data owner approval warning drift before AI review checks. Keep the Data owner approval warning explicit here so docs-only drift is caught before AI review checks.

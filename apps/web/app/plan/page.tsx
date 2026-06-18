@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить EIS real-network approval live-route docs copy", "закрепить EIS live-route workflow copy в docs/audit notes"],
-  ["2", "Добавить source owner receipt write live-route README trigger copy", "закрепить docs copy в README/CI trigger notes"],
-  ["3", "Добавить AI review receipt write live-route README trigger copy", "закрепить docs copy в README/CI trigger notes"],
-  ["4", "Добавить source freshness write live-route README trigger copy", "закрепить docs copy в README/CI trigger notes"],
+  ["1", "Добавить source owner receipt write live-route README trigger copy", "закрепить docs copy в README/CI trigger notes"],
+  ["2", "Добавить AI review receipt write live-route README trigger copy", "закрепить docs copy в README/CI trigger notes"],
+  ["3", "Добавить source freshness write live-route README trigger copy", "закрепить docs copy в README/CI trigger notes"],
+  ["4", "Добавить EIS real-network approval live-route README trigger copy", "закрепить docs copy в README/CI trigger notes"],
 ];
 
 const cycleRules = [
@@ -1934,6 +1934,33 @@ const eisRealNetworkApprovalLiveRouteWorkflowCopy = {
   ],
 };
 
+const eisRealNetworkApprovalLiveRouteDocsCopy = {
+  apiRoute: eisRealNetworkApprovalRenderedRouteFailureCopy.apiRoute,
+  auditNote:
+    "README anchor, /plan docs href and Data owner approval warning must drift before AI review checks.",
+  command: "npm run smoke:eis-real-network-approval-live-route-docs-copy",
+  docsHref: eisRealNetworkApprovalRenderedRouteFailureCopy.docsHref,
+  expectedApprovalCount: eisRealNetworkApprovalRenderedRouteFailureCopy.expectedApprovalCount,
+  expectedRouteCount: eisRealNetworkApprovalRenderedRouteFailureCopy.expectedRouteCount,
+  failingCommand: eisRealNetworkApprovalLiveRouteWorkflowCopy.command,
+  liveWorkflowCommand: eisRealNetworkApprovalLiveRouteWorkflowCopy.command,
+  noMergeCopy:
+    "Не мержить, пока EIS live-route workflow copy снова закреплен в API README approval note, `/plan` docs href и Web build.",
+  ownerRole: "Data owner + Docs owner + CI owner",
+  repairTargets:
+    "apps/api/README.md#eis-real-network-approval-api-copy,/plan,apps/web/scripts/eis-real-network-approval-live-route-workflow-copy.mjs,.github/workflows/web-build.yml",
+  sourceMarkerSelector: "[data-testid='eis-real-network-approval-live-route-workflow-copy']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "EIS live-route workflow copy проходит, но API README или `/plan` больше не объясняют approval drift"],
+    ["Fix order", "сначала восстановить README approval note, затем `/plan` docs copy и route smoke expectations"],
+    ["Owner", "Data owner подтверждает approval warning, Docs owner подтверждает README anchor, CI owner подтверждает Web build order"],
+    ["No merge", "не мержить, пока EIS live-route docs copy снова не защищает approval note"],
+  ],
+};
+
 const ownerReceiptDocsRenderedRouteFailureCopy = {
   apiRoute: "/v1/sources/owner-receipts",
   command: "npm run smoke:owner-receipt-docs-rendered-route-failure-copy",
@@ -1960,7 +1987,7 @@ const ownerReceiptDocsRenderedRouteFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 82,
+  expectedCommandCount: 83,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -2032,6 +2059,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='eis-real-network-approval-live-route-failure-copy']",
     "[data-testid='eis-real-network-approval-live-route-rendered-copy']",
     "[data-testid='eis-real-network-approval-live-route-workflow-copy']",
+    "[data-testid='eis-real-network-approval-live-route-docs-copy']",
     "[data-testid='eis-real-network-approval-workflow-failure-copy']",
     "[data-testid='owner-receipt-docs-rendered-route-failure-copy']",
     "[data-testid='shared-validation-workflow-ci-note']",
@@ -2048,7 +2076,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 82 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 83 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -5579,6 +5607,54 @@ export default function PlanPage() {
                   {title === "No merge"
                     ? eisRealNetworkApprovalLiveRouteWorkflowCopy.noMergeCopy
                     : eisRealNetworkApprovalLiveRouteWorkflowCopy.liveRenderedCommand}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-route={eisRealNetworkApprovalLiveRouteDocsCopy.apiRoute}
+          data-audit-note={eisRealNetworkApprovalLiveRouteDocsCopy.auditNote}
+          data-command={eisRealNetworkApprovalLiveRouteDocsCopy.command}
+          data-docs-href={eisRealNetworkApprovalLiveRouteDocsCopy.docsHref}
+          data-expected-approval-count={eisRealNetworkApprovalLiveRouteDocsCopy.expectedApprovalCount}
+          data-expected-route-count={eisRealNetworkApprovalLiveRouteDocsCopy.expectedRouteCount}
+          data-failing-command={eisRealNetworkApprovalLiveRouteDocsCopy.failingCommand}
+          data-live-workflow-command={eisRealNetworkApprovalLiveRouteDocsCopy.liveWorkflowCommand}
+          data-no-merge-copy={eisRealNetworkApprovalLiveRouteDocsCopy.noMergeCopy}
+          data-owner-role={eisRealNetworkApprovalLiveRouteDocsCopy.ownerRole}
+          data-repair-targets={eisRealNetworkApprovalLiveRouteDocsCopy.repairTargets}
+          data-source-marker-selector={eisRealNetworkApprovalLiveRouteDocsCopy.sourceMarkerSelector}
+          data-testid="eis-real-network-approval-live-route-docs-copy"
+          data-workflow-href={eisRealNetworkApprovalLiveRouteDocsCopy.workflowHref}
+          data-workflow-name={eisRealNetworkApprovalLiveRouteDocsCopy.workflowName}
+          data-workflow-path={eisRealNetworkApprovalLiveRouteDocsCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">EIS real-network approval live-route docs copy</p>
+              <h2>Что делать, если EIS approval live-route docs copy упал</h2>
+            </div>
+            <div className="panel-actions">
+              <a className="primary-link" href={eisRealNetworkApprovalLiveRouteDocsCopy.workflowHref}>
+                {eisRealNetworkApprovalLiveRouteDocsCopy.workflowName}
+              </a>
+              <a className="primary-link" href={eisRealNetworkApprovalLiveRouteDocsCopy.docsHref}>
+                API contract
+              </a>
+            </div>
+          </div>
+          <div className="fixture-coverage-grid">
+            {eisRealNetworkApprovalLiveRouteDocsCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? eisRealNetworkApprovalLiveRouteDocsCopy.noMergeCopy
+                    : eisRealNetworkApprovalLiveRouteDocsCopy.liveWorkflowCommand}
                 </strong>
                 <p>{text}</p>
               </article>
