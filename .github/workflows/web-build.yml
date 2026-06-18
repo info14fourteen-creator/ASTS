@@ -142,6 +142,9 @@ jobs:
       - name: Smoke EIS real-network approval live route gate
         run: npm run smoke:eis-real-network-approval-live-route
 
+      - name: Smoke EIS real-network approval live route failure copy
+        run: npm run smoke:eis-real-network-approval-live-route-failure-copy
+
       - name: Smoke EIS real-network approval workflow failure copy
         run: npm run smoke:eis-real-network-approval-workflow-failure-copy
 

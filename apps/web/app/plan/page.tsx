@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить EIS real-network approval live-route failure copy", "показать owner-friendly текст при падении EIS approval live gate"],
-  ["2", "Добавить source owner receipt write live-route rendered copy", "закрепить live-route copy в rendered route coverage"],
-  ["3", "Добавить AI review receipt write live-route rendered copy", "закрепить AI live-route copy в rendered route coverage"],
-  ["4", "Добавить source freshness write live-route rendered copy", "закрепить freshness live-route copy в rendered route coverage"],
+  ["1", "Добавить source owner receipt write live-route rendered copy", "закрепить live-route copy в rendered route coverage"],
+  ["2", "Добавить AI review receipt write live-route rendered copy", "закрепить AI live-route copy в rendered route coverage"],
+  ["3", "Добавить source freshness write live-route rendered copy", "закрепить freshness live-route copy в rendered route coverage"],
+  ["4", "Добавить EIS real-network approval live-route rendered copy", "закрепить EIS approval live-route copy в rendered route coverage"],
 ];
 
 const cycleRules = [
@@ -1618,6 +1618,31 @@ const eisRealNetworkApprovalLiveRouteGateNote = {
   ],
 };
 
+const eisRealNetworkApprovalLiveRouteFailureCopy = {
+  apiRoute: eisRealNetworkApprovalRenderedRouteFailureCopy.apiRoute,
+  command: "npm run smoke:eis-real-network-approval-live-route-failure-copy",
+  docsHref: eisRealNetworkApprovalRenderedRouteFailureCopy.docsHref,
+  expectedApprovalCount: eisRealNetworkApprovalRenderedRouteFailureCopy.expectedApprovalCount,
+  expectedRouteCount: eisRealNetworkApprovalRenderedRouteFailureCopy.expectedRouteCount,
+  failingCommand: eisRealNetworkApprovalLiveRouteGateNote.command,
+  noMergeCopy:
+    "Не мержить, пока Web build снова держит EIS real-network approval live-route gate перед workflow failure copy и AI review checks.",
+  ownerRole: "Data owner + CI owner + QA owner",
+  repairTargets:
+    ".github/workflows/web-build.yml,/plan,apps/web/scripts/eis-real-network-approval-live-route-gate.mjs,apps/web/scripts/smoke.mjs",
+  routeSmokeCommand: eisRealNetworkApprovalLiveRouteGateNote.routeSmokeCommand,
+  sourceMarkerSelector: "[data-testid='eis-real-network-approval-live-route-gate-note']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "EIS approval live-route gate падает: `/plan` или live route smoke потеряли approval marker"],
+    ["Fix order", "сначала восстановить live-route gate note, затем route smoke expectations и Web build порядок"],
+    ["Owner", "Data owner подтверждает approval gate, CI owner подтверждает порядок Web build, QA owner подтверждает live route"],
+    ["No merge", "не мержить, пока EIS approval live-route gate снова не защищает approval chain на живом сервере"],
+  ],
+};
+
 const ownerReceiptDocsRenderedRouteFailureCopy = {
   apiRoute: "/v1/sources/owner-receipts",
   command: "npm run smoke:owner-receipt-docs-rendered-route-failure-copy",
@@ -1644,7 +1669,7 @@ const ownerReceiptDocsRenderedRouteFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 70,
+  expectedCommandCount: 71,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -1704,6 +1729,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='eis-real-network-approval-docs-failure-copy']",
     "[data-testid='eis-real-network-approval-rendered-route-failure-copy']",
     "[data-testid='eis-real-network-approval-live-route-gate-note']",
+    "[data-testid='eis-real-network-approval-live-route-failure-copy']",
     "[data-testid='eis-real-network-approval-workflow-failure-copy']",
     "[data-testid='owner-receipt-docs-rendered-route-failure-copy']",
     "[data-testid='shared-validation-workflow-ci-note']",
@@ -1720,7 +1746,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 70 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 71 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -4674,6 +4700,53 @@ export default function PlanPage() {
                   {title === "Live route gate"
                     ? eisRealNetworkApprovalLiveRouteGateNote.routeSmokeCommand
                     : eisRealNetworkApprovalLiveRouteGateNote.command}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-route={eisRealNetworkApprovalLiveRouteFailureCopy.apiRoute}
+          data-command={eisRealNetworkApprovalLiveRouteFailureCopy.command}
+          data-docs-href={eisRealNetworkApprovalLiveRouteFailureCopy.docsHref}
+          data-expected-approval-count={eisRealNetworkApprovalLiveRouteFailureCopy.expectedApprovalCount}
+          data-expected-route-count={eisRealNetworkApprovalLiveRouteFailureCopy.expectedRouteCount}
+          data-failing-command={eisRealNetworkApprovalLiveRouteFailureCopy.failingCommand}
+          data-no-merge-copy={eisRealNetworkApprovalLiveRouteFailureCopy.noMergeCopy}
+          data-owner-role={eisRealNetworkApprovalLiveRouteFailureCopy.ownerRole}
+          data-repair-targets={eisRealNetworkApprovalLiveRouteFailureCopy.repairTargets}
+          data-route-smoke-command={eisRealNetworkApprovalLiveRouteFailureCopy.routeSmokeCommand}
+          data-source-marker-selector={eisRealNetworkApprovalLiveRouteFailureCopy.sourceMarkerSelector}
+          data-testid="eis-real-network-approval-live-route-failure-copy"
+          data-workflow-href={eisRealNetworkApprovalLiveRouteFailureCopy.workflowHref}
+          data-workflow-name={eisRealNetworkApprovalLiveRouteFailureCopy.workflowName}
+          data-workflow-path={eisRealNetworkApprovalLiveRouteFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">EIS real-network approval live-route failure copy</p>
+              <h2>Что делать, если EIS approval live-route gate упал</h2>
+            </div>
+            <div className="panel-actions">
+              <a className="primary-link" href={eisRealNetworkApprovalLiveRouteFailureCopy.workflowHref}>
+                {eisRealNetworkApprovalLiveRouteFailureCopy.workflowName}
+              </a>
+              <a className="primary-link" href={eisRealNetworkApprovalLiveRouteFailureCopy.docsHref}>
+                API contract
+              </a>
+            </div>
+          </div>
+          <div className="fixture-coverage-grid">
+            {eisRealNetworkApprovalLiveRouteFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? eisRealNetworkApprovalLiveRouteFailureCopy.noMergeCopy
+                    : eisRealNetworkApprovalLiveRouteFailureCopy.failingCommand}
                 </strong>
                 <p>{text}</p>
               </article>
