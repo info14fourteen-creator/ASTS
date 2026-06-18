@@ -397,3 +397,4 @@
 111. [done 2026-06-18] Добавить source owner receipt write workflow failure copy: показать owner-friendly текст при падении workflow order для source owner write API, smoke, docs и rendered-route checks перед source freshness write.
 112. [done 2026-06-18] Добавить AI review receipt write workflow failure copy: показать owner-friendly текст при падении workflow order для AI review write API, smoke, docs и rendered-route checks перед shared README checks.
 113. [done 2026-06-18] Добавить source freshness write workflow failure copy: показать owner-friendly текст при падении workflow order для freshness write API, smoke, docs и rendered-route checks перед source freshness rendered checks.
+114. [done 2026-06-18] Добавить EIS real-network approval workflow failure copy: показать owner-friendly текст при падении workflow order для EIS approval API, smoke, docs и rendered-route checks перед AI review checks.
