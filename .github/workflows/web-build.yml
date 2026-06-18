@@ -145,6 +145,9 @@ jobs:
       - name: Smoke AI review receipt write rendered routes failure copy
         run: npm run smoke:ai-review-receipt-write-rendered-route-failure-copy
 
+      - name: Smoke AI review receipt write workflow failure copy
+        run: npm run smoke:ai-review-receipt-write-workflow-failure-copy
+
       - name: Smoke shared README command parity
         run: npm run smoke:shared-readme-commands
 
