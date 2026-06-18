@@ -76,6 +76,9 @@ jobs:
       - name: Smoke source owner receipt write rendered routes failure copy
         run: npm run smoke:source-owner-receipt-write-rendered-route-failure-copy
 
+      - name: Smoke source owner receipt write live route gate
+        run: npm run smoke:source-owner-receipt-write-live-route
+
       - name: Smoke source owner receipt write workflow failure copy
         run: npm run smoke:source-owner-receipt-write-workflow-failure-copy
 
