@@ -94,7 +94,7 @@ assert(routeSmoke.includes(`data-command=\\"${expectedCommand}\\"`), "route smok
 assert(routeSmoke.includes(`data-failing-command=\\"${expectedFailingCommand}\\"`), "route smoke must require failing rendered route command");
 assert(routeSmoke.includes(`data-no-merge-copy=\\"${expectedNoMergeCopy}\\"`), "route smoke must require AI write rendered route no-merge copy");
 assert(routeSmoke.includes("Что делать, если AI write draft пропал в rendered routes"), "route smoke must require visible AI write rendered route heading");
-assert(routeSmoke.includes('data-expected-command-count=\\"73\\"'), "route smoke must require updated Web build command count");
+assert(routeSmoke.includes('data-expected-command-count=\\"74\\"'), "route smoke must require updated Web build command count");
 
 assert(workflow.includes(`name: ${expectedWorkflowName}`), "workflow must keep Web build name");
 assert(workflow.includes(`run: ${expectedCommand}`), "Web build must run AI write rendered route failure copy smoke");

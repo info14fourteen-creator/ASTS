@@ -54,6 +54,7 @@
     "smoke:source-freshness-write-rendered-route-failure-copy": "node scripts/source-freshness-write-rendered-route-failure-copy.mjs",
     "smoke:source-freshness-write-live-route": "node scripts/source-freshness-write-live-route-gate.mjs",
     "smoke:source-freshness-write-live-route-failure-copy": "node scripts/source-freshness-write-live-route-failure-copy.mjs",
+    "smoke:source-freshness-write-live-route-rendered-copy": "node scripts/source-freshness-write-live-route-rendered-copy.mjs",
     "smoke:source-freshness-write-workflow-failure-copy": "node scripts/source-freshness-write-workflow-failure-copy.mjs",
     "smoke:source-freshness-write-smoke-failure-copy": "node scripts/source-freshness-write-smoke-failure-copy.mjs",
     "smoke:source-freshness-write-api-draft": "node scripts/source-freshness-write-api-draft.mjs",
