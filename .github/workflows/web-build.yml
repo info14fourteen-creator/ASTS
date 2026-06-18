@@ -118,6 +118,9 @@ jobs:
       - name: Smoke EIS real-network approval docs failure copy
         run: npm run smoke:eis-real-network-approval-docs-failure-copy
 
+      - name: Smoke EIS real-network approval rendered routes failure copy
+        run: npm run smoke:eis-real-network-approval-rendered-route-failure-copy
+
       - name: Smoke AI review action parity
         run: npm run smoke:ai-review-actions
 
