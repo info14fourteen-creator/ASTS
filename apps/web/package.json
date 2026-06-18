@@ -26,6 +26,7 @@
     "smoke:fns-approvals-docs-rendered-route-failure-copy": "node scripts/fns-approvals-docs-rendered-route-failure-copy.mjs",
     "smoke:fns-approvals-rendered-route-failure-copy": "node scripts/fns-approvals-rendered-route-failure-copy.mjs",
     "smoke:eis-real-network-approval-api-copy": "node scripts/eis-real-network-approval-api-copy.mjs",
+    "smoke:eis-real-network-approval-docs-failure-copy": "node scripts/eis-real-network-approval-docs-failure-copy.mjs",
     "smoke:eis-real-network-approval-smoke-failure-copy": "node scripts/eis-real-network-approval-smoke-failure-copy.mjs",
     "smoke:fns-real-network-approval-api-copy": "node scripts/fns-real-network-approval-api-copy.mjs",
     "smoke:owner-receipt-docs-rendered-route-failure-copy": "node scripts/owner-receipt-docs-rendered-route-failure-copy.mjs",
