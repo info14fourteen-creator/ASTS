@@ -96,6 +96,12 @@ Web build must run
 live-route workflow copy so the README anchor, `/plan` docs href and immutable freshness audit append warning drift before source freshness rendered checks.
 Keep the immutable freshness audit append warning explicit here so docs-only
 drift is caught before downstream freshness checks.
+It must then run
+`npm run smoke:source-freshness-write-live-route-readme-trigger-copy` while
+`apps/api/README.md` remains in both Web build trigger path lists, so docs-only
+source freshness write drift cannot skip CI before freshness rendered checks.
+Keep the docs-only source freshness write drift cannot skip CI warning explicit
+so README-only freshness changes keep exercising Web build.
 
 ### Freshness Owner Actions
 

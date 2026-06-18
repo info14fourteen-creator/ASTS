@@ -77,3 +77,5 @@
 135. [done 2026-06-18] Добавить source owner receipt write live-route README trigger copy: закрепить source owner docs copy в API README trigger path, `/plan` trigger note и Web build перед source freshness checks.
 
 136. [done 2026-06-18] Добавить AI review receipt write live-route README trigger copy: закрепить AI review docs copy в API README trigger path, `/plan` trigger note и Web build перед shared README checks.
+
+137. [done 2026-06-18] Добавить source freshness write live-route README trigger copy: закрепить freshness docs copy в API README trigger path, `/plan` trigger note и Web build перед freshness rendered checks.
