@@ -117,3 +117,5 @@
 155. [done 2026-06-19] Добавить FNS real-network approval API docs deep-link copy: закрепить FNS approval API README deep-link на `/sources` и в FNS approval smoke.
 
 156. [done 2026-06-19] Добавить shared validation API docs deep-link copy: закрепить shared schema README deep-link на `/plan` и в rendered route smoke.
+
+157. [done 2026-06-19] Добавить web build workflow API docs deep-link copy: закрепить Web build workflow YAML deep-link на `/plan` и в rendered route smoke.

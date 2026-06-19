@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить web build workflow API docs deep-link copy", "закрепить Web build docs link в `/plan`"],
-  ["2", "Добавить AI review queue API docs deep-link copy", "закрепить review queue docs link в `/ai-review`"],
-  ["3", "Добавить source connectors API docs deep-link copy", "закрепить connectors docs link в `/sources`"],
-  ["4", "Добавить shared validation route smoke docs failure copy", "закрепить shared docs drift guard в `/plan`"],
+  ["1", "Добавить AI review queue API docs deep-link copy", "закрепить review queue docs link в `/ai-review`"],
+  ["2", "Добавить source connectors API docs deep-link copy", "закрепить connectors docs link в `/sources`"],
+  ["3", "Добавить shared validation route smoke docs failure copy", "закрепить shared docs drift guard в `/plan`"],
+  ["4", "Добавить web build route smoke docs failure copy", "закрепить Web build docs drift guard в `/plan`"],
 ];
 
 const cycleRules = [
@@ -55,6 +55,8 @@ const apiDependencyNotes = [
 const sharedValidationWorkflowHref =
   "https://github.com/info14fourteen-creator/ASTS/actions/workflows/shared-validation.yml";
 const webBuildWorkflowHref = "https://github.com/info14fourteen-creator/ASTS/actions/workflows/web-build.yml";
+const webBuildWorkflowDocsHref =
+  "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/.github/workflows/web-build.yml";
 
 const prGateBadges = [
   [
@@ -2629,6 +2631,23 @@ const webBuildRenderedRouteFailureCopy = {
     ["Fix order", "сначала восстановить route list и HTML markers, затем повторить live smoke на 16 маршрутах"],
     ["Owner", "Frontend owner подтверждает `/plan` и routes, QA owner подтверждает маршрутное покрытие"],
     ["No merge", "не мержить, пока rendered routes smoke снова не зеленый на PR"],
+  ],
+};
+
+const webBuildWorkflowDocsDeepLink = {
+  docsHref: webBuildWorkflowDocsHref,
+  expectedCommandCount: webBuildWorkflowFileSmoke.expectedCommandCount,
+  fileSmokeSelector: "[data-testid='web-build-workflow-file-smoke']",
+  route: "/plan",
+  sourceMarkerSelector: "[data-testid='web-build-rendered-route-failure-copy']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: webBuildWorkflowFileSmoke.workflowPath,
+  checks: [
+    ["Docs href", "вести на реальный workflow YAML, а не только на Actions UI"],
+    ["File smoke", "связывать docs link с web-build-workflow-file-smoke"],
+    ["Command count", "подтверждать 99 build/smoke commands перед merge"],
+    ["Route smoke", "rendered route smoke должен видеть docs href, selector и workflow path"],
   ],
 };
 
@@ -7276,6 +7295,43 @@ export default function PlanPage() {
                     ? webBuildRenderedRouteFailureCopy.noMergeCopy
                     : webBuildRenderedRouteFailureCopy.failingCommand}
                 </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-docs-href={webBuildWorkflowDocsDeepLink.docsHref}
+          data-expected-command-count={webBuildWorkflowDocsDeepLink.expectedCommandCount}
+          data-file-smoke-selector={webBuildWorkflowDocsDeepLink.fileSmokeSelector}
+          data-route={webBuildWorkflowDocsDeepLink.route}
+          data-source-marker-selector={webBuildWorkflowDocsDeepLink.sourceMarkerSelector}
+          data-testid="web-build-workflow-docs-deep-link"
+          data-workflow-href={webBuildWorkflowDocsDeepLink.workflowHref}
+          data-workflow-name={webBuildWorkflowDocsDeepLink.workflowName}
+          data-workflow-path={webBuildWorkflowDocsDeepLink.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Web build workflow API docs deep-link</p>
+              <h2>Где проверять Web build workflow YAML</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-workflow-path={webBuildWorkflowDocsDeepLink.workflowPath}
+              data-testid="web-build-workflow-docs-deep-link-anchor"
+              href={webBuildWorkflowDocsDeepLink.docsHref}
+            >
+              Web build workflow YAML
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {webBuildWorkflowDocsDeepLink.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>{webBuildWorkflowDocsDeepLink.workflowPath}</strong>
                 <p>{text}</p>
               </article>
             ))}
