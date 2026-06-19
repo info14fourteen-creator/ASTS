@@ -192,6 +192,40 @@ const sourceConnectorsDocsRenderedRouteFailureCopy = {
   ],
 };
 
+const sourceConnectorsWorkflowDocsFailureCopy = {
+  route: sourceConnectorsDocsDeepLink.route,
+  apiRoute: sourceConnectorsDocsDeepLink.apiRoute,
+  command: sourceConnectorsDocsRenderedRouteFailureCopy.command,
+  connectorIds: sourceConnectorsDocsDeepLink.connectorIds,
+  docsHref: sourceConnectorsDocsDeepLink.docsHref,
+  docsMarkerSelector: "[data-testid='source-connectors-docs-deep-link']",
+  expectedConnectorCount: sourceConnectorsDocsDeepLink.expectedConnectorCount,
+  expectedNetworkDisabledCount: sourceConnectorsDocsDeepLink.expectedNetworkDisabledCount,
+  expectedRouteCount: sourceConnectorsDocsRenderedRouteFailureCopy.expectedRouteCount,
+  failingCommand: sourceConnectorsDocsRenderedRouteFailureCopy.failingCommand,
+  linkSelector: sourceConnectorsDocsRenderedRouteFailureCopy.linkSelector,
+  mode: sourceConnectorsDocsDeepLink.mode,
+  noMergeCopy:
+    "Не мержить, пока Source Connectors docs deep-link и Web build route smoke снова согласованы на живом `/sources`",
+  ownerRole: "Data owner + API owner + Docs owner + QA owner",
+  repairTargets:
+    "/sources,apps/api/README.md#source-connectors-contract,.github/workflows/web-build.yml,apps/web/scripts/smoke.mjs",
+  sourceMarkerSelector: "[data-testid='source-connectors-docs-rendered-route-failure-copy']",
+  workflowCommand: "npm run smoke -- --url http://127.0.0.1:4177/",
+  workflowHref: "https://github.com/info14fourteen-creator/ASTS/actions/workflows/web-build.yml",
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "connectors docs link виден, но Web build route smoke больше не закрепляет `/sources` docs contract"],
+    ["Fix order", "сначала восстановить source-connectors-docs-deep-link, затем rendered route smoke expectations"],
+    [
+      "Owner",
+      "Data owner подтверждает connectors copy, API owner подтверждает README anchor, Docs owner подтверждает deep-link",
+    ],
+    ["No merge", "не мержить, пока source connectors workflow docs guard снова не проходит route coverage"],
+  ],
+};
+
 const fnsNetworkGateBrowserLoop = {
   route: "/sources",
   apiRoute: "/v1/sources/connectors",
@@ -518,6 +552,54 @@ export default function SourcesPage() {
                 <strong>{source}</strong>
                 <p>{task}</p>
                 <em>{status}</em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-api-route={sourceConnectorsWorkflowDocsFailureCopy.apiRoute}
+          data-command={sourceConnectorsWorkflowDocsFailureCopy.command}
+          data-connector-ids={sourceConnectorsWorkflowDocsFailureCopy.connectorIds.join(",")}
+          data-docs-href={sourceConnectorsWorkflowDocsFailureCopy.docsHref}
+          data-docs-marker-selector={sourceConnectorsWorkflowDocsFailureCopy.docsMarkerSelector}
+          data-expected-connector-count={sourceConnectorsWorkflowDocsFailureCopy.expectedConnectorCount}
+          data-expected-network-disabled-count={sourceConnectorsWorkflowDocsFailureCopy.expectedNetworkDisabledCount}
+          data-expected-route-count={sourceConnectorsWorkflowDocsFailureCopy.expectedRouteCount}
+          data-failing-command={sourceConnectorsWorkflowDocsFailureCopy.failingCommand}
+          data-link-selector={sourceConnectorsWorkflowDocsFailureCopy.linkSelector}
+          data-mode={sourceConnectorsWorkflowDocsFailureCopy.mode}
+          data-no-merge-copy={sourceConnectorsWorkflowDocsFailureCopy.noMergeCopy}
+          data-owner-role={sourceConnectorsWorkflowDocsFailureCopy.ownerRole}
+          data-repair-targets={sourceConnectorsWorkflowDocsFailureCopy.repairTargets}
+          data-route={sourceConnectorsWorkflowDocsFailureCopy.route}
+          data-source-marker-selector={sourceConnectorsWorkflowDocsFailureCopy.sourceMarkerSelector}
+          data-testid="source-connectors-workflow-docs-failure-copy"
+          data-workflow-command={sourceConnectorsWorkflowDocsFailureCopy.workflowCommand}
+          data-workflow-href={sourceConnectorsWorkflowDocsFailureCopy.workflowHref}
+          data-workflow-name={sourceConnectorsWorkflowDocsFailureCopy.workflowName}
+          data-workflow-path={sourceConnectorsWorkflowDocsFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source connectors workflow docs failure copy</p>
+              <h2>Что делать, если source connectors workflow docs drift упал</h2>
+            </div>
+            <a className="primary-link" href={sourceConnectorsWorkflowDocsFailureCopy.workflowHref}>
+              {sourceConnectorsWorkflowDocsFailureCopy.workflowName}
+            </a>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {sourceConnectorsWorkflowDocsFailureCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? sourceConnectorsWorkflowDocsFailureCopy.noMergeCopy
+                    : sourceConnectorsWorkflowDocsFailureCopy.workflowCommand}
+                </strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>

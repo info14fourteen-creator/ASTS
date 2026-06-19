@@ -137,3 +137,5 @@
 165. [done 2026-06-20] Добавить web build workflow docs failure copy: закрепить owner-friendly guard для связки Web build workflow failure copy и Web build workflow YAML docs deep-link в rendered route smoke.
 
 166. [done 2026-06-20] Добавить AI review queue workflow docs failure copy: закрепить owner-friendly guard для связки AI review queue docs deep-link и Web build queue route smoke в rendered route smoke.
+
+167. [done 2026-06-20] Добавить source connectors workflow docs failure copy: закрепить owner-friendly guard для связки Source Connectors docs deep-link и Web build route smoke в rendered route smoke.
