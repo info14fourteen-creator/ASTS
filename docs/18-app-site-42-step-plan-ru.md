@@ -85,3 +85,5 @@
 139. [done 2026-06-19] Добавить source owner receipt write live-route README rendered copy: закрепить source owner README trigger copy в rendered route smoke и Web build перед source freshness checks.
 
 140. [done 2026-06-19] Добавить AI review receipt write live-route README rendered copy: закрепить AI README trigger copy в rendered route smoke и Web build перед shared README checks.
+
+141. [done 2026-06-19] Добавить source freshness write live-route README rendered copy: закрепить freshness README trigger copy в rendered route smoke и Web build перед freshness rendered checks.

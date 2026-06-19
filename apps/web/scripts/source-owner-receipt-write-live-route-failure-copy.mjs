@@ -68,7 +68,7 @@ assert(routeSmoke.includes(`data-failing-command=\\"${expectedFailingCommand}\\"
 assert(routeSmoke.includes(`data-route-smoke-command=\\"${expectedRouteSmokeCommand}\\"`), "route smoke must require rendered route smoke command");
 assert(routeSmoke.includes(`data-no-merge-copy=\\"${expectedNoMergeCopy}\\"`), "route smoke must require source owner write live route no-merge copy");
 assert(routeSmoke.includes("Что делать, если source owner write live-route gate упал"), "route smoke must require visible source owner write live route heading");
-assert(routeSmoke.includes('data-expected-command-count=\\"89\\"'), "route smoke must require updated Web build command count");
+assert(routeSmoke.includes('data-expected-command-count=\\"90\\"'), "route smoke must require updated Web build command count");
 
 if (failures.length > 0) {
   console.error("FAIL source owner receipt write live route failure copy");
