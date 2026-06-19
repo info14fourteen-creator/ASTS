@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить web build workflow docs failure copy", "закрепить Web build workflow docs guard в `/plan`"],
-  ["2", "Добавить AI review queue workflow docs failure copy", "закрепить queue docs workflow guard в `/ai-review`"],
-  ["3", "Добавить source connectors workflow docs failure copy", "закрепить connectors docs workflow guard в `/sources`"],
-  ["4", "Добавить shared validation live docs workflow copy", "закрепить shared docs live-workflow guard в `/plan`"],
+  ["1", "Добавить AI review queue workflow docs failure copy", "закрепить queue docs workflow guard в `/ai-review`"],
+  ["2", "Добавить source connectors workflow docs failure copy", "закрепить connectors docs workflow guard в `/sources`"],
+  ["3", "Добавить shared validation live docs workflow copy", "закрепить shared docs live-workflow guard в `/plan`"],
+  ["4", "Добавить web build live docs workflow copy", "закрепить Web build docs live-workflow guard в `/plan`"],
 ];
 
 const cycleRules = [
@@ -2724,6 +2724,34 @@ const webBuildDocsRenderedRouteFailureCopy = {
     ["Fix order", "сначала восстановить web-build-workflow-docs-deep-link, затем route smoke expectations"],
     ["Owner", "Frontend owner подтверждает `/plan`, CI owner подтверждает workflow YAML, QA owner подтверждает route smoke"],
     ["No merge", "не мержить, пока Web build workflow docs link снова не проходит rendered route coverage"],
+  ],
+};
+
+const webBuildWorkflowDocsFailureCopy = {
+  command: webBuildLiveRouteGateNote.routeSmokeCommand,
+  docsHref: webBuildWorkflowDocsDeepLink.docsHref,
+  docsMarkerSelector: "[data-testid='web-build-workflow-docs-deep-link']",
+  expectedCommandCount: webBuildWorkflowDocsDeepLink.expectedCommandCount,
+  expectedRouteCount: webBuildRenderedRouteFailureCopy.expectedRouteCount,
+  failingCommand: webBuildFailureCopy.failingCommand,
+  linkSelector: "[data-testid='web-build-workflow-docs-deep-link-anchor']",
+  noMergeCopy:
+    "Не мержить, пока Web build failure copy и workflow YAML docs deep-link снова согласованы на живом `/plan`",
+  ownerRole: "Frontend owner + CI owner + Docs owner + QA owner",
+  repairTargets:
+    "/plan,.github/workflows/web-build.yml,apps/web/scripts/smoke.mjs,[data-testid='web-build-workflow-docs-deep-link']",
+  sourceMarkerSelector: "[data-testid='web-build-failure-copy']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: webBuildWorkflowFileSmoke.workflowPath,
+  checks: [
+    ["Symptom", "workflow failure copy есть, но `/plan` потерял Web build workflow YAML href или docs anchor"],
+    ["Fix order", "сначала восстановить web-build-failure-copy, затем web-build-workflow-docs-deep-link"],
+    [
+      "Owner",
+      "Frontend owner подтверждает `/plan`, CI owner подтверждает workflow path, Docs owner подтверждает YAML deep-link",
+    ],
+    ["No merge", "не мержить, пока Web build workflow docs guard снова не проходит route coverage"],
   ],
 };
 
@@ -7534,6 +7562,48 @@ export default function PlanPage() {
                   {title === "No merge"
                     ? webBuildDocsRenderedRouteFailureCopy.noMergeCopy
                     : webBuildDocsRenderedRouteFailureCopy.workflowPath}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-command={webBuildWorkflowDocsFailureCopy.command}
+          data-docs-href={webBuildWorkflowDocsFailureCopy.docsHref}
+          data-docs-marker-selector={webBuildWorkflowDocsFailureCopy.docsMarkerSelector}
+          data-expected-command-count={webBuildWorkflowDocsFailureCopy.expectedCommandCount}
+          data-expected-route-count={webBuildWorkflowDocsFailureCopy.expectedRouteCount}
+          data-failing-command={webBuildWorkflowDocsFailureCopy.failingCommand}
+          data-link-selector={webBuildWorkflowDocsFailureCopy.linkSelector}
+          data-no-merge-copy={webBuildWorkflowDocsFailureCopy.noMergeCopy}
+          data-owner-role={webBuildWorkflowDocsFailureCopy.ownerRole}
+          data-repair-targets={webBuildWorkflowDocsFailureCopy.repairTargets}
+          data-source-marker-selector={webBuildWorkflowDocsFailureCopy.sourceMarkerSelector}
+          data-testid="web-build-workflow-docs-failure-copy"
+          data-workflow-href={webBuildWorkflowDocsFailureCopy.workflowHref}
+          data-workflow-name={webBuildWorkflowDocsFailureCopy.workflowName}
+          data-workflow-path={webBuildWorkflowDocsFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Web build workflow docs failure copy</p>
+              <h2>Что делать, если Web build workflow docs drift упал</h2>
+            </div>
+            <a className="primary-link" href={webBuildWorkflowDocsFailureCopy.workflowHref}>
+              {webBuildWorkflowDocsFailureCopy.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {webBuildWorkflowDocsFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? webBuildWorkflowDocsFailureCopy.noMergeCopy
+                    : webBuildWorkflowDocsFailureCopy.workflowPath}
                 </strong>
                 <p>{text}</p>
               </article>

@@ -133,3 +133,5 @@
 163. [done 2026-06-20] Добавить source connectors route smoke docs failure copy: закрепить owner-friendly guard для Source Connectors Contract docs deep-link в rendered route smoke.
 
 164. [done 2026-06-20] Добавить shared validation workflow docs failure copy: закрепить owner-friendly guard для связки Shared validation workflow failure copy и shared README docs deep-link в rendered route smoke.
+
+165. [done 2026-06-20] Добавить web build workflow docs failure copy: закрепить owner-friendly guard для связки Web build workflow failure copy и Web build workflow YAML docs deep-link в rendered route smoke.
