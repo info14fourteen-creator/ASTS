@@ -113,3 +113,5 @@
 153. [done 2026-06-19] Добавить source freshness write API docs deep-link copy: закрепить freshness write draft API README deep-link на `/sources` и в source receipt docs-link smoke.
 
 154. [done 2026-06-19] Добавить EIS real-network approval API docs deep-link copy: закрепить EIS approval API README deep-link на `/sources` и в EIS approval smoke.
+
+155. [done 2026-06-19] Добавить FNS real-network approval API docs deep-link copy: закрепить FNS approval API README deep-link на `/sources` и в FNS approval smoke.

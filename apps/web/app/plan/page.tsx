@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить FNS real-network approval API docs deep-link copy", "закрепить approval docs link в `/sources`"],
-  ["2", "Добавить shared validation API docs deep-link copy", "закрепить shared docs link в `/plan`"],
-  ["3", "Добавить web build workflow API docs deep-link copy", "закрепить Web build docs link в `/plan`"],
-  ["4", "Добавить AI review queue API docs deep-link copy", "закрепить review queue docs link в `/ai-review`"],
+  ["1", "Добавить shared validation API docs deep-link copy", "закрепить shared docs link в `/plan`"],
+  ["2", "Добавить web build workflow API docs deep-link copy", "закрепить Web build docs link в `/plan`"],
+  ["3", "Добавить AI review queue API docs deep-link copy", "закрепить review queue docs link в `/ai-review`"],
+  ["4", "Добавить source connectors API docs deep-link copy", "закрепить connectors docs link в `/sources`"],
 ];
 
 const cycleRules = [

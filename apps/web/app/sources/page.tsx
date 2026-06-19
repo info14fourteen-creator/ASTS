@@ -131,6 +131,22 @@ const fnsRealNetworkSmokeGate = {
   requiredApprovals: fnsConnectorGate.required_approvals,
   approvalApiCopy: fnsConnectorGate.approval_api_copy,
 };
+const fnsRealNetworkApprovalDocsDeepLink = {
+  route: "/sources",
+  apiRoute: fnsRealNetworkSmokeGate.approvalApiCopy.route,
+  docsHref:
+    "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#fns-real-network-approval-api-copy",
+  expectedApprovalCount: fnsRealNetworkSmokeGate.requiredApprovals.length,
+  owner: fnsRealNetworkSmokeGate.owner,
+  status: fnsRealNetworkSmokeGate.status,
+  sourceMarkerSelector: "[data-testid='fns-real-network-approval-api-copy']",
+  checks: [
+    ["Locate", "найти FNS approval marker и docs deep-link на `/sources`"],
+    ["Assert href", "сверить ссылку на API README FNS approval anchor"],
+    ["Assert approvals", "подтвердить 5 Legal approvals до real-network smoke"],
+    ["Assert copy", "оставить visible link copy рядом с FNS approval gate"],
+  ],
+};
 
 const fnsNetworkGateBrowserLoop = {
   route: "/sources",
@@ -610,6 +626,43 @@ export default function SourcesPage() {
                 <strong>{approval}</strong>
                 <p>{fnsRealNetworkSmokeGate.ciPolicy}</p>
                 <em>{fnsRealNetworkSmokeGate.owner}</em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-api-route={fnsRealNetworkApprovalDocsDeepLink.apiRoute}
+          data-docs-href={fnsRealNetworkApprovalDocsDeepLink.docsHref}
+          data-expected-approval-count={fnsRealNetworkApprovalDocsDeepLink.expectedApprovalCount}
+          data-owner={fnsRealNetworkApprovalDocsDeepLink.owner}
+          data-route={fnsRealNetworkApprovalDocsDeepLink.route}
+          data-source-marker-selector={fnsRealNetworkApprovalDocsDeepLink.sourceMarkerSelector}
+          data-status={fnsRealNetworkApprovalDocsDeepLink.status}
+          data-testid="fns-real-network-approval-docs-deep-link"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">FNS real-network approval API docs deep-link</p>
+              <h2>Где проверять Legal approval gate для сетевого FNS smoke</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-api-route={fnsRealNetworkApprovalDocsDeepLink.apiRoute}
+              data-owner={fnsRealNetworkApprovalDocsDeepLink.owner}
+              data-testid="fns-real-network-approval-docs-deep-link-anchor"
+              href={fnsRealNetworkApprovalDocsDeepLink.docsHref}
+            >
+              API README / FNS approval gate
+            </a>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {fnsRealNetworkApprovalDocsDeepLink.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>{fnsRealNetworkApprovalDocsDeepLink.sourceMarkerSelector}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>

@@ -73,6 +73,22 @@ assert(sourcesPage.includes("data-approval-api-route={fnsRealNetworkSmokeGate.ap
 assert(sourcesPage.includes("data-approval-api-no-merge-copy={fnsRealNetworkSmokeGate.approvalApiCopy.no_merge_copy}"), "/sources must expose no-merge copy");
 assert(sourcesPage.includes("fnsRealNetworkSmokeGate.approvalApiCopy.request_copy"), "/sources must render request copy");
 assert(sourcesPage.includes("fnsRealNetworkSmokeGate.approvalApiCopy.blocked_copy"), "/sources must render blocked copy");
+assert(
+  sourcesPage.includes('data-testid="fns-real-network-approval-docs-deep-link"'),
+  "/sources must expose FNS approval docs deep-link marker",
+);
+assert(
+  sourcesPage.includes('data-testid="fns-real-network-approval-docs-deep-link-anchor"'),
+  "/sources must expose FNS approval docs deep-link anchor",
+);
+assert(
+  sourcesPage.includes("fnsRealNetworkApprovalDocsDeepLink.docsHref"),
+  "/sources must bind FNS approval docs href from deep-link data",
+);
+assert(
+  sourcesPage.includes("fnsRealNetworkApprovalDocsDeepLink.expectedApprovalCount"),
+  "/sources must expose FNS approval docs expected approval count",
+);
 
 assert(planPage.includes(expectedPlanMarker), "/plan must expose FNS approval API copy marker");
 assert(planPage.includes(expectedCommand), "/plan must expose FNS approval API copy command");
@@ -86,6 +102,15 @@ assert(routeSmoke.includes(`data-command=\\"${expectedCommand}\\"`), "route smok
 assert(routeSmoke.includes(`data-docs-href=\\"${expectedDocsHref}\\"`), "route smoke must require FNS approval API docs href");
 assert(routeSmoke.includes(`data-no-merge-copy=\\"${expectedNoMergeCopy}\\"`), "route smoke must require FNS approval API no-merge copy");
 assert(routeSmoke.includes("Request Legal approval before enabling real FNS network smoke."), "route smoke must require visible request copy");
+assert(
+  routeSmoke.includes('data-testid=\\"fns-real-network-approval-docs-deep-link\\"'),
+  "route smoke must require FNS approval docs deep-link marker",
+);
+assert(
+  routeSmoke.includes(`href=\\"${expectedDocsHref}\\"`),
+  "route smoke must require FNS approval docs deep-link href",
+);
+assert(routeSmoke.includes("API README / FNS approval gate"), "route smoke must require visible FNS docs link copy");
 
 assert(workflow.includes(`name: ${expectedWorkflowName}`), "workflow must keep Web build name");
 assert(workflow.includes(`run: ${expectedCommand}`), "Web build must run FNS approval API copy smoke");
