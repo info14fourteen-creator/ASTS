@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить shared validation API docs deep-link copy", "закрепить shared docs link в `/plan`"],
-  ["2", "Добавить web build workflow API docs deep-link copy", "закрепить Web build docs link в `/plan`"],
-  ["3", "Добавить AI review queue API docs deep-link copy", "закрепить review queue docs link в `/ai-review`"],
-  ["4", "Добавить source connectors API docs deep-link copy", "закрепить connectors docs link в `/sources`"],
+  ["1", "Добавить web build workflow API docs deep-link copy", "закрепить Web build docs link в `/plan`"],
+  ["2", "Добавить AI review queue API docs deep-link copy", "закрепить review queue docs link в `/ai-review`"],
+  ["3", "Добавить source connectors API docs deep-link copy", "закрепить connectors docs link в `/sources`"],
+  ["4", "Добавить shared validation route smoke docs failure copy", "закрепить shared docs drift guard в `/plan`"],
 ];
 
 const cycleRules = [
@@ -285,6 +285,23 @@ const sharedValidationRenderedRouteFailureCopy = {
     ["Fix order", "сначала восстановить shared validation failure copy, затем route smoke expectations и 16 rendered routes"],
     ["Owner", "Schema owner подтверждает 14 shared checks, QA owner подтверждает живой route coverage"],
     ["No merge", "не мержить, пока shared validation markers снова не проходят rendered routes smoke"],
+  ],
+};
+
+const sharedValidationDocsDeepLink = {
+  docsHref: schemaDocsHref,
+  expectedCheckCount: sharedValidationBrowserLoop.checkCount,
+  linkSelector: "[data-testid='schema-docs-link']",
+  readmePath: "packages/shared/README.md",
+  route: "/plan",
+  sourceMarkerSelector: "[data-testid='shared-validation-rendered-route-failure-copy']",
+  workflowName: "Shared validation",
+  workflowPath: ".github/workflows/shared-validation.yml",
+  checks: [
+    ["Docs href", "держать явный deep-link на shared schema index рядом с shared validation gate"],
+    ["Source marker", "связывать docs link с rendered-route failure marker"],
+    ["Check count", "подтверждать 14 shared checks перед merge"],
+    ["Route smoke", "rendered routes smoke должен видеть link selector, href и README path"],
   ],
 };
 
@@ -3186,6 +3203,43 @@ export default function PlanPage() {
                     ? sharedValidationRenderedRouteFailureCopy.noMergeCopy
                     : sharedValidationRenderedRouteFailureCopy.failingCommand}
                 </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-docs-href={sharedValidationDocsDeepLink.docsHref}
+          data-expected-check-count={sharedValidationDocsDeepLink.expectedCheckCount}
+          data-link-selector={sharedValidationDocsDeepLink.linkSelector}
+          data-readme-path={sharedValidationDocsDeepLink.readmePath}
+          data-route={sharedValidationDocsDeepLink.route}
+          data-source-marker-selector={sharedValidationDocsDeepLink.sourceMarkerSelector}
+          data-testid="shared-validation-docs-deep-link"
+          data-workflow-name={sharedValidationDocsDeepLink.workflowName}
+          data-workflow-path={sharedValidationDocsDeepLink.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Shared validation API docs deep-link</p>
+              <h2>Где проверять shared schema docs gate</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-link-selector={sharedValidationDocsDeepLink.linkSelector}
+              data-testid="shared-validation-docs-deep-link-anchor"
+              href={sharedValidationDocsDeepLink.docsHref}
+            >
+              Shared README / schema index
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sharedValidationDocsDeepLink.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>{sharedValidationDocsDeepLink.readmePath}</strong>
                 <p>{text}</p>
               </article>
             ))}
