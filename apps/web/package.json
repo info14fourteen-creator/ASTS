@@ -25,6 +25,7 @@
     "smoke:ai-review-receipt-write-live-route-workflow-copy": "node scripts/ai-review-receipt-write-live-route-workflow-copy.mjs",
     "smoke:ai-review-receipt-write-live-route-docs-copy": "node scripts/ai-review-receipt-write-live-route-docs-copy.mjs",
     "smoke:ai-review-receipt-write-live-route-readme-trigger-copy": "node scripts/ai-review-receipt-write-live-route-readme-trigger-copy.mjs",
+    "smoke:ai-review-receipt-write-live-route-readme-rendered-copy": "node scripts/ai-review-receipt-write-live-route-readme-rendered-copy.mjs",
     "smoke:ai-review-receipt-write-workflow-failure-copy": "node scripts/ai-review-receipt-write-workflow-failure-copy.mjs",
     "smoke:ai-review-receipt-write-docs-failure-copy": "node scripts/ai-review-receipt-write-docs-failure-copy.mjs",
     "smoke:ai-review-receipt-write-smoke-failure-copy": "node scripts/ai-review-receipt-write-smoke-failure-copy.mjs",
