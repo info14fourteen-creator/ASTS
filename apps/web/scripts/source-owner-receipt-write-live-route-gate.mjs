@@ -89,7 +89,7 @@ assert(routeSmoke.includes(`data-route-smoke-command=\\"${expectedRouteSmokeComm
 assert(routeSmoke.includes(`data-source-smoke-command=\\"${expectedSourceCommand}\\"`), "route smoke must require source owner write source command");
 assert(routeSmoke.includes('data-expected-request-field-count=\\"10\\"'), "route smoke must require source owner write request field count");
 assert(routeSmoke.includes('data-expected-route-count=\\"16\\"'), "route smoke must require rendered route count");
-assert(routeSmoke.includes('data-expected-command-count=\\"97\\"'), "route smoke must require updated Web build command count");
+assert(routeSmoke.includes('data-expected-command-count=\\"98\\"'), "route smoke must require updated Web build command count");
 
 if (failures.length > 0) {
   console.error("FAIL source owner receipt write live route gate");

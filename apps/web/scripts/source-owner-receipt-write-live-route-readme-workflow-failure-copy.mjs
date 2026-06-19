@@ -109,7 +109,7 @@ assert(
   routeSmoke.includes("Что делать, если source owner README workflow failure guard упал"),
   "route smoke must require visible source owner README workflow failure heading",
 );
-assert(routeSmoke.includes('data-expected-command-count=\\"97\\"'), "route smoke must require updated Web build command count");
+assert(routeSmoke.includes('data-expected-command-count=\\"98\\"'), "route smoke must require updated Web build command count");
 
 if (failures.length > 0) {
   console.error("FAIL source owner receipt write live route README workflow failure copy");
