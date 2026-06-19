@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить AI review receipt write live-route README workflow copy", "закрепить rendered copy в Web build order"],
-  ["2", "Добавить source freshness write live-route README workflow copy", "закрепить rendered copy в Web build order"],
-  ["3", "Добавить EIS real-network approval live-route README workflow copy", "закрепить rendered copy в Web build order"],
-  ["4", "Добавить source owner receipt write live-route README workflow failure copy", "закрепить README workflow copy в failure guard"],
+  ["1", "Добавить source freshness write live-route README workflow copy", "закрепить rendered copy в Web build order"],
+  ["2", "Добавить EIS real-network approval live-route README workflow copy", "закрепить rendered copy в Web build order"],
+  ["3", "Добавить source owner receipt write live-route README workflow failure copy", "закрепить README workflow copy в failure guard"],
+  ["4", "Добавить AI review receipt write live-route README workflow failure copy", "закрепить README workflow copy в failure guard"],
 ];
 
 const cycleRules = [
@@ -836,6 +836,33 @@ const aiReviewReceiptWriteLiveRouteReadmeRenderedCopy = {
     ["Fix order", "сначала вернуть AI README trigger block в route smoke, затем Web build count и workflow order"],
     ["Owner", "AI workflow owner подтверждает write docs, Docs owner подтверждает README trigger copy, QA owner подтверждает rendered route smoke"],
     ["No merge", "не мержить, пока AI README trigger copy снова не защищен rendered routes"],
+  ],
+};
+
+const aiReviewReceiptWriteLiveRouteReadmeWorkflowCopy = {
+  apiRoute: aiReviewReceiptWriteLiveRouteReadmeRenderedCopy.apiRoute,
+  command: "npm run smoke:ai-review-receipt-write-live-route-readme-workflow-copy",
+  docsHref: aiReviewReceiptWriteLiveRouteReadmeRenderedCopy.docsHref,
+  expectedQueueCount: aiReviewReceiptWriteLiveRouteReadmeRenderedCopy.expectedQueueCount,
+  expectedRequestFieldCount: aiReviewReceiptWriteLiveRouteReadmeRenderedCopy.expectedRequestFieldCount,
+  expectedRouteCount: aiReviewReceiptWriteLiveRouteReadmeRenderedCopy.expectedRouteCount,
+  failingCommand: "npm run smoke:web-build-workflow",
+  noMergeCopy:
+    "Не мержить, пока Web build снова запускает AI README rendered copy перед workflow failure и shared README checks.",
+  ownerRole: "AI workflow owner + CI owner + QA owner",
+  readmeRenderedCommand: aiReviewReceiptWriteLiveRouteReadmeRenderedCopy.command,
+  repairTargets:
+    ".github/workflows/web-build.yml,/plan,apps/web/scripts/ai-review-receipt-write-live-route-readme-rendered-copy.mjs,apps/web/scripts/web-build-workflow-file.mjs",
+  sourceMarkerSelector: "[data-testid='ai-review-receipt-write-live-route-readme-rendered-copy']",
+  workflowFailureCommand: aiReviewReceiptWriteWorkflowFailureCopy.command,
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "AI README rendered copy есть на `/plan`, но Web build не держит его перед workflow failure copy"],
+    ["Fix order", "сначала восстановить AI README rendered copy, затем README workflow copy и только потом workflow failure copy"],
+    ["Owner", "AI workflow owner подтверждает README rendered copy, CI owner подтверждает порядок Web build, QA owner подтверждает route smoke"],
+    ["No merge", "не мержить, пока AI README workflow order снова не защищает rendered copy"],
   ],
 };
 
@@ -2239,7 +2266,7 @@ const ownerReceiptDocsRenderedRouteFailureCopy = {
 
 const webBuildWorkflowFileSmoke = {
   command: "npm run smoke:web-build-workflow",
-  expectedCommandCount: 92,
+  expectedCommandCount: 93,
   expectedPathCount: 7,
   nodeVersion: "22",
   smokeCommand: "cd apps/web && npm run smoke:web-build-workflow",
@@ -2263,6 +2290,7 @@ const webBuildWorkflowFileSmoke = {
     "[data-testid='ai-review-receipt-write-live-route-docs-copy']",
     "[data-testid='ai-review-receipt-write-live-route-readme-trigger-copy']",
     "[data-testid='ai-review-receipt-write-live-route-readme-rendered-copy']",
+    "[data-testid='ai-review-receipt-write-live-route-readme-workflow-copy']",
     "[data-testid='ai-review-receipt-write-workflow-failure-copy']",
     "[data-testid='api-readme-live-route-gate-note']",
     "[data-testid='api-readme-live-route-failure-copy']",
@@ -2337,7 +2365,7 @@ const webBuildWorkflowFileSmoke = {
   checks: [
     ["Workflow file", "проверяет Web build name, triggers, Node 22 и working-directory"],
     ["Paths", "сверяет 7 trigger paths, включая API README, shared README и сам workflow"],
-    ["Commands", "сверяет 92 build/smoke commands, включая live route smoke"],
+    ["Commands", "сверяет 93 build/smoke commands, включая live route smoke"],
     ["Plan notes", "требует все CI-note markers на `/plan`, чтобы merge gate был видимым"],
   ],
 };
@@ -3963,6 +3991,55 @@ export default function PlanPage() {
                   {title === "No merge"
                     ? aiReviewReceiptWriteLiveRouteReadmeRenderedCopy.noMergeCopy
                     : aiReviewReceiptWriteLiveRouteReadmeRenderedCopy.readmeTriggerCommand}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-api-route={aiReviewReceiptWriteLiveRouteReadmeWorkflowCopy.apiRoute}
+          data-command={aiReviewReceiptWriteLiveRouteReadmeWorkflowCopy.command}
+          data-docs-href={aiReviewReceiptWriteLiveRouteReadmeWorkflowCopy.docsHref}
+          data-expected-queue-count={aiReviewReceiptWriteLiveRouteReadmeWorkflowCopy.expectedQueueCount}
+          data-expected-request-field-count={aiReviewReceiptWriteLiveRouteReadmeWorkflowCopy.expectedRequestFieldCount}
+          data-expected-route-count={aiReviewReceiptWriteLiveRouteReadmeWorkflowCopy.expectedRouteCount}
+          data-failing-command={aiReviewReceiptWriteLiveRouteReadmeWorkflowCopy.failingCommand}
+          data-no-merge-copy={aiReviewReceiptWriteLiveRouteReadmeWorkflowCopy.noMergeCopy}
+          data-owner-role={aiReviewReceiptWriteLiveRouteReadmeWorkflowCopy.ownerRole}
+          data-readme-rendered-command={aiReviewReceiptWriteLiveRouteReadmeWorkflowCopy.readmeRenderedCommand}
+          data-repair-targets={aiReviewReceiptWriteLiveRouteReadmeWorkflowCopy.repairTargets}
+          data-source-marker-selector={aiReviewReceiptWriteLiveRouteReadmeWorkflowCopy.sourceMarkerSelector}
+          data-testid="ai-review-receipt-write-live-route-readme-workflow-copy"
+          data-workflow-failure-command={aiReviewReceiptWriteLiveRouteReadmeWorkflowCopy.workflowFailureCommand}
+          data-workflow-href={aiReviewReceiptWriteLiveRouteReadmeWorkflowCopy.workflowHref}
+          data-workflow-name={aiReviewReceiptWriteLiveRouteReadmeWorkflowCopy.workflowName}
+          data-workflow-path={aiReviewReceiptWriteLiveRouteReadmeWorkflowCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review receipt write live-route README workflow copy</p>
+              <h2>Что делать, если AI README workflow order упал</h2>
+            </div>
+            <div className="panel-actions">
+              <a className="primary-link" href={aiReviewReceiptWriteLiveRouteReadmeWorkflowCopy.workflowHref}>
+                {aiReviewReceiptWriteLiveRouteReadmeWorkflowCopy.workflowName}
+              </a>
+              <a className="primary-link" href={aiReviewReceiptWriteLiveRouteReadmeWorkflowCopy.docsHref}>
+                API contract
+              </a>
+            </div>
+          </div>
+          <div className="fixture-coverage-grid">
+            {aiReviewReceiptWriteLiveRouteReadmeWorkflowCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? aiReviewReceiptWriteLiveRouteReadmeWorkflowCopy.noMergeCopy
+                    : aiReviewReceiptWriteLiveRouteReadmeWorkflowCopy.readmeRenderedCommand}
                 </strong>
                 <p>{text}</p>
               </article>
