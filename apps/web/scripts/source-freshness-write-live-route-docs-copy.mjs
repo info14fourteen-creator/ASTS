@@ -104,7 +104,7 @@ assert(
   "route smoke must require freshness live route docs no-merge copy",
 );
 assert(routeSmoke.includes("Что делать, если freshness live-route docs copy упал"), "route smoke must require visible freshness docs copy heading");
-assert(routeSmoke.includes('data-expected-command-count=\\"94\\"'), "route smoke must require updated Web build command count");
+assert(routeSmoke.includes('data-expected-command-count=\\"95\\"'), "route smoke must require updated Web build command count");
 
 if (failures.length > 0) {
   console.error("FAIL source freshness write live route docs copy");
