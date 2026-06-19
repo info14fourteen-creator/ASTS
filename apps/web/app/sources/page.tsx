@@ -173,6 +173,22 @@ const sourceOwnerReceiptHistory = sourceOwnerReceiptsFixture.history.map((receip
 }));
 
 const sourceOwnerReceiptWriteContract = sourceOwnerReceiptsFixture.write_contract;
+const sourceOwnerReceiptWriteDocsDeepLink = {
+  route: "/sources",
+  apiRoute: sourceOwnerReceiptWriteContract.route,
+  docsHref:
+    "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#source-owner-receipt-write-api-draft",
+  expectedRequestFieldCount: sourceOwnerReceiptWriteContract.request_schema.length,
+  method: sourceOwnerReceiptWriteContract.method,
+  status: sourceOwnerReceiptWriteContract.status,
+  sourceMarkerSelector: "[data-testid='source-owner-receipt-write-api-draft']",
+  checks: [
+    ["Locate", "найти write draft marker и docs deep-link на `/sources`"],
+    ["Assert href", "сверить ссылку на API README write draft anchor"],
+    ["Assert contract", "подтвердить POST draft, 10 request fields и idempotency key"],
+    ["Assert copy", "оставить visible link copy рядом с write draft, а не только в `/plan`"],
+  ],
+};
 
 const sourceFreshnessWriteContract = {
   route: "/v1/sources/freshness",
@@ -841,6 +857,43 @@ export default function SourcesPage() {
               <p>{sourceOwnerReceiptWriteContract.blocked_copy}</p>
               <em>{sourceOwnerReceiptWriteContract.no_merge_copy}</em>
             </article>
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-api-route={sourceOwnerReceiptWriteDocsDeepLink.apiRoute}
+          data-docs-href={sourceOwnerReceiptWriteDocsDeepLink.docsHref}
+          data-expected-request-field-count={sourceOwnerReceiptWriteDocsDeepLink.expectedRequestFieldCount}
+          data-method={sourceOwnerReceiptWriteDocsDeepLink.method}
+          data-route={sourceOwnerReceiptWriteDocsDeepLink.route}
+          data-source-marker-selector={sourceOwnerReceiptWriteDocsDeepLink.sourceMarkerSelector}
+          data-status={sourceOwnerReceiptWriteDocsDeepLink.status}
+          data-testid="source-owner-receipt-write-docs-deep-link"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source owner receipt write API docs deep-link</p>
+              <h2>Где проверять контракт будущей записи receipt</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-api-route={sourceOwnerReceiptWriteDocsDeepLink.apiRoute}
+              data-method={sourceOwnerReceiptWriteDocsDeepLink.method}
+              data-testid="source-owner-receipt-write-docs-deep-link-anchor"
+              href={sourceOwnerReceiptWriteDocsDeepLink.docsHref}
+            >
+              API README / write draft
+            </a>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {sourceOwnerReceiptWriteDocsDeepLink.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>{sourceOwnerReceiptWriteDocsDeepLink.sourceMarkerSelector}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
           </div>
         </section>
 

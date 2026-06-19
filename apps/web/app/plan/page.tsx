@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить source owner receipt write API docs deep-link copy", "закрепить write docs link в `/sources`"],
-  ["2", "Добавить AI review receipt write API docs deep-link copy", "закрепить write docs link в `/ai-review`"],
-  ["3", "Добавить source freshness write API docs deep-link copy", "закрепить write docs link в `/sources`"],
-  ["4", "Добавить EIS real-network approval API docs deep-link copy", "закрепить approval docs link в `/sources`"],
+  ["1", "Добавить AI review receipt write API docs deep-link copy", "закрепить write docs link в `/ai-review`"],
+  ["2", "Добавить source freshness write API docs deep-link copy", "закрепить write docs link в `/sources`"],
+  ["3", "Добавить EIS real-network approval API docs deep-link copy", "закрепить approval docs link в `/sources`"],
+  ["4", "Добавить FNS real-network approval API docs deep-link copy", "закрепить approval docs link в `/sources`"],
 ];
 
 const cycleRules = [

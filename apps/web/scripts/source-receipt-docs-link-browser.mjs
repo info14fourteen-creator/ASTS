@@ -1,7 +1,11 @@
 const defaultBaseUrl = "http://127.0.0.1:4177";
 const expectedDocsHref =
   "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#source-owner-receipt-contract";
+const expectedWriteDocsHref =
+  "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#source-owner-receipt-write-api-draft";
 const expectedApiRoute = "/v1/sources/owner-receipts";
+const expectedWriteDeepLinkMarker = "source-owner-receipt-write-docs-deep-link";
+const expectedWriteDeepLinkAnchor = "source-owner-receipt-write-docs-deep-link-anchor";
 
 const baseUrl = getArgValue("--url") ?? defaultBaseUrl;
 const sourcesUrl = new URL("/sources", ensureTrailingSlash(baseUrl));
@@ -16,9 +20,13 @@ if (!response.ok) {
 const html = await response.text();
 const panel = findTag(html, "section", "source-owner-receipt-history-browser-loop");
 const link = findTagWithBody(html, "a", "source-owner-receipt-docs-link");
+const writePanel = findTag(html, "section", expectedWriteDeepLinkMarker);
+const writeLink = findTagWithBody(html, "a", expectedWriteDeepLinkAnchor);
 
 assert(panel, "source owner receipt history browser loop panel must exist");
 assert(link, "source owner receipt docs link must exist");
+assert(writePanel, "source owner receipt write docs deep-link panel must exist");
+assert(writeLink, "source owner receipt write docs deep-link anchor must exist");
 
 if (panel) {
   assert(
@@ -42,6 +50,41 @@ if (link) {
     "docs link must keep data-api-route for backend traceability",
   );
   assert(normalizeText(link.body).includes("API README / owner receipts"), "docs link text must stay visible");
+}
+
+if (writePanel) {
+  assert(
+    getAttribute(writePanel.openingTag, "data-docs-href") === expectedWriteDocsHref,
+    "write docs deep-link panel must expose the source owner receipt write docs href",
+  );
+  assert(
+    getAttribute(writePanel.openingTag, "data-api-route") === expectedApiRoute,
+    "write docs deep-link panel must expose the source owner receipts API route",
+  );
+  assert(getAttribute(writePanel.openingTag, "data-method") === "POST", "write docs deep-link panel must pin POST method");
+  assert(getAttribute(writePanel.openingTag, "data-status") === "draft", "write docs deep-link panel must pin draft status");
+  assert(
+    getAttribute(writePanel.openingTag, "data-expected-request-field-count") === "10",
+    "write docs deep-link panel must expose all 10 request fields",
+  );
+  assert(
+    getAttribute(writePanel.openingTag, "data-source-marker-selector") ===
+      "[data-testid='source-owner-receipt-write-api-draft']",
+    "write docs deep-link panel must point back to the write draft marker",
+  );
+}
+
+if (writeLink) {
+  assert(
+    getAttribute(writeLink.openingTag, "href") === expectedWriteDocsHref,
+    "write docs deep-link href must target API README write draft anchor",
+  );
+  assert(
+    getAttribute(writeLink.openingTag, "data-api-route") === expectedApiRoute,
+    "write docs deep-link must keep data-api-route for backend traceability",
+  );
+  assert(getAttribute(writeLink.openingTag, "data-method") === "POST", "write docs deep-link must keep POST method");
+  assert(normalizeText(writeLink.body).includes("API README / write draft"), "write docs link text must stay visible");
 }
 
 if (failures.length > 0) {
