@@ -125,3 +125,5 @@
 159. [done 2026-06-19] Добавить source connectors API docs deep-link copy: закрепить Source Connectors Contract deep-link на `/sources` и в live docs-link smoke.
 
 160. [done 2026-06-19] Добавить shared validation route smoke docs failure copy: закрепить owner-friendly guard для shared validation docs deep-link в rendered route smoke.
+
+161. [done 2026-06-20] Добавить web build route smoke docs failure copy: закрепить owner-friendly guard для Web build workflow docs deep-link в rendered route smoke.
