@@ -127,3 +127,5 @@
 160. [done 2026-06-19] Добавить shared validation route smoke docs failure copy: закрепить owner-friendly guard для shared validation docs deep-link в rendered route smoke.
 
 161. [done 2026-06-20] Добавить web build route smoke docs failure copy: закрепить owner-friendly guard для Web build workflow docs deep-link в rendered route smoke.
+
+162. [done 2026-06-20] Добавить AI review queue route smoke docs failure copy: закрепить owner-friendly guard для AI review queue docs deep-link в rendered route smoke.

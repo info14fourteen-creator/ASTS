@@ -147,6 +147,31 @@ const aiReviewQueueDocsDeepLink = {
   ],
 };
 
+const aiReviewQueueDocsRenderedRouteFailureCopy = {
+  route: aiReviewQueueDocsDeepLink.route,
+  apiRoute: aiReviewQueueDocsDeepLink.apiRoute,
+  command: "npm run smoke -- --url http://127.0.0.1:4177/",
+  docsHref: aiReviewQueueDocsDeepLink.docsHref,
+  expectedOwnerCount: aiReviewQueueDocsDeepLink.expectedOwnerCount,
+  expectedRouteCount: 16,
+  expectedRuleCount: aiReviewQueueDocsDeepLink.expectedRuleCount,
+  failingCommand: "npm run smoke -- --url http://127.0.0.1:4177/",
+  linkSelector: "[data-testid='ai-review-queue-docs-deep-link-anchor']",
+  noMergeCopy:
+    "Не мержить, пока rendered routes smoke снова подтверждает AI review queue docs deep-link на живом `/ai-review`",
+  ownerRole: "AI workflow owner + API owner + QA owner",
+  repairTargets:
+    "/ai-review,apps/api/README.md#ai-review-queue-contract,apps/web/scripts/smoke.mjs,[data-testid='ai-review-queue-docs-deep-link']",
+  sourceMarkerSelector: "[data-testid='ai-review-queue-docs-deep-link']",
+  status: aiReviewQueueDocsDeepLink.status,
+  checks: [
+    ["Symptom", "rendered routes проходят частично, но `/ai-review` потерял AI review queue README href или docs anchor"],
+    ["Fix order", "сначала восстановить ai-review-queue-docs-deep-link, затем route smoke expectations"],
+    ["Owner", "AI workflow owner подтверждает queue copy, API owner подтверждает README anchor, QA owner подтверждает `/ai-review`"],
+    ["No merge", "не мержить, пока AI review queue docs link снова не проходит rendered route coverage"],
+  ],
+};
+
 const aiReviewReceiptWriteContract = aiReviewQueueFixture.write_contract;
 const aiReviewReceiptWriteDocsDeepLink = {
   route: "/ai-review",
@@ -488,6 +513,48 @@ export default function AiReviewPage() {
               <article key={title}>
                 <span>{title}</span>
                 <strong>{aiReviewQueueDocsDeepLink.sourceMarkerSelector}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel ai-confidence-browser-loop-panel"
+          data-api-route={aiReviewQueueDocsRenderedRouteFailureCopy.apiRoute}
+          data-command={aiReviewQueueDocsRenderedRouteFailureCopy.command}
+          data-docs-href={aiReviewQueueDocsRenderedRouteFailureCopy.docsHref}
+          data-expected-owner-count={aiReviewQueueDocsRenderedRouteFailureCopy.expectedOwnerCount}
+          data-expected-route-count={aiReviewQueueDocsRenderedRouteFailureCopy.expectedRouteCount}
+          data-expected-rule-count={aiReviewQueueDocsRenderedRouteFailureCopy.expectedRuleCount}
+          data-failing-command={aiReviewQueueDocsRenderedRouteFailureCopy.failingCommand}
+          data-link-selector={aiReviewQueueDocsRenderedRouteFailureCopy.linkSelector}
+          data-no-merge-copy={aiReviewQueueDocsRenderedRouteFailureCopy.noMergeCopy}
+          data-owner-role={aiReviewQueueDocsRenderedRouteFailureCopy.ownerRole}
+          data-repair-targets={aiReviewQueueDocsRenderedRouteFailureCopy.repairTargets}
+          data-route={aiReviewQueueDocsRenderedRouteFailureCopy.route}
+          data-source-marker-selector={aiReviewQueueDocsRenderedRouteFailureCopy.sourceMarkerSelector}
+          data-status={aiReviewQueueDocsRenderedRouteFailureCopy.status}
+          data-testid="ai-review-queue-docs-rendered-route-failure-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review queue docs rendered-route failure copy</p>
+              <h2>Что делать, если AI review queue docs пропали в rendered routes</h2>
+            </div>
+            <a className="primary-link" href={aiReviewQueueDocsRenderedRouteFailureCopy.docsHref}>
+              API README / AI review queue
+            </a>
+          </div>
+          <div className="ai-confidence-browser-loop-grid">
+            {aiReviewQueueDocsRenderedRouteFailureCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? aiReviewQueueDocsRenderedRouteFailureCopy.noMergeCopy
+                    : aiReviewQueueDocsRenderedRouteFailureCopy.sourceMarkerSelector}
+                </strong>
                 <p>{text}</p>
               </article>
             ))}
