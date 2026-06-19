@@ -148,6 +148,24 @@ const fnsRealNetworkApprovalDocsDeepLink = {
   ],
 };
 
+const sourceConnectorsDocsDeepLink = {
+  route: "/sources",
+  apiRoute: "/v1/sources/connectors",
+  docsHref:
+    "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#source-connectors-contract",
+  expectedConnectorCount: 2,
+  expectedNetworkDisabledCount: 2,
+  connectorIds: ["eis-zakupki-gov-ru", fnsReadiness.connectorId],
+  mode: "contract_only",
+  sourceMarkerSelector: "[data-testid='fns-connector-browser-loop']",
+  checks: [
+    ["Locate", "найти connectors browser-loop и docs deep-link на `/sources`"],
+    ["Assert href", "сверить ссылку на API README Source Connectors Contract"],
+    ["Assert registry", "подтвердить 2 contract-only коннектора без network_enabled"],
+    ["Assert copy", "оставить visible link copy рядом с source connector gates"],
+  ],
+};
+
 const fnsNetworkGateBrowserLoop = {
   route: "/sources",
   apiRoute: "/v1/sources/connectors",
@@ -503,6 +521,43 @@ export default function SourcesPage() {
                 <strong>{capability}</strong>
                 <p>{text}</p>
                 <em>{fnsReadiness.rawTemplate}</em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-api-route={sourceConnectorsDocsDeepLink.apiRoute}
+          data-connector-ids={sourceConnectorsDocsDeepLink.connectorIds.join(",")}
+          data-docs-href={sourceConnectorsDocsDeepLink.docsHref}
+          data-expected-connector-count={sourceConnectorsDocsDeepLink.expectedConnectorCount}
+          data-expected-network-disabled-count={sourceConnectorsDocsDeepLink.expectedNetworkDisabledCount}
+          data-mode={sourceConnectorsDocsDeepLink.mode}
+          data-route={sourceConnectorsDocsDeepLink.route}
+          data-source-marker-selector={sourceConnectorsDocsDeepLink.sourceMarkerSelector}
+          data-testid="source-connectors-docs-deep-link"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source connectors API docs deep-link</p>
+              <h2>Где проверять общий контракт source connectors</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-api-route={sourceConnectorsDocsDeepLink.apiRoute}
+              data-testid="source-connectors-docs-deep-link-anchor"
+              href={sourceConnectorsDocsDeepLink.docsHref}
+            >
+              API README / source connectors
+            </a>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {sourceConnectorsDocsDeepLink.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>{sourceConnectorsDocsDeepLink.sourceMarkerSelector}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>

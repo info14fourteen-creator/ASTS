@@ -5,12 +5,17 @@ const expectedWriteDocsHref =
   "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#source-owner-receipt-write-api-draft";
 const expectedFreshnessWriteDocsHref =
   "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#source-freshness-write-api-draft";
+const expectedConnectorsDocsHref =
+  "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#source-connectors-contract";
 const expectedApiRoute = "/v1/sources/owner-receipts";
 const expectedFreshnessApiRoute = "/v1/sources/freshness";
+const expectedConnectorsApiRoute = "/v1/sources/connectors";
 const expectedWriteDeepLinkMarker = "source-owner-receipt-write-docs-deep-link";
 const expectedWriteDeepLinkAnchor = "source-owner-receipt-write-docs-deep-link-anchor";
 const expectedFreshnessWriteDeepLinkMarker = "source-freshness-write-docs-deep-link";
 const expectedFreshnessWriteDeepLinkAnchor = "source-freshness-write-docs-deep-link-anchor";
+const expectedConnectorsDeepLinkMarker = "source-connectors-docs-deep-link";
+const expectedConnectorsDeepLinkAnchor = "source-connectors-docs-deep-link-anchor";
 
 const baseUrl = getArgValue("--url") ?? defaultBaseUrl;
 const sourcesUrl = new URL("/sources", ensureTrailingSlash(baseUrl));
@@ -29,6 +34,8 @@ const writePanel = findTag(html, "section", expectedWriteDeepLinkMarker);
 const writeLink = findTagWithBody(html, "a", expectedWriteDeepLinkAnchor);
 const freshnessWritePanel = findTag(html, "section", expectedFreshnessWriteDeepLinkMarker);
 const freshnessWriteLink = findTagWithBody(html, "a", expectedFreshnessWriteDeepLinkAnchor);
+const connectorsPanel = findTag(html, "section", expectedConnectorsDeepLinkMarker);
+const connectorsLink = findTagWithBody(html, "a", expectedConnectorsDeepLinkAnchor);
 
 assert(panel, "source owner receipt history browser loop panel must exist");
 assert(link, "source owner receipt docs link must exist");
@@ -36,6 +43,8 @@ assert(writePanel, "source owner receipt write docs deep-link panel must exist")
 assert(writeLink, "source owner receipt write docs deep-link anchor must exist");
 assert(freshnessWritePanel, "source freshness write docs deep-link panel must exist");
 assert(freshnessWriteLink, "source freshness write docs deep-link anchor must exist");
+assert(connectorsPanel, "source connectors docs deep-link panel must exist");
+assert(connectorsLink, "source connectors docs deep-link anchor must exist");
 
 if (panel) {
   assert(
@@ -140,6 +149,52 @@ if (freshnessWriteLink) {
   assert(
     normalizeText(freshnessWriteLink.body).includes("API README / freshness write draft"),
     "freshness write docs link text must stay visible",
+  );
+}
+
+if (connectorsPanel) {
+  assert(
+    getAttribute(connectorsPanel.openingTag, "data-docs-href") === expectedConnectorsDocsHref,
+    "source connectors docs deep-link panel must expose the connectors docs href",
+  );
+  assert(
+    getAttribute(connectorsPanel.openingTag, "data-api-route") === expectedConnectorsApiRoute,
+    "source connectors docs deep-link panel must expose the connectors API route",
+  );
+  assert(
+    getAttribute(connectorsPanel.openingTag, "data-expected-connector-count") === "2",
+    "source connectors docs panel must expose both connector contracts",
+  );
+  assert(
+    getAttribute(connectorsPanel.openingTag, "data-expected-network-disabled-count") === "2",
+    "source connectors docs panel must pin both network-disabled contracts",
+  );
+  assert(
+    getAttribute(connectorsPanel.openingTag, "data-connector-ids") === "eis-zakupki-gov-ru,fns-egrul-nalog-ru",
+    "source connectors docs panel must expose EIS and FNS connector ids",
+  );
+  assert(
+    getAttribute(connectorsPanel.openingTag, "data-mode") === "contract_only",
+    "source connectors docs panel must pin contract_only mode",
+  );
+  assert(
+    getAttribute(connectorsPanel.openingTag, "data-source-marker-selector") === "[data-testid='fns-connector-browser-loop']",
+    "source connectors docs panel must point back to the source connector browser loop marker",
+  );
+}
+
+if (connectorsLink) {
+  assert(
+    getAttribute(connectorsLink.openingTag, "href") === expectedConnectorsDocsHref,
+    "source connectors docs deep-link href must target API README connectors anchor",
+  );
+  assert(
+    getAttribute(connectorsLink.openingTag, "data-api-route") === expectedConnectorsApiRoute,
+    "source connectors docs deep-link must keep data-api-route for backend traceability",
+  );
+  assert(
+    normalizeText(connectorsLink.body).includes("API README / source connectors"),
+    "source connectors docs link text must stay visible",
   );
 }
 

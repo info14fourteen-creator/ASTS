@@ -48,6 +48,27 @@ Future FastAPI backend.
 - `python3 scripts/smoke_connectors.py` - checks `/v1/sources/connectors`, `/v1/sources/health`, `/v1/sources/freshness`, `/v1/ai/review-queue` and `/v1/handoff/owner-approval` when FastAPI dependencies are installed; prints `SKIP` locally if they are missing.
 - `requirements-smoke.txt` pins the minimal dependency set used by GitHub Actions workflow `API smoke`.
 
+## Source Connectors Contract
+
+`GET /v1/sources/connectors` is the backend registry for primary-source
+connectors that the `/sources` workdesk can inspect before AI scoring. The
+current contract exposes two contract-only connectors:
+
+- `connector_id="eis-zakupki-gov-ru"`;
+- `connector_id="fns-egrul-nalog-ru"`.
+
+Both connectors must keep `mode="contract_only"` and `network_enabled=false`
+until owner approvals, protected secrets, request limits, safe test cases,
+raw artifact checksums and freshness receipts are recorded. The response also
+keeps `source_policy="Primary-source connectors only; no aggregator as source
+of truth"` so downstream AI evidence cannot silently switch to an aggregator.
+
+The `/sources` UI links back to this section through
+`data-testid="source-connectors-docs-deep-link"` and
+`data-api-route="/v1/sources/connectors"`. Web build keeps the visible
+`API README / source connectors` copy under `npm run smoke:source-receipt-docs-link -- --url http://127.0.0.1:4177`
+so docs-only connector drift is caught on the live workdesk.
+
 ## Source Freshness Contract
 
 `GET /v1/sources/freshness` is the backend contract behind the `/sources`
