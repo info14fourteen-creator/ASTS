@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить AI review queue API docs deep-link copy", "закрепить review queue docs link в `/ai-review`"],
-  ["2", "Добавить source connectors API docs deep-link copy", "закрепить connectors docs link в `/sources`"],
-  ["3", "Добавить shared validation route smoke docs failure copy", "закрепить shared docs drift guard в `/plan`"],
-  ["4", "Добавить web build route smoke docs failure copy", "закрепить Web build docs drift guard в `/plan`"],
+  ["1", "Добавить source connectors API docs deep-link copy", "закрепить connectors docs link в `/sources`"],
+  ["2", "Добавить shared validation route smoke docs failure copy", "закрепить shared docs drift guard в `/plan`"],
+  ["3", "Добавить web build route smoke docs failure copy", "закрепить Web build docs drift guard в `/plan`"],
+  ["4", "Добавить AI review queue route smoke docs failure copy", "закрепить queue docs drift guard в `/ai-review`"],
 ];
 
 const cycleRules = [

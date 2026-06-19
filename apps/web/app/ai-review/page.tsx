@@ -131,6 +131,22 @@ const aiReviewReceiptBrowserLoop = {
   ],
 };
 
+const aiReviewQueueDocsDeepLink = {
+  route: aiReviewReceiptBrowserLoop.route,
+  apiRoute: aiReviewReceiptBrowserLoop.apiRoute,
+  docsHref: aiReviewReceiptBrowserLoop.apiHref,
+  expectedOwnerCount: aiReviewReceiptBrowserLoop.expectedOwners.length,
+  expectedRuleCount: aiReviewReceiptBrowserLoop.expectedRuleCount,
+  sourceMarkerSelector: "[data-testid='ai-review-receipt-browser-loop']",
+  status: aiReviewReceiptBrowserLoop.status,
+  checks: [
+    ["Locate", "найти queue browser-loop marker и docs deep-link на `/ai-review`"],
+    ["Assert href", "сверить ссылку на API README AI Review Queue Contract"],
+    ["Assert route", "подтвердить `/v1/ai/review-queue`, 3 owners и 3 review rules"],
+    ["Assert copy", "оставить visible link copy рядом с owner receipt browser loop"],
+  ],
+};
+
 const aiReviewReceiptWriteContract = aiReviewQueueFixture.write_contract;
 const aiReviewReceiptWriteDocsDeepLink = {
   route: "/ai-review",
@@ -436,6 +452,42 @@ export default function AiReviewPage() {
               <article key={title}>
                 <span>{title}</span>
                 <strong>{aiReviewReceiptWriteDocsDeepLink.sourceMarkerSelector}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel ai-confidence-browser-loop-panel"
+          data-api-route={aiReviewQueueDocsDeepLink.apiRoute}
+          data-docs-href={aiReviewQueueDocsDeepLink.docsHref}
+          data-expected-owner-count={aiReviewQueueDocsDeepLink.expectedOwnerCount}
+          data-expected-rule-count={aiReviewQueueDocsDeepLink.expectedRuleCount}
+          data-route={aiReviewQueueDocsDeepLink.route}
+          data-source-marker-selector={aiReviewQueueDocsDeepLink.sourceMarkerSelector}
+          data-status={aiReviewQueueDocsDeepLink.status}
+          data-testid="ai-review-queue-docs-deep-link"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review queue API docs deep-link</p>
+              <h2>Где проверять контракт очереди AI review</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-api-route={aiReviewQueueDocsDeepLink.apiRoute}
+              data-testid="ai-review-queue-docs-deep-link-anchor"
+              href={aiReviewQueueDocsDeepLink.docsHref}
+            >
+              API README / AI review queue
+            </a>
+          </div>
+          <div className="ai-confidence-browser-loop-grid">
+            {aiReviewQueueDocsDeepLink.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>{aiReviewQueueDocsDeepLink.sourceMarkerSelector}</strong>
                 <p>{text}</p>
               </article>
             ))}

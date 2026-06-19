@@ -10,6 +10,8 @@ const expectedWriteDocsHref =
 const expectedApiReadmeAnchor = "AI Review Queue Contract";
 const expectedApiRoute = "/v1/ai/review-queue";
 const expectedApiSelector = "[data-testid='ai-review-receipt-api-link']";
+const expectedQueueDeepLinkMarker = "ai-review-queue-docs-deep-link";
+const expectedQueueDeepLinkAnchor = "ai-review-queue-docs-deep-link-anchor";
 const expectedWriteDeepLinkMarker = "ai-review-receipt-write-docs-deep-link";
 const expectedWriteDeepLinkAnchor = "ai-review-receipt-write-docs-deep-link-anchor";
 
@@ -37,12 +39,16 @@ const [planHtml, aiReviewHtml] = await Promise.all([planResponse.text(), aiRevie
 const planMarker = findTag(planHtml, "section", "ai-review-schema-api-smoke-marker");
 const aiReviewLoop = findTag(aiReviewHtml, "section", "ai-review-receipt-browser-loop");
 const aiReviewLink = findTagWithBody(aiReviewHtml, "a", "ai-review-receipt-api-link");
+const queuePanel = findTag(aiReviewHtml, "section", expectedQueueDeepLinkMarker);
+const queueLink = findTagWithBody(aiReviewHtml, "a", expectedQueueDeepLinkAnchor);
 const writePanel = findTag(aiReviewHtml, "section", expectedWriteDeepLinkMarker);
 const writeLink = findTagWithBody(aiReviewHtml, "a", expectedWriteDeepLinkAnchor);
 
 assert(planMarker, "/plan AI review schema API smoke marker must exist");
 assert(aiReviewLoop, "/ai-review receipt browser loop marker must exist");
 assert(aiReviewLink, "/ai-review API README link must exist");
+assert(queuePanel, "/ai-review queue docs deep-link panel must exist");
+assert(queueLink, "/ai-review queue docs deep-link anchor must exist");
 assert(writePanel, "/ai-review receipt write docs deep-link panel must exist");
 assert(writeLink, "/ai-review receipt write docs deep-link anchor must exist");
 assert(
@@ -95,6 +101,42 @@ if (aiReviewLink) {
   assert(normalizeText(aiReviewLink.body).includes("API / AI review queue"), "/ai-review API link text must stay visible");
 }
 
+if (queuePanel) {
+  assert(
+    getAttribute(queuePanel.openingTag, "data-docs-href") === expectedApiHref,
+    "/ai-review queue docs deep-link panel must expose the AI review queue docs href",
+  );
+  assert(
+    getAttribute(queuePanel.openingTag, "data-api-route") === expectedApiRoute,
+    "/ai-review queue docs deep-link panel must expose the AI review API route",
+  );
+  assert(getAttribute(queuePanel.openingTag, "data-status") === "armed", "/ai-review queue docs panel must pin armed status");
+  assert(
+    getAttribute(queuePanel.openingTag, "data-expected-owner-count") === "3",
+    "/ai-review queue docs panel must expose all 3 owner roles",
+  );
+  assert(
+    getAttribute(queuePanel.openingTag, "data-expected-rule-count") === "3",
+    "/ai-review queue docs panel must expose all 3 review rules",
+  );
+  assert(
+    getAttribute(queuePanel.openingTag, "data-source-marker-selector") === "[data-testid='ai-review-receipt-browser-loop']",
+    "/ai-review queue docs panel must point back to the queue browser loop marker",
+  );
+}
+
+if (queueLink) {
+  assert(
+    getAttribute(queueLink.openingTag, "href") === expectedApiHref,
+    "/ai-review queue docs deep-link href must target API README queue anchor",
+  );
+  assert(
+    getAttribute(queueLink.openingTag, "data-api-route") === expectedApiRoute,
+    "/ai-review queue docs deep-link must keep data-api-route for backend traceability",
+  );
+  assert(normalizeText(queueLink.body).includes("API README / AI review queue"), "/ai-review queue docs link text must stay visible");
+}
+
 if (writePanel) {
   assert(
     getAttribute(writePanel.openingTag, "data-docs-href") === expectedWriteDocsHref,
@@ -130,7 +172,7 @@ if (writeLink) {
   assert(normalizeText(writeLink.body).includes("API README / AI write draft"), "/ai-review write docs link text must stay visible");
 }
 
-if (planMarker && aiReviewLoop && aiReviewLink) {
+if (planMarker && aiReviewLoop && aiReviewLink && queueLink) {
   assert(
     getAttribute(planMarker.openingTag, "data-api-href") === getAttribute(aiReviewLink.openingTag, "href"),
     "/plan API href must match /ai-review API link href",
@@ -142,6 +184,10 @@ if (planMarker && aiReviewLoop && aiReviewLink) {
   assert(
     getAttribute(planMarker.openingTag, "data-api-href") === getAttribute(aiReviewLoop.openingTag, "data-api-href"),
     "/plan API href must match /ai-review browser loop API href",
+  );
+  assert(
+    getAttribute(planMarker.openingTag, "data-api-href") === getAttribute(queueLink.openingTag, "href"),
+    "/plan API href must match /ai-review queue docs deep-link href",
   );
 }
 

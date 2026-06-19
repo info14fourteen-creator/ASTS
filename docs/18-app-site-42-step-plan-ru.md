@@ -119,3 +119,5 @@
 156. [done 2026-06-19] Добавить shared validation API docs deep-link copy: закрепить shared schema README deep-link на `/plan` и в rendered route smoke.
 
 157. [done 2026-06-19] Добавить web build workflow API docs deep-link copy: закрепить Web build workflow YAML deep-link на `/plan` и в rendered route smoke.
+
+158. [done 2026-06-19] Добавить AI review queue API docs deep-link copy: закрепить AI Review Queue Contract deep-link на `/ai-review` и в API README parity smoke.
