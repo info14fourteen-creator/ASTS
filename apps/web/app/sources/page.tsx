@@ -166,6 +166,32 @@ const sourceConnectorsDocsDeepLink = {
   ],
 };
 
+const sourceConnectorsDocsRenderedRouteFailureCopy = {
+  route: sourceConnectorsDocsDeepLink.route,
+  apiRoute: sourceConnectorsDocsDeepLink.apiRoute,
+  command: "npm run smoke -- --url http://127.0.0.1:4177/",
+  connectorIds: sourceConnectorsDocsDeepLink.connectorIds,
+  docsHref: sourceConnectorsDocsDeepLink.docsHref,
+  expectedConnectorCount: sourceConnectorsDocsDeepLink.expectedConnectorCount,
+  expectedNetworkDisabledCount: sourceConnectorsDocsDeepLink.expectedNetworkDisabledCount,
+  expectedRouteCount: 16,
+  failingCommand: "npm run smoke -- --url http://127.0.0.1:4177/",
+  linkSelector: "[data-testid='source-connectors-docs-deep-link-anchor']",
+  mode: sourceConnectorsDocsDeepLink.mode,
+  noMergeCopy:
+    "Не мержить, пока rendered routes smoke снова подтверждает Source Connectors Contract docs deep-link на живом `/sources`",
+  ownerRole: "Data owner + API owner + QA owner",
+  repairTargets:
+    "/sources,apps/api/README.md#source-connectors-contract,apps/web/scripts/smoke.mjs,[data-testid='source-connectors-docs-deep-link']",
+  sourceMarkerSelector: "[data-testid='source-connectors-docs-deep-link']",
+  checks: [
+    ["Symptom", "rendered routes проходят частично, но `/sources` потерял Source Connectors Contract README href или docs anchor"],
+    ["Fix order", "сначала восстановить source-connectors-docs-deep-link, затем route smoke expectations"],
+    ["Owner", "Data owner подтверждает connectors copy, API owner подтверждает README anchor, QA owner подтверждает `/sources`"],
+    ["No merge", "не мержить, пока source connectors docs link снова не проходит rendered route coverage"],
+  ],
+};
+
 const fnsNetworkGateBrowserLoop = {
   route: "/sources",
   apiRoute: "/v1/sources/connectors",
@@ -557,6 +583,49 @@ export default function SourcesPage() {
               <article key={title}>
                 <span>{title}</span>
                 <strong>{sourceConnectorsDocsDeepLink.sourceMarkerSelector}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-api-route={sourceConnectorsDocsRenderedRouteFailureCopy.apiRoute}
+          data-command={sourceConnectorsDocsRenderedRouteFailureCopy.command}
+          data-connector-ids={sourceConnectorsDocsRenderedRouteFailureCopy.connectorIds.join(",")}
+          data-docs-href={sourceConnectorsDocsRenderedRouteFailureCopy.docsHref}
+          data-expected-connector-count={sourceConnectorsDocsRenderedRouteFailureCopy.expectedConnectorCount}
+          data-expected-network-disabled-count={sourceConnectorsDocsRenderedRouteFailureCopy.expectedNetworkDisabledCount}
+          data-expected-route-count={sourceConnectorsDocsRenderedRouteFailureCopy.expectedRouteCount}
+          data-failing-command={sourceConnectorsDocsRenderedRouteFailureCopy.failingCommand}
+          data-link-selector={sourceConnectorsDocsRenderedRouteFailureCopy.linkSelector}
+          data-mode={sourceConnectorsDocsRenderedRouteFailureCopy.mode}
+          data-no-merge-copy={sourceConnectorsDocsRenderedRouteFailureCopy.noMergeCopy}
+          data-owner-role={sourceConnectorsDocsRenderedRouteFailureCopy.ownerRole}
+          data-repair-targets={sourceConnectorsDocsRenderedRouteFailureCopy.repairTargets}
+          data-route={sourceConnectorsDocsRenderedRouteFailureCopy.route}
+          data-source-marker-selector={sourceConnectorsDocsRenderedRouteFailureCopy.sourceMarkerSelector}
+          data-testid="source-connectors-docs-rendered-route-failure-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source connectors docs rendered-route failure copy</p>
+              <h2>Что делать, если source connectors docs пропали в rendered routes</h2>
+            </div>
+            <a className="primary-link" href={sourceConnectorsDocsRenderedRouteFailureCopy.docsHref}>
+              API README / source connectors
+            </a>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {sourceConnectorsDocsRenderedRouteFailureCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? sourceConnectorsDocsRenderedRouteFailureCopy.noMergeCopy
+                    : sourceConnectorsDocsRenderedRouteFailureCopy.sourceMarkerSelector}
+                </strong>
                 <p>{text}</p>
               </article>
             ))}
