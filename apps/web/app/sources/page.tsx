@@ -106,6 +106,22 @@ const eisRealNetworkSmokeGate = {
       "Не мержить real-network EIS smoke, пока approval_api_copy подтверждает Data owner, protected secrets, safe EIS procedure, rate limits и checksum freshness receipt.",
   },
 };
+const eisRealNetworkApprovalDocsDeepLink = {
+  route: "/sources",
+  apiRoute: eisRealNetworkSmokeGate.approvalApiCopy.route,
+  docsHref:
+    "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#eis-real-network-approval-api-copy",
+  expectedApprovalCount: eisRealNetworkSmokeGate.requiredApprovals.length,
+  owner: eisRealNetworkSmokeGate.owner,
+  status: eisRealNetworkSmokeGate.status,
+  sourceMarkerSelector: "[data-testid='eis-real-network-approval-api-copy']",
+  checks: [
+    ["Locate", "найти EIS approval marker и docs deep-link на `/sources`"],
+    ["Assert href", "сверить ссылку на API README EIS approval anchor"],
+    ["Assert approvals", "подтвердить 5 Data approvals до real-network smoke"],
+    ["Assert copy", "оставить visible link copy рядом с EIS approval gate"],
+  ],
+};
 
 const fnsRealNetworkSmokeGate = {
   status: fnsConnectorGate.status,
@@ -514,6 +530,43 @@ export default function SourcesPage() {
                 <strong>{approval}</strong>
                 <p>{eisRealNetworkSmokeGate.ciPolicy}</p>
                 <em>{eisRealNetworkSmokeGate.owner}</em>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-api-route={eisRealNetworkApprovalDocsDeepLink.apiRoute}
+          data-docs-href={eisRealNetworkApprovalDocsDeepLink.docsHref}
+          data-expected-approval-count={eisRealNetworkApprovalDocsDeepLink.expectedApprovalCount}
+          data-owner={eisRealNetworkApprovalDocsDeepLink.owner}
+          data-route={eisRealNetworkApprovalDocsDeepLink.route}
+          data-source-marker-selector={eisRealNetworkApprovalDocsDeepLink.sourceMarkerSelector}
+          data-status={eisRealNetworkApprovalDocsDeepLink.status}
+          data-testid="eis-real-network-approval-docs-deep-link"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">EIS real-network approval API docs deep-link</p>
+              <h2>Где проверять Data approval gate для сетевого EIS smoke</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-api-route={eisRealNetworkApprovalDocsDeepLink.apiRoute}
+              data-owner={eisRealNetworkApprovalDocsDeepLink.owner}
+              data-testid="eis-real-network-approval-docs-deep-link-anchor"
+              href={eisRealNetworkApprovalDocsDeepLink.docsHref}
+            >
+              API README / EIS approval gate
+            </a>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {eisRealNetworkApprovalDocsDeepLink.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>{eisRealNetworkApprovalDocsDeepLink.sourceMarkerSelector}</strong>
+                <p>{text}</p>
               </article>
             ))}
           </div>

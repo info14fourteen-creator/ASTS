@@ -61,6 +61,22 @@ assert(sourcesPage.includes("data-approval-api-route={eisRealNetworkSmokeGate.ap
 assert(sourcesPage.includes("data-approval-api-no-merge-copy={eisRealNetworkSmokeGate.approvalApiCopy.no_merge_copy}"), "/sources must expose EIS no-merge copy");
 assert(sourcesPage.includes("eisRealNetworkSmokeGate.approvalApiCopy.request_copy"), "/sources must render EIS request copy");
 assert(sourcesPage.includes("eisRealNetworkSmokeGate.approvalApiCopy.blocked_copy"), "/sources must render EIS blocked copy");
+assert(
+  sourcesPage.includes('data-testid="eis-real-network-approval-docs-deep-link"'),
+  "/sources must expose EIS approval docs deep-link marker",
+);
+assert(
+  sourcesPage.includes('data-testid="eis-real-network-approval-docs-deep-link-anchor"'),
+  "/sources must expose EIS approval docs deep-link anchor",
+);
+assert(
+  sourcesPage.includes("eisRealNetworkApprovalDocsDeepLink.docsHref"),
+  "/sources must bind EIS approval docs href from deep-link data",
+);
+assert(
+  sourcesPage.includes("eisRealNetworkApprovalDocsDeepLink.expectedApprovalCount"),
+  "/sources must expose EIS approval docs expected approval count",
+);
 
 assert(planPage.includes(expectedPlanMarker), "/plan must expose EIS approval API copy marker");
 assert(planPage.includes(expectedCommand), "/plan must expose EIS approval API copy command");
@@ -74,6 +90,15 @@ assert(routeSmoke.includes(`data-command=\\"${expectedCommand}\\"`), "route smok
 assert(routeSmoke.includes(`data-docs-href=\\"${expectedDocsHref}\\"`), "route smoke must require EIS approval API docs href");
 assert(routeSmoke.includes(`data-no-merge-copy=\\"${expectedNoMergeCopy}\\"`), "route smoke must require EIS approval API no-merge copy");
 assert(routeSmoke.includes("Request Data owner approval before enabling real EIS network smoke."), "route smoke must require visible request copy");
+assert(
+  routeSmoke.includes('data-testid=\\"eis-real-network-approval-docs-deep-link\\"'),
+  "route smoke must require EIS approval docs deep-link marker",
+);
+assert(
+  routeSmoke.includes(`href=\\"${expectedDocsHref}\\"`),
+  "route smoke must require EIS approval docs deep-link href",
+);
+assert(routeSmoke.includes("API README / EIS approval gate"), "route smoke must require visible EIS docs link copy");
 
 assert(workflow.includes(`name: ${expectedWorkflowName}`), "workflow must keep Web build name");
 assert(workflow.includes(`run: ${expectedCommand}`), "Web build must run EIS approval API copy smoke");
