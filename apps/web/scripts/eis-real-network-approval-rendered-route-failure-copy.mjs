@@ -91,7 +91,7 @@ assert(routeSmoke.includes(`data-command=\\"${expectedCommand}\\"`), "route smok
 assert(routeSmoke.includes(`data-failing-command=\\"${expectedFailingCommand}\\"`), "route smoke must require failing rendered route command");
 assert(routeSmoke.includes(`data-no-merge-copy=\\"${expectedNoMergeCopy}\\"`), "route smoke must require EIS approval rendered route no-merge copy");
 assert(routeSmoke.includes("Что делать, если EIS approval пропал в rendered routes"), "route smoke must require visible EIS approval rendered route heading");
-assert(routeSmoke.includes('data-expected-command-count=\\"95\\"'), "route smoke must require updated Web build command count");
+assert(routeSmoke.includes('data-expected-command-count=\\"96\\"'), "route smoke must require updated Web build command count");
 
 assert(workflow.includes(`name: ${expectedWorkflowName}`), "workflow must keep Web build name");
 assert(workflow.includes(`run: ${expectedCommand}`), "Web build must run EIS approval rendered route failure copy smoke");

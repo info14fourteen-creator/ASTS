@@ -105,7 +105,7 @@ assert(
   routeSmoke.includes("Что делать, если EIS approval README workflow order упал"),
   "route smoke must require visible EIS README workflow heading",
 );
-assert(routeSmoke.includes('data-expected-command-count=\\"95\\"'), "route smoke must require updated Web build command count");
+assert(routeSmoke.includes('data-expected-command-count=\\"96\\"'), "route smoke must require updated Web build command count");
 
 if (failures.length > 0) {
   console.error("FAIL EIS real-network approval live route README workflow copy");

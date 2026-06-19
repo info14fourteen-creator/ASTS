@@ -107,7 +107,7 @@ assert(
   routeSmoke.includes("Что делать, если freshness README trigger copy пропал в rendered routes"),
   "route smoke must require visible source freshness README rendered heading",
 );
-assert(routeSmoke.includes('data-expected-command-count=\\"95\\"'), "route smoke must require updated Web build command count");
+assert(routeSmoke.includes('data-expected-command-count=\\"96\\"'), "route smoke must require updated Web build command count");
 
 if (failures.length > 0) {
   console.error("FAIL source freshness write live route README rendered copy");
