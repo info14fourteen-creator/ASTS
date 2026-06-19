@@ -172,6 +172,39 @@ const aiReviewQueueDocsRenderedRouteFailureCopy = {
   ],
 };
 
+const aiReviewQueueWorkflowDocsFailureCopy = {
+  route: aiReviewQueueDocsDeepLink.route,
+  apiRoute: aiReviewQueueDocsDeepLink.apiRoute,
+  command: aiReviewQueueDocsRenderedRouteFailureCopy.command,
+  docsHref: aiReviewQueueDocsDeepLink.docsHref,
+  docsMarkerSelector: "[data-testid='ai-review-queue-docs-deep-link']",
+  expectedOwnerCount: aiReviewQueueDocsDeepLink.expectedOwnerCount,
+  expectedRouteCount: aiReviewQueueDocsRenderedRouteFailureCopy.expectedRouteCount,
+  expectedRuleCount: aiReviewQueueDocsDeepLink.expectedRuleCount,
+  failingCommand: "npm run smoke:ai-review-queue-rendered-route-failure-copy",
+  linkSelector: aiReviewQueueDocsRenderedRouteFailureCopy.linkSelector,
+  noMergeCopy:
+    "Не мержить, пока AI review queue docs deep-link и Web build queue route smoke снова согласованы на живом `/ai-review`",
+  ownerRole: "AI workflow owner + API owner + Docs owner + QA owner",
+  repairTargets:
+    "/ai-review,apps/api/README.md#ai-review-queue-contract,.github/workflows/web-build.yml,apps/web/scripts/smoke.mjs",
+  sourceMarkerSelector: "[data-testid='ai-review-queue-docs-rendered-route-failure-copy']",
+  status: aiReviewQueueDocsDeepLink.status,
+  workflowCommand: "npm run smoke:ai-review-queue-rendered-route-failure-copy",
+  workflowHref: "https://github.com/info14fourteen-creator/ASTS/actions/workflows/web-build.yml",
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "queue docs link виден, но Web build больше не закрепляет AI review queue rendered route smoke"],
+    ["Fix order", "сначала восстановить ai-review-queue-docs-deep-link, затем Web build workflow command"],
+    [
+      "Owner",
+      "AI workflow owner подтверждает queue copy, API owner подтверждает README anchor, Docs owner подтверждает deep-link",
+    ],
+    ["No merge", "не мержить, пока AI review queue workflow docs guard снова не проходит route coverage"],
+  ],
+};
+
 const aiReviewReceiptWriteContract = aiReviewQueueFixture.write_contract;
 const aiReviewReceiptWriteDocsDeepLink = {
   route: "/ai-review",
@@ -554,6 +587,53 @@ export default function AiReviewPage() {
                   {title === "No merge"
                     ? aiReviewQueueDocsRenderedRouteFailureCopy.noMergeCopy
                     : aiReviewQueueDocsRenderedRouteFailureCopy.sourceMarkerSelector}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel ai-confidence-browser-loop-panel"
+          data-api-route={aiReviewQueueWorkflowDocsFailureCopy.apiRoute}
+          data-command={aiReviewQueueWorkflowDocsFailureCopy.command}
+          data-docs-href={aiReviewQueueWorkflowDocsFailureCopy.docsHref}
+          data-docs-marker-selector={aiReviewQueueWorkflowDocsFailureCopy.docsMarkerSelector}
+          data-expected-owner-count={aiReviewQueueWorkflowDocsFailureCopy.expectedOwnerCount}
+          data-expected-route-count={aiReviewQueueWorkflowDocsFailureCopy.expectedRouteCount}
+          data-expected-rule-count={aiReviewQueueWorkflowDocsFailureCopy.expectedRuleCount}
+          data-failing-command={aiReviewQueueWorkflowDocsFailureCopy.failingCommand}
+          data-link-selector={aiReviewQueueWorkflowDocsFailureCopy.linkSelector}
+          data-no-merge-copy={aiReviewQueueWorkflowDocsFailureCopy.noMergeCopy}
+          data-owner-role={aiReviewQueueWorkflowDocsFailureCopy.ownerRole}
+          data-repair-targets={aiReviewQueueWorkflowDocsFailureCopy.repairTargets}
+          data-route={aiReviewQueueWorkflowDocsFailureCopy.route}
+          data-source-marker-selector={aiReviewQueueWorkflowDocsFailureCopy.sourceMarkerSelector}
+          data-status={aiReviewQueueWorkflowDocsFailureCopy.status}
+          data-testid="ai-review-queue-workflow-docs-failure-copy"
+          data-workflow-command={aiReviewQueueWorkflowDocsFailureCopy.workflowCommand}
+          data-workflow-href={aiReviewQueueWorkflowDocsFailureCopy.workflowHref}
+          data-workflow-name={aiReviewQueueWorkflowDocsFailureCopy.workflowName}
+          data-workflow-path={aiReviewQueueWorkflowDocsFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review queue workflow docs failure copy</p>
+              <h2>Что делать, если AI review queue workflow docs drift упал</h2>
+            </div>
+            <a className="primary-link" href={aiReviewQueueWorkflowDocsFailureCopy.workflowHref}>
+              {aiReviewQueueWorkflowDocsFailureCopy.workflowName}
+            </a>
+          </div>
+          <div className="ai-confidence-browser-loop-grid">
+            {aiReviewQueueWorkflowDocsFailureCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? aiReviewQueueWorkflowDocsFailureCopy.noMergeCopy
+                    : aiReviewQueueWorkflowDocsFailureCopy.workflowCommand}
                 </strong>
                 <p>{text}</p>
               </article>
