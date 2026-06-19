@@ -95,7 +95,7 @@ assert(
   "route smoke must require AI live route docs no-merge copy",
 );
 assert(routeSmoke.includes("Что делать, если AI live-route docs copy упал"), "route smoke must require visible AI docs copy heading");
-assert(routeSmoke.includes('data-expected-command-count=\\"98\\"'), "route smoke must require updated Web build command count");
+assert(routeSmoke.includes('data-expected-command-count=\\"99\\"'), "route smoke must require updated Web build command count");
 
 if (failures.length > 0) {
   console.error("FAIL AI review receipt write live route docs copy");

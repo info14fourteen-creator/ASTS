@@ -205,6 +205,9 @@ jobs:
       - name: Smoke EIS real-network approval live route README workflow copy
         run: npm run smoke:eis-real-network-approval-live-route-readme-workflow-copy
 
+      - name: Smoke EIS real-network approval live route README workflow failure copy
+        run: npm run smoke:eis-real-network-approval-live-route-readme-workflow-failure-copy
+
       - name: Smoke EIS real-network approval workflow failure copy
         run: npm run smoke:eis-real-network-approval-workflow-failure-copy
 

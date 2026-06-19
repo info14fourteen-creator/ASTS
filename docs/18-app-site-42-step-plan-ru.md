@@ -103,3 +103,5 @@
 148. [done 2026-06-19] Добавить AI review receipt write live-route README workflow failure copy: закрепить AI README workflow copy в failure guard перед shared README checks.
 
 149. [done 2026-06-19] Добавить source freshness write live-route README workflow failure copy: закрепить freshness README workflow copy в failure guard перед freshness rendered checks.
+
+150. [done 2026-06-19] Добавить EIS real-network approval live-route README workflow failure copy: закрепить EIS README workflow copy в failure guard перед AI review checks.

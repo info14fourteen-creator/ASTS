@@ -109,7 +109,7 @@ assert(
   routeSmoke.includes("Что делать, если freshness README workflow order упал"),
   "route smoke must require visible source freshness README workflow heading",
 );
-assert(routeSmoke.includes('data-expected-command-count=\\"98\\"'), "route smoke must require updated Web build command count");
+assert(routeSmoke.includes('data-expected-command-count=\\"99\\"'), "route smoke must require updated Web build command count");
 
 if (failures.length > 0) {
   console.error("FAIL source freshness write live route README workflow copy");
