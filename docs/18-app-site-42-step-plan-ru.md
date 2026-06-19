@@ -89,3 +89,5 @@
 141. [done 2026-06-19] Добавить source freshness write live-route README rendered copy: закрепить freshness README trigger copy в rendered route smoke и Web build перед freshness rendered checks.
 
 142. [done 2026-06-19] Добавить EIS real-network approval live-route README rendered copy: закрепить EIS README trigger copy в rendered route smoke и Web build перед AI review checks.
+
+143. [done 2026-06-19] Добавить source owner receipt write live-route README workflow copy: закрепить source owner README rendered copy в Web build order перед workflow failure и source freshness checks.

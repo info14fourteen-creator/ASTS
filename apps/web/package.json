@@ -79,6 +79,7 @@
     "smoke:source-owner-receipt-write-live-route-docs-copy": "node scripts/source-owner-receipt-write-live-route-docs-copy.mjs",
     "smoke:source-owner-receipt-write-live-route-readme-trigger-copy": "node scripts/source-owner-receipt-write-live-route-readme-trigger-copy.mjs",
     "smoke:source-owner-receipt-write-live-route-readme-rendered-copy": "node scripts/source-owner-receipt-write-live-route-readme-rendered-copy.mjs",
+    "smoke:source-owner-receipt-write-live-route-readme-workflow-copy": "node scripts/source-owner-receipt-write-live-route-readme-workflow-copy.mjs",
     "smoke:source-owner-receipt-write-workflow-failure-copy": "node scripts/source-owner-receipt-write-workflow-failure-copy.mjs",
     "smoke:source-owner-receipt-write-docs-failure-copy": "node scripts/source-owner-receipt-write-docs-failure-copy.mjs",
     "smoke:source-owner-receipt-write-smoke-failure-copy": "node scripts/source-owner-receipt-write-smoke-failure-copy.mjs",
