@@ -95,7 +95,7 @@ assert(
   "route smoke must require EIS live route docs no-merge copy",
 );
 assert(routeSmoke.includes("Что делать, если EIS approval live-route docs copy упал"), "route smoke must require visible EIS docs copy heading");
-assert(routeSmoke.includes('data-expected-command-count=\\"93\\"'), "route smoke must require updated Web build command count");
+assert(routeSmoke.includes('data-expected-command-count=\\"94\\"'), "route smoke must require updated Web build command count");
 
 if (failures.length > 0) {
   console.error("FAIL EIS real-network approval live route docs copy");

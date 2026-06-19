@@ -93,3 +93,5 @@
 143. [done 2026-06-19] Добавить source owner receipt write live-route README workflow copy: закрепить source owner README rendered copy в Web build order перед workflow failure и source freshness checks.
 
 144. [done 2026-06-19] Добавить AI review receipt write live-route README workflow copy: закрепить AI README rendered copy в Web build order перед workflow failure и shared README checks.
+
+145. [done 2026-06-19] Добавить source freshness write live-route README workflow copy: закрепить freshness README rendered copy в Web build order перед workflow failure и freshness rendered checks.
