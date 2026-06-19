@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить shared validation workflow docs failure copy", "закрепить shared docs workflow guard в `/plan`"],
-  ["2", "Добавить web build workflow docs failure copy", "закрепить Web build workflow docs guard в `/plan`"],
-  ["3", "Добавить AI review queue workflow docs failure copy", "закрепить queue docs workflow guard в `/ai-review`"],
-  ["4", "Добавить source connectors workflow docs failure copy", "закрепить connectors docs workflow guard в `/sources`"],
+  ["1", "Добавить web build workflow docs failure copy", "закрепить Web build workflow docs guard в `/plan`"],
+  ["2", "Добавить AI review queue workflow docs failure copy", "закрепить queue docs workflow guard в `/ai-review`"],
+  ["3", "Добавить source connectors workflow docs failure copy", "закрепить connectors docs workflow guard в `/sources`"],
+  ["4", "Добавить shared validation live docs workflow copy", "закрепить shared docs live-workflow guard в `/plan`"],
 ];
 
 const cycleRules = [
@@ -329,6 +329,33 @@ const sharedValidationDocsRenderedRouteFailureCopy = {
     ["Fix order", "сначала восстановить shared-validation-docs-deep-link, затем route smoke expectations"],
     ["Owner", "Schema owner подтверждает 14 shared checks, Docs owner подтверждает README anchor, QA owner подтверждает `/plan`"],
     ["No merge", "не мержить, пока shared validation docs link снова не проходит rendered route coverage"],
+  ],
+};
+
+const sharedValidationWorkflowDocsFailureCopy = {
+  checkedWorkflowPath: sharedValidationWorkflowFailureCopy.checkedWorkflowPath,
+  command: sharedValidationLiveRouteGateNote.routeSmokeCommand,
+  docsHref: sharedValidationDocsDeepLink.docsHref,
+  docsMarkerSelector: "[data-testid='shared-validation-docs-deep-link']",
+  expectedCheckCount: sharedValidationDocsDeepLink.expectedCheckCount,
+  expectedRouteCount: sharedValidationRenderedRouteFailureCopy.expectedRouteCount,
+  failingCommand: sharedValidationWorkflowFailureCopy.failingCommand,
+  linkSelector: sharedValidationDocsDeepLink.linkSelector,
+  noMergeCopy:
+    "Не мержить, пока Shared validation workflow failure copy и shared README docs deep-link снова согласованы на живом `/plan`",
+  ownerRole: "Schema owner + CI owner + Docs owner + QA owner",
+  readmePath: sharedValidationDocsDeepLink.readmePath,
+  repairTargets:
+    "/plan,.github/workflows/shared-validation.yml,packages/shared/README.md#shared-schema-index,apps/web/scripts/smoke.mjs",
+  sourceMarkerSelector: "[data-testid='shared-validation-workflow-failure-copy']",
+  workflowHref: sharedValidationWorkflowHref,
+  workflowName: "Shared validation",
+  workflowPath: sharedValidationWorkflowFailureCopy.checkedWorkflowPath,
+  checks: [
+    ["Symptom", "workflow failure copy есть, но `/plan` потерял shared README docs href или workflow path"],
+    ["Fix order", "сначала восстановить shared-validation-workflow-failure-copy, затем shared-validation-docs-deep-link"],
+    ["Owner", "Schema owner подтверждает 14 checks, CI owner подтверждает workflow path, Docs owner подтверждает README anchor"],
+    ["No merge", "не мержить, пока shared validation workflow docs guard снова не проходит route coverage"],
   ],
 };
 
@@ -3308,6 +3335,50 @@ export default function PlanPage() {
               <article className="fixture-coverage-card" key={title}>
                 <span>{title}</span>
                 <strong>{sharedValidationDocsDeepLink.readmePath}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-checked-workflow-path={sharedValidationWorkflowDocsFailureCopy.checkedWorkflowPath}
+          data-command={sharedValidationWorkflowDocsFailureCopy.command}
+          data-docs-href={sharedValidationWorkflowDocsFailureCopy.docsHref}
+          data-docs-marker-selector={sharedValidationWorkflowDocsFailureCopy.docsMarkerSelector}
+          data-expected-check-count={sharedValidationWorkflowDocsFailureCopy.expectedCheckCount}
+          data-expected-route-count={sharedValidationWorkflowDocsFailureCopy.expectedRouteCount}
+          data-failing-command={sharedValidationWorkflowDocsFailureCopy.failingCommand}
+          data-link-selector={sharedValidationWorkflowDocsFailureCopy.linkSelector}
+          data-no-merge-copy={sharedValidationWorkflowDocsFailureCopy.noMergeCopy}
+          data-owner-role={sharedValidationWorkflowDocsFailureCopy.ownerRole}
+          data-readme-path={sharedValidationWorkflowDocsFailureCopy.readmePath}
+          data-repair-targets={sharedValidationWorkflowDocsFailureCopy.repairTargets}
+          data-source-marker-selector={sharedValidationWorkflowDocsFailureCopy.sourceMarkerSelector}
+          data-testid="shared-validation-workflow-docs-failure-copy"
+          data-workflow-href={sharedValidationWorkflowDocsFailureCopy.workflowHref}
+          data-workflow-name={sharedValidationWorkflowDocsFailureCopy.workflowName}
+          data-workflow-path={sharedValidationWorkflowDocsFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Shared validation workflow docs failure copy</p>
+              <h2>Что делать, если shared validation workflow docs drift упал</h2>
+            </div>
+            <a className="primary-link" href={sharedValidationWorkflowDocsFailureCopy.workflowHref}>
+              {sharedValidationWorkflowDocsFailureCopy.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sharedValidationWorkflowDocsFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? sharedValidationWorkflowDocsFailureCopy.noMergeCopy
+                    : sharedValidationWorkflowDocsFailureCopy.workflowPath}
+                </strong>
                 <p>{text}</p>
               </article>
             ))}
