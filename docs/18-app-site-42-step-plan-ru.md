@@ -99,3 +99,5 @@
 146. [done 2026-06-19] Добавить EIS real-network approval live-route README workflow copy: закрепить EIS README rendered copy в Web build order перед workflow failure и AI review checks.
 
 147. [done 2026-06-19] Добавить source owner receipt write live-route README workflow failure copy: закрепить source owner README workflow copy в failure guard перед source freshness checks.
+
+148. [done 2026-06-19] Добавить AI review receipt write live-route README workflow failure copy: закрепить AI README workflow copy в failure guard перед shared README checks.

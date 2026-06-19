@@ -94,7 +94,7 @@ assert(
   "route smoke must require AI README workflow no-merge copy",
 );
 assert(routeSmoke.includes("Что делать, если AI README workflow order упал"), "route smoke must require visible AI README workflow heading");
-assert(routeSmoke.includes('data-expected-command-count=\\"96\\"'), "route smoke must require updated Web build command count");
+assert(routeSmoke.includes('data-expected-command-count=\\"97\\"'), "route smoke must require updated Web build command count");
 
 if (failures.length > 0) {
   console.error("FAIL AI review receipt write live route README workflow copy");
