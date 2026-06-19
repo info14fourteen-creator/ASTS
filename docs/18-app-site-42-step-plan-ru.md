@@ -123,3 +123,5 @@
 158. [done 2026-06-19] Добавить AI review queue API docs deep-link copy: закрепить AI Review Queue Contract deep-link на `/ai-review` и в API README parity smoke.
 
 159. [done 2026-06-19] Добавить source connectors API docs deep-link copy: закрепить Source Connectors Contract deep-link на `/sources` и в live docs-link smoke.
+
+160. [done 2026-06-19] Добавить shared validation route smoke docs failure copy: закрепить owner-friendly guard для shared validation docs deep-link в rendered route smoke.

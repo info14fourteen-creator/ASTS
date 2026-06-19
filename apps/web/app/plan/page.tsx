@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить shared validation route smoke docs failure copy", "закрепить shared docs drift guard в `/plan`"],
-  ["2", "Добавить web build route smoke docs failure copy", "закрепить Web build docs drift guard в `/plan`"],
-  ["3", "Добавить AI review queue route smoke docs failure copy", "закрепить queue docs drift guard в `/ai-review`"],
-  ["4", "Добавить source connectors route smoke docs failure copy", "закрепить connectors docs drift guard в `/sources`"],
+  ["1", "Добавить web build route smoke docs failure copy", "закрепить Web build docs drift guard в `/plan`"],
+  ["2", "Добавить AI review queue route smoke docs failure copy", "закрепить queue docs drift guard в `/ai-review`"],
+  ["3", "Добавить source connectors route smoke docs failure copy", "закрепить connectors docs drift guard в `/sources`"],
+  ["4", "Добавить shared validation workflow docs failure copy", "закрепить shared docs workflow guard в `/plan`"],
 ];
 
 const cycleRules = [
@@ -304,6 +304,31 @@ const sharedValidationDocsDeepLink = {
     ["Source marker", "связывать docs link с rendered-route failure marker"],
     ["Check count", "подтверждать 14 shared checks перед merge"],
     ["Route smoke", "rendered routes smoke должен видеть link selector, href и README path"],
+  ],
+};
+
+const sharedValidationDocsRenderedRouteFailureCopy = {
+  command: sharedValidationLiveRouteGateNote.routeSmokeCommand,
+  docsHref: sharedValidationDocsDeepLink.docsHref,
+  expectedCheckCount: sharedValidationDocsDeepLink.expectedCheckCount,
+  expectedRouteCount: sharedValidationRenderedRouteFailureCopy.expectedRouteCount,
+  failingCommand: sharedValidationLiveRouteGateNote.routeSmokeCommand,
+  linkSelector: sharedValidationDocsDeepLink.linkSelector,
+  noMergeCopy:
+    "Не мержить, пока rendered routes smoke снова подтверждает shared validation docs deep-link и shared README anchor на живом `/plan`",
+  ownerRole: "Schema owner + Docs owner + QA owner",
+  readmePath: sharedValidationDocsDeepLink.readmePath,
+  repairTargets:
+    "/plan,packages/shared/README.md#shared-schema-index,apps/web/scripts/smoke.mjs,[data-testid='shared-validation-docs-deep-link']",
+  sourceMarkerSelector: "[data-testid='shared-validation-docs-deep-link']",
+  workflowHref: webBuildWorkflowHref,
+  workflowName: "Web build",
+  workflowPath: ".github/workflows/web-build.yml",
+  checks: [
+    ["Symptom", "rendered routes проходят частично, но `/plan` потерял shared README docs href или schema docs link selector"],
+    ["Fix order", "сначала восстановить shared-validation-docs-deep-link, затем route smoke expectations"],
+    ["Owner", "Schema owner подтверждает 14 shared checks, Docs owner подтверждает README anchor, QA owner подтверждает `/plan`"],
+    ["No merge", "не мержить, пока shared validation docs link снова не проходит rendered route coverage"],
   ],
 };
 
@@ -3259,6 +3284,48 @@ export default function PlanPage() {
               <article className="fixture-coverage-card" key={title}>
                 <span>{title}</span>
                 <strong>{sharedValidationDocsDeepLink.readmePath}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-command={sharedValidationDocsRenderedRouteFailureCopy.command}
+          data-docs-href={sharedValidationDocsRenderedRouteFailureCopy.docsHref}
+          data-expected-check-count={sharedValidationDocsRenderedRouteFailureCopy.expectedCheckCount}
+          data-expected-route-count={sharedValidationDocsRenderedRouteFailureCopy.expectedRouteCount}
+          data-failing-command={sharedValidationDocsRenderedRouteFailureCopy.failingCommand}
+          data-link-selector={sharedValidationDocsRenderedRouteFailureCopy.linkSelector}
+          data-no-merge-copy={sharedValidationDocsRenderedRouteFailureCopy.noMergeCopy}
+          data-owner-role={sharedValidationDocsRenderedRouteFailureCopy.ownerRole}
+          data-readme-path={sharedValidationDocsRenderedRouteFailureCopy.readmePath}
+          data-repair-targets={sharedValidationDocsRenderedRouteFailureCopy.repairTargets}
+          data-source-marker-selector={sharedValidationDocsRenderedRouteFailureCopy.sourceMarkerSelector}
+          data-testid="shared-validation-docs-rendered-route-failure-copy"
+          data-workflow-href={sharedValidationDocsRenderedRouteFailureCopy.workflowHref}
+          data-workflow-name={sharedValidationDocsRenderedRouteFailureCopy.workflowName}
+          data-workflow-path={sharedValidationDocsRenderedRouteFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Shared validation docs rendered-route failure copy</p>
+              <h2>Что делать, если shared validation docs пропали в rendered routes</h2>
+            </div>
+            <a className="primary-link" href={sharedValidationDocsRenderedRouteFailureCopy.workflowHref}>
+              {sharedValidationDocsRenderedRouteFailureCopy.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sharedValidationDocsRenderedRouteFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? sharedValidationDocsRenderedRouteFailureCopy.noMergeCopy
+                    : sharedValidationDocsRenderedRouteFailureCopy.readmePath}
+                </strong>
                 <p>{text}</p>
               </article>
             ))}
