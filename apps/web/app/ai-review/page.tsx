@@ -132,6 +132,22 @@ const aiReviewReceiptBrowserLoop = {
 };
 
 const aiReviewReceiptWriteContract = aiReviewQueueFixture.write_contract;
+const aiReviewReceiptWriteDocsDeepLink = {
+  route: "/ai-review",
+  apiRoute: aiReviewReceiptWriteContract.route,
+  docsHref:
+    "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#ai-review-receipt-write-api-draft",
+  expectedRequestFieldCount: aiReviewReceiptWriteContract.request_schema.length,
+  method: aiReviewReceiptWriteContract.method,
+  status: aiReviewReceiptWriteContract.status,
+  sourceMarkerSelector: "[data-testid='ai-review-receipt-write-api-draft']",
+  checks: [
+    ["Locate", "найти write draft marker и docs deep-link на `/ai-review`"],
+    ["Assert href", "сверить ссылку на API README write draft anchor"],
+    ["Assert contract", "подтвердить POST draft, 11 request fields и idempotency key"],
+    ["Assert copy", "оставить visible link copy рядом с AI receipt write draft"],
+  ],
+};
 
 const evidence = [
   ["ТЗ", "Файл: tz_lighting_v4.pdf", "позиции 12-14", "manual"],
@@ -383,6 +399,43 @@ export default function AiReviewPage() {
               <article key={title}>
                 <span>{title}</span>
                 <strong>{value}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel ai-confidence-browser-loop-panel"
+          data-api-route={aiReviewReceiptWriteDocsDeepLink.apiRoute}
+          data-docs-href={aiReviewReceiptWriteDocsDeepLink.docsHref}
+          data-expected-request-field-count={aiReviewReceiptWriteDocsDeepLink.expectedRequestFieldCount}
+          data-method={aiReviewReceiptWriteDocsDeepLink.method}
+          data-route={aiReviewReceiptWriteDocsDeepLink.route}
+          data-source-marker-selector={aiReviewReceiptWriteDocsDeepLink.sourceMarkerSelector}
+          data-status={aiReviewReceiptWriteDocsDeepLink.status}
+          data-testid="ai-review-receipt-write-docs-deep-link"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review receipt write API docs deep-link</p>
+              <h2>Где проверять контракт будущего AI receipt POST</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-api-route={aiReviewReceiptWriteDocsDeepLink.apiRoute}
+              data-method={aiReviewReceiptWriteDocsDeepLink.method}
+              data-testid="ai-review-receipt-write-docs-deep-link-anchor"
+              href={aiReviewReceiptWriteDocsDeepLink.docsHref}
+            >
+              API README / AI write draft
+            </a>
+          </div>
+          <div className="ai-confidence-browser-loop-grid">
+            {aiReviewReceiptWriteDocsDeepLink.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>{aiReviewReceiptWriteDocsDeepLink.sourceMarkerSelector}</strong>
                 <p>{text}</p>
               </article>
             ))}

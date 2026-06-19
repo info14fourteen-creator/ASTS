@@ -5,9 +5,13 @@ import { fileURLToPath } from "node:url";
 const defaultBaseUrl = "http://127.0.0.1:4177";
 const expectedApiHref =
   "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#ai-review-queue-contract";
+const expectedWriteDocsHref =
+  "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#ai-review-receipt-write-api-draft";
 const expectedApiReadmeAnchor = "AI Review Queue Contract";
 const expectedApiRoute = "/v1/ai/review-queue";
 const expectedApiSelector = "[data-testid='ai-review-receipt-api-link']";
+const expectedWriteDeepLinkMarker = "ai-review-receipt-write-docs-deep-link";
+const expectedWriteDeepLinkAnchor = "ai-review-receipt-write-docs-deep-link-anchor";
 
 const webRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const repoRoot = resolve(webRoot, "../..");
@@ -33,10 +37,14 @@ const [planHtml, aiReviewHtml] = await Promise.all([planResponse.text(), aiRevie
 const planMarker = findTag(planHtml, "section", "ai-review-schema-api-smoke-marker");
 const aiReviewLoop = findTag(aiReviewHtml, "section", "ai-review-receipt-browser-loop");
 const aiReviewLink = findTagWithBody(aiReviewHtml, "a", "ai-review-receipt-api-link");
+const writePanel = findTag(aiReviewHtml, "section", expectedWriteDeepLinkMarker);
+const writeLink = findTagWithBody(aiReviewHtml, "a", expectedWriteDeepLinkAnchor);
 
 assert(planMarker, "/plan AI review schema API smoke marker must exist");
 assert(aiReviewLoop, "/ai-review receipt browser loop marker must exist");
 assert(aiReviewLink, "/ai-review API README link must exist");
+assert(writePanel, "/ai-review receipt write docs deep-link panel must exist");
+assert(writeLink, "/ai-review receipt write docs deep-link anchor must exist");
 assert(
   apiReadme.includes(`## ${expectedApiReadmeAnchor}`),
   "apps/api/README.md must keep AI Review Queue Contract heading",
@@ -85,6 +93,41 @@ if (aiReviewLink) {
     "/ai-review link data-api-route must match /plan marker",
   );
   assert(normalizeText(aiReviewLink.body).includes("API / AI review queue"), "/ai-review API link text must stay visible");
+}
+
+if (writePanel) {
+  assert(
+    getAttribute(writePanel.openingTag, "data-docs-href") === expectedWriteDocsHref,
+    "/ai-review write docs deep-link panel must expose the AI review write docs href",
+  );
+  assert(
+    getAttribute(writePanel.openingTag, "data-api-route") === expectedApiRoute,
+    "/ai-review write docs deep-link panel must expose the AI review API route",
+  );
+  assert(getAttribute(writePanel.openingTag, "data-method") === "POST", "/ai-review write docs panel must pin POST method");
+  assert(getAttribute(writePanel.openingTag, "data-status") === "draft", "/ai-review write docs panel must pin draft status");
+  assert(
+    getAttribute(writePanel.openingTag, "data-expected-request-field-count") === "11",
+    "/ai-review write docs panel must expose all 11 request fields",
+  );
+  assert(
+    getAttribute(writePanel.openingTag, "data-source-marker-selector") ===
+      "[data-testid='ai-review-receipt-write-api-draft']",
+    "/ai-review write docs panel must point back to the write draft marker",
+  );
+}
+
+if (writeLink) {
+  assert(
+    getAttribute(writeLink.openingTag, "href") === expectedWriteDocsHref,
+    "/ai-review write docs deep-link href must target API README write draft anchor",
+  );
+  assert(
+    getAttribute(writeLink.openingTag, "data-api-route") === expectedApiRoute,
+    "/ai-review write docs deep-link must keep data-api-route for backend traceability",
+  );
+  assert(getAttribute(writeLink.openingTag, "data-method") === "POST", "/ai-review write docs deep-link must keep POST method");
+  assert(normalizeText(writeLink.body).includes("API README / AI write draft"), "/ai-review write docs link text must stay visible");
 }
 
 if (planMarker && aiReviewLoop && aiReviewLink) {

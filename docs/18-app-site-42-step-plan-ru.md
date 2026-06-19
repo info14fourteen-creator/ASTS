@@ -107,3 +107,5 @@
 150. [done 2026-06-19] Добавить EIS real-network approval live-route README workflow failure copy: закрепить EIS README workflow copy в failure guard перед AI review checks.
 
 151. [done 2026-06-19] Добавить source owner receipt write API docs deep-link copy: закрепить write draft API README deep-link на `/sources` и в docs-link smoke.
+
+152. [done 2026-06-19] Добавить AI review receipt write API docs deep-link copy: закрепить AI write draft API README deep-link на `/ai-review` и в AI review README parity smoke.
