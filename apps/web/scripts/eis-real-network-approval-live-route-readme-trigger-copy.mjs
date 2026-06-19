@@ -100,7 +100,7 @@ assert(
   "route smoke must require EIS README trigger no-merge copy",
 );
 assert(routeSmoke.includes("Что делать, если EIS approval README trigger copy упал"), "route smoke must require visible README trigger heading");
-assert(routeSmoke.includes('data-expected-command-count=\\"90\\"'), "route smoke must require updated Web build command count");
+assert(routeSmoke.includes('data-expected-command-count=\\"91\\"'), "route smoke must require updated Web build command count");
 
 if (failures.length > 0) {
   console.error("FAIL EIS real-network approval live route README trigger copy");
