@@ -3,9 +3,14 @@ const expectedDocsHref =
   "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#source-owner-receipt-contract";
 const expectedWriteDocsHref =
   "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#source-owner-receipt-write-api-draft";
+const expectedFreshnessWriteDocsHref =
+  "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#source-freshness-write-api-draft";
 const expectedApiRoute = "/v1/sources/owner-receipts";
+const expectedFreshnessApiRoute = "/v1/sources/freshness";
 const expectedWriteDeepLinkMarker = "source-owner-receipt-write-docs-deep-link";
 const expectedWriteDeepLinkAnchor = "source-owner-receipt-write-docs-deep-link-anchor";
+const expectedFreshnessWriteDeepLinkMarker = "source-freshness-write-docs-deep-link";
+const expectedFreshnessWriteDeepLinkAnchor = "source-freshness-write-docs-deep-link-anchor";
 
 const baseUrl = getArgValue("--url") ?? defaultBaseUrl;
 const sourcesUrl = new URL("/sources", ensureTrailingSlash(baseUrl));
@@ -22,11 +27,15 @@ const panel = findTag(html, "section", "source-owner-receipt-history-browser-loo
 const link = findTagWithBody(html, "a", "source-owner-receipt-docs-link");
 const writePanel = findTag(html, "section", expectedWriteDeepLinkMarker);
 const writeLink = findTagWithBody(html, "a", expectedWriteDeepLinkAnchor);
+const freshnessWritePanel = findTag(html, "section", expectedFreshnessWriteDeepLinkMarker);
+const freshnessWriteLink = findTagWithBody(html, "a", expectedFreshnessWriteDeepLinkAnchor);
 
 assert(panel, "source owner receipt history browser loop panel must exist");
 assert(link, "source owner receipt docs link must exist");
 assert(writePanel, "source owner receipt write docs deep-link panel must exist");
 assert(writeLink, "source owner receipt write docs deep-link anchor must exist");
+assert(freshnessWritePanel, "source freshness write docs deep-link panel must exist");
+assert(freshnessWriteLink, "source freshness write docs deep-link anchor must exist");
 
 if (panel) {
   assert(
@@ -85,6 +94,53 @@ if (writeLink) {
   );
   assert(getAttribute(writeLink.openingTag, "data-method") === "POST", "write docs deep-link must keep POST method");
   assert(normalizeText(writeLink.body).includes("API README / write draft"), "write docs link text must stay visible");
+}
+
+if (freshnessWritePanel) {
+  assert(
+    getAttribute(freshnessWritePanel.openingTag, "data-docs-href") === expectedFreshnessWriteDocsHref,
+    "freshness write docs deep-link panel must expose the source freshness write docs href",
+  );
+  assert(
+    getAttribute(freshnessWritePanel.openingTag, "data-api-route") === expectedFreshnessApiRoute,
+    "freshness write docs deep-link panel must expose the source freshness API route",
+  );
+  assert(
+    getAttribute(freshnessWritePanel.openingTag, "data-method") === "POST",
+    "freshness write docs deep-link panel must pin POST method",
+  );
+  assert(
+    getAttribute(freshnessWritePanel.openingTag, "data-status") === "draft",
+    "freshness write docs deep-link panel must pin draft status",
+  );
+  assert(
+    getAttribute(freshnessWritePanel.openingTag, "data-expected-request-field-count") === "12",
+    "freshness write docs deep-link panel must expose all 12 request fields",
+  );
+  assert(
+    getAttribute(freshnessWritePanel.openingTag, "data-source-marker-selector") ===
+      "[data-testid='source-freshness-write-api-draft']",
+    "freshness write docs deep-link panel must point back to the write draft marker",
+  );
+}
+
+if (freshnessWriteLink) {
+  assert(
+    getAttribute(freshnessWriteLink.openingTag, "href") === expectedFreshnessWriteDocsHref,
+    "freshness write docs deep-link href must target API README freshness write draft anchor",
+  );
+  assert(
+    getAttribute(freshnessWriteLink.openingTag, "data-api-route") === expectedFreshnessApiRoute,
+    "freshness write docs deep-link must keep data-api-route for backend traceability",
+  );
+  assert(
+    getAttribute(freshnessWriteLink.openingTag, "data-method") === "POST",
+    "freshness write docs deep-link must keep POST method",
+  );
+  assert(
+    normalizeText(freshnessWriteLink.body).includes("API README / freshness write draft"),
+    "freshness write docs link text must stay visible",
+  );
 }
 
 if (failures.length > 0) {

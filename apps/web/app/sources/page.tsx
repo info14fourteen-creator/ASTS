@@ -215,6 +215,22 @@ const sourceFreshnessWriteContract = {
   noMergeCopy:
     "Не мержить source freshness write endpoint, пока POST не проверяет owner role, breach type, idempotency key, restored evidence и immutable audit append.",
 };
+const sourceFreshnessWriteDocsDeepLink = {
+  route: "/sources",
+  apiRoute: sourceFreshnessWriteContract.route,
+  docsHref:
+    "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#source-freshness-write-api-draft",
+  expectedRequestFieldCount: sourceFreshnessWriteContract.requestSchema.length,
+  method: sourceFreshnessWriteContract.method,
+  status: sourceFreshnessWriteContract.status,
+  sourceMarkerSelector: "[data-testid='source-freshness-write-api-draft']",
+  checks: [
+    ["Locate", "найти freshness write draft marker и docs deep-link на `/sources`"],
+    ["Assert href", "сверить ссылку на API README freshness write draft anchor"],
+    ["Assert contract", "подтвердить POST draft, 12 request fields и idempotency key"],
+    ["Assert audit", "оставить immutable freshness audit copy рядом с write draft"],
+  ],
+};
 
 const sourceOwnerReceiptHistoryBrowserLoop = {
   route: "/sources",
@@ -825,6 +841,43 @@ export default function SourcesPage() {
               <article className="source-freshness-owner-card" key={title}>
                 <span>{title}</span>
                 <strong>{value}</strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-api-route={sourceFreshnessWriteDocsDeepLink.apiRoute}
+          data-docs-href={sourceFreshnessWriteDocsDeepLink.docsHref}
+          data-expected-request-field-count={sourceFreshnessWriteDocsDeepLink.expectedRequestFieldCount}
+          data-method={sourceFreshnessWriteDocsDeepLink.method}
+          data-route={sourceFreshnessWriteDocsDeepLink.route}
+          data-source-marker-selector={sourceFreshnessWriteDocsDeepLink.sourceMarkerSelector}
+          data-status={sourceFreshnessWriteDocsDeepLink.status}
+          data-testid="source-freshness-write-docs-deep-link"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source freshness write API docs deep-link</p>
+              <h2>Где проверять контракт будущей записи freshness receipt</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-api-route={sourceFreshnessWriteDocsDeepLink.apiRoute}
+              data-method={sourceFreshnessWriteDocsDeepLink.method}
+              data-testid="source-freshness-write-docs-deep-link-anchor"
+              href={sourceFreshnessWriteDocsDeepLink.docsHref}
+            >
+              API README / freshness write draft
+            </a>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {sourceFreshnessWriteDocsDeepLink.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>{sourceFreshnessWriteDocsDeepLink.sourceMarkerSelector}</strong>
                 <p>{text}</p>
               </article>
             ))}
