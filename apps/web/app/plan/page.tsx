@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить web build README workflow docs PR-check copy", "закрепить Web build README workflow docs PR checks в `/plan`"],
-  ["2", "Добавить source connectors README workflow docs merge-state copy", "закрепить Source Connectors README workflow docs merge-state guard"],
-  ["3", "Добавить AI review queue README workflow docs merge-state copy", "закрепить AI queue README workflow docs merge-state guard"],
-  ["4", "Добавить shared validation README workflow docs merge-state copy", "закрепить shared validation README workflow docs merge-state guard"],
+  ["1", "Добавить source connectors README workflow docs merge-state copy", "закрепить Source Connectors README workflow docs merge-state guard"],
+  ["2", "Добавить AI review queue README workflow docs merge-state copy", "закрепить AI queue README workflow docs merge-state guard"],
+  ["3", "Добавить shared validation README workflow docs merge-state copy", "закрепить shared validation README workflow docs merge-state guard"],
+  ["4", "Добавить web build README workflow docs merge-state copy", "закрепить Web build README workflow docs merge-state guard"],
 ];
 
 const cycleRules = [
@@ -3188,6 +3188,39 @@ const webBuildReadmeWorkflowDocsBrowserLoopCopy = {
     ["DOM", "Browser DOM находит web-build-readme-workflow-docs-rendered-route-copy ровно один раз"],
     ["Workflow link", "scoped link ведет в Web build GitHub Actions workflow"],
     ["Console", "Browser console не содержит error/warn перед merge"],
+  ],
+};
+
+const webBuildReadmeWorkflowDocsPrCheckCopy = {
+  route: webBuildReadmeWorkflowDocsBrowserLoopCopy.browserUrl,
+  checkedWorkflowPath: webBuildReadmeWorkflowDocsRenderedRouteCopy.checkedWorkflowPath,
+  branch: "codex/app-site-shell",
+  baseBranch: "main",
+  command: "gh pr checks 17 --watch --interval 10",
+  docsHref: webBuildReadmeWorkflowDocsBrowserLoopCopy.docsHref,
+  expectedCommandCount: webBuildReadmeWorkflowDocsBrowserLoopCopy.expectedCommandCount,
+  expectedCheckGroups: ["Web build", "API smoke", "Shared validation"],
+  expectedConclusion: "SUCCESS",
+  expectedMergeState: "CLEAN",
+  expectedPrNumber: "17",
+  expectedRouteCount: webBuildReadmeWorkflowDocsBrowserLoopCopy.expectedRouteCount,
+  linkSelector: "[data-testid='web-build-readme-workflow-docs-pr-anchor']",
+  noMergeCopy:
+    "Не мержить, пока PR #17 снова показывает CLEAN и зеленые Web build, API smoke и Shared validation checks для Web build README workflow docs guard",
+  ownerRole: "Frontend owner + CI owner + Docs owner + Release owner",
+  prHref: "https://github.com/info14fourteen-creator/ASTS/pull/17",
+  repairTargets:
+    "PR #17,gh pr checks 17,.github/workflows/web-build.yml,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='web-build-readme-workflow-docs-browser-loop-copy']",
+  status: "armed",
+  workflowHref: webBuildReadmeWorkflowDocsBrowserLoopCopy.workflowHref,
+  workflowName: webBuildReadmeWorkflowDocsBrowserLoopCopy.workflowName,
+  workflowPath: webBuildReadmeWorkflowDocsBrowserLoopCopy.workflowPath,
+  checks: [
+    ["PR", "PR #17 остается на codex/app-site-shell -> main и mergeStateStatus CLEAN"],
+    ["Checks", "gh pr checks 17 подтверждает Web build, API smoke и Shared validation SUCCESS"],
+    ["Route guard", "route smoke продолжает видеть Web build README workflow docs browser-loop copy"],
+    ["No merge", "не мержить, пока PR-check guard снова не подтверждает clean rollup"],
   ],
 };
 
@@ -8789,6 +8822,64 @@ export default function PlanPage() {
                       : title === "DOM"
                         ? "One guard"
                         : "Browser QA"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={webBuildReadmeWorkflowDocsPrCheckCopy.baseBranch}
+          data-branch={webBuildReadmeWorkflowDocsPrCheckCopy.branch}
+          data-checked-workflow-path={webBuildReadmeWorkflowDocsPrCheckCopy.checkedWorkflowPath}
+          data-command={webBuildReadmeWorkflowDocsPrCheckCopy.command}
+          data-docs-href={webBuildReadmeWorkflowDocsPrCheckCopy.docsHref}
+          data-expected-command-count={webBuildReadmeWorkflowDocsPrCheckCopy.expectedCommandCount}
+          data-expected-check-groups={webBuildReadmeWorkflowDocsPrCheckCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={webBuildReadmeWorkflowDocsPrCheckCopy.expectedConclusion}
+          data-expected-merge-state={webBuildReadmeWorkflowDocsPrCheckCopy.expectedMergeState}
+          data-expected-pr-number={webBuildReadmeWorkflowDocsPrCheckCopy.expectedPrNumber}
+          data-expected-route-count={webBuildReadmeWorkflowDocsPrCheckCopy.expectedRouteCount}
+          data-link-selector={webBuildReadmeWorkflowDocsPrCheckCopy.linkSelector}
+          data-no-merge-copy={webBuildReadmeWorkflowDocsPrCheckCopy.noMergeCopy}
+          data-owner-role={webBuildReadmeWorkflowDocsPrCheckCopy.ownerRole}
+          data-pr-href={webBuildReadmeWorkflowDocsPrCheckCopy.prHref}
+          data-repair-targets={webBuildReadmeWorkflowDocsPrCheckCopy.repairTargets}
+          data-route={webBuildReadmeWorkflowDocsPrCheckCopy.route}
+          data-source-marker-selector={webBuildReadmeWorkflowDocsPrCheckCopy.sourceMarkerSelector}
+          data-status={webBuildReadmeWorkflowDocsPrCheckCopy.status}
+          data-testid="web-build-readme-workflow-docs-pr-check-copy"
+          data-workflow-href={webBuildReadmeWorkflowDocsPrCheckCopy.workflowHref}
+          data-workflow-name={webBuildReadmeWorkflowDocsPrCheckCopy.workflowName}
+          data-workflow-path={webBuildReadmeWorkflowDocsPrCheckCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Web build README workflow docs PR-check copy</p>
+              <h2>Как PR #17 подтверждает Web build README workflow docs guard</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="web-build-readme-workflow-docs-pr-anchor"
+              href={webBuildReadmeWorkflowDocsPrCheckCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {webBuildReadmeWorkflowDocsPrCheckCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? "No merge"
+                    : title === "Checks"
+                      ? "CI green"
+                      : title === "Route guard"
+                        ? "Smoke route"
+                        : "PR clean"}
                 </strong>
                 <p>{text}</p>
               </article>
