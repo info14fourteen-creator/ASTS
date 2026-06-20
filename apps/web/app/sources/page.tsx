@@ -257,6 +257,37 @@ const sourceConnectorsLiveDocsWorkflowCopy = {
   ],
 };
 
+const sourceConnectorsReadmeLiveDocsWorkflowCopy = {
+  route: sourceConnectorsLiveDocsWorkflowCopy.route,
+  apiRoute: sourceConnectorsLiveDocsWorkflowCopy.apiRoute,
+  command: sourceConnectorsLiveDocsWorkflowCopy.command,
+  connectorIds: sourceConnectorsLiveDocsWorkflowCopy.connectorIds,
+  docsHref: sourceConnectorsLiveDocsWorkflowCopy.docsHref,
+  docsMarkerSelector: sourceConnectorsLiveDocsWorkflowCopy.docsMarkerSelector,
+  expectedConnectorCount: sourceConnectorsLiveDocsWorkflowCopy.expectedConnectorCount,
+  expectedNetworkDisabledCount: sourceConnectorsLiveDocsWorkflowCopy.expectedNetworkDisabledCount,
+  expectedRouteCount: sourceConnectorsLiveDocsWorkflowCopy.expectedRouteCount,
+  failingCommand: sourceConnectorsLiveDocsWorkflowCopy.failingCommand,
+  linkSelector: sourceConnectorsLiveDocsWorkflowCopy.linkSelector,
+  mode: sourceConnectorsLiveDocsWorkflowCopy.mode,
+  noMergeCopy:
+    "Не мержить, пока Source Connectors README docs deep-link, live route и Web build route smoke снова согласованы",
+  ownerRole: sourceConnectorsLiveDocsWorkflowCopy.ownerRole,
+  repairTargets:
+    "/sources,apps/api/README.md#source-connectors-contract,.github/workflows/web-build.yml,apps/web/scripts/smoke.mjs,[data-testid='source-connectors-live-docs-workflow-copy']",
+  sourceMarkerSelector: "[data-testid='source-connectors-live-docs-workflow-copy']",
+  workflowCommand: sourceConnectorsLiveDocsWorkflowCopy.workflowCommand,
+  workflowHref: sourceConnectorsLiveDocsWorkflowCopy.workflowHref,
+  workflowName: sourceConnectorsLiveDocsWorkflowCopy.workflowName,
+  workflowPath: sourceConnectorsLiveDocsWorkflowCopy.workflowPath,
+  checks: [
+    ["Symptom", "README deep-link есть, но live docs workflow guard больше не связывает Source Connectors с Web build"],
+    ["Fix order", "сначала восстановить source-connectors-docs-deep-link, затем source-connectors-live-docs-workflow-copy"],
+    ["Owner", "Data owner подтверждает connector ids, API owner подтверждает README anchor, CI owner подтверждает route smoke"],
+    ["No merge", "не мержить, пока source connectors README live docs workflow guard снова не проходит route coverage"],
+  ],
+};
+
 const fnsNetworkGateBrowserLoop = {
   route: "/sources",
   apiRoute: "/v1/sources/connectors",
@@ -677,6 +708,58 @@ export default function SourcesPage() {
                   {title === "No merge"
                     ? sourceConnectorsLiveDocsWorkflowCopy.noMergeCopy
                     : sourceConnectorsLiveDocsWorkflowCopy.workflowCommand}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-api-route={sourceConnectorsReadmeLiveDocsWorkflowCopy.apiRoute}
+          data-command={sourceConnectorsReadmeLiveDocsWorkflowCopy.command}
+          data-connector-ids={sourceConnectorsReadmeLiveDocsWorkflowCopy.connectorIds.join(",")}
+          data-docs-href={sourceConnectorsReadmeLiveDocsWorkflowCopy.docsHref}
+          data-docs-marker-selector={sourceConnectorsReadmeLiveDocsWorkflowCopy.docsMarkerSelector}
+          data-expected-connector-count={sourceConnectorsReadmeLiveDocsWorkflowCopy.expectedConnectorCount}
+          data-expected-network-disabled-count={sourceConnectorsReadmeLiveDocsWorkflowCopy.expectedNetworkDisabledCount}
+          data-expected-route-count={sourceConnectorsReadmeLiveDocsWorkflowCopy.expectedRouteCount}
+          data-failing-command={sourceConnectorsReadmeLiveDocsWorkflowCopy.failingCommand}
+          data-link-selector={sourceConnectorsReadmeLiveDocsWorkflowCopy.linkSelector}
+          data-mode={sourceConnectorsReadmeLiveDocsWorkflowCopy.mode}
+          data-no-merge-copy={sourceConnectorsReadmeLiveDocsWorkflowCopy.noMergeCopy}
+          data-owner-role={sourceConnectorsReadmeLiveDocsWorkflowCopy.ownerRole}
+          data-repair-targets={sourceConnectorsReadmeLiveDocsWorkflowCopy.repairTargets}
+          data-route={sourceConnectorsReadmeLiveDocsWorkflowCopy.route}
+          data-source-marker-selector={sourceConnectorsReadmeLiveDocsWorkflowCopy.sourceMarkerSelector}
+          data-testid="source-connectors-readme-live-docs-workflow-copy"
+          data-workflow-command={sourceConnectorsReadmeLiveDocsWorkflowCopy.workflowCommand}
+          data-workflow-href={sourceConnectorsReadmeLiveDocsWorkflowCopy.workflowHref}
+          data-workflow-name={sourceConnectorsReadmeLiveDocsWorkflowCopy.workflowName}
+          data-workflow-path={sourceConnectorsReadmeLiveDocsWorkflowCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source connectors README live docs workflow copy</p>
+              <h2>Что делать, если source connectors README live docs workflow drift упал</h2>
+            </div>
+            <a className="primary-link" href={sourceConnectorsReadmeLiveDocsWorkflowCopy.workflowHref}>
+              {sourceConnectorsReadmeLiveDocsWorkflowCopy.workflowName}
+            </a>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {sourceConnectorsReadmeLiveDocsWorkflowCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? "No merge"
+                    : title === "Owner"
+                      ? "Data + API + CI"
+                      : title === "Fix order"
+                        ? "docs -> live guard"
+                        : "README link"}
                 </strong>
                 <p>{text}</p>
               </article>
