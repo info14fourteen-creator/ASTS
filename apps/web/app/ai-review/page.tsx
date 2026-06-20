@@ -430,6 +430,40 @@ const aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy = {
   ],
 };
 
+const aiReviewQueueReadmeWorkflowDocsPrCheckCopy = {
+  route: aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.route,
+  apiRoute: aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.apiRoute,
+  branch: "codex/app-site-shell",
+  baseBranch: "main",
+  command: "gh pr checks 17 --watch --interval 10",
+  docsHref: aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.docsHref,
+  expectedCheckGroups: ["Web build", "API smoke", "Shared validation"],
+  expectedConclusion: "SUCCESS",
+  expectedMergeState: "CLEAN",
+  expectedOwnerCount: aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.expectedOwnerCount,
+  expectedPrNumber: "17",
+  expectedRouteCount: aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.expectedRouteCount,
+  expectedRuleCount: aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.expectedRuleCount,
+  linkSelector: "[data-testid='ai-review-queue-readme-workflow-docs-pr-anchor']",
+  noMergeCopy:
+    "Не мержить, пока PR #17 снова показывает CLEAN и зеленые Web build, API smoke и Shared validation checks для AI review queue README workflow docs guard",
+  ownerRole: "AI workflow owner + API owner + Docs owner + Release owner",
+  prHref: "https://github.com/info14fourteen-creator/ASTS/pull/17",
+  repairTargets:
+    "PR #17,gh pr checks 17,.github/workflows/web-build.yml,apps/web/scripts/smoke.mjs,/ai-review",
+  sourceMarkerSelector: "[data-testid='ai-review-queue-readme-workflow-docs-browser-loop-copy']",
+  status: aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.status,
+  workflowHref: aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.workflowHref,
+  workflowName: aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.workflowName,
+  workflowPath: aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.workflowPath,
+  checks: [
+    ["PR", "PR #17 остается на codex/app-site-shell -> main и mergeStateStatus CLEAN"],
+    ["Checks", "gh pr checks 17 подтверждает Web build, API smoke и Shared validation SUCCESS"],
+    ["Route guard", "route smoke продолжает видеть AI review queue README workflow docs browser-loop copy"],
+    ["No merge", "не мержить, пока PR-check guard снова не подтверждает clean rollup"],
+  ],
+};
+
 const aiReviewReceiptWriteContract = aiReviewQueueFixture.write_contract;
 const aiReviewReceiptWriteDocsDeepLink = {
   route: "/ai-review",
@@ -805,6 +839,65 @@ export default function AiReviewPage() {
                       : title === "DOM"
                         ? "One guard"
                         : "Browser QA"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel ai-confidence-browser-loop-panel"
+          data-api-route={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.apiRoute}
+          data-base-branch={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.baseBranch}
+          data-branch={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.branch}
+          data-command={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.command}
+          data-docs-href={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.docsHref}
+          data-expected-check-groups={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.expectedConclusion}
+          data-expected-merge-state={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.expectedMergeState}
+          data-expected-owner-count={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.expectedOwnerCount}
+          data-expected-pr-number={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.expectedPrNumber}
+          data-expected-route-count={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.expectedRouteCount}
+          data-expected-rule-count={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.expectedRuleCount}
+          data-link-selector={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.linkSelector}
+          data-no-merge-copy={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.noMergeCopy}
+          data-owner-role={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.ownerRole}
+          data-pr-href={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.prHref}
+          data-repair-targets={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.repairTargets}
+          data-route={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.route}
+          data-source-marker-selector={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.sourceMarkerSelector}
+          data-status={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.status}
+          data-testid="ai-review-queue-readme-workflow-docs-pr-check-copy"
+          data-workflow-href={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.workflowHref}
+          data-workflow-name={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.workflowName}
+          data-workflow-path={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review queue README workflow docs PR-check copy</p>
+              <h2>Как PR #17 подтверждает AI review queue README workflow docs guard</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="ai-review-queue-readme-workflow-docs-pr-anchor"
+              href={aiReviewQueueReadmeWorkflowDocsPrCheckCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="ai-confidence-browser-loop-grid">
+            {aiReviewQueueReadmeWorkflowDocsPrCheckCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? "No merge"
+                    : title === "Checks"
+                      ? "CI green"
+                      : title === "Route guard"
+                        ? "Smoke route"
+                        : "PR clean"}
                 </strong>
                 <p>{text}</p>
               </article>

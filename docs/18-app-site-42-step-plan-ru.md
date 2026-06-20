@@ -197,3 +197,5 @@
 195. [done 2026-06-20] Добавить source connectors README workflow docs browser-loop copy: закрепить owner-friendly Browser QA guard для живого `/sources`, который подтверждает Source Connectors README workflow docs rendered-route guard.
 
 196. [done 2026-06-20] Добавить source connectors README workflow docs PR-check copy: закрепить owner-friendly PR-check guard для PR #17, который подтверждает Source Connectors README workflow docs guard через CLEAN merge state и зеленые Web build, API smoke, Shared validation checks.
+
+197. [done 2026-06-20] Добавить AI review queue README workflow docs PR-check copy: закрепить owner-friendly PR-check guard для PR #17, который подтверждает AI review queue README workflow docs guard через CLEAN merge state и зеленые Web build, API smoke, Shared validation checks.
