@@ -233,3 +233,5 @@
 213. [done 2026-06-21] Добавить AI review queue README workflow docs owner handoff copy: закрепить owner-friendly handoff для AI review queue README workflow docs guard, который распределяет AI workflow, API, QA и Release acceptance после final QA evidence.
 
 214. [done 2026-06-21] Добавить shared validation README workflow docs owner handoff copy: закрепить owner-friendly handoff для shared validation README workflow docs guard, который распределяет Schema, CI, QA и Release acceptance после final QA evidence.
+
+215. [done 2026-06-21] Добавить web build README workflow docs owner handoff copy: закрепить owner-friendly handoff для Web build README workflow docs guard, который распределяет Frontend, CI, QA и Release acceptance после final QA evidence.

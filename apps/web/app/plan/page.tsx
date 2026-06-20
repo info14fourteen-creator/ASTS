@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить web build README workflow docs owner handoff copy", "закрепить Web build README workflow docs owner handoff"],
-  ["2", "Добавить source connectors README workflow docs release checklist copy", "закрепить Source Connectors README workflow docs release checklist"],
-  ["3", "Добавить AI review queue README workflow docs release checklist copy", "закрепить AI review queue README workflow docs release checklist"],
-  ["4", "Добавить shared validation README workflow docs release checklist copy", "закрепить shared validation README workflow docs release checklist"],
+  ["1", "Добавить source connectors README workflow docs release checklist copy", "закрепить Source Connectors README workflow docs release checklist"],
+  ["2", "Добавить AI review queue README workflow docs release checklist copy", "закрепить AI review queue README workflow docs release checklist"],
+  ["3", "Добавить shared validation README workflow docs release checklist copy", "закрепить shared validation README workflow docs release checklist"],
+  ["4", "Добавить web build README workflow docs release checklist copy", "закрепить Web build README workflow docs release checklist"],
 ];
 
 const cycleRules = [
@@ -3475,6 +3475,44 @@ const webBuildReadmeWorkflowDocsFinalQaCopy = {
     ["Smoke", "route smoke видит Web build README workflow docs release-note guard"],
     ["Browser QA", "Browser DOM находит final QA и release-note guard без framework overlay и console errors"],
     ["PR", "PR #17 остается CLEAN с зеленым statusCheckRollup перед закрытием handoff"],
+  ],
+};
+
+const webBuildReadmeWorkflowDocsOwnerHandoffCopy = {
+  route: webBuildReadmeWorkflowDocsFinalQaCopy.route,
+  checkedWorkflowPath: webBuildReadmeWorkflowDocsFinalQaCopy.checkedWorkflowPath,
+  branch: webBuildReadmeWorkflowDocsFinalQaCopy.branch,
+  baseBranch: webBuildReadmeWorkflowDocsFinalQaCopy.baseBranch,
+  command: webBuildReadmeWorkflowDocsFinalQaCopy.command,
+  docsHref: webBuildReadmeWorkflowDocsFinalQaCopy.docsHref,
+  expectedCommandCount: webBuildReadmeWorkflowDocsFinalQaCopy.expectedCommandCount,
+  expectedCheckGroups: webBuildReadmeWorkflowDocsFinalQaCopy.expectedCheckGroups,
+  expectedConclusion: webBuildReadmeWorkflowDocsFinalQaCopy.expectedConclusion,
+  expectedMergeState: webBuildReadmeWorkflowDocsFinalQaCopy.expectedMergeState,
+  expectedPrNumber: webBuildReadmeWorkflowDocsFinalQaCopy.expectedPrNumber,
+  expectedRouteCount: webBuildReadmeWorkflowDocsFinalQaCopy.expectedRouteCount,
+  finalQaScope: webBuildReadmeWorkflowDocsFinalQaCopy.finalQaScope,
+  handoffOwners: ["Frontend owner", "CI owner", "QA owner", "Release owner"],
+  handoffScope: "Web build README workflow docs owner handoff",
+  linkSelector: "[data-testid='web-build-readme-workflow-docs-owner-handoff-anchor']",
+  noMergeCopy:
+    "Не закрывать Web build README workflow docs owner handoff, пока Frontend, CI, QA и Release owners не приняли final QA evidence",
+  ownerRole: webBuildReadmeWorkflowDocsFinalQaCopy.ownerRole,
+  prHref: webBuildReadmeWorkflowDocsFinalQaCopy.prHref,
+  releaseNote: webBuildReadmeWorkflowDocsFinalQaCopy.releaseNote,
+  releaseScope: webBuildReadmeWorkflowDocsFinalQaCopy.releaseScope,
+  repairTargets:
+    "PR #17,owner handoff,apps/web/scripts/smoke.mjs,/plan,[data-testid='web-build-readme-workflow-docs-final-qa-copy']",
+  sourceMarkerSelector: "[data-testid='web-build-readme-workflow-docs-final-qa-copy']",
+  status: webBuildReadmeWorkflowDocsFinalQaCopy.status,
+  workflowHref: webBuildReadmeWorkflowDocsFinalQaCopy.workflowHref,
+  workflowName: webBuildReadmeWorkflowDocsFinalQaCopy.workflowName,
+  workflowPath: webBuildReadmeWorkflowDocsFinalQaCopy.workflowPath,
+  checks: [
+    ["Frontend", "Frontend owner принимает static routes, README docs и owner handoff"],
+    ["CI", "CI owner принимает Web build workflow и expected command count"],
+    ["QA", "QA owner принимает build, route smoke и Browser DOM QA evidence"],
+    ["Release", "Release owner принимает PR #17 CLEAN и release note text"],
   ],
 };
 
@@ -9559,6 +9597,69 @@ export default function PlanPage() {
                       : title === "Smoke"
                         ? "Smoke green"
                         : "Build green"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={webBuildReadmeWorkflowDocsOwnerHandoffCopy.baseBranch}
+          data-branch={webBuildReadmeWorkflowDocsOwnerHandoffCopy.branch}
+          data-checked-workflow-path={webBuildReadmeWorkflowDocsOwnerHandoffCopy.checkedWorkflowPath}
+          data-command={webBuildReadmeWorkflowDocsOwnerHandoffCopy.command}
+          data-docs-href={webBuildReadmeWorkflowDocsOwnerHandoffCopy.docsHref}
+          data-expected-command-count={webBuildReadmeWorkflowDocsOwnerHandoffCopy.expectedCommandCount}
+          data-expected-check-groups={webBuildReadmeWorkflowDocsOwnerHandoffCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={webBuildReadmeWorkflowDocsOwnerHandoffCopy.expectedConclusion}
+          data-expected-merge-state={webBuildReadmeWorkflowDocsOwnerHandoffCopy.expectedMergeState}
+          data-expected-pr-number={webBuildReadmeWorkflowDocsOwnerHandoffCopy.expectedPrNumber}
+          data-expected-route-count={webBuildReadmeWorkflowDocsOwnerHandoffCopy.expectedRouteCount}
+          data-final-qa-scope={webBuildReadmeWorkflowDocsOwnerHandoffCopy.finalQaScope}
+          data-handoff-owners={webBuildReadmeWorkflowDocsOwnerHandoffCopy.handoffOwners.join(",")}
+          data-handoff-scope={webBuildReadmeWorkflowDocsOwnerHandoffCopy.handoffScope}
+          data-link-selector={webBuildReadmeWorkflowDocsOwnerHandoffCopy.linkSelector}
+          data-no-merge-copy={webBuildReadmeWorkflowDocsOwnerHandoffCopy.noMergeCopy}
+          data-owner-role={webBuildReadmeWorkflowDocsOwnerHandoffCopy.ownerRole}
+          data-pr-href={webBuildReadmeWorkflowDocsOwnerHandoffCopy.prHref}
+          data-release-note={webBuildReadmeWorkflowDocsOwnerHandoffCopy.releaseNote}
+          data-release-scope={webBuildReadmeWorkflowDocsOwnerHandoffCopy.releaseScope}
+          data-repair-targets={webBuildReadmeWorkflowDocsOwnerHandoffCopy.repairTargets}
+          data-route={webBuildReadmeWorkflowDocsOwnerHandoffCopy.route}
+          data-source-marker-selector={webBuildReadmeWorkflowDocsOwnerHandoffCopy.sourceMarkerSelector}
+          data-status={webBuildReadmeWorkflowDocsOwnerHandoffCopy.status}
+          data-testid="web-build-readme-workflow-docs-owner-handoff-copy"
+          data-workflow-href={webBuildReadmeWorkflowDocsOwnerHandoffCopy.workflowHref}
+          data-workflow-name={webBuildReadmeWorkflowDocsOwnerHandoffCopy.workflowName}
+          data-workflow-path={webBuildReadmeWorkflowDocsOwnerHandoffCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Web build README workflow docs owner handoff copy</p>
+              <h2>Кто принимает Web build README workflow docs handoff</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="web-build-readme-workflow-docs-owner-handoff-anchor"
+              href={webBuildReadmeWorkflowDocsOwnerHandoffCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {webBuildReadmeWorkflowDocsOwnerHandoffCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Release"
+                    ? "Release accepts"
+                    : title === "QA"
+                      ? "QA accepts"
+                      : title === "CI"
+                        ? "CI accepts"
+                        : "Frontend accepts"}
                 </strong>
                 <p>{text}</p>
               </article>
