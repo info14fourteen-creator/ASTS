@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить shared validation README workflow docs merge-state copy", "закрепить shared validation README workflow docs merge-state guard"],
-  ["2", "Добавить web build README workflow docs merge-state copy", "закрепить Web build README workflow docs merge-state guard"],
-  ["3", "Добавить source connectors README workflow docs release-note copy", "закрепить Source Connectors README workflow docs release handoff"],
-  ["4", "Добавить AI review queue README workflow docs release-note copy", "закрепить AI queue README workflow docs release handoff"],
+  ["1", "Добавить web build README workflow docs merge-state copy", "закрепить Web build README workflow docs merge-state guard"],
+  ["2", "Добавить source connectors README workflow docs release-note copy", "закрепить Source Connectors README workflow docs release handoff"],
+  ["3", "Добавить AI review queue README workflow docs release-note copy", "закрепить AI queue README workflow docs release handoff"],
+  ["4", "Добавить shared validation README workflow docs release-note copy", "закрепить shared validation README workflow docs release handoff"],
 ];
 
 const cycleRules = [
@@ -594,6 +594,40 @@ const sharedValidationReadmeWorkflowDocsPrCheckCopy = {
     ["Checks", "gh pr checks 17 подтверждает Web build, API smoke и Shared validation SUCCESS"],
     ["Route guard", "route smoke продолжает видеть shared validation README workflow docs browser-loop copy"],
     ["No merge", "не мержить, пока PR-check guard снова не подтверждает clean rollup"],
+  ],
+};
+
+const sharedValidationReadmeWorkflowDocsMergeStateCopy = {
+  route: sharedValidationReadmeWorkflowDocsPrCheckCopy.route,
+  checkedWorkflowPath: sharedValidationReadmeWorkflowDocsPrCheckCopy.checkedWorkflowPath,
+  branch: sharedValidationReadmeWorkflowDocsPrCheckCopy.branch,
+  baseBranch: sharedValidationReadmeWorkflowDocsPrCheckCopy.baseBranch,
+  command: "gh pr view 17 --json headRefName,baseRefName,mergeStateStatus,statusCheckRollup",
+  docsHref: sharedValidationReadmeWorkflowDocsPrCheckCopy.docsHref,
+  expectedCheckCount: sharedValidationReadmeWorkflowDocsPrCheckCopy.expectedCheckCount,
+  expectedCheckGroups: sharedValidationReadmeWorkflowDocsPrCheckCopy.expectedCheckGroups,
+  expectedConclusion: sharedValidationReadmeWorkflowDocsPrCheckCopy.expectedConclusion,
+  expectedMergeState: sharedValidationReadmeWorkflowDocsPrCheckCopy.expectedMergeState,
+  expectedPrNumber: sharedValidationReadmeWorkflowDocsPrCheckCopy.expectedPrNumber,
+  expectedRouteCount: sharedValidationReadmeWorkflowDocsPrCheckCopy.expectedRouteCount,
+  linkSelector: "[data-testid='shared-validation-readme-workflow-docs-merge-anchor']",
+  noMergeCopy:
+    "Не мержить, пока PR #17 снова показывает mergeStateStatus CLEAN для shared validation README workflow docs guard",
+  ownerRole: "Schema owner + CI owner + Release owner",
+  prHref: sharedValidationReadmeWorkflowDocsPrCheckCopy.prHref,
+  readmePath: sharedValidationReadmeWorkflowDocsPrCheckCopy.readmePath,
+  repairTargets:
+    "PR #17,gh pr view 17 --json mergeStateStatus,statusCheckRollup,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='shared-validation-readme-workflow-docs-pr-check-copy']",
+  status: sharedValidationReadmeWorkflowDocsPrCheckCopy.status,
+  workflowHref: sharedValidationReadmeWorkflowDocsPrCheckCopy.workflowHref,
+  workflowName: sharedValidationReadmeWorkflowDocsPrCheckCopy.workflowName,
+  workflowPath: sharedValidationReadmeWorkflowDocsPrCheckCopy.workflowPath,
+  checks: [
+    ["Merge state", "PR #17 mergeStateStatus остается CLEAN перед merge"],
+    ["Branch", "headRefName codex/app-site-shell и baseRefName main не меняются"],
+    ["Checks", "statusCheckRollup остается SUCCESS для Web build, API smoke и Shared validation"],
+    ["No merge", "не мержить, пока merge-state guard снова не подтверждает clean PR rollup"],
   ],
 };
 
@@ -4323,6 +4357,65 @@ export default function PlanPage() {
                       : title === "Route guard"
                         ? "Smoke route"
                         : "PR clean"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={sharedValidationReadmeWorkflowDocsMergeStateCopy.baseBranch}
+          data-branch={sharedValidationReadmeWorkflowDocsMergeStateCopy.branch}
+          data-checked-workflow-path={sharedValidationReadmeWorkflowDocsMergeStateCopy.checkedWorkflowPath}
+          data-command={sharedValidationReadmeWorkflowDocsMergeStateCopy.command}
+          data-docs-href={sharedValidationReadmeWorkflowDocsMergeStateCopy.docsHref}
+          data-expected-check-count={sharedValidationReadmeWorkflowDocsMergeStateCopy.expectedCheckCount}
+          data-expected-check-groups={sharedValidationReadmeWorkflowDocsMergeStateCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={sharedValidationReadmeWorkflowDocsMergeStateCopy.expectedConclusion}
+          data-expected-merge-state={sharedValidationReadmeWorkflowDocsMergeStateCopy.expectedMergeState}
+          data-expected-pr-number={sharedValidationReadmeWorkflowDocsMergeStateCopy.expectedPrNumber}
+          data-expected-route-count={sharedValidationReadmeWorkflowDocsMergeStateCopy.expectedRouteCount}
+          data-link-selector={sharedValidationReadmeWorkflowDocsMergeStateCopy.linkSelector}
+          data-no-merge-copy={sharedValidationReadmeWorkflowDocsMergeStateCopy.noMergeCopy}
+          data-owner-role={sharedValidationReadmeWorkflowDocsMergeStateCopy.ownerRole}
+          data-pr-href={sharedValidationReadmeWorkflowDocsMergeStateCopy.prHref}
+          data-readme-path={sharedValidationReadmeWorkflowDocsMergeStateCopy.readmePath}
+          data-repair-targets={sharedValidationReadmeWorkflowDocsMergeStateCopy.repairTargets}
+          data-route={sharedValidationReadmeWorkflowDocsMergeStateCopy.route}
+          data-source-marker-selector={sharedValidationReadmeWorkflowDocsMergeStateCopy.sourceMarkerSelector}
+          data-status={sharedValidationReadmeWorkflowDocsMergeStateCopy.status}
+          data-testid="shared-validation-readme-workflow-docs-merge-state-copy"
+          data-workflow-href={sharedValidationReadmeWorkflowDocsMergeStateCopy.workflowHref}
+          data-workflow-name={sharedValidationReadmeWorkflowDocsMergeStateCopy.workflowName}
+          data-workflow-path={sharedValidationReadmeWorkflowDocsMergeStateCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Shared validation README workflow docs merge-state copy</p>
+              <h2>Как PR #17 держит shared validation README workflow docs guard в CLEAN</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="shared-validation-readme-workflow-docs-merge-anchor"
+              href={sharedValidationReadmeWorkflowDocsMergeStateCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sharedValidationReadmeWorkflowDocsMergeStateCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? "No merge"
+                    : title === "Checks"
+                      ? "Rollup green"
+                      : title === "Branch"
+                        ? "PR branch"
+                        : "CLEAN"}
                 </strong>
                 <p>{text}</p>
               </article>

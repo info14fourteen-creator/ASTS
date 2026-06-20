@@ -207,3 +207,5 @@
 200. [done 2026-06-20] Добавить source connectors README workflow docs merge-state copy: закрепить owner-friendly merge-state guard для PR #17, который подтверждает Source Connectors README workflow docs guard через head/base ветки, CLEAN mergeStateStatus и зеленый statusCheckRollup.
 
 201. [done 2026-06-20] Добавить AI review queue README workflow docs merge-state copy: закрепить owner-friendly merge-state guard для PR #17, который подтверждает AI review queue README workflow docs guard через head/base ветки, CLEAN mergeStateStatus и зеленый statusCheckRollup.
+
+202. [done 2026-06-20] Добавить shared validation README workflow docs merge-state copy: закрепить owner-friendly merge-state guard для PR #17, который подтверждает shared validation README workflow docs guard через head/base ветки, CLEAN mergeStateStatus и зеленый statusCheckRollup.
