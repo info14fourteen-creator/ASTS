@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить shared validation README workflow docs failure copy", "закрепить shared README workflow docs guard в `/plan`"],
-  ["2", "Добавить web build README workflow docs failure copy", "закрепить Web build README workflow docs guard в `/plan`"],
-  ["3", "Добавить AI review queue README workflow docs failure copy", "закрепить AI queue README workflow docs guard в `/ai-review`"],
-  ["4", "Добавить source connectors README workflow docs failure copy", "закрепить connectors README workflow docs guard в `/sources`"],
+  ["1", "Добавить web build README workflow docs failure copy", "закрепить Web build README workflow docs guard в `/plan`"],
+  ["2", "Добавить AI review queue README workflow docs failure copy", "закрепить AI queue README workflow docs guard в `/ai-review`"],
+  ["3", "Добавить source connectors README workflow docs failure copy", "закрепить connectors README workflow docs guard в `/sources`"],
+  ["4", "Добавить shared validation README workflow docs rendered-route copy", "закрепить shared README workflow docs rendered guard в `/plan`"],
 ];
 
 const cycleRules = [
@@ -471,6 +471,37 @@ const sharedValidationReadmeRenderedRouteFailureCopy = {
     ["Fix order", "сначала восстановить shared-validation-readme-workflow-failure-copy, затем route smoke expectations"],
     ["Owner", "Schema owner подтверждает README guard, Docs owner подтверждает anchor, QA owner подтверждает `/plan`"],
     ["No merge", "не мержить, пока shared validation README rendered-route guard снова не проходит route coverage"],
+  ],
+};
+
+const sharedValidationReadmeWorkflowDocsFailureCopy = {
+  checkedWorkflowPath: sharedValidationReadmeRenderedRouteFailureCopy.checkedWorkflowPath,
+  command: sharedValidationReadmeRenderedRouteFailureCopy.command,
+  docsHref: sharedValidationReadmeRenderedRouteFailureCopy.docsHref,
+  docsMarkerSelector: sharedValidationReadmeRenderedRouteFailureCopy.docsMarkerSelector,
+  expectedCheckCount: sharedValidationReadmeRenderedRouteFailureCopy.expectedCheckCount,
+  expectedRouteCount: sharedValidationReadmeRenderedRouteFailureCopy.expectedRouteCount,
+  failingCommand: sharedValidationWorkflowDocsFailureCopy.failingCommand,
+  linkSelector: sharedValidationReadmeRenderedRouteFailureCopy.linkSelector,
+  noMergeCopy:
+    "Не мержить, пока shared validation README rendered-route guard и workflow docs guard снова согласованы на живом `/plan`",
+  ownerRole: "Schema owner + CI owner + Docs owner + QA owner",
+  readmePath: sharedValidationReadmeRenderedRouteFailureCopy.readmePath,
+  repairTargets:
+    "/plan,packages/shared/README.md#shared-schema-index,.github/workflows/shared-validation.yml,apps/web/scripts/smoke.mjs,[data-testid='shared-validation-readme-rendered-route-failure-copy']",
+  sourceMarkerSelector: "[data-testid='shared-validation-readme-rendered-route-failure-copy']",
+  workflowCommand: sharedValidationReadmeRenderedRouteFailureCopy.workflowCommand,
+  workflowDocsCommand: sharedValidationWorkflowDocsFailureCopy.command,
+  workflowDocsFailureCommand: sharedValidationWorkflowDocsFailureCopy.failingCommand,
+  workflowFailureCommand: sharedValidationReadmeRenderedRouteFailureCopy.workflowFailureCommand,
+  workflowHref: sharedValidationWorkflowDocsFailureCopy.workflowHref,
+  workflowName: sharedValidationWorkflowDocsFailureCopy.workflowName,
+  workflowPath: sharedValidationWorkflowDocsFailureCopy.workflowPath,
+  checks: [
+    ["Symptom", "README rendered-route guard есть, но workflow docs guard больше не связывает README anchor и shared validation workflow"],
+    ["Fix order", "сначала восстановить shared-validation-readme-rendered-route-failure-copy, затем shared-validation-workflow-docs-failure-copy"],
+    ["Owner", "Schema owner подтверждает README guard, CI owner подтверждает shared workflow, Docs owner подтверждает anchor"],
+    ["No merge", "не мержить, пока shared validation README workflow docs guard снова не проходит route coverage"],
   ],
 };
 
@@ -3869,6 +3900,58 @@ export default function PlanPage() {
                       : title === "Fix order"
                         ? "README -> route smoke"
                         : "Rendered route"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-checked-workflow-path={sharedValidationReadmeWorkflowDocsFailureCopy.checkedWorkflowPath}
+          data-command={sharedValidationReadmeWorkflowDocsFailureCopy.command}
+          data-docs-href={sharedValidationReadmeWorkflowDocsFailureCopy.docsHref}
+          data-docs-marker-selector={sharedValidationReadmeWorkflowDocsFailureCopy.docsMarkerSelector}
+          data-expected-check-count={sharedValidationReadmeWorkflowDocsFailureCopy.expectedCheckCount}
+          data-expected-route-count={sharedValidationReadmeWorkflowDocsFailureCopy.expectedRouteCount}
+          data-failing-command={sharedValidationReadmeWorkflowDocsFailureCopy.failingCommand}
+          data-link-selector={sharedValidationReadmeWorkflowDocsFailureCopy.linkSelector}
+          data-no-merge-copy={sharedValidationReadmeWorkflowDocsFailureCopy.noMergeCopy}
+          data-owner-role={sharedValidationReadmeWorkflowDocsFailureCopy.ownerRole}
+          data-readme-path={sharedValidationReadmeWorkflowDocsFailureCopy.readmePath}
+          data-repair-targets={sharedValidationReadmeWorkflowDocsFailureCopy.repairTargets}
+          data-source-marker-selector={sharedValidationReadmeWorkflowDocsFailureCopy.sourceMarkerSelector}
+          data-testid="shared-validation-readme-workflow-docs-failure-copy"
+          data-workflow-command={sharedValidationReadmeWorkflowDocsFailureCopy.workflowCommand}
+          data-workflow-docs-command={sharedValidationReadmeWorkflowDocsFailureCopy.workflowDocsCommand}
+          data-workflow-docs-failure-command={sharedValidationReadmeWorkflowDocsFailureCopy.workflowDocsFailureCommand}
+          data-workflow-failure-command={sharedValidationReadmeWorkflowDocsFailureCopy.workflowFailureCommand}
+          data-workflow-href={sharedValidationReadmeWorkflowDocsFailureCopy.workflowHref}
+          data-workflow-name={sharedValidationReadmeWorkflowDocsFailureCopy.workflowName}
+          data-workflow-path={sharedValidationReadmeWorkflowDocsFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Shared validation README workflow docs failure copy</p>
+              <h2>Что делать, если shared validation README workflow docs guard упал</h2>
+            </div>
+            <a className="primary-link" href={sharedValidationReadmeWorkflowDocsFailureCopy.workflowHref}>
+              {sharedValidationReadmeWorkflowDocsFailureCopy.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sharedValidationReadmeWorkflowDocsFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? "No merge"
+                    : title === "Owner"
+                      ? "Schema + CI + Docs"
+                      : title === "Fix order"
+                        ? "README -> workflow docs"
+                        : "Workflow docs"}
                 </strong>
                 <p>{text}</p>
               </article>
