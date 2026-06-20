@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить shared validation README workflow docs owner handoff copy", "закрепить shared validation README workflow docs owner handoff"],
-  ["2", "Добавить web build README workflow docs owner handoff copy", "закрепить Web build README workflow docs owner handoff"],
-  ["3", "Добавить source connectors README workflow docs release checklist copy", "закрепить Source Connectors README workflow docs release checklist"],
-  ["4", "Добавить AI review queue README workflow docs release checklist copy", "закрепить AI review queue README workflow docs release checklist"],
+  ["1", "Добавить web build README workflow docs owner handoff copy", "закрепить Web build README workflow docs owner handoff"],
+  ["2", "Добавить source connectors README workflow docs release checklist copy", "закрепить Source Connectors README workflow docs release checklist"],
+  ["3", "Добавить AI review queue README workflow docs release checklist copy", "закрепить AI review queue README workflow docs release checklist"],
+  ["4", "Добавить shared validation README workflow docs release checklist copy", "закрепить shared validation README workflow docs release checklist"],
 ];
 
 const cycleRules = [
@@ -703,6 +703,45 @@ const sharedValidationReadmeWorkflowDocsFinalQaCopy = {
     ["Smoke", "route smoke видит shared validation README workflow docs release-note guard"],
     ["Browser QA", "Browser DOM находит final QA и release-note guard без framework overlay и console errors"],
     ["PR", "PR #17 остается CLEAN с зеленым statusCheckRollup перед закрытием handoff"],
+  ],
+};
+
+const sharedValidationReadmeWorkflowDocsOwnerHandoffCopy = {
+  route: sharedValidationReadmeWorkflowDocsFinalQaCopy.route,
+  checkedWorkflowPath: sharedValidationReadmeWorkflowDocsFinalQaCopy.checkedWorkflowPath,
+  branch: sharedValidationReadmeWorkflowDocsFinalQaCopy.branch,
+  baseBranch: sharedValidationReadmeWorkflowDocsFinalQaCopy.baseBranch,
+  command: sharedValidationReadmeWorkflowDocsFinalQaCopy.command,
+  docsHref: sharedValidationReadmeWorkflowDocsFinalQaCopy.docsHref,
+  expectedCheckCount: sharedValidationReadmeWorkflowDocsFinalQaCopy.expectedCheckCount,
+  expectedCheckGroups: sharedValidationReadmeWorkflowDocsFinalQaCopy.expectedCheckGroups,
+  expectedConclusion: sharedValidationReadmeWorkflowDocsFinalQaCopy.expectedConclusion,
+  expectedMergeState: sharedValidationReadmeWorkflowDocsFinalQaCopy.expectedMergeState,
+  expectedPrNumber: sharedValidationReadmeWorkflowDocsFinalQaCopy.expectedPrNumber,
+  expectedRouteCount: sharedValidationReadmeWorkflowDocsFinalQaCopy.expectedRouteCount,
+  finalQaScope: sharedValidationReadmeWorkflowDocsFinalQaCopy.finalQaScope,
+  handoffOwners: ["Schema owner", "CI owner", "QA owner", "Release owner"],
+  handoffScope: "shared validation README workflow docs owner handoff",
+  linkSelector: "[data-testid='shared-validation-readme-workflow-docs-owner-handoff-anchor']",
+  noMergeCopy:
+    "Не закрывать shared validation README workflow docs owner handoff, пока Schema, CI, QA и Release owners не приняли final QA evidence",
+  ownerRole: sharedValidationReadmeWorkflowDocsFinalQaCopy.ownerRole,
+  prHref: sharedValidationReadmeWorkflowDocsFinalQaCopy.prHref,
+  readmePath: sharedValidationReadmeWorkflowDocsFinalQaCopy.readmePath,
+  releaseNote: sharedValidationReadmeWorkflowDocsFinalQaCopy.releaseNote,
+  releaseScope: sharedValidationReadmeWorkflowDocsFinalQaCopy.releaseScope,
+  repairTargets:
+    "PR #17,owner handoff,apps/web/scripts/smoke.mjs,/plan,[data-testid='shared-validation-readme-workflow-docs-final-qa-copy']",
+  sourceMarkerSelector: "[data-testid='shared-validation-readme-workflow-docs-final-qa-copy']",
+  status: sharedValidationReadmeWorkflowDocsFinalQaCopy.status,
+  workflowHref: sharedValidationReadmeWorkflowDocsFinalQaCopy.workflowHref,
+  workflowName: sharedValidationReadmeWorkflowDocsFinalQaCopy.workflowName,
+  workflowPath: sharedValidationReadmeWorkflowDocsFinalQaCopy.workflowPath,
+  checks: [
+    ["Schema", "Schema owner принимает schema index, fixtures и 14 check count"],
+    ["CI", "CI owner принимает Shared validation workflow и expected check groups"],
+    ["QA", "QA owner принимает build, route smoke и Browser DOM QA evidence"],
+    ["Release", "Release owner принимает PR #17 CLEAN и release note text"],
   ],
 };
 
@@ -4720,6 +4759,70 @@ export default function PlanPage() {
                       : title === "Smoke"
                         ? "Smoke green"
                         : "Build green"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.baseBranch}
+          data-branch={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.branch}
+          data-checked-workflow-path={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.checkedWorkflowPath}
+          data-command={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.command}
+          data-docs-href={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.docsHref}
+          data-expected-check-count={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.expectedCheckCount}
+          data-expected-check-groups={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.expectedConclusion}
+          data-expected-merge-state={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.expectedMergeState}
+          data-expected-pr-number={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.expectedPrNumber}
+          data-expected-route-count={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.expectedRouteCount}
+          data-final-qa-scope={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.finalQaScope}
+          data-handoff-owners={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.handoffOwners.join(",")}
+          data-handoff-scope={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.handoffScope}
+          data-link-selector={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.linkSelector}
+          data-no-merge-copy={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.noMergeCopy}
+          data-owner-role={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.ownerRole}
+          data-pr-href={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.prHref}
+          data-readme-path={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.readmePath}
+          data-release-note={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.releaseNote}
+          data-release-scope={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.releaseScope}
+          data-repair-targets={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.repairTargets}
+          data-route={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.route}
+          data-source-marker-selector={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.sourceMarkerSelector}
+          data-status={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.status}
+          data-testid="shared-validation-readme-workflow-docs-owner-handoff-copy"
+          data-workflow-href={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.workflowHref}
+          data-workflow-name={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.workflowName}
+          data-workflow-path={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Shared validation README workflow docs owner handoff copy</p>
+              <h2>Кто принимает shared validation README workflow docs handoff</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="shared-validation-readme-workflow-docs-owner-handoff-anchor"
+              href={sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sharedValidationReadmeWorkflowDocsOwnerHandoffCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Release"
+                    ? "Release accepts"
+                    : title === "QA"
+                      ? "QA accepts"
+                      : title === "CI"
+                        ? "CI accepts"
+                        : "Schema accepts"}
                 </strong>
                 <p>{text}</p>
               </article>
