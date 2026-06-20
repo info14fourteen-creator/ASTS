@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить web build README workflow docs failure copy", "закрепить Web build README workflow docs guard в `/plan`"],
-  ["2", "Добавить AI review queue README workflow docs failure copy", "закрепить AI queue README workflow docs guard в `/ai-review`"],
-  ["3", "Добавить source connectors README workflow docs failure copy", "закрепить connectors README workflow docs guard в `/sources`"],
-  ["4", "Добавить shared validation README workflow docs rendered-route copy", "закрепить shared README workflow docs rendered guard в `/plan`"],
+  ["1", "Добавить AI review queue README workflow docs failure copy", "закрепить AI queue README workflow docs guard в `/ai-review`"],
+  ["2", "Добавить source connectors README workflow docs failure copy", "закрепить connectors README workflow docs guard в `/sources`"],
+  ["3", "Добавить shared validation README workflow docs rendered-route copy", "закрепить shared README workflow docs rendered guard в `/plan`"],
+  ["4", "Добавить web build README workflow docs rendered-route copy", "закрепить Web build README workflow docs rendered guard в `/plan`"],
 ];
 
 const cycleRules = [
@@ -3009,6 +3009,36 @@ const webBuildReadmeRenderedRouteFailureCopy = {
     ["Fix order", "сначала восстановить web-build-readme-workflow-failure-copy, затем route smoke expectations"],
     ["Owner", "Frontend owner подтверждает README guard, CI owner подтверждает workflow YAML, QA owner подтверждает `/plan`"],
     ["No merge", "не мержить, пока Web build README rendered-route guard снова не проходит route coverage"],
+  ],
+};
+
+const webBuildReadmeWorkflowDocsFailureCopy = {
+  checkedWorkflowPath: webBuildReadmeRenderedRouteFailureCopy.checkedWorkflowPath,
+  command: webBuildReadmeRenderedRouteFailureCopy.command,
+  docsHref: webBuildReadmeRenderedRouteFailureCopy.docsHref,
+  docsMarkerSelector: webBuildReadmeRenderedRouteFailureCopy.docsMarkerSelector,
+  expectedCommandCount: webBuildReadmeRenderedRouteFailureCopy.expectedCommandCount,
+  expectedRouteCount: webBuildReadmeRenderedRouteFailureCopy.expectedRouteCount,
+  failingCommand: webBuildWorkflowDocsFailureCopy.failingCommand,
+  linkSelector: webBuildReadmeRenderedRouteFailureCopy.linkSelector,
+  noMergeCopy:
+    "Не мержить, пока Web build README rendered-route guard и workflow docs guard снова согласованы на живом `/plan`",
+  ownerRole: "Frontend owner + CI owner + Docs owner + QA owner",
+  repairTargets:
+    "/plan,.github/workflows/web-build.yml,apps/web/scripts/smoke.mjs,[data-testid='web-build-readme-rendered-route-failure-copy']",
+  sourceMarkerSelector: "[data-testid='web-build-readme-rendered-route-failure-copy']",
+  workflowCommand: webBuildReadmeRenderedRouteFailureCopy.workflowCommand,
+  workflowDocsCommand: webBuildWorkflowDocsFailureCopy.command,
+  workflowDocsFailureCommand: webBuildWorkflowDocsFailureCopy.failingCommand,
+  workflowFailureCommand: webBuildReadmeRenderedRouteFailureCopy.workflowFailureCommand,
+  workflowHref: webBuildWorkflowDocsFailureCopy.workflowHref,
+  workflowName: webBuildWorkflowDocsFailureCopy.workflowName,
+  workflowPath: webBuildWorkflowDocsFailureCopy.workflowPath,
+  checks: [
+    ["Symptom", "README rendered-route guard есть, но workflow docs guard больше не связывает README guard и Web build YAML"],
+    ["Fix order", "сначала восстановить web-build-readme-rendered-route-failure-copy, затем web-build-workflow-docs-failure-copy"],
+    ["Owner", "Frontend owner подтверждает README guard, CI owner подтверждает Web build YAML, Docs owner подтверждает workflow docs link"],
+    ["No merge", "не мержить, пока Web build README workflow docs guard снова не проходит route coverage"],
   ],
 };
 
@@ -8297,6 +8327,57 @@ export default function PlanPage() {
                       : title === "Fix order"
                         ? "README -> route smoke"
                         : "Rendered route"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-checked-workflow-path={webBuildReadmeWorkflowDocsFailureCopy.checkedWorkflowPath}
+          data-command={webBuildReadmeWorkflowDocsFailureCopy.command}
+          data-docs-href={webBuildReadmeWorkflowDocsFailureCopy.docsHref}
+          data-docs-marker-selector={webBuildReadmeWorkflowDocsFailureCopy.docsMarkerSelector}
+          data-expected-command-count={webBuildReadmeWorkflowDocsFailureCopy.expectedCommandCount}
+          data-expected-route-count={webBuildReadmeWorkflowDocsFailureCopy.expectedRouteCount}
+          data-failing-command={webBuildReadmeWorkflowDocsFailureCopy.failingCommand}
+          data-link-selector={webBuildReadmeWorkflowDocsFailureCopy.linkSelector}
+          data-no-merge-copy={webBuildReadmeWorkflowDocsFailureCopy.noMergeCopy}
+          data-owner-role={webBuildReadmeWorkflowDocsFailureCopy.ownerRole}
+          data-repair-targets={webBuildReadmeWorkflowDocsFailureCopy.repairTargets}
+          data-source-marker-selector={webBuildReadmeWorkflowDocsFailureCopy.sourceMarkerSelector}
+          data-testid="web-build-readme-workflow-docs-failure-copy"
+          data-workflow-command={webBuildReadmeWorkflowDocsFailureCopy.workflowCommand}
+          data-workflow-docs-command={webBuildReadmeWorkflowDocsFailureCopy.workflowDocsCommand}
+          data-workflow-docs-failure-command={webBuildReadmeWorkflowDocsFailureCopy.workflowDocsFailureCommand}
+          data-workflow-failure-command={webBuildReadmeWorkflowDocsFailureCopy.workflowFailureCommand}
+          data-workflow-href={webBuildReadmeWorkflowDocsFailureCopy.workflowHref}
+          data-workflow-name={webBuildReadmeWorkflowDocsFailureCopy.workflowName}
+          data-workflow-path={webBuildReadmeWorkflowDocsFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Web build README workflow docs failure copy</p>
+              <h2>Что делать, если Web build README workflow docs guard упал</h2>
+            </div>
+            <a className="primary-link" href={webBuildReadmeWorkflowDocsFailureCopy.workflowHref}>
+              {webBuildReadmeWorkflowDocsFailureCopy.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {webBuildReadmeWorkflowDocsFailureCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? "No merge"
+                    : title === "Owner"
+                      ? "Frontend + CI + Docs"
+                      : title === "Fix order"
+                        ? "README -> workflow docs"
+                        : "Workflow docs"}
                 </strong>
                 <p>{text}</p>
               </article>
