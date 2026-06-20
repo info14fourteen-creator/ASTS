@@ -531,6 +531,43 @@ const sourceConnectorsReadmeWorkflowDocsMergeStateCopy = {
   ],
 };
 
+const sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy = {
+  route: sourceConnectorsReadmeWorkflowDocsMergeStateCopy.route,
+  apiRoute: sourceConnectorsReadmeWorkflowDocsMergeStateCopy.apiRoute,
+  branch: sourceConnectorsReadmeWorkflowDocsMergeStateCopy.branch,
+  baseBranch: sourceConnectorsReadmeWorkflowDocsMergeStateCopy.baseBranch,
+  command: "gh pr view 17 --json url,headRefName,baseRefName,mergeStateStatus,statusCheckRollup",
+  connectorIds: sourceConnectorsReadmeWorkflowDocsMergeStateCopy.connectorIds,
+  docsHref: sourceConnectorsReadmeWorkflowDocsMergeStateCopy.docsHref,
+  expectedCheckGroups: sourceConnectorsReadmeWorkflowDocsMergeStateCopy.expectedCheckGroups,
+  expectedConclusion: sourceConnectorsReadmeWorkflowDocsMergeStateCopy.expectedConclusion,
+  expectedMergeState: sourceConnectorsReadmeWorkflowDocsMergeStateCopy.expectedMergeState,
+  expectedPrNumber: sourceConnectorsReadmeWorkflowDocsMergeStateCopy.expectedPrNumber,
+  expectedRouteCount: sourceConnectorsReadmeWorkflowDocsMergeStateCopy.expectedRouteCount,
+  linkSelector: "[data-testid='source-connectors-readme-workflow-docs-release-anchor']",
+  mode: sourceConnectorsReadmeWorkflowDocsMergeStateCopy.mode,
+  noMergeCopy:
+    "Не выпускать release notes, пока PR #17 снова показывает CLEAN и зеленый statusCheckRollup для Source Connectors README workflow docs guard",
+  ownerRole: "Data owner + API owner + Docs owner + Release owner",
+  prHref: sourceConnectorsReadmeWorkflowDocsMergeStateCopy.prHref,
+  releaseNote:
+    "Source Connectors README workflow docs guard covered by browser-loop, PR-check and merge-state copy on `/sources`.",
+  releaseScope: "Source Connectors README workflow docs",
+  repairTargets:
+    "PR #17,release notes,apps/web/scripts/smoke.mjs,/sources,[data-testid='source-connectors-readme-workflow-docs-merge-state-copy']",
+  sourceMarkerSelector: "[data-testid='source-connectors-readme-workflow-docs-merge-state-copy']",
+  status: sourceConnectorsReadmeWorkflowDocsMergeStateCopy.status,
+  workflowHref: sourceConnectorsReadmeWorkflowDocsMergeStateCopy.workflowHref,
+  workflowName: sourceConnectorsReadmeWorkflowDocsMergeStateCopy.workflowName,
+  workflowPath: sourceConnectorsReadmeWorkflowDocsMergeStateCopy.workflowPath,
+  checks: [
+    ["Release note", "release notes явно упоминают Source Connectors README workflow docs guard"],
+    ["Evidence", "handoff ссылается на PR #17, CLEAN mergeStateStatus и зеленый statusCheckRollup"],
+    ["Scope", "handoff оставляет `/sources`, `/v1/sources/connectors` и Web build workflow в одном контексте"],
+    ["No merge", "не выпускать release notes, пока release-note guard снова не подтверждает clean PR evidence"],
+  ],
+};
+
 const fnsNetworkGateBrowserLoop = {
   route: "/sources",
   apiRoute: "/v1/sources/connectors",
@@ -1405,6 +1442,67 @@ export default function SourcesPage() {
                       : title === "Branch"
                         ? "PR branch"
                         : "CLEAN"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-api-route={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.apiRoute}
+          data-base-branch={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.baseBranch}
+          data-branch={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.branch}
+          data-command={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.command}
+          data-connector-ids={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.connectorIds.join(",")}
+          data-docs-href={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.docsHref}
+          data-expected-check-groups={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.expectedConclusion}
+          data-expected-merge-state={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.expectedMergeState}
+          data-expected-pr-number={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.expectedPrNumber}
+          data-expected-route-count={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.expectedRouteCount}
+          data-link-selector={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.linkSelector}
+          data-mode={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.mode}
+          data-no-merge-copy={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.noMergeCopy}
+          data-owner-role={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.ownerRole}
+          data-pr-href={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.prHref}
+          data-release-note={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.releaseNote}
+          data-release-scope={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.releaseScope}
+          data-repair-targets={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.repairTargets}
+          data-route={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.route}
+          data-source-marker-selector={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.sourceMarkerSelector}
+          data-status={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.status}
+          data-testid="source-connectors-readme-workflow-docs-release-note-copy"
+          data-workflow-href={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.workflowHref}
+          data-workflow-name={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.workflowName}
+          data-workflow-path={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source connectors README workflow docs release-note copy</p>
+              <h2>Что release notes должны сказать про Source Connectors README workflow docs guard</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="source-connectors-readme-workflow-docs-release-anchor"
+              href={sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? "No merge"
+                    : title === "Evidence"
+                      ? "Clean PR"
+                      : title === "Scope"
+                        ? "Release scope"
+                        : "Release note"}
                 </strong>
                 <p>{text}</p>
               </article>
