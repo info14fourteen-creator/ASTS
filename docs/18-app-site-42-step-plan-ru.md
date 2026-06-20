@@ -179,3 +179,5 @@
 186. [done 2026-06-20] Добавить AI review queue README workflow docs failure copy: закрепить owner-friendly guard для связки AI review queue README rendered-route guard и AI review queue workflow docs guard.
 
 187. [done 2026-06-20] Добавить source connectors README workflow docs failure copy: закрепить owner-friendly guard для связки Source Connectors README rendered-route guard и Source Connectors workflow docs guard.
+
+188. [done 2026-06-20] Добавить shared validation README workflow docs rendered-route copy: закрепить owner-friendly guard для живого `/plan`, который подтверждает shared validation README workflow docs guard в rendered route smoke.
