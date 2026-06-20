@@ -215,3 +215,5 @@
 204. [done 2026-06-20] Добавить source connectors README workflow docs release-note copy: закрепить owner-friendly release-note handoff для Source Connectors README workflow docs guard, который связывает browser-loop, PR-check и merge-state evidence перед выпуском release notes.
 
 205. [done 2026-06-20] Добавить AI review queue README workflow docs release-note copy: закрепить owner-friendly release-note handoff для AI review queue README workflow docs guard, который связывает browser-loop, PR-check и merge-state evidence перед выпуском release notes.
+
+206. [done 2026-06-21] Добавить shared validation README workflow docs release-note copy: закрепить owner-friendly release-note handoff для shared validation README workflow docs guard, который связывает browser-loop, PR-check и merge-state evidence перед выпуском release notes.

@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить shared validation README workflow docs release-note copy", "закрепить shared validation README workflow docs release handoff"],
-  ["2", "Добавить web build README workflow docs release-note copy", "закрепить Web build README workflow docs release handoff"],
-  ["3", "Добавить source connectors README workflow docs final QA copy", "закрепить Source Connectors README workflow docs final QA handoff"],
-  ["4", "Добавить AI review queue README workflow docs final QA copy", "закрепить AI queue README workflow docs final QA handoff"],
+  ["1", "Добавить web build README workflow docs release-note copy", "закрепить Web build README workflow docs release handoff"],
+  ["2", "Добавить source connectors README workflow docs final QA copy", "закрепить Source Connectors README workflow docs final QA handoff"],
+  ["3", "Добавить AI review queue README workflow docs final QA copy", "закрепить AI queue README workflow docs final QA handoff"],
+  ["4", "Добавить shared validation README workflow docs final QA copy", "закрепить shared validation README workflow docs final QA handoff"],
 ];
 
 const cycleRules = [
@@ -628,6 +628,43 @@ const sharedValidationReadmeWorkflowDocsMergeStateCopy = {
     ["Branch", "headRefName codex/app-site-shell и baseRefName main не меняются"],
     ["Checks", "statusCheckRollup остается SUCCESS для Web build, API smoke и Shared validation"],
     ["No merge", "не мержить, пока merge-state guard снова не подтверждает clean PR rollup"],
+  ],
+};
+
+const sharedValidationReadmeWorkflowDocsReleaseNoteCopy = {
+  route: sharedValidationReadmeWorkflowDocsMergeStateCopy.route,
+  checkedWorkflowPath: sharedValidationReadmeWorkflowDocsMergeStateCopy.checkedWorkflowPath,
+  branch: sharedValidationReadmeWorkflowDocsMergeStateCopy.branch,
+  baseBranch: sharedValidationReadmeWorkflowDocsMergeStateCopy.baseBranch,
+  command: "gh pr view 17 --json url,headRefName,baseRefName,mergeStateStatus,statusCheckRollup",
+  docsHref: sharedValidationReadmeWorkflowDocsMergeStateCopy.docsHref,
+  expectedCheckCount: sharedValidationReadmeWorkflowDocsMergeStateCopy.expectedCheckCount,
+  expectedCheckGroups: sharedValidationReadmeWorkflowDocsMergeStateCopy.expectedCheckGroups,
+  expectedConclusion: sharedValidationReadmeWorkflowDocsMergeStateCopy.expectedConclusion,
+  expectedMergeState: sharedValidationReadmeWorkflowDocsMergeStateCopy.expectedMergeState,
+  expectedPrNumber: sharedValidationReadmeWorkflowDocsMergeStateCopy.expectedPrNumber,
+  expectedRouteCount: sharedValidationReadmeWorkflowDocsMergeStateCopy.expectedRouteCount,
+  linkSelector: "[data-testid='shared-validation-readme-workflow-docs-release-anchor']",
+  noMergeCopy:
+    "Не выпускать release notes, пока PR #17 снова показывает CLEAN и зеленый statusCheckRollup для shared validation README workflow docs guard",
+  ownerRole: "Schema owner + CI owner + Release owner",
+  prHref: sharedValidationReadmeWorkflowDocsMergeStateCopy.prHref,
+  readmePath: sharedValidationReadmeWorkflowDocsMergeStateCopy.readmePath,
+  releaseNote:
+    "Shared validation README workflow docs guard covered by browser-loop, PR-check and merge-state copy on `/plan`.",
+  releaseScope: "shared validation README workflow docs",
+  repairTargets:
+    "PR #17,release notes,apps/web/scripts/smoke.mjs,/plan,[data-testid='shared-validation-readme-workflow-docs-merge-state-copy']",
+  sourceMarkerSelector: "[data-testid='shared-validation-readme-workflow-docs-merge-state-copy']",
+  status: sharedValidationReadmeWorkflowDocsMergeStateCopy.status,
+  workflowHref: sharedValidationReadmeWorkflowDocsMergeStateCopy.workflowHref,
+  workflowName: sharedValidationReadmeWorkflowDocsMergeStateCopy.workflowName,
+  workflowPath: sharedValidationReadmeWorkflowDocsMergeStateCopy.workflowPath,
+  checks: [
+    ["Release note", "release notes явно упоминают shared validation README workflow docs guard"],
+    ["Evidence", "handoff ссылается на PR #17, CLEAN mergeStateStatus и зеленый statusCheckRollup"],
+    ["Scope", "handoff оставляет `/plan`, packages/shared README и Shared validation workflow в одном контексте"],
+    ["No merge", "не выпускать release notes, пока release-note guard снова не подтверждает clean PR evidence"],
   ],
 };
 
@@ -4449,6 +4486,67 @@ export default function PlanPage() {
                       : title === "Branch"
                         ? "PR branch"
                         : "CLEAN"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.baseBranch}
+          data-branch={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.branch}
+          data-checked-workflow-path={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.checkedWorkflowPath}
+          data-command={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.command}
+          data-docs-href={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.docsHref}
+          data-expected-check-count={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.expectedCheckCount}
+          data-expected-check-groups={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.expectedConclusion}
+          data-expected-merge-state={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.expectedMergeState}
+          data-expected-pr-number={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.expectedPrNumber}
+          data-expected-route-count={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.expectedRouteCount}
+          data-link-selector={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.linkSelector}
+          data-no-merge-copy={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.noMergeCopy}
+          data-owner-role={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.ownerRole}
+          data-pr-href={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.prHref}
+          data-readme-path={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.readmePath}
+          data-release-note={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.releaseNote}
+          data-release-scope={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.releaseScope}
+          data-repair-targets={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.repairTargets}
+          data-route={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.route}
+          data-source-marker-selector={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.sourceMarkerSelector}
+          data-status={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.status}
+          data-testid="shared-validation-readme-workflow-docs-release-note-copy"
+          data-workflow-href={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.workflowHref}
+          data-workflow-name={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.workflowName}
+          data-workflow-path={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Shared validation README workflow docs release-note copy</p>
+              <h2>Что release notes должны сказать про shared validation README workflow docs guard</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="shared-validation-readme-workflow-docs-release-anchor"
+              href={sharedValidationReadmeWorkflowDocsReleaseNoteCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sharedValidationReadmeWorkflowDocsReleaseNoteCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? "No merge"
+                    : title === "Evidence"
+                      ? "Clean PR"
+                      : title === "Scope"
+                        ? "Release scope"
+                        : "Release note"}
                 </strong>
                 <p>{text}</p>
               </article>
