@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить shared validation README workflow docs browser-loop copy", "закрепить shared README workflow docs browser guard в `/plan`"],
-  ["2", "Добавить web build README workflow docs browser-loop copy", "закрепить Web build README workflow docs browser guard в `/plan`"],
-  ["3", "Добавить AI review queue README workflow docs browser-loop copy", "закрепить AI queue README workflow docs browser guard в `/ai-review`"],
-  ["4", "Добавить source connectors README workflow docs browser-loop copy", "закрепить connectors README workflow docs browser guard в `/sources`"],
+  ["1", "Добавить web build README workflow docs browser-loop copy", "закрепить Web build README workflow docs browser guard в `/plan`"],
+  ["2", "Добавить AI review queue README workflow docs browser-loop copy", "закрепить AI queue README workflow docs browser guard в `/ai-review`"],
+  ["3", "Добавить source connectors README workflow docs browser-loop copy", "закрепить connectors README workflow docs browser guard в `/sources`"],
+  ["4", "Добавить shared validation README workflow docs PR-check copy", "закрепить shared README workflow docs PR checks в `/plan`"],
 ];
 
 const cycleRules = [
@@ -533,6 +533,33 @@ const sharedValidationReadmeWorkflowDocsRenderedRouteCopy = {
     ["Fix order", "сначала восстановить shared-validation-readme-workflow-docs-failure-copy, затем route smoke expectations"],
     ["Owner", "Schema owner подтверждает README guard, CI owner подтверждает shared workflow, QA owner подтверждает `/plan`"],
     ["No merge", "не мержить, пока shared validation README workflow docs rendered-route guard снова не проходит route coverage"],
+  ],
+};
+
+const sharedValidationReadmeWorkflowDocsBrowserLoopCopy = {
+  browserLoopSelector: "[data-testid='shared-validation-readme-workflow-docs-rendered-route-copy']",
+  browserUrl: "/plan",
+  command: sharedValidationReadmeWorkflowDocsRenderedRouteCopy.command,
+  consoleLevels: "error,warn",
+  docsHref: sharedValidationReadmeWorkflowDocsRenderedRouteCopy.docsHref,
+  expectedCheckCount: sharedValidationReadmeWorkflowDocsRenderedRouteCopy.expectedCheckCount,
+  expectedRouteCount: sharedValidationReadmeWorkflowDocsRenderedRouteCopy.expectedRouteCount,
+  linkSelector: sharedValidationReadmeWorkflowDocsRenderedRouteCopy.linkSelector,
+  noMergeCopy:
+    "Не мержить, пока Browser QA снова подтверждает shared validation README workflow docs rendered-route guard на живом `/plan`",
+  ownerRole: "Schema owner + CI owner + QA owner",
+  repairTargets:
+    "/plan,apps/web/scripts/smoke.mjs,[data-testid='shared-validation-readme-workflow-docs-rendered-route-copy'],Browser DOM QA",
+  screenshotRequired: "true",
+  sourceMarkerSelector: "[data-testid='shared-validation-readme-workflow-docs-rendered-route-copy']",
+  workflowHref: sharedValidationReadmeWorkflowDocsRenderedRouteCopy.workflowHref,
+  workflowName: sharedValidationReadmeWorkflowDocsRenderedRouteCopy.workflowName,
+  workflowPath: sharedValidationReadmeWorkflowDocsRenderedRouteCopy.workflowPath,
+  checks: [
+    ["Page identity", "Browser открывает `/plan` и видит ASTS app.site.ru без framework overlay"],
+    ["DOM", "Browser DOM находит shared-validation-readme-workflow-docs-rendered-route-copy ровно один раз"],
+    ["Workflow link", "scoped link ведет в Shared validation GitHub Actions workflow"],
+    ["Console", "Browser console не содержит error/warn перед merge"],
   ],
 };
 
@@ -4095,6 +4122,54 @@ export default function PlanPage() {
                       : title === "Fix order"
                         ? "workflow docs -> route"
                         : "Rendered route"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-browser-loop-selector={sharedValidationReadmeWorkflowDocsBrowserLoopCopy.browserLoopSelector}
+          data-browser-url={sharedValidationReadmeWorkflowDocsBrowserLoopCopy.browserUrl}
+          data-command={sharedValidationReadmeWorkflowDocsBrowserLoopCopy.command}
+          data-console-levels={sharedValidationReadmeWorkflowDocsBrowserLoopCopy.consoleLevels}
+          data-docs-href={sharedValidationReadmeWorkflowDocsBrowserLoopCopy.docsHref}
+          data-expected-check-count={sharedValidationReadmeWorkflowDocsBrowserLoopCopy.expectedCheckCount}
+          data-expected-route-count={sharedValidationReadmeWorkflowDocsBrowserLoopCopy.expectedRouteCount}
+          data-link-selector={sharedValidationReadmeWorkflowDocsBrowserLoopCopy.linkSelector}
+          data-no-merge-copy={sharedValidationReadmeWorkflowDocsBrowserLoopCopy.noMergeCopy}
+          data-owner-role={sharedValidationReadmeWorkflowDocsBrowserLoopCopy.ownerRole}
+          data-repair-targets={sharedValidationReadmeWorkflowDocsBrowserLoopCopy.repairTargets}
+          data-screenshot-required={sharedValidationReadmeWorkflowDocsBrowserLoopCopy.screenshotRequired}
+          data-source-marker-selector={sharedValidationReadmeWorkflowDocsBrowserLoopCopy.sourceMarkerSelector}
+          data-testid="shared-validation-readme-workflow-docs-browser-loop-copy"
+          data-workflow-href={sharedValidationReadmeWorkflowDocsBrowserLoopCopy.workflowHref}
+          data-workflow-name={sharedValidationReadmeWorkflowDocsBrowserLoopCopy.workflowName}
+          data-workflow-path={sharedValidationReadmeWorkflowDocsBrowserLoopCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Shared validation README workflow docs browser-loop copy</p>
+              <h2>Как Browser QA подтверждает shared validation README workflow docs guard</h2>
+            </div>
+            <a className="primary-link" href={sharedValidationReadmeWorkflowDocsBrowserLoopCopy.workflowHref}>
+              {sharedValidationReadmeWorkflowDocsBrowserLoopCopy.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sharedValidationReadmeWorkflowDocsBrowserLoopCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Console"
+                    ? "No errors"
+                    : title === "Workflow link"
+                      ? "Scoped link"
+                      : title === "DOM"
+                        ? "One guard"
+                        : "Browser QA"}
                 </strong>
                 <p>{text}</p>
               </article>
