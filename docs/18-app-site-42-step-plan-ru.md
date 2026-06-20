@@ -183,3 +183,5 @@
 188. [done 2026-06-20] Добавить shared validation README workflow docs rendered-route copy: закрепить owner-friendly guard для живого `/plan`, который подтверждает shared validation README workflow docs guard в rendered route smoke.
 
 189. [done 2026-06-20] Добавить web build README workflow docs rendered-route copy: закрепить owner-friendly guard для живого `/plan`, который подтверждает Web build README workflow docs guard в rendered route smoke.
+
+190. [done 2026-06-20] Добавить AI review queue README workflow docs rendered-route copy: закрепить owner-friendly guard для живого `/ai-review`, который подтверждает AI review queue README workflow docs guard в rendered route smoke.

@@ -361,6 +361,39 @@ const aiReviewQueueReadmeWorkflowDocsFailureCopy = {
   ],
 };
 
+const aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy = {
+  route: aiReviewQueueReadmeWorkflowDocsFailureCopy.route,
+  apiRoute: aiReviewQueueReadmeWorkflowDocsFailureCopy.apiRoute,
+  command: aiReviewQueueReadmeWorkflowDocsFailureCopy.command,
+  docsHref: aiReviewQueueReadmeWorkflowDocsFailureCopy.docsHref,
+  docsMarkerSelector: aiReviewQueueReadmeWorkflowDocsFailureCopy.docsMarkerSelector,
+  expectedOwnerCount: aiReviewQueueReadmeWorkflowDocsFailureCopy.expectedOwnerCount,
+  expectedRouteCount: aiReviewQueueReadmeWorkflowDocsFailureCopy.expectedRouteCount,
+  expectedRuleCount: aiReviewQueueReadmeWorkflowDocsFailureCopy.expectedRuleCount,
+  failingCommand: aiReviewQueueReadmeWorkflowDocsFailureCopy.command,
+  linkSelector: aiReviewQueueReadmeWorkflowDocsFailureCopy.linkSelector,
+  noMergeCopy:
+    "Не мержить, пока rendered routes smoke снова подтверждает AI review queue README workflow docs guard на живом `/ai-review`",
+  ownerRole: "AI workflow owner + API owner + Docs owner + QA owner",
+  repairTargets:
+    "/ai-review,apps/api/README.md#ai-review-queue-contract,.github/workflows/web-build.yml,apps/web/scripts/smoke.mjs,[data-testid='ai-review-queue-readme-workflow-docs-failure-copy']",
+  sourceMarkerSelector: "[data-testid='ai-review-queue-readme-workflow-docs-failure-copy']",
+  status: aiReviewQueueReadmeWorkflowDocsFailureCopy.status,
+  workflowCommand: aiReviewQueueReadmeWorkflowDocsFailureCopy.workflowCommand,
+  workflowDocsCommand: aiReviewQueueReadmeWorkflowDocsFailureCopy.workflowDocsCommand,
+  workflowDocsFailureCommand: aiReviewQueueReadmeWorkflowDocsFailureCopy.workflowDocsFailureCommand,
+  workflowFailureCommand: aiReviewQueueReadmeWorkflowDocsFailureCopy.workflowFailureCommand,
+  workflowHref: aiReviewQueueReadmeWorkflowDocsFailureCopy.workflowHref,
+  workflowName: aiReviewQueueReadmeWorkflowDocsFailureCopy.workflowName,
+  workflowPath: aiReviewQueueReadmeWorkflowDocsFailureCopy.workflowPath,
+  checks: [
+    ["Symptom", "README workflow docs guard есть, но rendered routes smoke больше не видит AI review queue workflow docs safety copy"],
+    ["Fix order", "сначала восстановить ai-review-queue-readme-workflow-docs-failure-copy, затем queue route smoke expectations"],
+    ["Owner", "AI workflow owner подтверждает README guard, API owner подтверждает README anchor, QA owner подтверждает `/ai-review`"],
+    ["No merge", "не мержить, пока AI review queue README workflow docs rendered-route guard снова не проходит route coverage"],
+  ],
+};
+
 const aiReviewReceiptWriteContract = aiReviewQueueFixture.write_contract;
 const aiReviewReceiptWriteDocsDeepLink = {
   route: "/ai-review",
@@ -621,6 +654,60 @@ export default function AiReviewPage() {
                       : title === "Fix order"
                         ? "README -> workflow docs"
                         : "Workflow docs"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel ai-confidence-browser-loop-panel"
+          data-api-route={aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.apiRoute}
+          data-command={aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.command}
+          data-docs-href={aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.docsHref}
+          data-docs-marker-selector={aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.docsMarkerSelector}
+          data-expected-owner-count={aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.expectedOwnerCount}
+          data-expected-route-count={aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.expectedRouteCount}
+          data-expected-rule-count={aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.expectedRuleCount}
+          data-failing-command={aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.failingCommand}
+          data-link-selector={aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.linkSelector}
+          data-no-merge-copy={aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.noMergeCopy}
+          data-owner-role={aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.ownerRole}
+          data-repair-targets={aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.repairTargets}
+          data-route={aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.route}
+          data-source-marker-selector={aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.sourceMarkerSelector}
+          data-status={aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.status}
+          data-testid="ai-review-queue-readme-workflow-docs-rendered-route-copy"
+          data-workflow-command={aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.workflowCommand}
+          data-workflow-docs-command={aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.workflowDocsCommand}
+          data-workflow-docs-failure-command={aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.workflowDocsFailureCommand}
+          data-workflow-failure-command={aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.workflowFailureCommand}
+          data-workflow-href={aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.workflowHref}
+          data-workflow-name={aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.workflowName}
+          data-workflow-path={aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review queue README workflow docs rendered-route copy</p>
+              <h2>Что делать, если AI review queue README workflow docs rendered-route guard упал</h2>
+            </div>
+            <a className="primary-link" href={aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.workflowHref}>
+              {aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.workflowName}
+            </a>
+          </div>
+          <div className="ai-confidence-browser-loop-grid">
+            {aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? "No merge"
+                    : title === "Owner"
+                      ? "AI + API + QA"
+                      : title === "Fix order"
+                        ? "workflow docs -> smoke"
+                        : "Rendered route"}
                 </strong>
                 <p>{text}</p>
               </article>
