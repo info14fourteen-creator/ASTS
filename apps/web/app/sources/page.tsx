@@ -390,6 +390,41 @@ const sourceConnectorsReadmeWorkflowDocsFailureCopy = {
   ],
 };
 
+const sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy = {
+  route: sourceConnectorsReadmeWorkflowDocsFailureCopy.route,
+  apiRoute: sourceConnectorsReadmeWorkflowDocsFailureCopy.apiRoute,
+  command: sourceConnectorsReadmeWorkflowDocsFailureCopy.command,
+  connectorIds: sourceConnectorsReadmeWorkflowDocsFailureCopy.connectorIds,
+  docsHref: sourceConnectorsReadmeWorkflowDocsFailureCopy.docsHref,
+  docsMarkerSelector: sourceConnectorsReadmeWorkflowDocsFailureCopy.docsMarkerSelector,
+  expectedConnectorCount: sourceConnectorsReadmeWorkflowDocsFailureCopy.expectedConnectorCount,
+  expectedNetworkDisabledCount: sourceConnectorsReadmeWorkflowDocsFailureCopy.expectedNetworkDisabledCount,
+  expectedRouteCount: sourceConnectorsReadmeWorkflowDocsFailureCopy.expectedRouteCount,
+  failingCommand: sourceConnectorsReadmeWorkflowDocsFailureCopy.command,
+  linkSelector: sourceConnectorsReadmeWorkflowDocsFailureCopy.linkSelector,
+  mode: sourceConnectorsReadmeWorkflowDocsFailureCopy.mode,
+  noMergeCopy:
+    "Не мержить, пока rendered routes smoke снова подтверждает Source Connectors README workflow docs guard на живом `/sources`",
+  ownerRole: "Data owner + API owner + Docs owner + QA owner",
+  repairTargets:
+    "/sources,apps/api/README.md#source-connectors-contract,.github/workflows/web-build.yml,apps/web/scripts/smoke.mjs,[data-testid='source-connectors-readme-workflow-docs-failure-copy']",
+  sourceMarkerSelector: "[data-testid='source-connectors-readme-workflow-docs-failure-copy']",
+  status: sourceConnectorsReadmeWorkflowDocsFailureCopy.status,
+  workflowCommand: sourceConnectorsReadmeWorkflowDocsFailureCopy.workflowCommand,
+  workflowDocsCommand: sourceConnectorsReadmeWorkflowDocsFailureCopy.workflowDocsCommand,
+  workflowDocsFailureCommand: sourceConnectorsReadmeWorkflowDocsFailureCopy.workflowDocsFailureCommand,
+  workflowFailureCommand: sourceConnectorsReadmeWorkflowDocsFailureCopy.workflowFailureCommand,
+  workflowHref: sourceConnectorsReadmeWorkflowDocsFailureCopy.workflowHref,
+  workflowName: sourceConnectorsReadmeWorkflowDocsFailureCopy.workflowName,
+  workflowPath: sourceConnectorsReadmeWorkflowDocsFailureCopy.workflowPath,
+  checks: [
+    ["Symptom", "README workflow docs guard есть, но rendered routes smoke больше не видит Source Connectors workflow docs safety copy"],
+    ["Fix order", "сначала восстановить source-connectors-readme-workflow-docs-failure-copy, затем route smoke expectations"],
+    ["Owner", "Data owner подтверждает README guard, API owner подтверждает README anchor, QA owner подтверждает `/sources`"],
+    ["No merge", "не мержить, пока source connectors README workflow docs rendered-route guard снова не проходит route coverage"],
+  ],
+};
+
 const fnsNetworkGateBrowserLoop = {
   route: "/sources",
   apiRoute: "/v1/sources/connectors",
@@ -1027,6 +1062,62 @@ export default function SourcesPage() {
                       : title === "Fix order"
                         ? "README -> workflow docs"
                         : "Workflow docs"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-api-route={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.apiRoute}
+          data-command={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.command}
+          data-connector-ids={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.connectorIds.join(",")}
+          data-docs-href={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.docsHref}
+          data-docs-marker-selector={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.docsMarkerSelector}
+          data-expected-connector-count={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.expectedConnectorCount}
+          data-expected-network-disabled-count={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.expectedNetworkDisabledCount}
+          data-expected-route-count={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.expectedRouteCount}
+          data-failing-command={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.failingCommand}
+          data-link-selector={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.linkSelector}
+          data-mode={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.mode}
+          data-no-merge-copy={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.noMergeCopy}
+          data-owner-role={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.ownerRole}
+          data-repair-targets={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.repairTargets}
+          data-route={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.route}
+          data-source-marker-selector={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.sourceMarkerSelector}
+          data-status={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.status}
+          data-testid="source-connectors-readme-workflow-docs-rendered-route-copy"
+          data-workflow-command={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.workflowCommand}
+          data-workflow-docs-command={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.workflowDocsCommand}
+          data-workflow-docs-failure-command={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.workflowDocsFailureCommand}
+          data-workflow-failure-command={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.workflowFailureCommand}
+          data-workflow-href={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.workflowHref}
+          data-workflow-name={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.workflowName}
+          data-workflow-path={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source connectors README workflow docs rendered-route copy</p>
+              <h2>Что делать, если source connectors README workflow docs rendered-route guard упал</h2>
+            </div>
+            <a className="primary-link" href={sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.workflowHref}>
+              {sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.workflowName}
+            </a>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? "No merge"
+                    : title === "Owner"
+                      ? "Data + API + QA"
+                      : title === "Fix order"
+                        ? "workflow docs -> smoke"
+                        : "Rendered route"}
                 </strong>
                 <p>{text}</p>
               </article>

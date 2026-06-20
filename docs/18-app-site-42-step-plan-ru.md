@@ -185,3 +185,5 @@
 189. [done 2026-06-20] Добавить web build README workflow docs rendered-route copy: закрепить owner-friendly guard для живого `/plan`, который подтверждает Web build README workflow docs guard в rendered route smoke.
 
 190. [done 2026-06-20] Добавить AI review queue README workflow docs rendered-route copy: закрепить owner-friendly guard для живого `/ai-review`, который подтверждает AI review queue README workflow docs guard в rendered route smoke.
+
+191. [done 2026-06-20] Добавить source connectors README workflow docs rendered-route copy: закрепить owner-friendly guard для живого `/sources`, который подтверждает Source Connectors README workflow docs guard в rendered route smoke.
