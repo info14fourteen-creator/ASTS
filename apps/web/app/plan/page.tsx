@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить web build README live docs workflow copy", "закрепить Web build README live-docs guard в `/plan`"],
-  ["2", "Добавить AI review queue README live docs workflow copy", "закрепить AI queue README live-docs guard в `/ai-review`"],
-  ["3", "Добавить source connectors README live docs workflow copy", "закрепить connectors README live-docs guard в `/sources`"],
-  ["4", "Добавить shared validation README workflow failure copy", "закрепить shared README workflow failure guard в `/plan`"],
+  ["1", "Добавить AI review queue README live docs workflow copy", "закрепить AI queue README live-docs guard в `/ai-review`"],
+  ["2", "Добавить source connectors README live docs workflow copy", "закрепить connectors README live-docs guard в `/sources`"],
+  ["3", "Добавить shared validation README workflow failure copy", "закрепить shared README workflow failure guard в `/plan`"],
+  ["4", "Добавить web build README workflow failure copy", "закрепить Web build README workflow failure guard в `/plan`"],
 ];
 
 const cycleRules = [
@@ -2835,6 +2835,33 @@ const webBuildLiveDocsWorkflowCopy = {
     ["Fix order", "сначала восстановить web-build-live-route-gate-note, затем web-build-workflow-docs-deep-link"],
     ["Owner", "Frontend owner подтверждает `/plan`, CI owner подтверждает workflow path, Docs owner подтверждает YAML deep-link"],
     ["No merge", "не мержить, пока Web build live docs workflow guard снова не проходит route coverage"],
+  ],
+};
+
+const webBuildReadmeLiveDocsWorkflowCopy = {
+  checkedWorkflowPath: webBuildLiveDocsWorkflowCopy.checkedWorkflowPath,
+  command: webBuildLiveDocsWorkflowCopy.command,
+  docsHref: webBuildLiveDocsWorkflowCopy.docsHref,
+  docsMarkerSelector: webBuildLiveDocsWorkflowCopy.docsMarkerSelector,
+  expectedCommandCount: webBuildLiveDocsWorkflowCopy.expectedCommandCount,
+  expectedRouteCount: webBuildLiveDocsWorkflowCopy.expectedRouteCount,
+  failingCommand: webBuildLiveDocsWorkflowCopy.failingCommand,
+  linkSelector: webBuildLiveDocsWorkflowCopy.linkSelector,
+  noMergeCopy:
+    "Не мержить, пока Web build README docs deep-link, live route gate и workflow YAML route smoke снова согласованы",
+  ownerRole: webBuildLiveDocsWorkflowCopy.ownerRole,
+  repairTargets:
+    "/plan,.github/workflows/web-build.yml,apps/web/scripts/smoke.mjs,[data-testid='web-build-live-docs-workflow-copy']",
+  sourceMarkerSelector: "[data-testid='web-build-live-docs-workflow-copy']",
+  workflowCommand: webBuildLiveDocsWorkflowCopy.workflowCommand,
+  workflowHref: webBuildLiveDocsWorkflowCopy.workflowHref,
+  workflowName: webBuildLiveDocsWorkflowCopy.workflowName,
+  workflowPath: webBuildLiveDocsWorkflowCopy.workflowPath,
+  checks: [
+    ["Symptom", "YAML docs link есть, но live docs workflow guard больше не связывает Web build с route smoke"],
+    ["Fix order", "сначала восстановить web-build-workflow-docs-deep-link, затем web-build-live-docs-workflow-copy"],
+    ["Owner", "Frontend owner подтверждает `/plan`, CI owner подтверждает workflow YAML, Docs owner подтверждает deep-link"],
+    ["No merge", "не мержить, пока Web build README live docs workflow guard снова не проходит route coverage"],
   ],
 };
 
@@ -7823,6 +7850,54 @@ export default function PlanPage() {
                 <span>{title}</span>
                 <strong>
                   {title === "No merge" ? webBuildLiveDocsWorkflowCopy.noMergeCopy : webBuildLiveDocsWorkflowCopy.workflowCommand}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-checked-workflow-path={webBuildReadmeLiveDocsWorkflowCopy.checkedWorkflowPath}
+          data-command={webBuildReadmeLiveDocsWorkflowCopy.command}
+          data-docs-href={webBuildReadmeLiveDocsWorkflowCopy.docsHref}
+          data-docs-marker-selector={webBuildReadmeLiveDocsWorkflowCopy.docsMarkerSelector}
+          data-expected-command-count={webBuildReadmeLiveDocsWorkflowCopy.expectedCommandCount}
+          data-expected-route-count={webBuildReadmeLiveDocsWorkflowCopy.expectedRouteCount}
+          data-failing-command={webBuildReadmeLiveDocsWorkflowCopy.failingCommand}
+          data-link-selector={webBuildReadmeLiveDocsWorkflowCopy.linkSelector}
+          data-no-merge-copy={webBuildReadmeLiveDocsWorkflowCopy.noMergeCopy}
+          data-owner-role={webBuildReadmeLiveDocsWorkflowCopy.ownerRole}
+          data-repair-targets={webBuildReadmeLiveDocsWorkflowCopy.repairTargets}
+          data-source-marker-selector={webBuildReadmeLiveDocsWorkflowCopy.sourceMarkerSelector}
+          data-testid="web-build-readme-live-docs-workflow-copy"
+          data-workflow-command={webBuildReadmeLiveDocsWorkflowCopy.workflowCommand}
+          data-workflow-href={webBuildReadmeLiveDocsWorkflowCopy.workflowHref}
+          data-workflow-name={webBuildReadmeLiveDocsWorkflowCopy.workflowName}
+          data-workflow-path={webBuildReadmeLiveDocsWorkflowCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Web build README live docs workflow copy</p>
+              <h2>Что делать, если Web build README live docs workflow drift упал</h2>
+            </div>
+            <a className="primary-link" href={webBuildReadmeLiveDocsWorkflowCopy.workflowHref}>
+              {webBuildReadmeLiveDocsWorkflowCopy.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {webBuildReadmeLiveDocsWorkflowCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? "No merge"
+                    : title === "Owner"
+                      ? "Frontend + CI + Docs"
+                      : title === "Fix order"
+                        ? "docs -> live guard"
+                        : "Workflow YAML"}
                 </strong>
                 <p>{text}</p>
               </article>
