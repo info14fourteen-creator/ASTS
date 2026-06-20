@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить web build README workflow docs browser-loop copy", "закрепить Web build README workflow docs browser guard в `/plan`"],
-  ["2", "Добавить AI review queue README workflow docs browser-loop copy", "закрепить AI queue README workflow docs browser guard в `/ai-review`"],
-  ["3", "Добавить source connectors README workflow docs browser-loop copy", "закрепить connectors README workflow docs browser guard в `/sources`"],
-  ["4", "Добавить shared validation README workflow docs PR-check copy", "закрепить shared README workflow docs PR checks в `/plan`"],
+  ["1", "Добавить AI review queue README workflow docs browser-loop copy", "закрепить AI queue README workflow docs browser guard в `/ai-review`"],
+  ["2", "Добавить source connectors README workflow docs browser-loop copy", "закрепить connectors README workflow docs browser guard в `/sources`"],
+  ["3", "Добавить shared validation README workflow docs PR-check copy", "закрепить shared README workflow docs PR checks в `/plan`"],
+  ["4", "Добавить web build README workflow docs PR-check copy", "закрепить Web build README workflow docs PR checks в `/plan`"],
 ];
 
 const cycleRules = [
@@ -3127,6 +3127,33 @@ const webBuildReadmeWorkflowDocsRenderedRouteCopy = {
     ["Fix order", "сначала восстановить web-build-readme-workflow-docs-failure-copy, затем route smoke expectations"],
     ["Owner", "Frontend owner подтверждает README guard, CI owner подтверждает Web build YAML, QA owner подтверждает `/plan`"],
     ["No merge", "не мержить, пока Web build README workflow docs rendered-route guard снова не проходит route coverage"],
+  ],
+};
+
+const webBuildReadmeWorkflowDocsBrowserLoopCopy = {
+  browserLoopSelector: "[data-testid='web-build-readme-workflow-docs-rendered-route-copy']",
+  browserUrl: "/plan",
+  command: webBuildReadmeWorkflowDocsRenderedRouteCopy.command,
+  consoleLevels: "error,warn",
+  docsHref: webBuildReadmeWorkflowDocsRenderedRouteCopy.docsHref,
+  expectedCommandCount: webBuildReadmeWorkflowDocsRenderedRouteCopy.expectedCommandCount,
+  expectedRouteCount: webBuildReadmeWorkflowDocsRenderedRouteCopy.expectedRouteCount,
+  linkSelector: webBuildReadmeWorkflowDocsRenderedRouteCopy.linkSelector,
+  noMergeCopy:
+    "Не мержить, пока Browser QA снова подтверждает Web build README workflow docs rendered-route guard на живом `/plan`",
+  ownerRole: "Frontend owner + CI owner + QA owner",
+  repairTargets:
+    "/plan,apps/web/scripts/smoke.mjs,[data-testid='web-build-readme-workflow-docs-rendered-route-copy'],Browser DOM QA",
+  screenshotRequired: "true",
+  sourceMarkerSelector: "[data-testid='web-build-readme-workflow-docs-rendered-route-copy']",
+  workflowHref: webBuildReadmeWorkflowDocsRenderedRouteCopy.workflowHref,
+  workflowName: webBuildReadmeWorkflowDocsRenderedRouteCopy.workflowName,
+  workflowPath: webBuildReadmeWorkflowDocsRenderedRouteCopy.workflowPath,
+  checks: [
+    ["Page identity", "Browser открывает `/plan` и видит ASTS app.site.ru без framework overlay"],
+    ["DOM", "Browser DOM находит web-build-readme-workflow-docs-rendered-route-copy ровно один раз"],
+    ["Workflow link", "scoped link ведет в Web build GitHub Actions workflow"],
+    ["Console", "Browser console не содержит error/warn перед merge"],
   ],
 };
 
@@ -8617,6 +8644,58 @@ export default function PlanPage() {
                       : title === "Fix order"
                         ? "workflow docs -> route"
                         : "Rendered route"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-browser-loop-selector={webBuildReadmeWorkflowDocsBrowserLoopCopy.browserLoopSelector}
+          data-browser-url={webBuildReadmeWorkflowDocsBrowserLoopCopy.browserUrl}
+          data-command={webBuildReadmeWorkflowDocsBrowserLoopCopy.command}
+          data-console-levels={webBuildReadmeWorkflowDocsBrowserLoopCopy.consoleLevels}
+          data-docs-href={webBuildReadmeWorkflowDocsBrowserLoopCopy.docsHref}
+          data-expected-command-count={webBuildReadmeWorkflowDocsBrowserLoopCopy.expectedCommandCount}
+          data-expected-route-count={webBuildReadmeWorkflowDocsBrowserLoopCopy.expectedRouteCount}
+          data-link-selector={webBuildReadmeWorkflowDocsBrowserLoopCopy.linkSelector}
+          data-no-merge-copy={webBuildReadmeWorkflowDocsBrowserLoopCopy.noMergeCopy}
+          data-owner-role={webBuildReadmeWorkflowDocsBrowserLoopCopy.ownerRole}
+          data-repair-targets={webBuildReadmeWorkflowDocsBrowserLoopCopy.repairTargets}
+          data-screenshot-required={webBuildReadmeWorkflowDocsBrowserLoopCopy.screenshotRequired}
+          data-source-marker-selector={webBuildReadmeWorkflowDocsBrowserLoopCopy.sourceMarkerSelector}
+          data-testid="web-build-readme-workflow-docs-browser-loop-copy"
+          data-workflow-href={webBuildReadmeWorkflowDocsBrowserLoopCopy.workflowHref}
+          data-workflow-name={webBuildReadmeWorkflowDocsBrowserLoopCopy.workflowName}
+          data-workflow-path={webBuildReadmeWorkflowDocsBrowserLoopCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Web build README workflow docs browser-loop copy</p>
+              <h2>Как Browser QA подтверждает Web build README workflow docs guard</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="web-build-workflow-docs-deep-link-anchor"
+              href={webBuildReadmeWorkflowDocsBrowserLoopCopy.workflowHref}
+            >
+              {webBuildReadmeWorkflowDocsBrowserLoopCopy.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {webBuildReadmeWorkflowDocsBrowserLoopCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Console"
+                    ? "No errors"
+                    : title === "Workflow link"
+                      ? "Scoped link"
+                      : title === "DOM"
+                        ? "One guard"
+                        : "Browser QA"}
                 </strong>
                 <p>{text}</p>
               </article>
