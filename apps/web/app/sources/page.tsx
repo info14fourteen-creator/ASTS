@@ -322,6 +322,39 @@ const sourceConnectorsReadmeWorkflowFailureCopy = {
   ],
 };
 
+const sourceConnectorsReadmeRenderedRouteFailureCopy = {
+  route: sourceConnectorsReadmeWorkflowFailureCopy.route,
+  apiRoute: sourceConnectorsReadmeWorkflowFailureCopy.apiRoute,
+  command: sourceConnectorsReadmeWorkflowFailureCopy.command,
+  connectorIds: sourceConnectorsReadmeWorkflowFailureCopy.connectorIds,
+  docsHref: sourceConnectorsReadmeWorkflowFailureCopy.docsHref,
+  docsMarkerSelector: sourceConnectorsReadmeWorkflowFailureCopy.docsMarkerSelector,
+  expectedConnectorCount: sourceConnectorsReadmeWorkflowFailureCopy.expectedConnectorCount,
+  expectedNetworkDisabledCount: sourceConnectorsReadmeWorkflowFailureCopy.expectedNetworkDisabledCount,
+  expectedRouteCount: sourceConnectorsReadmeWorkflowFailureCopy.expectedRouteCount,
+  failingCommand: sourceConnectorsReadmeWorkflowFailureCopy.command,
+  linkSelector: sourceConnectorsReadmeWorkflowFailureCopy.linkSelector,
+  mode: sourceConnectorsReadmeWorkflowFailureCopy.mode,
+  noMergeCopy:
+    "Не мержить, пока rendered routes smoke снова подтверждает Source Connectors README workflow failure guard на живом `/sources`",
+  ownerRole: "Data owner + API owner + Docs owner + QA owner",
+  repairTargets:
+    "/sources,apps/api/README.md#source-connectors-contract,apps/web/scripts/smoke.mjs,[data-testid='source-connectors-readme-workflow-failure-copy']",
+  sourceMarkerSelector: "[data-testid='source-connectors-readme-workflow-failure-copy']",
+  status: sourceConnectorsReadmeWorkflowFailureCopy.status,
+  workflowCommand: sourceConnectorsReadmeWorkflowFailureCopy.workflowCommand,
+  workflowFailureCommand: sourceConnectorsReadmeWorkflowFailureCopy.workflowFailureCommand,
+  workflowHref: sourceConnectorsReadmeWorkflowFailureCopy.workflowHref,
+  workflowName: sourceConnectorsReadmeWorkflowFailureCopy.workflowName,
+  workflowPath: sourceConnectorsReadmeWorkflowFailureCopy.workflowPath,
+  checks: [
+    ["Symptom", "README workflow failure copy есть, но rendered routes smoke больше не видит Source Connectors README guard"],
+    ["Fix order", "сначала восстановить source-connectors-readme-workflow-failure-copy, затем route smoke expectations"],
+    ["Owner", "Data owner подтверждает README guard, API owner подтверждает README anchor, QA owner подтверждает `/sources`"],
+    ["No merge", "не мержить, пока source connectors README rendered-route guard снова не проходит route coverage"],
+  ],
+};
+
 const fnsNetworkGateBrowserLoop = {
   route: "/sources",
   apiRoute: "/v1/sources/connectors",
@@ -849,6 +882,60 @@ export default function SourcesPage() {
                       : title === "Fix order"
                         ? "README -> smoke"
                         : "Source README"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-api-route={sourceConnectorsReadmeRenderedRouteFailureCopy.apiRoute}
+          data-command={sourceConnectorsReadmeRenderedRouteFailureCopy.command}
+          data-connector-ids={sourceConnectorsReadmeRenderedRouteFailureCopy.connectorIds.join(",")}
+          data-docs-href={sourceConnectorsReadmeRenderedRouteFailureCopy.docsHref}
+          data-docs-marker-selector={sourceConnectorsReadmeRenderedRouteFailureCopy.docsMarkerSelector}
+          data-expected-connector-count={sourceConnectorsReadmeRenderedRouteFailureCopy.expectedConnectorCount}
+          data-expected-network-disabled-count={sourceConnectorsReadmeRenderedRouteFailureCopy.expectedNetworkDisabledCount}
+          data-expected-route-count={sourceConnectorsReadmeRenderedRouteFailureCopy.expectedRouteCount}
+          data-failing-command={sourceConnectorsReadmeRenderedRouteFailureCopy.failingCommand}
+          data-link-selector={sourceConnectorsReadmeRenderedRouteFailureCopy.linkSelector}
+          data-mode={sourceConnectorsReadmeRenderedRouteFailureCopy.mode}
+          data-no-merge-copy={sourceConnectorsReadmeRenderedRouteFailureCopy.noMergeCopy}
+          data-owner-role={sourceConnectorsReadmeRenderedRouteFailureCopy.ownerRole}
+          data-repair-targets={sourceConnectorsReadmeRenderedRouteFailureCopy.repairTargets}
+          data-route={sourceConnectorsReadmeRenderedRouteFailureCopy.route}
+          data-source-marker-selector={sourceConnectorsReadmeRenderedRouteFailureCopy.sourceMarkerSelector}
+          data-status={sourceConnectorsReadmeRenderedRouteFailureCopy.status}
+          data-testid="source-connectors-readme-rendered-route-failure-copy"
+          data-workflow-command={sourceConnectorsReadmeRenderedRouteFailureCopy.workflowCommand}
+          data-workflow-failure-command={sourceConnectorsReadmeRenderedRouteFailureCopy.workflowFailureCommand}
+          data-workflow-href={sourceConnectorsReadmeRenderedRouteFailureCopy.workflowHref}
+          data-workflow-name={sourceConnectorsReadmeRenderedRouteFailureCopy.workflowName}
+          data-workflow-path={sourceConnectorsReadmeRenderedRouteFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source connectors README rendered-route failure copy</p>
+              <h2>Что делать, если source connectors README rendered-route guard упал</h2>
+            </div>
+            <a className="primary-link" href={sourceConnectorsReadmeRenderedRouteFailureCopy.workflowHref}>
+              {sourceConnectorsReadmeRenderedRouteFailureCopy.workflowName}
+            </a>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {sourceConnectorsReadmeRenderedRouteFailureCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? "No merge"
+                    : title === "Owner"
+                      ? "Data + API + QA"
+                      : title === "Fix order"
+                        ? "README -> smoke"
+                        : "Rendered route"}
                 </strong>
                 <p>{text}</p>
               </article>
