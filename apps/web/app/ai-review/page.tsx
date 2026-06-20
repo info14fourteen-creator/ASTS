@@ -498,6 +498,43 @@ const aiReviewQueueReadmeWorkflowDocsMergeStateCopy = {
   ],
 };
 
+const aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy = {
+  route: aiReviewQueueReadmeWorkflowDocsMergeStateCopy.route,
+  apiRoute: aiReviewQueueReadmeWorkflowDocsMergeStateCopy.apiRoute,
+  branch: aiReviewQueueReadmeWorkflowDocsMergeStateCopy.branch,
+  baseBranch: aiReviewQueueReadmeWorkflowDocsMergeStateCopy.baseBranch,
+  command: "gh pr view 17 --json url,headRefName,baseRefName,mergeStateStatus,statusCheckRollup",
+  docsHref: aiReviewQueueReadmeWorkflowDocsMergeStateCopy.docsHref,
+  expectedCheckGroups: aiReviewQueueReadmeWorkflowDocsMergeStateCopy.expectedCheckGroups,
+  expectedConclusion: aiReviewQueueReadmeWorkflowDocsMergeStateCopy.expectedConclusion,
+  expectedMergeState: aiReviewQueueReadmeWorkflowDocsMergeStateCopy.expectedMergeState,
+  expectedOwnerCount: aiReviewQueueReadmeWorkflowDocsMergeStateCopy.expectedOwnerCount,
+  expectedPrNumber: aiReviewQueueReadmeWorkflowDocsMergeStateCopy.expectedPrNumber,
+  expectedRouteCount: aiReviewQueueReadmeWorkflowDocsMergeStateCopy.expectedRouteCount,
+  expectedRuleCount: aiReviewQueueReadmeWorkflowDocsMergeStateCopy.expectedRuleCount,
+  linkSelector: "[data-testid='ai-review-queue-readme-workflow-docs-release-anchor']",
+  noMergeCopy:
+    "Не выпускать release notes, пока PR #17 снова показывает CLEAN и зеленый statusCheckRollup для AI review queue README workflow docs guard",
+  ownerRole: "AI workflow owner + API owner + Release owner",
+  prHref: aiReviewQueueReadmeWorkflowDocsMergeStateCopy.prHref,
+  releaseNote:
+    "AI review queue README workflow docs guard covered by browser-loop, PR-check and merge-state copy on `/ai-review`.",
+  releaseScope: "AI review queue README workflow docs",
+  repairTargets:
+    "PR #17,release notes,apps/web/scripts/smoke.mjs,/ai-review,[data-testid='ai-review-queue-readme-workflow-docs-merge-state-copy']",
+  sourceMarkerSelector: "[data-testid='ai-review-queue-readme-workflow-docs-merge-state-copy']",
+  status: aiReviewQueueReadmeWorkflowDocsMergeStateCopy.status,
+  workflowHref: aiReviewQueueReadmeWorkflowDocsMergeStateCopy.workflowHref,
+  workflowName: aiReviewQueueReadmeWorkflowDocsMergeStateCopy.workflowName,
+  workflowPath: aiReviewQueueReadmeWorkflowDocsMergeStateCopy.workflowPath,
+  checks: [
+    ["Release note", "release notes явно упоминают AI review queue README workflow docs guard"],
+    ["Evidence", "handoff ссылается на PR #17, CLEAN mergeStateStatus и зеленый statusCheckRollup"],
+    ["Scope", "handoff оставляет `/ai-review`, `/v1/ai/review-queue` и Web build workflow в одном контексте"],
+    ["No merge", "не выпускать release notes, пока release-note guard снова не подтверждает clean PR evidence"],
+  ],
+};
+
 const aiReviewReceiptWriteContract = aiReviewQueueFixture.write_contract;
 const aiReviewReceiptWriteDocsDeepLink = {
   route: "/ai-review",
@@ -991,6 +1028,67 @@ export default function AiReviewPage() {
                       : title === "Branch"
                         ? "PR branch"
                         : "CLEAN"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel ai-confidence-browser-loop-panel"
+          data-api-route={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.apiRoute}
+          data-base-branch={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.baseBranch}
+          data-branch={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.branch}
+          data-command={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.command}
+          data-docs-href={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.docsHref}
+          data-expected-check-groups={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.expectedConclusion}
+          data-expected-merge-state={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.expectedMergeState}
+          data-expected-owner-count={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.expectedOwnerCount}
+          data-expected-pr-number={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.expectedPrNumber}
+          data-expected-route-count={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.expectedRouteCount}
+          data-expected-rule-count={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.expectedRuleCount}
+          data-link-selector={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.linkSelector}
+          data-no-merge-copy={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.noMergeCopy}
+          data-owner-role={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.ownerRole}
+          data-pr-href={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.prHref}
+          data-release-note={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.releaseNote}
+          data-release-scope={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.releaseScope}
+          data-repair-targets={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.repairTargets}
+          data-route={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.route}
+          data-source-marker-selector={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.sourceMarkerSelector}
+          data-status={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.status}
+          data-testid="ai-review-queue-readme-workflow-docs-release-note-copy"
+          data-workflow-href={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.workflowHref}
+          data-workflow-name={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.workflowName}
+          data-workflow-path={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review queue README workflow docs release-note copy</p>
+              <h2>Что release notes должны сказать про AI review queue README workflow docs guard</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="ai-review-queue-readme-workflow-docs-release-anchor"
+              href={aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="ai-confidence-browser-loop-grid">
+            {aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? "No merge"
+                    : title === "Evidence"
+                      ? "Clean PR"
+                      : title === "Scope"
+                        ? "Release scope"
+                        : "Release note"}
                 </strong>
                 <p>{text}</p>
               </article>
