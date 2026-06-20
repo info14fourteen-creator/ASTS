@@ -147,3 +147,5 @@
 170. [done 2026-06-20] Добавить AI review queue live docs workflow copy: закрепить owner-friendly guard для связки AI review queue live route, API README docs deep-link и Web build queue workflow smoke.
 
 171. [done 2026-06-20] Добавить source connectors live docs workflow copy: закрепить owner-friendly guard для связки Source Connectors live route, API README docs deep-link и Web build route smoke.
+
+172. [done 2026-06-20] Добавить shared validation README live docs workflow copy: закрепить owner-friendly guard для связки shared validation README docs deep-link, live route gate и Web build route smoke.
