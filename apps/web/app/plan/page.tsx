@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить shared validation README workflow docs final QA copy", "закрепить shared validation README workflow docs final QA handoff"],
-  ["2", "Добавить web build README workflow docs final QA copy", "закрепить Web build README workflow docs final QA handoff"],
-  ["3", "Добавить source connectors README workflow docs owner handoff copy", "закрепить Source Connectors README workflow docs owner handoff"],
-  ["4", "Добавить AI review queue README workflow docs owner handoff copy", "закрепить AI queue README workflow docs owner handoff"],
+  ["1", "Добавить web build README workflow docs final QA copy", "закрепить Web build README workflow docs final QA handoff"],
+  ["2", "Добавить source connectors README workflow docs owner handoff copy", "закрепить Source Connectors README workflow docs owner handoff"],
+  ["3", "Добавить AI review queue README workflow docs owner handoff copy", "закрепить AI queue README workflow docs owner handoff"],
+  ["4", "Добавить shared validation README workflow docs owner handoff copy", "закрепить shared validation README workflow docs owner handoff"],
 ];
 
 const cycleRules = [
@@ -665,6 +665,44 @@ const sharedValidationReadmeWorkflowDocsReleaseNoteCopy = {
     ["Evidence", "handoff ссылается на PR #17, CLEAN mergeStateStatus и зеленый statusCheckRollup"],
     ["Scope", "handoff оставляет `/plan`, packages/shared README и Shared validation workflow в одном контексте"],
     ["No merge", "не выпускать release notes, пока release-note guard снова не подтверждает clean PR evidence"],
+  ],
+};
+
+const sharedValidationReadmeWorkflowDocsFinalQaCopy = {
+  route: sharedValidationReadmeWorkflowDocsReleaseNoteCopy.route,
+  checkedWorkflowPath: sharedValidationReadmeWorkflowDocsReleaseNoteCopy.checkedWorkflowPath,
+  branch: sharedValidationReadmeWorkflowDocsReleaseNoteCopy.branch,
+  baseBranch: sharedValidationReadmeWorkflowDocsReleaseNoteCopy.baseBranch,
+  command:
+    "npm run build && npm run smoke -- --url http://127.0.0.1:4177/ && gh pr view 17 --json mergeStateStatus,statusCheckRollup",
+  docsHref: sharedValidationReadmeWorkflowDocsReleaseNoteCopy.docsHref,
+  expectedCheckCount: sharedValidationReadmeWorkflowDocsReleaseNoteCopy.expectedCheckCount,
+  expectedCheckGroups: sharedValidationReadmeWorkflowDocsReleaseNoteCopy.expectedCheckGroups,
+  expectedConclusion: sharedValidationReadmeWorkflowDocsReleaseNoteCopy.expectedConclusion,
+  expectedMergeState: sharedValidationReadmeWorkflowDocsReleaseNoteCopy.expectedMergeState,
+  expectedPrNumber: sharedValidationReadmeWorkflowDocsReleaseNoteCopy.expectedPrNumber,
+  expectedRouteCount: sharedValidationReadmeWorkflowDocsReleaseNoteCopy.expectedRouteCount,
+  finalQaScope: "shared validation README workflow docs",
+  linkSelector: "[data-testid='shared-validation-readme-workflow-docs-final-qa-anchor']",
+  noMergeCopy:
+    "Не закрывать shared validation README workflow docs handoff, пока final QA снова не подтверждает build, smoke, Browser DOM и CLEAN PR evidence",
+  ownerRole: "Schema owner + CI owner + QA owner + Release owner",
+  prHref: sharedValidationReadmeWorkflowDocsReleaseNoteCopy.prHref,
+  readmePath: sharedValidationReadmeWorkflowDocsReleaseNoteCopy.readmePath,
+  releaseNote: sharedValidationReadmeWorkflowDocsReleaseNoteCopy.releaseNote,
+  releaseScope: sharedValidationReadmeWorkflowDocsReleaseNoteCopy.releaseScope,
+  repairTargets:
+    "PR #17,apps/web/scripts/smoke.mjs,/plan,Browser DOM QA,[data-testid='shared-validation-readme-workflow-docs-release-note-copy']",
+  sourceMarkerSelector: "[data-testid='shared-validation-readme-workflow-docs-release-note-copy']",
+  status: sharedValidationReadmeWorkflowDocsReleaseNoteCopy.status,
+  workflowHref: sharedValidationReadmeWorkflowDocsReleaseNoteCopy.workflowHref,
+  workflowName: sharedValidationReadmeWorkflowDocsReleaseNoteCopy.workflowName,
+  workflowPath: sharedValidationReadmeWorkflowDocsReleaseNoteCopy.workflowPath,
+  checks: [
+    ["Build", "production build проходит перед финальным handoff"],
+    ["Smoke", "route smoke видит shared validation README workflow docs release-note guard"],
+    ["Browser QA", "Browser DOM находит final QA и release-note guard без framework overlay и console errors"],
+    ["PR", "PR #17 остается CLEAN с зеленым statusCheckRollup перед закрытием handoff"],
   ],
 };
 
@@ -4583,6 +4621,68 @@ export default function PlanPage() {
                       : title === "Scope"
                         ? "Release scope"
                         : "Release note"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={sharedValidationReadmeWorkflowDocsFinalQaCopy.baseBranch}
+          data-branch={sharedValidationReadmeWorkflowDocsFinalQaCopy.branch}
+          data-checked-workflow-path={sharedValidationReadmeWorkflowDocsFinalQaCopy.checkedWorkflowPath}
+          data-command={sharedValidationReadmeWorkflowDocsFinalQaCopy.command}
+          data-docs-href={sharedValidationReadmeWorkflowDocsFinalQaCopy.docsHref}
+          data-expected-check-count={sharedValidationReadmeWorkflowDocsFinalQaCopy.expectedCheckCount}
+          data-expected-check-groups={sharedValidationReadmeWorkflowDocsFinalQaCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={sharedValidationReadmeWorkflowDocsFinalQaCopy.expectedConclusion}
+          data-expected-merge-state={sharedValidationReadmeWorkflowDocsFinalQaCopy.expectedMergeState}
+          data-expected-pr-number={sharedValidationReadmeWorkflowDocsFinalQaCopy.expectedPrNumber}
+          data-expected-route-count={sharedValidationReadmeWorkflowDocsFinalQaCopy.expectedRouteCount}
+          data-final-qa-scope={sharedValidationReadmeWorkflowDocsFinalQaCopy.finalQaScope}
+          data-link-selector={sharedValidationReadmeWorkflowDocsFinalQaCopy.linkSelector}
+          data-no-merge-copy={sharedValidationReadmeWorkflowDocsFinalQaCopy.noMergeCopy}
+          data-owner-role={sharedValidationReadmeWorkflowDocsFinalQaCopy.ownerRole}
+          data-pr-href={sharedValidationReadmeWorkflowDocsFinalQaCopy.prHref}
+          data-readme-path={sharedValidationReadmeWorkflowDocsFinalQaCopy.readmePath}
+          data-release-note={sharedValidationReadmeWorkflowDocsFinalQaCopy.releaseNote}
+          data-release-scope={sharedValidationReadmeWorkflowDocsFinalQaCopy.releaseScope}
+          data-repair-targets={sharedValidationReadmeWorkflowDocsFinalQaCopy.repairTargets}
+          data-route={sharedValidationReadmeWorkflowDocsFinalQaCopy.route}
+          data-source-marker-selector={sharedValidationReadmeWorkflowDocsFinalQaCopy.sourceMarkerSelector}
+          data-status={sharedValidationReadmeWorkflowDocsFinalQaCopy.status}
+          data-testid="shared-validation-readme-workflow-docs-final-qa-copy"
+          data-workflow-href={sharedValidationReadmeWorkflowDocsFinalQaCopy.workflowHref}
+          data-workflow-name={sharedValidationReadmeWorkflowDocsFinalQaCopy.workflowName}
+          data-workflow-path={sharedValidationReadmeWorkflowDocsFinalQaCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Shared validation README workflow docs final QA copy</p>
+              <h2>Как финально проверить shared validation README workflow docs handoff</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="shared-validation-readme-workflow-docs-final-qa-anchor"
+              href={sharedValidationReadmeWorkflowDocsFinalQaCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sharedValidationReadmeWorkflowDocsFinalQaCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "PR"
+                    ? "PR clean"
+                    : title === "Browser QA"
+                      ? "DOM clean"
+                      : title === "Smoke"
+                        ? "Smoke green"
+                        : "Build green"}
                 </strong>
                 <p>{text}</p>
               </article>
