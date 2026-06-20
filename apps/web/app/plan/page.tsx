@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить shared validation README workflow docs PR-check copy", "закрепить shared README workflow docs PR checks в `/plan`"],
-  ["2", "Добавить web build README workflow docs PR-check copy", "закрепить Web build README workflow docs PR checks в `/plan`"],
-  ["3", "Добавить source connectors README workflow docs merge-state copy", "закрепить Source Connectors README workflow docs merge-state guard"],
-  ["4", "Добавить AI review queue README workflow docs merge-state copy", "закрепить AI queue README workflow docs merge-state guard"],
+  ["1", "Добавить web build README workflow docs PR-check copy", "закрепить Web build README workflow docs PR checks в `/plan`"],
+  ["2", "Добавить source connectors README workflow docs merge-state copy", "закрепить Source Connectors README workflow docs merge-state guard"],
+  ["3", "Добавить AI review queue README workflow docs merge-state copy", "закрепить AI queue README workflow docs merge-state guard"],
+  ["4", "Добавить shared validation README workflow docs merge-state copy", "закрепить shared validation README workflow docs merge-state guard"],
 ];
 
 const cycleRules = [
@@ -560,6 +560,40 @@ const sharedValidationReadmeWorkflowDocsBrowserLoopCopy = {
     ["DOM", "Browser DOM находит shared-validation-readme-workflow-docs-rendered-route-copy ровно один раз"],
     ["Workflow link", "scoped link ведет в Shared validation GitHub Actions workflow"],
     ["Console", "Browser console не содержит error/warn перед merge"],
+  ],
+};
+
+const sharedValidationReadmeWorkflowDocsPrCheckCopy = {
+  route: sharedValidationReadmeWorkflowDocsBrowserLoopCopy.browserUrl,
+  checkedWorkflowPath: sharedValidationReadmeWorkflowDocsRenderedRouteCopy.checkedWorkflowPath,
+  branch: "codex/app-site-shell",
+  baseBranch: "main",
+  command: "gh pr checks 17 --watch --interval 10",
+  docsHref: sharedValidationReadmeWorkflowDocsBrowserLoopCopy.docsHref,
+  expectedCheckCount: sharedValidationReadmeWorkflowDocsBrowserLoopCopy.expectedCheckCount,
+  expectedCheckGroups: ["Web build", "API smoke", "Shared validation"],
+  expectedConclusion: "SUCCESS",
+  expectedMergeState: "CLEAN",
+  expectedPrNumber: "17",
+  expectedRouteCount: sharedValidationReadmeWorkflowDocsBrowserLoopCopy.expectedRouteCount,
+  linkSelector: "[data-testid='shared-validation-readme-workflow-docs-pr-anchor']",
+  noMergeCopy:
+    "Не мержить, пока PR #17 снова показывает CLEAN и зеленые Web build, API smoke и Shared validation checks для shared validation README workflow docs guard",
+  ownerRole: "Schema owner + CI owner + Docs owner + Release owner",
+  prHref: "https://github.com/info14fourteen-creator/ASTS/pull/17",
+  readmePath: sharedValidationReadmeWorkflowDocsRenderedRouteCopy.readmePath,
+  repairTargets:
+    "PR #17,gh pr checks 17,.github/workflows/shared-validation.yml,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='shared-validation-readme-workflow-docs-browser-loop-copy']",
+  status: "armed",
+  workflowHref: sharedValidationReadmeWorkflowDocsBrowserLoopCopy.workflowHref,
+  workflowName: sharedValidationReadmeWorkflowDocsBrowserLoopCopy.workflowName,
+  workflowPath: sharedValidationReadmeWorkflowDocsBrowserLoopCopy.workflowPath,
+  checks: [
+    ["PR", "PR #17 остается на codex/app-site-shell -> main и mergeStateStatus CLEAN"],
+    ["Checks", "gh pr checks 17 подтверждает Web build, API smoke и Shared validation SUCCESS"],
+    ["Route guard", "route smoke продолжает видеть shared validation README workflow docs browser-loop copy"],
+    ["No merge", "не мержить, пока PR-check guard снова не подтверждает clean rollup"],
   ],
 };
 
@@ -4197,6 +4231,65 @@ export default function PlanPage() {
                       : title === "DOM"
                         ? "One guard"
                         : "Browser QA"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={sharedValidationReadmeWorkflowDocsPrCheckCopy.baseBranch}
+          data-branch={sharedValidationReadmeWorkflowDocsPrCheckCopy.branch}
+          data-checked-workflow-path={sharedValidationReadmeWorkflowDocsPrCheckCopy.checkedWorkflowPath}
+          data-command={sharedValidationReadmeWorkflowDocsPrCheckCopy.command}
+          data-docs-href={sharedValidationReadmeWorkflowDocsPrCheckCopy.docsHref}
+          data-expected-check-count={sharedValidationReadmeWorkflowDocsPrCheckCopy.expectedCheckCount}
+          data-expected-check-groups={sharedValidationReadmeWorkflowDocsPrCheckCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={sharedValidationReadmeWorkflowDocsPrCheckCopy.expectedConclusion}
+          data-expected-merge-state={sharedValidationReadmeWorkflowDocsPrCheckCopy.expectedMergeState}
+          data-expected-pr-number={sharedValidationReadmeWorkflowDocsPrCheckCopy.expectedPrNumber}
+          data-expected-route-count={sharedValidationReadmeWorkflowDocsPrCheckCopy.expectedRouteCount}
+          data-link-selector={sharedValidationReadmeWorkflowDocsPrCheckCopy.linkSelector}
+          data-no-merge-copy={sharedValidationReadmeWorkflowDocsPrCheckCopy.noMergeCopy}
+          data-owner-role={sharedValidationReadmeWorkflowDocsPrCheckCopy.ownerRole}
+          data-pr-href={sharedValidationReadmeWorkflowDocsPrCheckCopy.prHref}
+          data-readme-path={sharedValidationReadmeWorkflowDocsPrCheckCopy.readmePath}
+          data-repair-targets={sharedValidationReadmeWorkflowDocsPrCheckCopy.repairTargets}
+          data-route={sharedValidationReadmeWorkflowDocsPrCheckCopy.route}
+          data-source-marker-selector={sharedValidationReadmeWorkflowDocsPrCheckCopy.sourceMarkerSelector}
+          data-status={sharedValidationReadmeWorkflowDocsPrCheckCopy.status}
+          data-testid="shared-validation-readme-workflow-docs-pr-check-copy"
+          data-workflow-href={sharedValidationReadmeWorkflowDocsPrCheckCopy.workflowHref}
+          data-workflow-name={sharedValidationReadmeWorkflowDocsPrCheckCopy.workflowName}
+          data-workflow-path={sharedValidationReadmeWorkflowDocsPrCheckCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Shared validation README workflow docs PR-check copy</p>
+              <h2>Как PR #17 подтверждает shared validation README workflow docs guard</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="shared-validation-readme-workflow-docs-pr-anchor"
+              href={sharedValidationReadmeWorkflowDocsPrCheckCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sharedValidationReadmeWorkflowDocsPrCheckCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? "No merge"
+                    : title === "Checks"
+                      ? "CI green"
+                      : title === "Route guard"
+                        ? "Smoke route"
+                        : "PR clean"}
                 </strong>
                 <p>{text}</p>
               </article>
