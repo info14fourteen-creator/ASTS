@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить web build README workflow docs merge-state copy", "закрепить Web build README workflow docs merge-state guard"],
-  ["2", "Добавить source connectors README workflow docs release-note copy", "закрепить Source Connectors README workflow docs release handoff"],
-  ["3", "Добавить AI review queue README workflow docs release-note copy", "закрепить AI queue README workflow docs release handoff"],
-  ["4", "Добавить shared validation README workflow docs release-note copy", "закрепить shared validation README workflow docs release handoff"],
+  ["1", "Добавить source connectors README workflow docs release-note copy", "закрепить Source Connectors README workflow docs release handoff"],
+  ["2", "Добавить AI review queue README workflow docs release-note copy", "закрепить AI queue README workflow docs release handoff"],
+  ["3", "Добавить shared validation README workflow docs release-note copy", "закрепить shared validation README workflow docs release handoff"],
+  ["4", "Добавить web build README workflow docs release-note copy", "закрепить Web build README workflow docs release handoff"],
 ];
 
 const cycleRules = [
@@ -3255,6 +3255,39 @@ const webBuildReadmeWorkflowDocsPrCheckCopy = {
     ["Checks", "gh pr checks 17 подтверждает Web build, API smoke и Shared validation SUCCESS"],
     ["Route guard", "route smoke продолжает видеть Web build README workflow docs browser-loop copy"],
     ["No merge", "не мержить, пока PR-check guard снова не подтверждает clean rollup"],
+  ],
+};
+
+const webBuildReadmeWorkflowDocsMergeStateCopy = {
+  route: webBuildReadmeWorkflowDocsPrCheckCopy.route,
+  checkedWorkflowPath: webBuildReadmeWorkflowDocsPrCheckCopy.checkedWorkflowPath,
+  branch: webBuildReadmeWorkflowDocsPrCheckCopy.branch,
+  baseBranch: webBuildReadmeWorkflowDocsPrCheckCopy.baseBranch,
+  command: "gh pr view 17 --json headRefName,baseRefName,mergeStateStatus,statusCheckRollup",
+  docsHref: webBuildReadmeWorkflowDocsPrCheckCopy.docsHref,
+  expectedCommandCount: webBuildReadmeWorkflowDocsPrCheckCopy.expectedCommandCount,
+  expectedCheckGroups: webBuildReadmeWorkflowDocsPrCheckCopy.expectedCheckGroups,
+  expectedConclusion: webBuildReadmeWorkflowDocsPrCheckCopy.expectedConclusion,
+  expectedMergeState: webBuildReadmeWorkflowDocsPrCheckCopy.expectedMergeState,
+  expectedPrNumber: webBuildReadmeWorkflowDocsPrCheckCopy.expectedPrNumber,
+  expectedRouteCount: webBuildReadmeWorkflowDocsPrCheckCopy.expectedRouteCount,
+  linkSelector: "[data-testid='web-build-readme-workflow-docs-merge-anchor']",
+  noMergeCopy:
+    "Не мержить, пока PR #17 снова показывает mergeStateStatus CLEAN для Web build README workflow docs guard",
+  ownerRole: "Frontend owner + CI owner + Release owner",
+  prHref: webBuildReadmeWorkflowDocsPrCheckCopy.prHref,
+  repairTargets:
+    "PR #17,gh pr view 17 --json mergeStateStatus,statusCheckRollup,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='web-build-readme-workflow-docs-pr-check-copy']",
+  status: webBuildReadmeWorkflowDocsPrCheckCopy.status,
+  workflowHref: webBuildReadmeWorkflowDocsPrCheckCopy.workflowHref,
+  workflowName: webBuildReadmeWorkflowDocsPrCheckCopy.workflowName,
+  workflowPath: webBuildReadmeWorkflowDocsPrCheckCopy.workflowPath,
+  checks: [
+    ["Merge state", "PR #17 mergeStateStatus остается CLEAN перед merge"],
+    ["Branch", "headRefName codex/app-site-shell и baseRefName main не меняются"],
+    ["Checks", "statusCheckRollup остается SUCCESS для Web build, API smoke и Shared validation"],
+    ["No merge", "не мержить, пока merge-state guard снова не подтверждает clean PR rollup"],
   ],
 };
 
@@ -8973,6 +9006,64 @@ export default function PlanPage() {
                       : title === "Route guard"
                         ? "Smoke route"
                         : "PR clean"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={webBuildReadmeWorkflowDocsMergeStateCopy.baseBranch}
+          data-branch={webBuildReadmeWorkflowDocsMergeStateCopy.branch}
+          data-checked-workflow-path={webBuildReadmeWorkflowDocsMergeStateCopy.checkedWorkflowPath}
+          data-command={webBuildReadmeWorkflowDocsMergeStateCopy.command}
+          data-docs-href={webBuildReadmeWorkflowDocsMergeStateCopy.docsHref}
+          data-expected-command-count={webBuildReadmeWorkflowDocsMergeStateCopy.expectedCommandCount}
+          data-expected-check-groups={webBuildReadmeWorkflowDocsMergeStateCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={webBuildReadmeWorkflowDocsMergeStateCopy.expectedConclusion}
+          data-expected-merge-state={webBuildReadmeWorkflowDocsMergeStateCopy.expectedMergeState}
+          data-expected-pr-number={webBuildReadmeWorkflowDocsMergeStateCopy.expectedPrNumber}
+          data-expected-route-count={webBuildReadmeWorkflowDocsMergeStateCopy.expectedRouteCount}
+          data-link-selector={webBuildReadmeWorkflowDocsMergeStateCopy.linkSelector}
+          data-no-merge-copy={webBuildReadmeWorkflowDocsMergeStateCopy.noMergeCopy}
+          data-owner-role={webBuildReadmeWorkflowDocsMergeStateCopy.ownerRole}
+          data-pr-href={webBuildReadmeWorkflowDocsMergeStateCopy.prHref}
+          data-repair-targets={webBuildReadmeWorkflowDocsMergeStateCopy.repairTargets}
+          data-route={webBuildReadmeWorkflowDocsMergeStateCopy.route}
+          data-source-marker-selector={webBuildReadmeWorkflowDocsMergeStateCopy.sourceMarkerSelector}
+          data-status={webBuildReadmeWorkflowDocsMergeStateCopy.status}
+          data-testid="web-build-readme-workflow-docs-merge-state-copy"
+          data-workflow-href={webBuildReadmeWorkflowDocsMergeStateCopy.workflowHref}
+          data-workflow-name={webBuildReadmeWorkflowDocsMergeStateCopy.workflowName}
+          data-workflow-path={webBuildReadmeWorkflowDocsMergeStateCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Web build README workflow docs merge-state copy</p>
+              <h2>Как PR #17 держит Web build README workflow docs guard в CLEAN</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="web-build-readme-workflow-docs-merge-anchor"
+              href={webBuildReadmeWorkflowDocsMergeStateCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {webBuildReadmeWorkflowDocsMergeStateCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? "No merge"
+                    : title === "Checks"
+                      ? "Rollup green"
+                      : title === "Branch"
+                        ? "PR branch"
+                        : "CLEAN"}
                 </strong>
                 <p>{text}</p>
               </article>
