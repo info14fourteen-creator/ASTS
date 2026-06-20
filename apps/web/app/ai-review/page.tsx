@@ -535,6 +535,44 @@ const aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy = {
   ],
 };
 
+const aiReviewQueueReadmeWorkflowDocsFinalQaCopy = {
+  route: aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.route,
+  apiRoute: aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.apiRoute,
+  branch: aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.branch,
+  baseBranch: aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.baseBranch,
+  command:
+    "npm run build && npm run smoke -- --url http://127.0.0.1:4177/ && gh pr view 17 --json mergeStateStatus,statusCheckRollup",
+  docsHref: aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.docsHref,
+  expectedCheckGroups: aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.expectedCheckGroups,
+  expectedConclusion: aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.expectedConclusion,
+  expectedMergeState: aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.expectedMergeState,
+  expectedOwnerCount: aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.expectedOwnerCount,
+  expectedPrNumber: aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.expectedPrNumber,
+  expectedRouteCount: aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.expectedRouteCount,
+  expectedRuleCount: aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.expectedRuleCount,
+  finalQaScope: "AI review queue README workflow docs",
+  linkSelector: "[data-testid='ai-review-queue-readme-workflow-docs-final-qa-anchor']",
+  noMergeCopy:
+    "Не закрывать AI review queue README workflow docs handoff, пока final QA снова не подтверждает build, smoke, Browser DOM и CLEAN PR evidence",
+  ownerRole: "AI workflow owner + API owner + QA owner + Release owner",
+  prHref: aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.prHref,
+  releaseNote: aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.releaseNote,
+  releaseScope: aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.releaseScope,
+  repairTargets:
+    "PR #17,apps/web/scripts/smoke.mjs,/ai-review,Browser DOM QA,[data-testid='ai-review-queue-readme-workflow-docs-release-note-copy']",
+  sourceMarkerSelector: "[data-testid='ai-review-queue-readme-workflow-docs-release-note-copy']",
+  status: aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.status,
+  workflowHref: aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.workflowHref,
+  workflowName: aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.workflowName,
+  workflowPath: aiReviewQueueReadmeWorkflowDocsReleaseNoteCopy.workflowPath,
+  checks: [
+    ["Build", "production build проходит перед финальным handoff"],
+    ["Smoke", "route smoke видит AI review queue README workflow docs release-note guard"],
+    ["Browser QA", "Browser DOM находит final QA и release-note guard без framework overlay и console errors"],
+    ["PR", "PR #17 остается CLEAN с зеленым statusCheckRollup перед закрытием handoff"],
+  ],
+};
+
 const aiReviewReceiptWriteContract = aiReviewQueueFixture.write_contract;
 const aiReviewReceiptWriteDocsDeepLink = {
   route: "/ai-review",
@@ -1089,6 +1127,68 @@ export default function AiReviewPage() {
                       : title === "Scope"
                         ? "Release scope"
                         : "Release note"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel ai-confidence-browser-loop-panel"
+          data-api-route={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.apiRoute}
+          data-base-branch={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.baseBranch}
+          data-branch={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.branch}
+          data-command={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.command}
+          data-docs-href={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.docsHref}
+          data-expected-check-groups={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.expectedConclusion}
+          data-expected-merge-state={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.expectedMergeState}
+          data-expected-owner-count={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.expectedOwnerCount}
+          data-expected-pr-number={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.expectedPrNumber}
+          data-expected-route-count={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.expectedRouteCount}
+          data-expected-rule-count={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.expectedRuleCount}
+          data-final-qa-scope={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.finalQaScope}
+          data-link-selector={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.linkSelector}
+          data-no-merge-copy={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.noMergeCopy}
+          data-owner-role={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.ownerRole}
+          data-pr-href={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.prHref}
+          data-release-note={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.releaseNote}
+          data-release-scope={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.releaseScope}
+          data-repair-targets={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.repairTargets}
+          data-route={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.route}
+          data-source-marker-selector={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.sourceMarkerSelector}
+          data-status={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.status}
+          data-testid="ai-review-queue-readme-workflow-docs-final-qa-copy"
+          data-workflow-href={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.workflowHref}
+          data-workflow-name={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.workflowName}
+          data-workflow-path={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review queue README workflow docs final QA copy</p>
+              <h2>Как финально проверить AI review queue README workflow docs handoff</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="ai-review-queue-readme-workflow-docs-final-qa-anchor"
+              href={aiReviewQueueReadmeWorkflowDocsFinalQaCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="ai-confidence-browser-loop-grid">
+            {aiReviewQueueReadmeWorkflowDocsFinalQaCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "PR"
+                    ? "PR clean"
+                    : title === "Browser QA"
+                      ? "DOM clean"
+                      : title === "Smoke"
+                        ? "Smoke green"
+                        : "Build green"}
                 </strong>
                 <p>{text}</p>
               </article>
