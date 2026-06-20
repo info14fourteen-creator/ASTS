@@ -463,6 +463,40 @@ const sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy = {
   ],
 };
 
+const sourceConnectorsReadmeWorkflowDocsPrCheckCopy = {
+  route: sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.route,
+  apiRoute: sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.apiRoute,
+  branch: "codex/app-site-shell",
+  baseBranch: "main",
+  command: "gh pr checks 17 --watch --interval 10",
+  connectorIds: sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.connectorIds,
+  docsHref: sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.docsHref,
+  expectedCheckGroups: ["Web build", "API smoke", "Shared validation"],
+  expectedConclusion: "SUCCESS",
+  expectedMergeState: "CLEAN",
+  expectedPrNumber: "17",
+  expectedRouteCount: sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.expectedRouteCount,
+  linkSelector: "[data-testid='source-connectors-readme-workflow-docs-pr-anchor']",
+  mode: sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.mode,
+  noMergeCopy:
+    "Не мержить, пока PR #17 снова показывает CLEAN и зеленые Web build, API smoke и Shared validation checks для Source Connectors README workflow docs guard",
+  ownerRole: "Data owner + API owner + Docs owner + Release owner",
+  prHref: "https://github.com/info14fourteen-creator/ASTS/pull/17",
+  repairTargets:
+    "PR #17,gh pr checks 17,.github/workflows/web-build.yml,apps/web/scripts/smoke.mjs,/sources",
+  sourceMarkerSelector: "[data-testid='source-connectors-readme-workflow-docs-browser-loop-copy']",
+  status: sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.status,
+  workflowHref: sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.workflowHref,
+  workflowName: sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.workflowName,
+  workflowPath: sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.workflowPath,
+  checks: [
+    ["PR", "PR #17 остается на codex/app-site-shell -> main и mergeStateStatus CLEAN"],
+    ["Checks", "gh pr checks 17 подтверждает Web build, API smoke и Shared validation SUCCESS"],
+    ["Route guard", "route smoke продолжает видеть Source Connectors README workflow docs browser-loop copy"],
+    ["No merge", "не мержить, пока PR-check guard снова не подтверждает clean rollup"],
+  ],
+};
+
 const fnsNetworkGateBrowserLoop = {
   route: "/sources",
   apiRoute: "/v1/sources/connectors",
@@ -1219,6 +1253,65 @@ export default function SourcesPage() {
                       : title === "DOM"
                         ? "One guard"
                         : "Browser QA"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-api-route={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.apiRoute}
+          data-base-branch={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.baseBranch}
+          data-branch={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.branch}
+          data-command={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.command}
+          data-connector-ids={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.connectorIds.join(",")}
+          data-docs-href={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.docsHref}
+          data-expected-check-groups={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.expectedConclusion}
+          data-expected-merge-state={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.expectedMergeState}
+          data-expected-pr-number={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.expectedPrNumber}
+          data-expected-route-count={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.expectedRouteCount}
+          data-link-selector={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.linkSelector}
+          data-mode={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.mode}
+          data-no-merge-copy={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.noMergeCopy}
+          data-owner-role={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.ownerRole}
+          data-pr-href={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.prHref}
+          data-repair-targets={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.repairTargets}
+          data-route={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.route}
+          data-source-marker-selector={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.sourceMarkerSelector}
+          data-status={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.status}
+          data-testid="source-connectors-readme-workflow-docs-pr-check-copy"
+          data-workflow-href={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.workflowHref}
+          data-workflow-name={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.workflowName}
+          data-workflow-path={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source connectors README workflow docs PR-check copy</p>
+              <h2>Как PR #17 подтверждает Source Connectors README workflow docs guard</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="source-connectors-readme-workflow-docs-pr-anchor"
+              href={sourceConnectorsReadmeWorkflowDocsPrCheckCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {sourceConnectorsReadmeWorkflowDocsPrCheckCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? "No merge"
+                    : title === "Checks"
+                      ? "CI green"
+                      : title === "Route guard"
+                        ? "Smoke route"
+                        : "PR clean"}
                 </strong>
                 <p>{text}</p>
               </article>
