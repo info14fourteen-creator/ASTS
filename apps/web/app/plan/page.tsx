@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить shared validation live docs workflow copy", "закрепить shared docs live-workflow guard в `/plan`"],
-  ["2", "Добавить web build live docs workflow copy", "закрепить Web build docs live-workflow guard в `/plan`"],
-  ["3", "Добавить AI review queue live docs workflow copy", "закрепить AI queue docs live-workflow guard в `/ai-review`"],
-  ["4", "Добавить source connectors live docs workflow copy", "закрепить connectors docs live-workflow guard в `/sources`"],
+  ["1", "Добавить web build live docs workflow copy", "закрепить Web build docs live-workflow guard в `/plan`"],
+  ["2", "Добавить AI review queue live docs workflow copy", "закрепить AI queue docs live-workflow guard в `/ai-review`"],
+  ["3", "Добавить source connectors live docs workflow copy", "закрепить connectors docs live-workflow guard в `/sources`"],
+  ["4", "Добавить shared validation README live docs workflow copy", "закрепить shared README live-docs guard в `/plan`"],
 ];
 
 const cycleRules = [
@@ -356,6 +356,34 @@ const sharedValidationWorkflowDocsFailureCopy = {
     ["Fix order", "сначала восстановить shared-validation-workflow-failure-copy, затем shared-validation-docs-deep-link"],
     ["Owner", "Schema owner подтверждает 14 checks, CI owner подтверждает workflow path, Docs owner подтверждает README anchor"],
     ["No merge", "не мержить, пока shared validation workflow docs guard снова не проходит route coverage"],
+  ],
+};
+
+const sharedValidationLiveDocsWorkflowCopy = {
+  checkedWorkflowPath: sharedValidationLiveRouteGateNote.checkedWorkflowPath,
+  command: sharedValidationLiveRouteGateNote.routeSmokeCommand,
+  docsHref: sharedValidationDocsDeepLink.docsHref,
+  docsMarkerSelector: "[data-testid='shared-validation-docs-deep-link']",
+  expectedCheckCount: sharedValidationDocsDeepLink.expectedCheckCount,
+  expectedRouteCount: sharedValidationRenderedRouteFailureCopy.expectedRouteCount,
+  failingCommand: sharedValidationLiveRouteGateNote.command,
+  linkSelector: sharedValidationDocsDeepLink.linkSelector,
+  noMergeCopy:
+    "Не мержить, пока shared validation live route gate, shared README docs deep-link и Web build route smoke снова согласованы",
+  ownerRole: "Schema owner + CI owner + Docs owner + QA owner",
+  readmePath: sharedValidationDocsDeepLink.readmePath,
+  repairTargets:
+    "/plan,.github/workflows/web-build.yml,.github/workflows/shared-validation.yml,packages/shared/README.md#shared-schema-index",
+  sourceMarkerSelector: "[data-testid='shared-validation-live-route-gate-note']",
+  workflowCommand: sharedValidationLiveRouteGateNote.command,
+  workflowHref: sharedValidationLiveRouteGateNote.workflowHref,
+  workflowName: sharedValidationLiveRouteGateNote.workflowName,
+  workflowPath: sharedValidationLiveRouteGateNote.workflowPath,
+  checks: [
+    ["Symptom", "live route gate есть, но docs deep-link или Web build route smoke больше не закрепляют shared validation"],
+    ["Fix order", "сначала восстановить shared-validation-live-route-gate-note, затем shared-validation-docs-deep-link"],
+    ["Owner", "Schema owner подтверждает 14 checks, CI owner подтверждает live route command, Docs owner подтверждает README anchor"],
+    ["No merge", "не мержить, пока shared validation live docs workflow guard снова не проходит route coverage"],
   ],
 };
 
@@ -3448,6 +3476,51 @@ export default function PlanPage() {
                   {title === "No merge"
                     ? sharedValidationDocsRenderedRouteFailureCopy.noMergeCopy
                     : sharedValidationDocsRenderedRouteFailureCopy.readmePath}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-checked-workflow-path={sharedValidationLiveDocsWorkflowCopy.checkedWorkflowPath}
+          data-command={sharedValidationLiveDocsWorkflowCopy.command}
+          data-docs-href={sharedValidationLiveDocsWorkflowCopy.docsHref}
+          data-docs-marker-selector={sharedValidationLiveDocsWorkflowCopy.docsMarkerSelector}
+          data-expected-check-count={sharedValidationLiveDocsWorkflowCopy.expectedCheckCount}
+          data-expected-route-count={sharedValidationLiveDocsWorkflowCopy.expectedRouteCount}
+          data-failing-command={sharedValidationLiveDocsWorkflowCopy.failingCommand}
+          data-link-selector={sharedValidationLiveDocsWorkflowCopy.linkSelector}
+          data-no-merge-copy={sharedValidationLiveDocsWorkflowCopy.noMergeCopy}
+          data-owner-role={sharedValidationLiveDocsWorkflowCopy.ownerRole}
+          data-readme-path={sharedValidationLiveDocsWorkflowCopy.readmePath}
+          data-repair-targets={sharedValidationLiveDocsWorkflowCopy.repairTargets}
+          data-source-marker-selector={sharedValidationLiveDocsWorkflowCopy.sourceMarkerSelector}
+          data-testid="shared-validation-live-docs-workflow-copy"
+          data-workflow-command={sharedValidationLiveDocsWorkflowCopy.workflowCommand}
+          data-workflow-href={sharedValidationLiveDocsWorkflowCopy.workflowHref}
+          data-workflow-name={sharedValidationLiveDocsWorkflowCopy.workflowName}
+          data-workflow-path={sharedValidationLiveDocsWorkflowCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Shared validation live docs workflow copy</p>
+              <h2>Что делать, если shared validation live docs workflow drift упал</h2>
+            </div>
+            <a className="primary-link" href={sharedValidationLiveDocsWorkflowCopy.workflowHref}>
+              {sharedValidationLiveDocsWorkflowCopy.workflowName}
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sharedValidationLiveDocsWorkflowCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? sharedValidationLiveDocsWorkflowCopy.noMergeCopy
+                    : sharedValidationLiveDocsWorkflowCopy.workflowCommand}
                 </strong>
                 <p>{text}</p>
               </article>
