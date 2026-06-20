@@ -464,6 +464,40 @@ const aiReviewQueueReadmeWorkflowDocsPrCheckCopy = {
   ],
 };
 
+const aiReviewQueueReadmeWorkflowDocsMergeStateCopy = {
+  route: aiReviewQueueReadmeWorkflowDocsPrCheckCopy.route,
+  apiRoute: aiReviewQueueReadmeWorkflowDocsPrCheckCopy.apiRoute,
+  branch: aiReviewQueueReadmeWorkflowDocsPrCheckCopy.branch,
+  baseBranch: aiReviewQueueReadmeWorkflowDocsPrCheckCopy.baseBranch,
+  command: "gh pr view 17 --json headRefName,baseRefName,mergeStateStatus,statusCheckRollup",
+  docsHref: aiReviewQueueReadmeWorkflowDocsPrCheckCopy.docsHref,
+  expectedCheckGroups: aiReviewQueueReadmeWorkflowDocsPrCheckCopy.expectedCheckGroups,
+  expectedConclusion: aiReviewQueueReadmeWorkflowDocsPrCheckCopy.expectedConclusion,
+  expectedMergeState: aiReviewQueueReadmeWorkflowDocsPrCheckCopy.expectedMergeState,
+  expectedOwnerCount: aiReviewQueueReadmeWorkflowDocsPrCheckCopy.expectedOwnerCount,
+  expectedPrNumber: aiReviewQueueReadmeWorkflowDocsPrCheckCopy.expectedPrNumber,
+  expectedRouteCount: aiReviewQueueReadmeWorkflowDocsPrCheckCopy.expectedRouteCount,
+  expectedRuleCount: aiReviewQueueReadmeWorkflowDocsPrCheckCopy.expectedRuleCount,
+  linkSelector: "[data-testid='ai-review-queue-readme-workflow-docs-merge-anchor']",
+  noMergeCopy:
+    "Не мержить, пока PR #17 снова показывает mergeStateStatus CLEAN для AI review queue README workflow docs guard",
+  ownerRole: "AI workflow owner + API owner + Release owner",
+  prHref: aiReviewQueueReadmeWorkflowDocsPrCheckCopy.prHref,
+  repairTargets:
+    "PR #17,gh pr view 17 --json mergeStateStatus,statusCheckRollup,apps/web/scripts/smoke.mjs,/ai-review",
+  sourceMarkerSelector: "[data-testid='ai-review-queue-readme-workflow-docs-pr-check-copy']",
+  status: aiReviewQueueReadmeWorkflowDocsPrCheckCopy.status,
+  workflowHref: aiReviewQueueReadmeWorkflowDocsPrCheckCopy.workflowHref,
+  workflowName: aiReviewQueueReadmeWorkflowDocsPrCheckCopy.workflowName,
+  workflowPath: aiReviewQueueReadmeWorkflowDocsPrCheckCopy.workflowPath,
+  checks: [
+    ["Merge state", "PR #17 mergeStateStatus остается CLEAN перед merge"],
+    ["Branch", "headRefName codex/app-site-shell и baseRefName main не меняются"],
+    ["Checks", "statusCheckRollup остается SUCCESS для Web build, API smoke и Shared validation"],
+    ["No merge", "не мержить, пока merge-state guard снова не подтверждает clean PR rollup"],
+  ],
+};
+
 const aiReviewReceiptWriteContract = aiReviewQueueFixture.write_contract;
 const aiReviewReceiptWriteDocsDeepLink = {
   route: "/ai-review",
@@ -898,6 +932,65 @@ export default function AiReviewPage() {
                       : title === "Route guard"
                         ? "Smoke route"
                         : "PR clean"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel ai-confidence-browser-loop-panel"
+          data-api-route={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.apiRoute}
+          data-base-branch={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.baseBranch}
+          data-branch={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.branch}
+          data-command={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.command}
+          data-docs-href={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.docsHref}
+          data-expected-check-groups={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.expectedConclusion}
+          data-expected-merge-state={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.expectedMergeState}
+          data-expected-owner-count={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.expectedOwnerCount}
+          data-expected-pr-number={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.expectedPrNumber}
+          data-expected-route-count={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.expectedRouteCount}
+          data-expected-rule-count={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.expectedRuleCount}
+          data-link-selector={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.linkSelector}
+          data-no-merge-copy={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.noMergeCopy}
+          data-owner-role={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.ownerRole}
+          data-pr-href={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.prHref}
+          data-repair-targets={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.repairTargets}
+          data-route={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.route}
+          data-source-marker-selector={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.sourceMarkerSelector}
+          data-status={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.status}
+          data-testid="ai-review-queue-readme-workflow-docs-merge-state-copy"
+          data-workflow-href={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.workflowHref}
+          data-workflow-name={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.workflowName}
+          data-workflow-path={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review queue README workflow docs merge-state copy</p>
+              <h2>Как PR #17 держит AI review queue README workflow docs guard в CLEAN</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="ai-review-queue-readme-workflow-docs-merge-anchor"
+              href={aiReviewQueueReadmeWorkflowDocsMergeStateCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="ai-confidence-browser-loop-grid">
+            {aiReviewQueueReadmeWorkflowDocsMergeStateCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? "No merge"
+                    : title === "Checks"
+                      ? "Rollup green"
+                      : title === "Branch"
+                        ? "PR branch"
+                        : "CLEAN"}
                 </strong>
                 <p>{text}</p>
               </article>
