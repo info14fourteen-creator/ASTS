@@ -235,6 +235,36 @@ const aiReviewQueueLiveDocsWorkflowCopy = {
   ],
 };
 
+const aiReviewQueueReadmeLiveDocsWorkflowCopy = {
+  route: aiReviewQueueLiveDocsWorkflowCopy.route,
+  apiRoute: aiReviewQueueLiveDocsWorkflowCopy.apiRoute,
+  command: aiReviewQueueLiveDocsWorkflowCopy.command,
+  docsHref: aiReviewQueueLiveDocsWorkflowCopy.docsHref,
+  docsMarkerSelector: aiReviewQueueLiveDocsWorkflowCopy.docsMarkerSelector,
+  expectedOwnerCount: aiReviewQueueLiveDocsWorkflowCopy.expectedOwnerCount,
+  expectedRouteCount: aiReviewQueueLiveDocsWorkflowCopy.expectedRouteCount,
+  expectedRuleCount: aiReviewQueueLiveDocsWorkflowCopy.expectedRuleCount,
+  failingCommand: aiReviewQueueLiveDocsWorkflowCopy.failingCommand,
+  linkSelector: aiReviewQueueLiveDocsWorkflowCopy.linkSelector,
+  noMergeCopy:
+    "Не мержить, пока AI review queue README docs deep-link, live route и Web build queue workflow smoke снова согласованы",
+  ownerRole: aiReviewQueueLiveDocsWorkflowCopy.ownerRole,
+  repairTargets:
+    "/ai-review,apps/api/README.md#ai-review-queue-contract,.github/workflows/web-build.yml,apps/web/scripts/smoke.mjs,[data-testid='ai-review-queue-live-docs-workflow-copy']",
+  sourceMarkerSelector: "[data-testid='ai-review-queue-live-docs-workflow-copy']",
+  status: aiReviewQueueLiveDocsWorkflowCopy.status,
+  workflowCommand: aiReviewQueueLiveDocsWorkflowCopy.workflowCommand,
+  workflowHref: aiReviewQueueLiveDocsWorkflowCopy.workflowHref,
+  workflowName: aiReviewQueueLiveDocsWorkflowCopy.workflowName,
+  workflowPath: aiReviewQueueLiveDocsWorkflowCopy.workflowPath,
+  checks: [
+    ["Symptom", "README docs link есть, но live docs workflow guard больше не связывает queue contract с Web build"],
+    ["Fix order", "сначала восстановить ai-review-queue-docs-deep-link, затем ai-review-queue-live-docs-workflow-copy"],
+    ["Owner", "AI workflow owner подтверждает queue copy, API owner подтверждает README anchor, CI owner подтверждает Web build"],
+    ["No merge", "не мержить, пока AI review queue README live docs workflow guard снова не проходит route coverage"],
+  ],
+};
+
 const aiReviewReceiptWriteContract = aiReviewQueueFixture.write_contract;
 const aiReviewReceiptWriteDocsDeepLink = {
   route: "/ai-review",
@@ -711,6 +741,57 @@ export default function AiReviewPage() {
                   {title === "No merge"
                     ? aiReviewQueueLiveDocsWorkflowCopy.noMergeCopy
                     : aiReviewQueueLiveDocsWorkflowCopy.workflowCommand}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel ai-confidence-browser-loop-panel"
+          data-api-route={aiReviewQueueReadmeLiveDocsWorkflowCopy.apiRoute}
+          data-command={aiReviewQueueReadmeLiveDocsWorkflowCopy.command}
+          data-docs-href={aiReviewQueueReadmeLiveDocsWorkflowCopy.docsHref}
+          data-docs-marker-selector={aiReviewQueueReadmeLiveDocsWorkflowCopy.docsMarkerSelector}
+          data-expected-owner-count={aiReviewQueueReadmeLiveDocsWorkflowCopy.expectedOwnerCount}
+          data-expected-route-count={aiReviewQueueReadmeLiveDocsWorkflowCopy.expectedRouteCount}
+          data-expected-rule-count={aiReviewQueueReadmeLiveDocsWorkflowCopy.expectedRuleCount}
+          data-failing-command={aiReviewQueueReadmeLiveDocsWorkflowCopy.failingCommand}
+          data-link-selector={aiReviewQueueReadmeLiveDocsWorkflowCopy.linkSelector}
+          data-no-merge-copy={aiReviewQueueReadmeLiveDocsWorkflowCopy.noMergeCopy}
+          data-owner-role={aiReviewQueueReadmeLiveDocsWorkflowCopy.ownerRole}
+          data-repair-targets={aiReviewQueueReadmeLiveDocsWorkflowCopy.repairTargets}
+          data-route={aiReviewQueueReadmeLiveDocsWorkflowCopy.route}
+          data-source-marker-selector={aiReviewQueueReadmeLiveDocsWorkflowCopy.sourceMarkerSelector}
+          data-status={aiReviewQueueReadmeLiveDocsWorkflowCopy.status}
+          data-testid="ai-review-queue-readme-live-docs-workflow-copy"
+          data-workflow-command={aiReviewQueueReadmeLiveDocsWorkflowCopy.workflowCommand}
+          data-workflow-href={aiReviewQueueReadmeLiveDocsWorkflowCopy.workflowHref}
+          data-workflow-name={aiReviewQueueReadmeLiveDocsWorkflowCopy.workflowName}
+          data-workflow-path={aiReviewQueueReadmeLiveDocsWorkflowCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review queue README live docs workflow copy</p>
+              <h2>Что делать, если AI review queue README live docs workflow drift упал</h2>
+            </div>
+            <a className="primary-link" href={aiReviewQueueReadmeLiveDocsWorkflowCopy.workflowHref}>
+              {aiReviewQueueReadmeLiveDocsWorkflowCopy.workflowName}
+            </a>
+          </div>
+          <div className="ai-confidence-browser-loop-grid">
+            {aiReviewQueueReadmeLiveDocsWorkflowCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? "No merge"
+                    : title === "Owner"
+                      ? "AI + API + CI"
+                      : title === "Fix order"
+                        ? "docs -> live guard"
+                        : "Queue README"}
                 </strong>
                 <p>{text}</p>
               </article>
