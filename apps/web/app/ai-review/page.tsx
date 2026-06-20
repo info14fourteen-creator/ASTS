@@ -394,6 +394,42 @@ const aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy = {
   ],
 };
 
+const aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy = {
+  route: aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.route,
+  apiRoute: aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.apiRoute,
+  browserLoopSelector: "[data-testid='ai-review-queue-readme-workflow-docs-rendered-route-copy']",
+  browserUrl: "/ai-review",
+  command: aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.command,
+  consoleLevels: "error,warn",
+  docsHref: aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.docsHref,
+  docsMarkerSelector: aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.docsMarkerSelector,
+  expectedOwnerCount: aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.expectedOwnerCount,
+  expectedRouteCount: aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.expectedRouteCount,
+  expectedRuleCount: aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.expectedRuleCount,
+  linkSelector: "[data-testid='ai-review-queue-readme-workflow-docs-workflow-anchor']",
+  noMergeCopy:
+    "Не мержить, пока Browser QA снова подтверждает AI review queue README workflow docs rendered-route guard на живом `/ai-review`",
+  ownerRole: "AI workflow owner + API owner + Docs owner + QA owner",
+  repairTargets:
+    "/ai-review,apps/web/scripts/smoke.mjs,[data-testid='ai-review-queue-readme-workflow-docs-rendered-route-copy'],Browser DOM QA",
+  screenshotRequired: "true",
+  sourceMarkerSelector: "[data-testid='ai-review-queue-readme-workflow-docs-rendered-route-copy']",
+  status: aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.status,
+  workflowCommand: aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.workflowCommand,
+  workflowDocsCommand: aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.workflowDocsCommand,
+  workflowDocsFailureCommand: aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.workflowDocsFailureCommand,
+  workflowFailureCommand: aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.workflowFailureCommand,
+  workflowHref: aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.workflowHref,
+  workflowName: aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.workflowName,
+  workflowPath: aiReviewQueueReadmeWorkflowDocsRenderedRouteCopy.workflowPath,
+  checks: [
+    ["Page identity", "Browser открывает `/ai-review` и видит ASTS app.site.ru без framework overlay"],
+    ["DOM", "Browser DOM находит ai-review-queue-readme-workflow-docs-rendered-route-copy ровно один раз"],
+    ["Workflow link", "scoped link ведет в Web build GitHub Actions workflow"],
+    ["Console", "Browser console не содержит error/warn перед merge"],
+  ],
+};
+
 const aiReviewReceiptWriteContract = aiReviewQueueFixture.write_contract;
 const aiReviewReceiptWriteDocsDeepLink = {
   route: "/ai-review",
@@ -708,6 +744,67 @@ export default function AiReviewPage() {
                       : title === "Fix order"
                         ? "workflow docs -> smoke"
                         : "Rendered route"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel ai-confidence-browser-loop-panel"
+          data-api-route={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.apiRoute}
+          data-browser-loop-selector={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.browserLoopSelector}
+          data-browser-url={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.browserUrl}
+          data-command={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.command}
+          data-console-levels={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.consoleLevels}
+          data-docs-href={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.docsHref}
+          data-docs-marker-selector={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.docsMarkerSelector}
+          data-expected-owner-count={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.expectedOwnerCount}
+          data-expected-route-count={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.expectedRouteCount}
+          data-expected-rule-count={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.expectedRuleCount}
+          data-link-selector={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.linkSelector}
+          data-no-merge-copy={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.noMergeCopy}
+          data-owner-role={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.ownerRole}
+          data-repair-targets={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.repairTargets}
+          data-route={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.route}
+          data-screenshot-required={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.screenshotRequired}
+          data-source-marker-selector={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.sourceMarkerSelector}
+          data-status={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.status}
+          data-testid="ai-review-queue-readme-workflow-docs-browser-loop-copy"
+          data-workflow-command={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.workflowCommand}
+          data-workflow-docs-command={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.workflowDocsCommand}
+          data-workflow-docs-failure-command={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.workflowDocsFailureCommand}
+          data-workflow-failure-command={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.workflowFailureCommand}
+          data-workflow-href={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.workflowHref}
+          data-workflow-name={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.workflowName}
+          data-workflow-path={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review queue README workflow docs browser-loop copy</p>
+              <h2>Как Browser QA подтверждает AI review queue README workflow docs guard</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="ai-review-queue-readme-workflow-docs-workflow-anchor"
+              href={aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.workflowHref}
+            >
+              {aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.workflowName}
+            </a>
+          </div>
+          <div className="ai-confidence-browser-loop-grid">
+            {aiReviewQueueReadmeWorkflowDocsBrowserLoopCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Console"
+                    ? "No errors"
+                    : title === "Workflow link"
+                      ? "Scoped link"
+                      : title === "DOM"
+                        ? "One guard"
+                        : "Browser QA"}
                 </strong>
                 <p>{text}</p>
               </article>

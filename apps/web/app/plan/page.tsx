@@ -26,8 +26,8 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить AI review queue README workflow docs browser-loop copy", "закрепить AI queue README workflow docs browser guard в `/ai-review`"],
-  ["2", "Добавить source connectors README workflow docs browser-loop copy", "закрепить connectors README workflow docs browser guard в `/sources`"],
+  ["1", "Добавить source connectors README workflow docs browser-loop copy", "закрепить connectors README workflow docs browser guard в `/sources`"],
+  ["2", "Добавить AI review queue README workflow docs PR-check copy", "закрепить AI queue README workflow docs PR checks в `/ai-review`"],
   ["3", "Добавить shared validation README workflow docs PR-check copy", "закрепить shared README workflow docs PR checks в `/plan`"],
   ["4", "Добавить web build README workflow docs PR-check copy", "закрепить Web build README workflow docs PR checks в `/plan`"],
 ];
