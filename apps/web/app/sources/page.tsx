@@ -288,6 +288,40 @@ const sourceConnectorsReadmeLiveDocsWorkflowCopy = {
   ],
 };
 
+const sourceConnectorsReadmeWorkflowFailureCopy = {
+  route: sourceConnectorsReadmeLiveDocsWorkflowCopy.route,
+  apiRoute: sourceConnectorsReadmeLiveDocsWorkflowCopy.apiRoute,
+  command: sourceConnectorsReadmeLiveDocsWorkflowCopy.command,
+  connectorIds: sourceConnectorsReadmeLiveDocsWorkflowCopy.connectorIds,
+  docsHref: sourceConnectorsReadmeLiveDocsWorkflowCopy.docsHref,
+  docsMarkerSelector: sourceConnectorsReadmeLiveDocsWorkflowCopy.docsMarkerSelector,
+  expectedConnectorCount: sourceConnectorsReadmeLiveDocsWorkflowCopy.expectedConnectorCount,
+  expectedNetworkDisabledCount: sourceConnectorsReadmeLiveDocsWorkflowCopy.expectedNetworkDisabledCount,
+  expectedRouteCount: sourceConnectorsReadmeLiveDocsWorkflowCopy.expectedRouteCount,
+  failingCommand: sourceConnectorsReadmeLiveDocsWorkflowCopy.workflowCommand,
+  linkSelector: sourceConnectorsReadmeLiveDocsWorkflowCopy.linkSelector,
+  mode: sourceConnectorsReadmeLiveDocsWorkflowCopy.mode,
+  noMergeCopy:
+    "Не мержить, пока Source Connectors README workflow failure guard снова защищает README live docs workflow copy",
+  ownerRole: sourceConnectorsReadmeLiveDocsWorkflowCopy.ownerRole,
+  readmeWorkflowCommand: sourceConnectorsReadmeLiveDocsWorkflowCopy.workflowCommand,
+  repairTargets:
+    "/sources,apps/api/README.md#source-connectors-contract,.github/workflows/web-build.yml,apps/web/scripts/smoke.mjs,[data-testid='source-connectors-readme-live-docs-workflow-copy']",
+  sourceMarkerSelector: "[data-testid='source-connectors-readme-live-docs-workflow-copy']",
+  status: "armed",
+  workflowCommand: sourceConnectorsReadmeLiveDocsWorkflowCopy.workflowCommand,
+  workflowFailureCommand: sourceConnectorsWorkflowDocsFailureCopy.workflowCommand,
+  workflowHref: sourceConnectorsReadmeLiveDocsWorkflowCopy.workflowHref,
+  workflowName: sourceConnectorsReadmeLiveDocsWorkflowCopy.workflowName,
+  workflowPath: sourceConnectorsReadmeLiveDocsWorkflowCopy.workflowPath,
+  checks: [
+    ["Symptom", "README live docs workflow copy есть, но failure guard больше не защищает Source Connectors route smoke order"],
+    ["Fix order", "сначала восстановить source-connectors-readme-live-docs-workflow-copy, затем route smoke"],
+    ["Owner", "Data owner подтверждает connectors copy, API owner подтверждает README anchor, CI owner подтверждает Web build"],
+    ["No merge", "не мержить, пока source connectors README workflow failure guard снова не защищает README workflow copy"],
+  ],
+};
+
 const fnsNetworkGateBrowserLoop = {
   route: "/sources",
   apiRoute: "/v1/sources/connectors",
@@ -760,6 +794,61 @@ export default function SourcesPage() {
                       : title === "Fix order"
                         ? "docs -> live guard"
                         : "README link"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-api-route={sourceConnectorsReadmeWorkflowFailureCopy.apiRoute}
+          data-command={sourceConnectorsReadmeWorkflowFailureCopy.command}
+          data-connector-ids={sourceConnectorsReadmeWorkflowFailureCopy.connectorIds.join(",")}
+          data-docs-href={sourceConnectorsReadmeWorkflowFailureCopy.docsHref}
+          data-docs-marker-selector={sourceConnectorsReadmeWorkflowFailureCopy.docsMarkerSelector}
+          data-expected-connector-count={sourceConnectorsReadmeWorkflowFailureCopy.expectedConnectorCount}
+          data-expected-network-disabled-count={sourceConnectorsReadmeWorkflowFailureCopy.expectedNetworkDisabledCount}
+          data-expected-route-count={sourceConnectorsReadmeWorkflowFailureCopy.expectedRouteCount}
+          data-failing-command={sourceConnectorsReadmeWorkflowFailureCopy.failingCommand}
+          data-link-selector={sourceConnectorsReadmeWorkflowFailureCopy.linkSelector}
+          data-mode={sourceConnectorsReadmeWorkflowFailureCopy.mode}
+          data-no-merge-copy={sourceConnectorsReadmeWorkflowFailureCopy.noMergeCopy}
+          data-owner-role={sourceConnectorsReadmeWorkflowFailureCopy.ownerRole}
+          data-readme-workflow-command={sourceConnectorsReadmeWorkflowFailureCopy.readmeWorkflowCommand}
+          data-repair-targets={sourceConnectorsReadmeWorkflowFailureCopy.repairTargets}
+          data-route={sourceConnectorsReadmeWorkflowFailureCopy.route}
+          data-source-marker-selector={sourceConnectorsReadmeWorkflowFailureCopy.sourceMarkerSelector}
+          data-status={sourceConnectorsReadmeWorkflowFailureCopy.status}
+          data-testid="source-connectors-readme-workflow-failure-copy"
+          data-workflow-command={sourceConnectorsReadmeWorkflowFailureCopy.workflowCommand}
+          data-workflow-failure-command={sourceConnectorsReadmeWorkflowFailureCopy.workflowFailureCommand}
+          data-workflow-href={sourceConnectorsReadmeWorkflowFailureCopy.workflowHref}
+          data-workflow-name={sourceConnectorsReadmeWorkflowFailureCopy.workflowName}
+          data-workflow-path={sourceConnectorsReadmeWorkflowFailureCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source connectors README workflow failure copy</p>
+              <h2>Что делать, если source connectors README workflow failure guard упал</h2>
+            </div>
+            <a className="primary-link" href={sourceConnectorsReadmeWorkflowFailureCopy.workflowHref}>
+              {sourceConnectorsReadmeWorkflowFailureCopy.workflowName}
+            </a>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {sourceConnectorsReadmeWorkflowFailureCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? "No merge"
+                    : title === "Owner"
+                      ? "Data + API + CI"
+                      : title === "Fix order"
+                        ? "README -> smoke"
+                        : "Source README"}
                 </strong>
                 <p>{text}</p>
               </article>

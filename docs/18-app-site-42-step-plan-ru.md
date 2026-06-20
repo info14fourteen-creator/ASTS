@@ -161,3 +161,5 @@
 177. [done 2026-06-20] Добавить web build README workflow failure copy: закрепить owner-friendly guard для связки Web build README live docs workflow copy и Web build failure checks.
 
 178. [done 2026-06-20] Добавить AI review queue README workflow failure copy: закрепить owner-friendly guard для связки AI review queue README live docs workflow copy и Web build queue route smoke.
+
+179. [done 2026-06-20] Добавить source connectors README workflow failure copy: закрепить owner-friendly guard для связки Source Connectors README live docs workflow copy и Web build route smoke.

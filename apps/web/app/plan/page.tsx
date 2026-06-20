@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить source connectors README workflow failure copy", "закрепить connectors README workflow failure guard в `/sources`"],
-  ["2", "Добавить shared validation README rendered-route failure copy", "закрепить shared README rendered-route guard в `/plan`"],
-  ["3", "Добавить web build README rendered-route failure copy", "закрепить Web build README rendered-route guard в `/plan`"],
-  ["4", "Добавить AI review queue README rendered-route failure copy", "закрепить AI queue README rendered-route guard в `/ai-review`"],
+  ["1", "Добавить shared validation README rendered-route failure copy", "закрепить shared README rendered-route guard в `/plan`"],
+  ["2", "Добавить web build README rendered-route failure copy", "закрепить Web build README rendered-route guard в `/plan`"],
+  ["3", "Добавить AI review queue README rendered-route failure copy", "закрепить AI queue README rendered-route guard в `/ai-review`"],
+  ["4", "Добавить source connectors README rendered-route failure copy", "закрепить connectors README rendered-route guard в `/sources`"],
 ];
 
 const cycleRules = [
