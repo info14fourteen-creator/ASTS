@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить web build README workflow docs release-note copy", "закрепить Web build README workflow docs release handoff"],
-  ["2", "Добавить source connectors README workflow docs final QA copy", "закрепить Source Connectors README workflow docs final QA handoff"],
-  ["3", "Добавить AI review queue README workflow docs final QA copy", "закрепить AI queue README workflow docs final QA handoff"],
-  ["4", "Добавить shared validation README workflow docs final QA copy", "закрепить shared validation README workflow docs final QA handoff"],
+  ["1", "Добавить source connectors README workflow docs final QA copy", "закрепить Source Connectors README workflow docs final QA handoff"],
+  ["2", "Добавить AI review queue README workflow docs final QA copy", "закрепить AI queue README workflow docs final QA handoff"],
+  ["3", "Добавить shared validation README workflow docs final QA copy", "закрепить shared validation README workflow docs final QA handoff"],
+  ["4", "Добавить web build README workflow docs final QA copy", "закрепить Web build README workflow docs final QA handoff"],
 ];
 
 const cycleRules = [
@@ -3325,6 +3325,42 @@ const webBuildReadmeWorkflowDocsMergeStateCopy = {
     ["Branch", "headRefName codex/app-site-shell и baseRefName main не меняются"],
     ["Checks", "statusCheckRollup остается SUCCESS для Web build, API smoke и Shared validation"],
     ["No merge", "не мержить, пока merge-state guard снова не подтверждает clean PR rollup"],
+  ],
+};
+
+const webBuildReadmeWorkflowDocsReleaseNoteCopy = {
+  route: webBuildReadmeWorkflowDocsMergeStateCopy.route,
+  checkedWorkflowPath: webBuildReadmeWorkflowDocsMergeStateCopy.checkedWorkflowPath,
+  branch: webBuildReadmeWorkflowDocsMergeStateCopy.branch,
+  baseBranch: webBuildReadmeWorkflowDocsMergeStateCopy.baseBranch,
+  command: "gh pr view 17 --json url,headRefName,baseRefName,mergeStateStatus,statusCheckRollup",
+  docsHref: webBuildReadmeWorkflowDocsMergeStateCopy.docsHref,
+  expectedCommandCount: webBuildReadmeWorkflowDocsMergeStateCopy.expectedCommandCount,
+  expectedCheckGroups: webBuildReadmeWorkflowDocsMergeStateCopy.expectedCheckGroups,
+  expectedConclusion: webBuildReadmeWorkflowDocsMergeStateCopy.expectedConclusion,
+  expectedMergeState: webBuildReadmeWorkflowDocsMergeStateCopy.expectedMergeState,
+  expectedPrNumber: webBuildReadmeWorkflowDocsMergeStateCopy.expectedPrNumber,
+  expectedRouteCount: webBuildReadmeWorkflowDocsMergeStateCopy.expectedRouteCount,
+  linkSelector: "[data-testid='web-build-readme-workflow-docs-release-anchor']",
+  noMergeCopy:
+    "Не выпускать release notes, пока PR #17 снова показывает CLEAN и зеленый statusCheckRollup для Web build README workflow docs guard",
+  ownerRole: "Frontend owner + CI owner + Release owner",
+  prHref: webBuildReadmeWorkflowDocsMergeStateCopy.prHref,
+  releaseNote:
+    "Web build README workflow docs guard covered by browser-loop, PR-check and merge-state copy on `/plan`.",
+  releaseScope: "Web build README workflow docs",
+  repairTargets:
+    "PR #17,release notes,apps/web/scripts/smoke.mjs,/plan,[data-testid='web-build-readme-workflow-docs-merge-state-copy']",
+  sourceMarkerSelector: "[data-testid='web-build-readme-workflow-docs-merge-state-copy']",
+  status: webBuildReadmeWorkflowDocsMergeStateCopy.status,
+  workflowHref: webBuildReadmeWorkflowDocsMergeStateCopy.workflowHref,
+  workflowName: webBuildReadmeWorkflowDocsMergeStateCopy.workflowName,
+  workflowPath: webBuildReadmeWorkflowDocsMergeStateCopy.workflowPath,
+  checks: [
+    ["Release note", "release notes явно упоминают Web build README workflow docs guard"],
+    ["Evidence", "handoff ссылается на PR #17, CLEAN mergeStateStatus и зеленый statusCheckRollup"],
+    ["Scope", "handoff оставляет `/plan`, Web build workflow и rendered route smoke в одном контексте"],
+    ["No merge", "не выпускать release notes, пока release-note guard снова не подтверждает clean PR evidence"],
   ],
 };
 
@@ -9162,6 +9198,66 @@ export default function PlanPage() {
                       : title === "Branch"
                         ? "PR branch"
                         : "CLEAN"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={webBuildReadmeWorkflowDocsReleaseNoteCopy.baseBranch}
+          data-branch={webBuildReadmeWorkflowDocsReleaseNoteCopy.branch}
+          data-checked-workflow-path={webBuildReadmeWorkflowDocsReleaseNoteCopy.checkedWorkflowPath}
+          data-command={webBuildReadmeWorkflowDocsReleaseNoteCopy.command}
+          data-docs-href={webBuildReadmeWorkflowDocsReleaseNoteCopy.docsHref}
+          data-expected-command-count={webBuildReadmeWorkflowDocsReleaseNoteCopy.expectedCommandCount}
+          data-expected-check-groups={webBuildReadmeWorkflowDocsReleaseNoteCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={webBuildReadmeWorkflowDocsReleaseNoteCopy.expectedConclusion}
+          data-expected-merge-state={webBuildReadmeWorkflowDocsReleaseNoteCopy.expectedMergeState}
+          data-expected-pr-number={webBuildReadmeWorkflowDocsReleaseNoteCopy.expectedPrNumber}
+          data-expected-route-count={webBuildReadmeWorkflowDocsReleaseNoteCopy.expectedRouteCount}
+          data-link-selector={webBuildReadmeWorkflowDocsReleaseNoteCopy.linkSelector}
+          data-no-merge-copy={webBuildReadmeWorkflowDocsReleaseNoteCopy.noMergeCopy}
+          data-owner-role={webBuildReadmeWorkflowDocsReleaseNoteCopy.ownerRole}
+          data-pr-href={webBuildReadmeWorkflowDocsReleaseNoteCopy.prHref}
+          data-release-note={webBuildReadmeWorkflowDocsReleaseNoteCopy.releaseNote}
+          data-release-scope={webBuildReadmeWorkflowDocsReleaseNoteCopy.releaseScope}
+          data-repair-targets={webBuildReadmeWorkflowDocsReleaseNoteCopy.repairTargets}
+          data-route={webBuildReadmeWorkflowDocsReleaseNoteCopy.route}
+          data-source-marker-selector={webBuildReadmeWorkflowDocsReleaseNoteCopy.sourceMarkerSelector}
+          data-status={webBuildReadmeWorkflowDocsReleaseNoteCopy.status}
+          data-testid="web-build-readme-workflow-docs-release-note-copy"
+          data-workflow-href={webBuildReadmeWorkflowDocsReleaseNoteCopy.workflowHref}
+          data-workflow-name={webBuildReadmeWorkflowDocsReleaseNoteCopy.workflowName}
+          data-workflow-path={webBuildReadmeWorkflowDocsReleaseNoteCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Web build README workflow docs release-note copy</p>
+              <h2>Что release notes должны сказать про Web build README workflow docs guard</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="web-build-readme-workflow-docs-release-anchor"
+              href={webBuildReadmeWorkflowDocsReleaseNoteCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {webBuildReadmeWorkflowDocsReleaseNoteCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? "No merge"
+                    : title === "Evidence"
+                      ? "Clean PR"
+                      : title === "Scope"
+                        ? "Release scope"
+                        : "Release note"}
                 </strong>
                 <p>{text}</p>
               </article>
