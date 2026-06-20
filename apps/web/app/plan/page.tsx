@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить AI review queue live docs workflow copy", "закрепить AI queue docs live-workflow guard в `/ai-review`"],
-  ["2", "Добавить source connectors live docs workflow copy", "закрепить connectors docs live-workflow guard в `/sources`"],
-  ["3", "Добавить shared validation README live docs workflow copy", "закрепить shared README live-docs guard в `/plan`"],
-  ["4", "Добавить web build README live docs workflow copy", "закрепить Web build README live-docs guard в `/plan`"],
+  ["1", "Добавить source connectors live docs workflow copy", "закрепить connectors docs live-workflow guard в `/sources`"],
+  ["2", "Добавить shared validation README live docs workflow copy", "закрепить shared README live-docs guard в `/plan`"],
+  ["3", "Добавить web build README live docs workflow copy", "закрепить Web build README live-docs guard в `/plan`"],
+  ["4", "Добавить AI review queue README live docs workflow copy", "закрепить AI queue README live-docs guard в `/ai-review`"],
 ];
 
 const cycleRules = [
