@@ -606,6 +606,45 @@ const sourceConnectorsReadmeWorkflowDocsFinalQaCopy = {
   ],
 };
 
+const sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy = {
+  route: sourceConnectorsReadmeWorkflowDocsFinalQaCopy.route,
+  apiRoute: sourceConnectorsReadmeWorkflowDocsFinalQaCopy.apiRoute,
+  branch: sourceConnectorsReadmeWorkflowDocsFinalQaCopy.branch,
+  baseBranch: sourceConnectorsReadmeWorkflowDocsFinalQaCopy.baseBranch,
+  command: sourceConnectorsReadmeWorkflowDocsFinalQaCopy.command,
+  connectorIds: sourceConnectorsReadmeWorkflowDocsFinalQaCopy.connectorIds,
+  docsHref: sourceConnectorsReadmeWorkflowDocsFinalQaCopy.docsHref,
+  expectedCheckGroups: sourceConnectorsReadmeWorkflowDocsFinalQaCopy.expectedCheckGroups,
+  expectedConclusion: sourceConnectorsReadmeWorkflowDocsFinalQaCopy.expectedConclusion,
+  expectedMergeState: sourceConnectorsReadmeWorkflowDocsFinalQaCopy.expectedMergeState,
+  expectedPrNumber: sourceConnectorsReadmeWorkflowDocsFinalQaCopy.expectedPrNumber,
+  expectedRouteCount: sourceConnectorsReadmeWorkflowDocsFinalQaCopy.expectedRouteCount,
+  finalQaScope: sourceConnectorsReadmeWorkflowDocsFinalQaCopy.finalQaScope,
+  handoffOwners: ["Data owner", "API owner", "QA owner", "Release owner"],
+  handoffScope: "Source Connectors README workflow docs owner handoff",
+  linkSelector: "[data-testid='source-connectors-readme-workflow-docs-owner-handoff-anchor']",
+  mode: sourceConnectorsReadmeWorkflowDocsFinalQaCopy.mode,
+  noMergeCopy:
+    "Не закрывать Source Connectors README workflow docs owner handoff, пока Data, API, QA и Release owners не приняли final QA evidence",
+  ownerRole: sourceConnectorsReadmeWorkflowDocsFinalQaCopy.ownerRole,
+  prHref: sourceConnectorsReadmeWorkflowDocsFinalQaCopy.prHref,
+  releaseNote: sourceConnectorsReadmeWorkflowDocsFinalQaCopy.releaseNote,
+  releaseScope: sourceConnectorsReadmeWorkflowDocsFinalQaCopy.releaseScope,
+  repairTargets:
+    "PR #17,owner handoff,apps/web/scripts/smoke.mjs,/sources,[data-testid='source-connectors-readme-workflow-docs-final-qa-copy']",
+  sourceMarkerSelector: "[data-testid='source-connectors-readme-workflow-docs-final-qa-copy']",
+  status: sourceConnectorsReadmeWorkflowDocsFinalQaCopy.status,
+  workflowHref: sourceConnectorsReadmeWorkflowDocsFinalQaCopy.workflowHref,
+  workflowName: sourceConnectorsReadmeWorkflowDocsFinalQaCopy.workflowName,
+  workflowPath: sourceConnectorsReadmeWorkflowDocsFinalQaCopy.workflowPath,
+  checks: [
+    ["Data", "Data owner принимает connector ids и contract_only mode"],
+    ["API", "API owner принимает `/v1/sources/connectors` и README contract link"],
+    ["QA", "QA owner принимает build, route smoke и Browser DOM QA evidence"],
+    ["Release", "Release owner принимает PR #17 CLEAN и release note text"],
+  ],
+};
+
 const fnsNetworkGateBrowserLoop = {
   route: "/sources",
   apiRoute: "/v1/sources/connectors",
@@ -1603,6 +1642,70 @@ export default function SourcesPage() {
                       : title === "Smoke"
                         ? "Smoke green"
                         : "Build green"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-api-route={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.apiRoute}
+          data-base-branch={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.baseBranch}
+          data-branch={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.branch}
+          data-command={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.command}
+          data-connector-ids={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.connectorIds.join(",")}
+          data-docs-href={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.docsHref}
+          data-expected-check-groups={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.expectedConclusion}
+          data-expected-merge-state={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.expectedMergeState}
+          data-expected-pr-number={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.expectedPrNumber}
+          data-expected-route-count={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.expectedRouteCount}
+          data-final-qa-scope={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.finalQaScope}
+          data-handoff-owners={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.handoffOwners.join(",")}
+          data-handoff-scope={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.handoffScope}
+          data-link-selector={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.linkSelector}
+          data-mode={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.mode}
+          data-no-merge-copy={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.noMergeCopy}
+          data-owner-role={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.ownerRole}
+          data-pr-href={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.prHref}
+          data-release-note={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.releaseNote}
+          data-release-scope={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.releaseScope}
+          data-repair-targets={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.repairTargets}
+          data-route={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.route}
+          data-source-marker-selector={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.sourceMarkerSelector}
+          data-status={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.status}
+          data-testid="source-connectors-readme-workflow-docs-owner-handoff-copy"
+          data-workflow-href={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.workflowHref}
+          data-workflow-name={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.workflowName}
+          data-workflow-path={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source connectors README workflow docs owner handoff copy</p>
+              <h2>Кто принимает Source Connectors README workflow docs handoff</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="source-connectors-readme-workflow-docs-owner-handoff-anchor"
+              href={sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Release"
+                    ? "Release accepts"
+                    : title === "QA"
+                      ? "QA accepts"
+                      : title === "API"
+                        ? "API accepts"
+                        : "Data accepts"}
                 </strong>
                 <p>{text}</p>
               </article>
