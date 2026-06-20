@@ -219,3 +219,5 @@
 206. [done 2026-06-21] Добавить shared validation README workflow docs release-note copy: закрепить owner-friendly release-note handoff для shared validation README workflow docs guard, который связывает browser-loop, PR-check и merge-state evidence перед выпуском release notes.
 
 207. [done 2026-06-21] Добавить web build README workflow docs release-note copy: закрепить owner-friendly release-note handoff для Web build README workflow docs guard, который связывает browser-loop, PR-check и merge-state evidence перед выпуском release notes.
+
+208. [done 2026-06-21] Добавить source connectors README workflow docs final QA copy: закрепить owner-friendly final QA handoff для Source Connectors README workflow docs guard, который связывает build, route smoke, Browser DOM QA и CLEAN PR evidence перед закрытием handoff.

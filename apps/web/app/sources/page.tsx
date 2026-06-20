@@ -568,6 +568,44 @@ const sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy = {
   ],
 };
 
+const sourceConnectorsReadmeWorkflowDocsFinalQaCopy = {
+  route: sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.route,
+  apiRoute: sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.apiRoute,
+  branch: sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.branch,
+  baseBranch: sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.baseBranch,
+  command:
+    "npm run build && npm run smoke -- --url http://127.0.0.1:4177/ && gh pr view 17 --json mergeStateStatus,statusCheckRollup",
+  connectorIds: sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.connectorIds,
+  docsHref: sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.docsHref,
+  expectedCheckGroups: sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.expectedCheckGroups,
+  expectedConclusion: sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.expectedConclusion,
+  expectedMergeState: sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.expectedMergeState,
+  expectedPrNumber: sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.expectedPrNumber,
+  expectedRouteCount: sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.expectedRouteCount,
+  finalQaScope: "Source Connectors README workflow docs",
+  linkSelector: "[data-testid='source-connectors-readme-workflow-docs-final-qa-anchor']",
+  mode: sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.mode,
+  noMergeCopy:
+    "Не закрывать Source Connectors README workflow docs handoff, пока final QA снова не подтверждает build, smoke, Browser DOM и CLEAN PR evidence",
+  ownerRole: "Data owner + API owner + QA owner + Release owner",
+  prHref: sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.prHref,
+  releaseNote: sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.releaseNote,
+  releaseScope: sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.releaseScope,
+  repairTargets:
+    "PR #17,apps/web/scripts/smoke.mjs,/sources,Browser DOM QA,[data-testid='source-connectors-readme-workflow-docs-release-note-copy']",
+  sourceMarkerSelector: "[data-testid='source-connectors-readme-workflow-docs-release-note-copy']",
+  status: sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.status,
+  workflowHref: sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.workflowHref,
+  workflowName: sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.workflowName,
+  workflowPath: sourceConnectorsReadmeWorkflowDocsReleaseNoteCopy.workflowPath,
+  checks: [
+    ["Build", "production build проходит перед финальным handoff"],
+    ["Smoke", "route smoke видит Source Connectors README workflow docs release-note guard"],
+    ["Browser QA", "Browser DOM находит final QA и release-note guard без framework overlay и console errors"],
+    ["PR", "PR #17 остается CLEAN с зеленым statusCheckRollup перед закрытием handoff"],
+  ],
+};
+
 const fnsNetworkGateBrowserLoop = {
   route: "/sources",
   apiRoute: "/v1/sources/connectors",
@@ -1503,6 +1541,68 @@ export default function SourcesPage() {
                       : title === "Scope"
                         ? "Release scope"
                         : "Release note"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-api-route={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.apiRoute}
+          data-base-branch={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.baseBranch}
+          data-branch={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.branch}
+          data-command={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.command}
+          data-connector-ids={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.connectorIds.join(",")}
+          data-docs-href={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.docsHref}
+          data-expected-check-groups={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.expectedConclusion}
+          data-expected-merge-state={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.expectedMergeState}
+          data-expected-pr-number={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.expectedPrNumber}
+          data-expected-route-count={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.expectedRouteCount}
+          data-final-qa-scope={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.finalQaScope}
+          data-link-selector={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.linkSelector}
+          data-mode={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.mode}
+          data-no-merge-copy={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.noMergeCopy}
+          data-owner-role={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.ownerRole}
+          data-pr-href={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.prHref}
+          data-release-note={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.releaseNote}
+          data-release-scope={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.releaseScope}
+          data-repair-targets={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.repairTargets}
+          data-route={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.route}
+          data-source-marker-selector={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.sourceMarkerSelector}
+          data-status={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.status}
+          data-testid="source-connectors-readme-workflow-docs-final-qa-copy"
+          data-workflow-href={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.workflowHref}
+          data-workflow-name={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.workflowName}
+          data-workflow-path={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source connectors README workflow docs final QA copy</p>
+              <h2>Как финально проверить Source Connectors README workflow docs handoff</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="source-connectors-readme-workflow-docs-final-qa-anchor"
+              href={sourceConnectorsReadmeWorkflowDocsFinalQaCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {sourceConnectorsReadmeWorkflowDocsFinalQaCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "PR"
+                    ? "PR clean"
+                    : title === "Browser QA"
+                      ? "DOM clean"
+                      : title === "Smoke"
+                        ? "Smoke green"
+                        : "Build green"}
                 </strong>
                 <p>{text}</p>
               </article>
