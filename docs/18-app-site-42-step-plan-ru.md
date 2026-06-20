@@ -203,3 +203,5 @@
 198. [done 2026-06-20] Добавить shared validation README workflow docs PR-check copy: закрепить owner-friendly PR-check guard для PR #17, который подтверждает shared validation README workflow docs guard через CLEAN merge state и зеленые Web build, API smoke, Shared validation checks.
 
 199. [done 2026-06-20] Добавить web build README workflow docs PR-check copy: закрепить owner-friendly PR-check guard для PR #17, который подтверждает Web build README workflow docs guard через CLEAN merge state и зеленые Web build, API smoke, Shared validation checks.
+
+200. [done 2026-06-20] Добавить source connectors README workflow docs merge-state copy: закрепить owner-friendly merge-state guard для PR #17, который подтверждает Source Connectors README workflow docs guard через head/base ветки, CLEAN mergeStateStatus и зеленый statusCheckRollup.

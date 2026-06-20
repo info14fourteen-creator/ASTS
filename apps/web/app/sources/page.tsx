@@ -497,6 +497,40 @@ const sourceConnectorsReadmeWorkflowDocsPrCheckCopy = {
   ],
 };
 
+const sourceConnectorsReadmeWorkflowDocsMergeStateCopy = {
+  route: sourceConnectorsReadmeWorkflowDocsPrCheckCopy.route,
+  apiRoute: sourceConnectorsReadmeWorkflowDocsPrCheckCopy.apiRoute,
+  branch: sourceConnectorsReadmeWorkflowDocsPrCheckCopy.branch,
+  baseBranch: sourceConnectorsReadmeWorkflowDocsPrCheckCopy.baseBranch,
+  command: "gh pr view 17 --json headRefName,baseRefName,mergeStateStatus,statusCheckRollup",
+  connectorIds: sourceConnectorsReadmeWorkflowDocsPrCheckCopy.connectorIds,
+  docsHref: sourceConnectorsReadmeWorkflowDocsPrCheckCopy.docsHref,
+  expectedCheckGroups: sourceConnectorsReadmeWorkflowDocsPrCheckCopy.expectedCheckGroups,
+  expectedConclusion: sourceConnectorsReadmeWorkflowDocsPrCheckCopy.expectedConclusion,
+  expectedMergeState: sourceConnectorsReadmeWorkflowDocsPrCheckCopy.expectedMergeState,
+  expectedPrNumber: sourceConnectorsReadmeWorkflowDocsPrCheckCopy.expectedPrNumber,
+  expectedRouteCount: sourceConnectorsReadmeWorkflowDocsPrCheckCopy.expectedRouteCount,
+  linkSelector: "[data-testid='source-connectors-readme-workflow-docs-merge-anchor']",
+  mode: sourceConnectorsReadmeWorkflowDocsPrCheckCopy.mode,
+  noMergeCopy:
+    "Не мержить, пока PR #17 снова показывает mergeStateStatus CLEAN для Source Connectors README workflow docs guard",
+  ownerRole: "Data owner + API owner + Release owner",
+  prHref: sourceConnectorsReadmeWorkflowDocsPrCheckCopy.prHref,
+  repairTargets:
+    "PR #17,gh pr view 17 --json mergeStateStatus,statusCheckRollup,apps/web/scripts/smoke.mjs,/sources",
+  sourceMarkerSelector: "[data-testid='source-connectors-readme-workflow-docs-pr-check-copy']",
+  status: sourceConnectorsReadmeWorkflowDocsPrCheckCopy.status,
+  workflowHref: sourceConnectorsReadmeWorkflowDocsPrCheckCopy.workflowHref,
+  workflowName: sourceConnectorsReadmeWorkflowDocsPrCheckCopy.workflowName,
+  workflowPath: sourceConnectorsReadmeWorkflowDocsPrCheckCopy.workflowPath,
+  checks: [
+    ["Merge state", "PR #17 mergeStateStatus остается CLEAN перед merge"],
+    ["Branch", "headRefName codex/app-site-shell и baseRefName main не меняются"],
+    ["Checks", "statusCheckRollup остается SUCCESS для Web build, API smoke и Shared validation"],
+    ["No merge", "не мержить, пока merge-state guard снова не подтверждает clean PR rollup"],
+  ],
+};
+
 const fnsNetworkGateBrowserLoop = {
   route: "/sources",
   apiRoute: "/v1/sources/connectors",
@@ -1312,6 +1346,65 @@ export default function SourcesPage() {
                       : title === "Route guard"
                         ? "Smoke route"
                         : "PR clean"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-api-route={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.apiRoute}
+          data-base-branch={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.baseBranch}
+          data-branch={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.branch}
+          data-command={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.command}
+          data-connector-ids={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.connectorIds.join(",")}
+          data-docs-href={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.docsHref}
+          data-expected-check-groups={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.expectedConclusion}
+          data-expected-merge-state={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.expectedMergeState}
+          data-expected-pr-number={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.expectedPrNumber}
+          data-expected-route-count={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.expectedRouteCount}
+          data-link-selector={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.linkSelector}
+          data-mode={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.mode}
+          data-no-merge-copy={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.noMergeCopy}
+          data-owner-role={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.ownerRole}
+          data-pr-href={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.prHref}
+          data-repair-targets={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.repairTargets}
+          data-route={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.route}
+          data-source-marker-selector={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.sourceMarkerSelector}
+          data-status={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.status}
+          data-testid="source-connectors-readme-workflow-docs-merge-state-copy"
+          data-workflow-href={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.workflowHref}
+          data-workflow-name={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.workflowName}
+          data-workflow-path={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source connectors README workflow docs merge-state copy</p>
+              <h2>Как PR #17 держит Source Connectors README workflow docs guard в CLEAN</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="source-connectors-readme-workflow-docs-merge-anchor"
+              href={sourceConnectorsReadmeWorkflowDocsMergeStateCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {sourceConnectorsReadmeWorkflowDocsMergeStateCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "No merge"
+                    ? "No merge"
+                    : title === "Checks"
+                      ? "Rollup green"
+                      : title === "Branch"
+                        ? "PR branch"
+                        : "CLEAN"}
                 </strong>
                 <p>{text}</p>
               </article>
