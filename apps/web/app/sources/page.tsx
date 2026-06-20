@@ -425,6 +425,44 @@ const sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy = {
   ],
 };
 
+const sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy = {
+  route: sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.route,
+  apiRoute: sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.apiRoute,
+  browserLoopSelector: "[data-testid='source-connectors-readme-workflow-docs-rendered-route-copy']",
+  browserUrl: "/sources",
+  command: sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.command,
+  connectorIds: sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.connectorIds,
+  consoleLevels: "error,warn",
+  docsHref: sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.docsHref,
+  docsMarkerSelector: sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.docsMarkerSelector,
+  expectedConnectorCount: sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.expectedConnectorCount,
+  expectedNetworkDisabledCount: sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.expectedNetworkDisabledCount,
+  expectedRouteCount: sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.expectedRouteCount,
+  linkSelector: "[data-testid='source-connectors-readme-workflow-docs-workflow-anchor']",
+  mode: sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.mode,
+  noMergeCopy:
+    "Не мержить, пока Browser QA снова подтверждает Source Connectors README workflow docs rendered-route guard на живом `/sources`",
+  ownerRole: "Data owner + API owner + Docs owner + QA owner",
+  repairTargets:
+    "/sources,apps/web/scripts/smoke.mjs,[data-testid='source-connectors-readme-workflow-docs-rendered-route-copy'],Browser DOM QA",
+  screenshotRequired: "true",
+  sourceMarkerSelector: "[data-testid='source-connectors-readme-workflow-docs-rendered-route-copy']",
+  status: sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.status,
+  workflowCommand: sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.workflowCommand,
+  workflowDocsCommand: sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.workflowDocsCommand,
+  workflowDocsFailureCommand: sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.workflowDocsFailureCommand,
+  workflowFailureCommand: sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.workflowFailureCommand,
+  workflowHref: sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.workflowHref,
+  workflowName: sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.workflowName,
+  workflowPath: sourceConnectorsReadmeWorkflowDocsRenderedRouteCopy.workflowPath,
+  checks: [
+    ["Page identity", "Browser открывает `/sources` и видит ASTS app.site.ru без framework overlay"],
+    ["DOM", "Browser DOM находит source-connectors-readme-workflow-docs-rendered-route-copy ровно один раз"],
+    ["Workflow link", "scoped link ведет в Web build GitHub Actions workflow"],
+    ["Console", "Browser console не содержит error/warn перед merge"],
+  ],
+};
+
 const fnsNetworkGateBrowserLoop = {
   route: "/sources",
   apiRoute: "/v1/sources/connectors",
@@ -1118,6 +1156,69 @@ export default function SourcesPage() {
                       : title === "Fix order"
                         ? "workflow docs -> smoke"
                         : "Rendered route"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-api-route={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.apiRoute}
+          data-browser-loop-selector={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.browserLoopSelector}
+          data-browser-url={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.browserUrl}
+          data-command={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.command}
+          data-connector-ids={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.connectorIds.join(",")}
+          data-console-levels={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.consoleLevels}
+          data-docs-href={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.docsHref}
+          data-docs-marker-selector={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.docsMarkerSelector}
+          data-expected-connector-count={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.expectedConnectorCount}
+          data-expected-network-disabled-count={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.expectedNetworkDisabledCount}
+          data-expected-route-count={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.expectedRouteCount}
+          data-link-selector={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.linkSelector}
+          data-mode={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.mode}
+          data-no-merge-copy={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.noMergeCopy}
+          data-owner-role={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.ownerRole}
+          data-repair-targets={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.repairTargets}
+          data-route={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.route}
+          data-screenshot-required={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.screenshotRequired}
+          data-source-marker-selector={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.sourceMarkerSelector}
+          data-status={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.status}
+          data-testid="source-connectors-readme-workflow-docs-browser-loop-copy"
+          data-workflow-command={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.workflowCommand}
+          data-workflow-docs-command={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.workflowDocsCommand}
+          data-workflow-docs-failure-command={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.workflowDocsFailureCommand}
+          data-workflow-failure-command={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.workflowFailureCommand}
+          data-workflow-href={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.workflowHref}
+          data-workflow-name={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.workflowName}
+          data-workflow-path={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source connectors README workflow docs browser-loop copy</p>
+              <h2>Как Browser QA подтверждает Source Connectors README workflow docs guard</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="source-connectors-readme-workflow-docs-workflow-anchor"
+              href={sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.workflowHref}
+            >
+              {sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.workflowName}
+            </a>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {sourceConnectorsReadmeWorkflowDocsBrowserLoopCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Console"
+                    ? "No errors"
+                    : title === "Workflow link"
+                      ? "Scoped link"
+                      : title === "DOM"
+                        ? "One guard"
+                        : "Browser QA"}
                 </strong>
                 <p>{text}</p>
               </article>
