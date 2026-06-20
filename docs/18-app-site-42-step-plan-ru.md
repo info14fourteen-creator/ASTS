@@ -175,3 +175,5 @@
 184. [done 2026-06-20] Добавить shared validation README workflow docs failure copy: закрепить owner-friendly guard для связки shared validation README rendered-route guard и shared workflow docs guard.
 
 185. [done 2026-06-20] Добавить web build README workflow docs failure copy: закрепить owner-friendly guard для связки Web build README rendered-route guard и Web build workflow docs guard.
+
+186. [done 2026-06-20] Добавить AI review queue README workflow docs failure copy: закрепить owner-friendly guard для связки AI review queue README rendered-route guard и AI review queue workflow docs guard.
