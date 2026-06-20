@@ -157,3 +157,5 @@
 175. [done 2026-06-20] Добавить source connectors README live docs workflow copy: закрепить owner-friendly guard для связки Source Connectors API README docs deep-link, live route и Web build route smoke.
 
 176. [done 2026-06-20] Добавить shared validation README workflow failure copy: закрепить owner-friendly guard для связки shared validation README live docs workflow copy и shared workflow failure checks.
+
+177. [done 2026-06-20] Добавить web build README workflow failure copy: закрепить owner-friendly guard для связки Web build README live docs workflow copy и Web build failure checks.
