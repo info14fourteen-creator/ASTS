@@ -167,3 +167,5 @@
 180. [done 2026-06-20] Добавить shared validation README rendered-route failure copy: закрепить owner-friendly guard для связки shared validation README workflow failure copy и rendered route smoke.
 
 181. [done 2026-06-20] Добавить web build README rendered-route failure copy: закрепить owner-friendly guard для связки Web build README workflow failure copy и rendered route smoke.
+
+182. [done 2026-06-20] Добавить AI review queue README rendered-route failure copy: закрепить owner-friendly guard для связки AI review queue README workflow failure copy и rendered route smoke.
