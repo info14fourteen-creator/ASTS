@@ -612,6 +612,46 @@ const aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy = {
   ],
 };
 
+const aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy = {
+  route: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.route,
+  apiRoute: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.apiRoute,
+  branch: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.branch,
+  baseBranch: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.baseBranch,
+  command: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.command,
+  checklistOwners: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.handoffOwners,
+  checklistScope: "AI review queue README workflow docs release checklist",
+  docsHref: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.docsHref,
+  expectedCheckGroups: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.expectedCheckGroups,
+  expectedConclusion: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.expectedConclusion,
+  expectedMergeState: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.expectedMergeState,
+  expectedOwnerCount: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.expectedOwnerCount,
+  expectedPrNumber: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.expectedPrNumber,
+  expectedRouteCount: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.expectedRouteCount,
+  expectedRuleCount: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.expectedRuleCount,
+  finalQaScope: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.finalQaScope,
+  handoffScope: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.handoffScope,
+  linkSelector: "[data-testid='ai-review-queue-readme-workflow-docs-release-checklist-anchor']",
+  noMergeCopy:
+    "Не выпускать AI review queue README workflow docs release, пока AI workflow, API, QA и Release owners не приняли checklist evidence",
+  ownerRole: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.ownerRole,
+  prHref: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.prHref,
+  releaseNote: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.releaseNote,
+  releaseScope: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.releaseScope,
+  repairTargets:
+    "PR #17,release checklist,apps/web/scripts/smoke.mjs,/ai-review,[data-testid='ai-review-queue-readme-workflow-docs-owner-handoff-copy']",
+  sourceMarkerSelector: "[data-testid='ai-review-queue-readme-workflow-docs-owner-handoff-copy']",
+  status: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.status,
+  workflowHref: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.workflowHref,
+  workflowName: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.workflowName,
+  workflowPath: aiReviewQueueReadmeWorkflowDocsOwnerHandoffCopy.workflowPath,
+  checks: [
+    ["AI", "AI workflow owner отмечает queue facts, confidence rules и owner handoff"],
+    ["API", "API owner отмечает `/v1/ai/review-queue`, README contract link и smoke coverage"],
+    ["QA", "QA owner отмечает build, route smoke и Browser DOM QA evidence"],
+    ["Release", "Release owner отмечает PR #17 CLEAN, release note и owner handoff acceptance"],
+  ],
+};
+
 const aiReviewReceiptWriteContract = aiReviewQueueFixture.write_contract;
 const aiReviewReceiptWriteDocsDeepLink = {
   route: "/ai-review",
@@ -1292,6 +1332,71 @@ export default function AiReviewPage() {
                       : title === "API"
                         ? "API accepts"
                         : "AI accepts"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel ai-confidence-browser-loop-panel"
+          data-api-route={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.apiRoute}
+          data-base-branch={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.baseBranch}
+          data-branch={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.branch}
+          data-checklist-owners={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.checklistOwners.join(",")}
+          data-checklist-scope={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.checklistScope}
+          data-command={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.command}
+          data-docs-href={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.docsHref}
+          data-expected-check-groups={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.expectedConclusion}
+          data-expected-merge-state={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.expectedMergeState}
+          data-expected-owner-count={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.expectedOwnerCount}
+          data-expected-pr-number={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.expectedPrNumber}
+          data-expected-route-count={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.expectedRouteCount}
+          data-expected-rule-count={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.expectedRuleCount}
+          data-final-qa-scope={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.finalQaScope}
+          data-handoff-scope={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.handoffScope}
+          data-link-selector={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.linkSelector}
+          data-no-merge-copy={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.noMergeCopy}
+          data-owner-role={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.ownerRole}
+          data-pr-href={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.prHref}
+          data-release-note={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.releaseNote}
+          data-release-scope={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.releaseScope}
+          data-repair-targets={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.repairTargets}
+          data-route={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.route}
+          data-source-marker-selector={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.sourceMarkerSelector}
+          data-status={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.status}
+          data-testid="ai-review-queue-readme-workflow-docs-release-checklist-copy"
+          data-workflow-href={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.workflowHref}
+          data-workflow-name={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.workflowName}
+          data-workflow-path={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review queue README workflow docs release checklist copy</p>
+              <h2>Что отметить перед выпуском AI review queue README workflow docs guard</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="ai-review-queue-readme-workflow-docs-release-checklist-anchor"
+              href={aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="ai-confidence-browser-loop-grid">
+            {aiReviewQueueReadmeWorkflowDocsReleaseChecklistCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Release"
+                    ? "Release checked"
+                    : title === "QA"
+                      ? "QA checked"
+                      : title === "API"
+                        ? "API checked"
+                        : "AI checked"}
                 </strong>
                 <p>{text}</p>
               </article>
