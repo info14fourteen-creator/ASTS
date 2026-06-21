@@ -26,7 +26,7 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Подготовить PR #17 release incident fallback copy", "описать fallback при post-release signal без открытия incident"],
+  ["1", "Подготовить PR #17 release retrospective note copy", "описать retrospective note без создания docs issue"],
 ];
 
 const cycleRules = [
@@ -4553,6 +4553,47 @@ const prPostReleaseMonitorCopy = {
     ["Window", "Observation window задает owner после release tag и release note"],
     ["Deploy", "Этот copy не запускает deploy, rollback или incident"],
     ["Next", "Следующий шаг описывает release incident fallback без открытия incident"],
+  ],
+};
+
+const prReleaseIncidentFallbackCopy = {
+  route: "/plan",
+  branch: prPostReleaseMonitorCopy.branch,
+  baseBranch: prPostReleaseMonitorCopy.baseBranch,
+  command: prPostReleaseMonitorCopy.command,
+  postReleaseMonitorSelector: "[data-testid='pr-post-release-monitor-copy']",
+  fallbackScope: "PR #17 release incident fallback copy",
+  expectedCheckGroups: prPostReleaseMonitorCopy.expectedCheckGroups,
+  expectedConclusion: prPostReleaseMonitorCopy.expectedConclusion,
+  expectedMergeState: prPostReleaseMonitorCopy.expectedMergeState,
+  expectedPrComments: prPostReleaseMonitorCopy.expectedPrComments,
+  expectedReviewDecision: prPostReleaseMonitorCopy.expectedReviewDecision,
+  expectedReviews: prPostReleaseMonitorCopy.expectedReviews,
+  expectedReviewThreads: prPostReleaseMonitorCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prPostReleaseMonitorCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-release-incident-fallback-anchor']",
+  noIncidentCopy:
+    "Release incident fallback copy только описывает escalation text; incident creation, rollback execution, alert changes, deploy changes и main push остаются отдельными owner actions",
+  ownerRole: "Release owner + On-call observer",
+  fallbackCopy:
+    "Release incident fallback для PR #17: если post-release monitor видит failed check, broken /plan smoke или missing rollback contact, собрать signal summary, impacted surface, owner contact и rollback note; если сигналов нет, fallback остается standby",
+  prHref: prPostReleaseMonitorCopy.prHref,
+  releaseScope: prPostReleaseMonitorCopy.releaseScope,
+  repairTargets:
+    "PR #17,release incident fallback,post-release monitor,failed check,/plan smoke,rollback contact,owner contact,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-post-release-monitor-copy']",
+  status: "incident-fallback-standby",
+  fallbackEvidence: [
+    "signal summary",
+    "impacted surface",
+    "owner contact",
+    "rollback note",
+  ],
+  checks: [
+    ["Signal", "Fallback описывает failed check, broken /plan smoke или missing rollback contact"],
+    ["Summary", "Signal summary связывает impacted surface, owner contact и rollback note"],
+    ["Action", "Этот copy не открывает incident и не выполняет rollback"],
+    ["Next", "Следующий шаг описывает release retrospective note без docs issue"],
   ],
 };
 
@@ -12390,6 +12431,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prPostReleaseMonitorCopy.monitorCopy}</p>
           <p className="stage-line muted">{prPostReleaseMonitorCopy.noDeployCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={prReleaseIncidentFallbackCopy.baseBranch}
+          data-branch={prReleaseIncidentFallbackCopy.branch}
+          data-command={prReleaseIncidentFallbackCopy.command}
+          data-expected-check-groups={prReleaseIncidentFallbackCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prReleaseIncidentFallbackCopy.expectedConclusion}
+          data-expected-merge-state={prReleaseIncidentFallbackCopy.expectedMergeState}
+          data-expected-pr-comments={prReleaseIncidentFallbackCopy.expectedPrComments}
+          data-expected-review-decision={prReleaseIncidentFallbackCopy.expectedReviewDecision}
+          data-expected-review-threads={prReleaseIncidentFallbackCopy.expectedReviewThreads}
+          data-expected-reviews={prReleaseIncidentFallbackCopy.expectedReviews}
+          data-expected-unresolved-threads={prReleaseIncidentFallbackCopy.expectedUnresolvedThreads}
+          data-fallback-copy={prReleaseIncidentFallbackCopy.fallbackCopy}
+          data-fallback-evidence={prReleaseIncidentFallbackCopy.fallbackEvidence.join(",")}
+          data-fallback-scope={prReleaseIncidentFallbackCopy.fallbackScope}
+          data-link-selector={prReleaseIncidentFallbackCopy.linkSelector}
+          data-no-incident-copy={prReleaseIncidentFallbackCopy.noIncidentCopy}
+          data-owner-role={prReleaseIncidentFallbackCopy.ownerRole}
+          data-post-release-monitor-selector={prReleaseIncidentFallbackCopy.postReleaseMonitorSelector}
+          data-pr-href={prReleaseIncidentFallbackCopy.prHref}
+          data-release-scope={prReleaseIncidentFallbackCopy.releaseScope}
+          data-repair-targets={prReleaseIncidentFallbackCopy.repairTargets}
+          data-route={prReleaseIncidentFallbackCopy.route}
+          data-source-marker-selector={prReleaseIncidentFallbackCopy.sourceMarkerSelector}
+          data-status={prReleaseIncidentFallbackCopy.status}
+          data-testid="pr-release-incident-fallback-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR release incident fallback copy</p>
+              <h2>Как описать fallback signals PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-incident-fallback-anchor"
+              href={prReleaseIncidentFallbackCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReleaseIncidentFallbackCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Signal"
+                    ? "Watch signal"
+                    : title === "Summary"
+                      ? "Summary"
+                      : title === "Action"
+                        ? "No incident"
+                        : "Retro next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prReleaseIncidentFallbackCopy.fallbackCopy}</p>
+          <p className="stage-line muted">{prReleaseIncidentFallbackCopy.noIncidentCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
