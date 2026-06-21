@@ -26,7 +26,7 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Подготовить PR #17 post-authorization merge execution checklist copy", "описать execution checklist без запуска merge"],
+  ["1", "Подготовить PR #17 post-merge verification checklist copy", "описать verification checklist без изменения main"],
 ];
 
 const cycleRules = [
@@ -4264,6 +4264,47 @@ const prOwnerMergeAuthorizationCopy = {
     ["Wait", "Если reviewDecision пустой или owner не ответил, PR остается в wait-state"],
     ["Return", "Новые comments, reviews или reviewThreads переводят PR обратно в review follow-up"],
     ["Manual", "Этот authorization copy не выполняет merge action автоматически"],
+  ],
+};
+
+const prPostAuthorizationMergeExecutionChecklistCopy = {
+  route: "/plan",
+  branch: prOwnerMergeAuthorizationCopy.branch,
+  baseBranch: prOwnerMergeAuthorizationCopy.baseBranch,
+  command: prOwnerMergeAuthorizationCopy.command,
+  ownerAuthorizationSelector: "[data-testid='pr-owner-merge-authorization-copy']",
+  checklistScope: "PR #17 post-authorization merge execution checklist copy",
+  expectedCheckGroups: prOwnerMergeAuthorizationCopy.expectedCheckGroups,
+  expectedConclusion: prOwnerMergeAuthorizationCopy.expectedConclusion,
+  expectedMergeState: prOwnerMergeAuthorizationCopy.expectedMergeState,
+  expectedPrComments: prOwnerMergeAuthorizationCopy.expectedPrComments,
+  expectedReviewDecision: prOwnerMergeAuthorizationCopy.expectedReviewDecision,
+  expectedReviews: prOwnerMergeAuthorizationCopy.expectedReviews,
+  expectedReviewThreads: prOwnerMergeAuthorizationCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prOwnerMergeAuthorizationCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-post-authorization-merge-execution-checklist-anchor']",
+  noMergeCopy:
+    "Post-authorization merge execution checklist описывает ручную sequence, но не выполняет merge, auto-merge, GitHub approval submission, branch deletion или push в main",
+  ownerRole: "Release owner + Repo admin",
+  checklistCopy:
+    "Post-authorization merge execution checklist для PR #17: перед ручным merge повторно сверить owner approve-to-merge, CLEAN, SUCCESS checks, нулевые review counters, выбранный merge method и rollback contact; если любой пункт изменился, остановить execution",
+  prHref: prOwnerMergeAuthorizationCopy.prHref,
+  releaseScope: prOwnerMergeAuthorizationCopy.releaseScope,
+  repairTargets:
+    "PR #17,post-authorization merge execution checklist,owner merge authorization,CLEAN,SUCCESS,manual merge method,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-owner-merge-authorization-copy']",
+  status: "execution-checklist-ready",
+  executionSteps: [
+    "Recheck owner approve-to-merge",
+    "Recheck PR #17 CLEAN and SUCCESS checks",
+    "Confirm merge method and rollback owner",
+    "Stop if review counters or CI changed",
+  ],
+  checks: [
+    ["Recheck", "Перед execution повторно проверить CLEAN, SUCCESS и review counters"],
+    ["Method", "Owner должен явно выбрать merge method: squash, merge commit или rebase"],
+    ["Rollback", "Назначить rollback contact до ручного merge action"],
+    ["Stop", "Checklist останавливает execution при новых comments, reviews или failed checks"],
   ],
 };
 
@@ -11667,6 +11708,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prOwnerMergeAuthorizationCopy.authorizationCopy}</p>
           <p className="stage-line muted">{prOwnerMergeAuthorizationCopy.noMergeCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={prPostAuthorizationMergeExecutionChecklistCopy.baseBranch}
+          data-branch={prPostAuthorizationMergeExecutionChecklistCopy.branch}
+          data-checklist-copy={prPostAuthorizationMergeExecutionChecklistCopy.checklistCopy}
+          data-checklist-scope={prPostAuthorizationMergeExecutionChecklistCopy.checklistScope}
+          data-command={prPostAuthorizationMergeExecutionChecklistCopy.command}
+          data-execution-steps={prPostAuthorizationMergeExecutionChecklistCopy.executionSteps.join(",")}
+          data-expected-check-groups={prPostAuthorizationMergeExecutionChecklistCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prPostAuthorizationMergeExecutionChecklistCopy.expectedConclusion}
+          data-expected-merge-state={prPostAuthorizationMergeExecutionChecklistCopy.expectedMergeState}
+          data-expected-pr-comments={prPostAuthorizationMergeExecutionChecklistCopy.expectedPrComments}
+          data-expected-review-decision={prPostAuthorizationMergeExecutionChecklistCopy.expectedReviewDecision}
+          data-expected-review-threads={prPostAuthorizationMergeExecutionChecklistCopy.expectedReviewThreads}
+          data-expected-reviews={prPostAuthorizationMergeExecutionChecklistCopy.expectedReviews}
+          data-expected-unresolved-threads={prPostAuthorizationMergeExecutionChecklistCopy.expectedUnresolvedThreads}
+          data-link-selector={prPostAuthorizationMergeExecutionChecklistCopy.linkSelector}
+          data-no-merge-copy={prPostAuthorizationMergeExecutionChecklistCopy.noMergeCopy}
+          data-owner-authorization-selector={prPostAuthorizationMergeExecutionChecklistCopy.ownerAuthorizationSelector}
+          data-owner-role={prPostAuthorizationMergeExecutionChecklistCopy.ownerRole}
+          data-pr-href={prPostAuthorizationMergeExecutionChecklistCopy.prHref}
+          data-release-scope={prPostAuthorizationMergeExecutionChecklistCopy.releaseScope}
+          data-repair-targets={prPostAuthorizationMergeExecutionChecklistCopy.repairTargets}
+          data-route={prPostAuthorizationMergeExecutionChecklistCopy.route}
+          data-source-marker-selector={prPostAuthorizationMergeExecutionChecklistCopy.sourceMarkerSelector}
+          data-status={prPostAuthorizationMergeExecutionChecklistCopy.status}
+          data-testid="pr-post-authorization-merge-execution-checklist-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR post-authorization merge execution checklist copy</p>
+              <h2>Что проверить перед ручным merge execution PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-post-authorization-merge-execution-checklist-anchor"
+              href={prPostAuthorizationMergeExecutionChecklistCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prPostAuthorizationMergeExecutionChecklistCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Recheck"
+                    ? "Fresh gate"
+                    : title === "Method"
+                      ? "Method"
+                      : title === "Rollback"
+                        ? "Rollback"
+                        : "Stop"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prPostAuthorizationMergeExecutionChecklistCopy.checklistCopy}</p>
+          <p className="stage-line muted">{prPostAuthorizationMergeExecutionChecklistCopy.noMergeCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
