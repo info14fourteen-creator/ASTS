@@ -26,7 +26,7 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Подготовить PR #17 owner merge authorization copy", "описать owner authorization без merge action"],
+  ["1", "Подготовить PR #17 post-authorization merge execution checklist copy", "описать execution checklist без запуска merge"],
 ];
 
 const cycleRules = [
@@ -4228,6 +4228,42 @@ const prFinalMergeDecisionPacketCopy = {
     ["Blocked", "Любой non-SUCCESS check, comment или review thread останавливает merge path"],
     ["Decision", "Owner должен выбрать approve-to-merge, wait или return-to-review"],
     ["Action", "Этот packet не нажимает merge и не включает auto-merge"],
+  ],
+};
+
+const prOwnerMergeAuthorizationCopy = {
+  route: "/plan",
+  branch: prFinalMergeDecisionPacketCopy.branch,
+  baseBranch: prFinalMergeDecisionPacketCopy.baseBranch,
+  command: prFinalMergeDecisionPacketCopy.command,
+  decisionPacketSelector: "[data-testid='pr-final-merge-decision-packet-copy']",
+  authorizationScope: "PR #17 owner merge authorization copy",
+  expectedCheckGroups: prFinalMergeDecisionPacketCopy.expectedCheckGroups,
+  expectedConclusion: prFinalMergeDecisionPacketCopy.expectedConclusion,
+  expectedMergeState: prFinalMergeDecisionPacketCopy.expectedMergeState,
+  expectedPrComments: prFinalMergeDecisionPacketCopy.expectedPrComments,
+  expectedReviewDecision: prFinalMergeDecisionPacketCopy.expectedReviewDecision,
+  expectedReviews: prFinalMergeDecisionPacketCopy.expectedReviews,
+  expectedReviewThreads: prFinalMergeDecisionPacketCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prFinalMergeDecisionPacketCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-owner-merge-authorization-anchor']",
+  noMergeCopy:
+    "Owner merge authorization copy только формулирует разрешение; фактический merge, auto-merge, squash/rebase choice и branch deletion остаются отдельной ручной операцией owner",
+  ownerRole: "Release owner",
+  authorizationCopy:
+    "Owner merge authorization для PR #17 допустим только если final decision packet подтвержден: mergeState=CLEAN, checks=SUCCESS, reviewThreads/comments/reviews=0 и owner явно выбрал approve-to-merge; при wait или return-to-review merge path останавливается",
+  prHref: prFinalMergeDecisionPacketCopy.prHref,
+  releaseScope: prFinalMergeDecisionPacketCopy.releaseScope,
+  repairTargets:
+    "PR #17,owner merge authorization,final merge decision packet,CLEAN,SUCCESS,zero review counters,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-final-merge-decision-packet-copy']",
+  status: "authorization-copy-ready",
+  authorizationStates: ["approve-to-merge", "wait", "return-to-review"],
+  checks: [
+    ["Approve", "Owner approval должен быть явным и привязан к PR #17 final decision packet"],
+    ["Wait", "Если reviewDecision пустой или owner не ответил, PR остается в wait-state"],
+    ["Return", "Новые comments, reviews или reviewThreads переводят PR обратно в review follow-up"],
+    ["Manual", "Этот authorization copy не выполняет merge action автоматически"],
   ],
 };
 
@@ -11569,6 +11605,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prFinalMergeDecisionPacketCopy.packetCopy}</p>
           <p className="stage-line muted">{prFinalMergeDecisionPacketCopy.noMergeCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-authorization-copy={prOwnerMergeAuthorizationCopy.authorizationCopy}
+          data-authorization-scope={prOwnerMergeAuthorizationCopy.authorizationScope}
+          data-authorization-states={prOwnerMergeAuthorizationCopy.authorizationStates.join(",")}
+          data-base-branch={prOwnerMergeAuthorizationCopy.baseBranch}
+          data-branch={prOwnerMergeAuthorizationCopy.branch}
+          data-command={prOwnerMergeAuthorizationCopy.command}
+          data-decision-packet-selector={prOwnerMergeAuthorizationCopy.decisionPacketSelector}
+          data-expected-check-groups={prOwnerMergeAuthorizationCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prOwnerMergeAuthorizationCopy.expectedConclusion}
+          data-expected-merge-state={prOwnerMergeAuthorizationCopy.expectedMergeState}
+          data-expected-pr-comments={prOwnerMergeAuthorizationCopy.expectedPrComments}
+          data-expected-review-decision={prOwnerMergeAuthorizationCopy.expectedReviewDecision}
+          data-expected-review-threads={prOwnerMergeAuthorizationCopy.expectedReviewThreads}
+          data-expected-reviews={prOwnerMergeAuthorizationCopy.expectedReviews}
+          data-expected-unresolved-threads={prOwnerMergeAuthorizationCopy.expectedUnresolvedThreads}
+          data-link-selector={prOwnerMergeAuthorizationCopy.linkSelector}
+          data-no-merge-copy={prOwnerMergeAuthorizationCopy.noMergeCopy}
+          data-owner-role={prOwnerMergeAuthorizationCopy.ownerRole}
+          data-pr-href={prOwnerMergeAuthorizationCopy.prHref}
+          data-release-scope={prOwnerMergeAuthorizationCopy.releaseScope}
+          data-repair-targets={prOwnerMergeAuthorizationCopy.repairTargets}
+          data-route={prOwnerMergeAuthorizationCopy.route}
+          data-source-marker-selector={prOwnerMergeAuthorizationCopy.sourceMarkerSelector}
+          data-status={prOwnerMergeAuthorizationCopy.status}
+          data-testid="pr-owner-merge-authorization-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR owner merge authorization copy</p>
+              <h2>Как owner авторизует merge PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-owner-merge-authorization-anchor"
+              href={prOwnerMergeAuthorizationCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prOwnerMergeAuthorizationCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Approve"
+                    ? "Owner yes"
+                    : title === "Wait"
+                      ? "Hold"
+                      : title === "Return"
+                        ? "Review path"
+                        : "Manual"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prOwnerMergeAuthorizationCopy.authorizationCopy}</p>
+          <p className="stage-line muted">{prOwnerMergeAuthorizationCopy.noMergeCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">

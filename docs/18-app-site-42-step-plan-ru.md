@@ -289,3 +289,5 @@
 241. [done 2026-06-21] Подготовить PR #17 owner signoff checkpoint copy: собрать финальный owner gate для CLEAN, SUCCESS checks, нулевых review counters и approved/explicit owner signoff без merge action.
 
 242. [done 2026-06-21] Подготовить PR #17 final merge decision packet copy: собрать owner-ready decision evidence для CLEAN, SUCCESS checks, нулевых review counters и signoff checkpoint без merge action.
+
+243. [done 2026-06-21] Подготовить PR #17 owner merge authorization copy: сформулировать owner-safe authorization states approve-to-merge, wait и return-to-review без выполнения merge action.
