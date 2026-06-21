@@ -26,7 +26,11 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Подготовить PR #17 release retrospective note copy", "описать retrospective note без создания docs issue"],
+  [
+    "1",
+    "Подготовить PR #17 release lessons learned follow-up copy",
+    "описать lessons learned follow-up без назначения owner actions",
+  ],
 ];
 
 const cycleRules = [
@@ -4594,6 +4598,48 @@ const prReleaseIncidentFallbackCopy = {
     ["Summary", "Signal summary связывает impacted surface, owner contact и rollback note"],
     ["Action", "Этот copy не открывает incident и не выполняет rollback"],
     ["Next", "Следующий шаг описывает release retrospective note без docs issue"],
+  ],
+};
+
+const prReleaseRetrospectiveNoteCopy = {
+  route: "/plan",
+  branch: prReleaseIncidentFallbackCopy.branch,
+  baseBranch: prReleaseIncidentFallbackCopy.baseBranch,
+  command: prReleaseIncidentFallbackCopy.command,
+  incidentFallbackSelector: "[data-testid='pr-release-incident-fallback-copy']",
+  retrospectiveScope: "PR #17 release retrospective note copy",
+  expectedCheckGroups: prReleaseIncidentFallbackCopy.expectedCheckGroups,
+  expectedConclusion: prReleaseIncidentFallbackCopy.expectedConclusion,
+  expectedMergeState: prReleaseIncidentFallbackCopy.expectedMergeState,
+  expectedPrComments: prReleaseIncidentFallbackCopy.expectedPrComments,
+  expectedReviewDecision: prReleaseIncidentFallbackCopy.expectedReviewDecision,
+  expectedReviews: prReleaseIncidentFallbackCopy.expectedReviews,
+  expectedReviewThreads: prReleaseIncidentFallbackCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prReleaseIncidentFallbackCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-release-retrospective-note-anchor']",
+  noDocsIssueCopy:
+    "Release retrospective note copy только фиксирует текст заметки; docs issue, GitHub issue, owner assignment, merge action и main push остаются отдельными owner actions",
+  ownerRole: "Release owner + Delivery reviewer",
+  retrospectiveCopy:
+    "Release retrospective note для PR #17: собрать release result, CLEAN PR state, SUCCESS checks, /plan smoke evidence, review counters, rollback contact и standby incident fallback; если release еще не выполнен, note остается draft",
+  prHref: prReleaseIncidentFallbackCopy.prHref,
+  releaseScope: prReleaseIncidentFallbackCopy.releaseScope,
+  repairTargets:
+    "PR #17,release retrospective note,release incident fallback,CLEAN PR,SUCCESS checks,/plan smoke,review counters,rollback contact,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-release-incident-fallback-copy']",
+  status: "retrospective-note-draft",
+  retrospectiveEvidence: [
+    "release result",
+    "SUCCESS checks",
+    "/plan smoke",
+    "review counters",
+    "rollback contact",
+  ],
+  checks: [
+    ["Result", "Retrospective note связывает release result, CLEAN PR state и SUCCESS checks"],
+    ["Evidence", "Note перечисляет /plan smoke, review counters, rollback contact и standby fallback"],
+    ["Action", "Этот copy не создает docs issue, GitHub issue или owner assignment"],
+    ["Next", "Следующий шаг описывает release lessons learned follow-up без owner actions"],
   ],
 };
 
@@ -12493,6 +12539,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prReleaseIncidentFallbackCopy.fallbackCopy}</p>
           <p className="stage-line muted">{prReleaseIncidentFallbackCopy.noIncidentCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={prReleaseRetrospectiveNoteCopy.baseBranch}
+          data-branch={prReleaseRetrospectiveNoteCopy.branch}
+          data-command={prReleaseRetrospectiveNoteCopy.command}
+          data-expected-check-groups={prReleaseRetrospectiveNoteCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prReleaseRetrospectiveNoteCopy.expectedConclusion}
+          data-expected-merge-state={prReleaseRetrospectiveNoteCopy.expectedMergeState}
+          data-expected-pr-comments={prReleaseRetrospectiveNoteCopy.expectedPrComments}
+          data-expected-review-decision={prReleaseRetrospectiveNoteCopy.expectedReviewDecision}
+          data-expected-review-threads={prReleaseRetrospectiveNoteCopy.expectedReviewThreads}
+          data-expected-reviews={prReleaseRetrospectiveNoteCopy.expectedReviews}
+          data-expected-unresolved-threads={prReleaseRetrospectiveNoteCopy.expectedUnresolvedThreads}
+          data-incident-fallback-selector={prReleaseRetrospectiveNoteCopy.incidentFallbackSelector}
+          data-link-selector={prReleaseRetrospectiveNoteCopy.linkSelector}
+          data-no-docs-issue-copy={prReleaseRetrospectiveNoteCopy.noDocsIssueCopy}
+          data-owner-role={prReleaseRetrospectiveNoteCopy.ownerRole}
+          data-pr-href={prReleaseRetrospectiveNoteCopy.prHref}
+          data-release-scope={prReleaseRetrospectiveNoteCopy.releaseScope}
+          data-repair-targets={prReleaseRetrospectiveNoteCopy.repairTargets}
+          data-retrospective-copy={prReleaseRetrospectiveNoteCopy.retrospectiveCopy}
+          data-retrospective-evidence={prReleaseRetrospectiveNoteCopy.retrospectiveEvidence.join(",")}
+          data-retrospective-scope={prReleaseRetrospectiveNoteCopy.retrospectiveScope}
+          data-route={prReleaseRetrospectiveNoteCopy.route}
+          data-source-marker-selector={prReleaseRetrospectiveNoteCopy.sourceMarkerSelector}
+          data-status={prReleaseRetrospectiveNoteCopy.status}
+          data-testid="pr-release-retrospective-note-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR release retrospective note copy</p>
+              <h2>Как зафиксировать retrospective note PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-retrospective-note-anchor"
+              href={prReleaseRetrospectiveNoteCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReleaseRetrospectiveNoteCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Result"
+                    ? "Result note"
+                    : title === "Evidence"
+                      ? "Evidence"
+                      : title === "Action"
+                        ? "No issue"
+                        : "Lessons next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prReleaseRetrospectiveNoteCopy.retrospectiveCopy}</p>
+          <p className="stage-line muted">{prReleaseRetrospectiveNoteCopy.noDocsIssueCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
