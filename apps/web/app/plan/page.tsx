@@ -26,7 +26,7 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Подготовить PR #17 owner signoff checkpoint copy", "собрать финальный owner gate без merge action"],
+  ["1", "Подготовить PR #17 final merge decision packet copy", "собрать decision packet без merge action"],
 ];
 
 const cycleRules = [
@@ -4151,6 +4151,42 @@ const prReviewerApprovalResponseCopy = {
     ["Changes", "Changes requested или comments переводят работу в review follow-up"],
     ["Waiting", "При пустом reviewDecision PR остается в approval wait-state"],
     ["Guardrail", "Ни один response branch не выполняет merge action автоматически"],
+  ],
+};
+
+const prOwnerSignoffCheckpointCopy = {
+  route: "/plan",
+  branch: prReviewerApprovalResponseCopy.branch,
+  baseBranch: prReviewerApprovalResponseCopy.baseBranch,
+  command: prReviewerApprovalResponseCopy.command,
+  reviewerResponseSelector: "[data-testid='pr-reviewer-approval-response-copy']",
+  signoffScope: "PR #17 owner signoff checkpoint copy",
+  expectedCheckGroups: prReviewerApprovalResponseCopy.expectedCheckGroups,
+  expectedConclusion: prReviewerApprovalResponseCopy.expectedConclusion,
+  expectedMergeState: prReviewerApprovalResponseCopy.expectedMergeState,
+  expectedPrComments: prReviewerApprovalResponseCopy.expectedPrComments,
+  expectedReviewDecision: prReviewerApprovalResponseCopy.expectedReviewDecision,
+  expectedReviews: prReviewerApprovalResponseCopy.expectedReviews,
+  expectedReviewThreads: prReviewerApprovalResponseCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prReviewerApprovalResponseCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-owner-signoff-checkpoint-anchor']",
+  noMergeCopy:
+    "Owner signoff checkpoint фиксирует готовность к decision packet, но не выполняет merge, auto-merge или branch deletion",
+  ownerRole: "Release owner + QA owner",
+  prHref: prReviewerApprovalResponseCopy.prHref,
+  releaseScope: prReviewerApprovalResponseCopy.releaseScope,
+  repairTargets:
+    "PR #17,owner signoff checkpoint,reviewer approval response,CLEAN,SUCCESS,reviewDecision,apps/web/scripts/smoke.mjs,/plan",
+  signoffCopy:
+    "Owner signoff checkpoint для PR #17: подтвердить CLEAN, SUCCESS checks, reviewThreads=0, comments=0, reviews=0, approved response или explicit owner signoff; затем собрать final merge decision packet без merge action",
+  signoffOwners: ["Release owner", "QA owner"],
+  sourceMarkerSelector: "[data-testid='pr-reviewer-approval-response-copy']",
+  status: "checkpoint-ready",
+  checks: [
+    ["State", "PR #17 должен оставаться CLEAN между codex/app-site-shell и main"],
+    ["Checks", "Web build, API smoke и Shared validation должны быть SUCCESS"],
+    ["Review", "Owner signoff требует approved response или явный owner approval"],
+    ["Handoff", "Checkpoint передает только final merge decision packet без merge action"],
   ],
 };
 
@@ -11368,6 +11404,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prReviewerApprovalResponseCopy.responseCopy}</p>
           <p className="stage-line muted">{prReviewerApprovalResponseCopy.noMergeCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={prOwnerSignoffCheckpointCopy.baseBranch}
+          data-branch={prOwnerSignoffCheckpointCopy.branch}
+          data-command={prOwnerSignoffCheckpointCopy.command}
+          data-expected-check-groups={prOwnerSignoffCheckpointCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prOwnerSignoffCheckpointCopy.expectedConclusion}
+          data-expected-merge-state={prOwnerSignoffCheckpointCopy.expectedMergeState}
+          data-expected-pr-comments={prOwnerSignoffCheckpointCopy.expectedPrComments}
+          data-expected-review-decision={prOwnerSignoffCheckpointCopy.expectedReviewDecision}
+          data-expected-review-threads={prOwnerSignoffCheckpointCopy.expectedReviewThreads}
+          data-expected-reviews={prOwnerSignoffCheckpointCopy.expectedReviews}
+          data-expected-unresolved-threads={prOwnerSignoffCheckpointCopy.expectedUnresolvedThreads}
+          data-link-selector={prOwnerSignoffCheckpointCopy.linkSelector}
+          data-no-merge-copy={prOwnerSignoffCheckpointCopy.noMergeCopy}
+          data-owner-role={prOwnerSignoffCheckpointCopy.ownerRole}
+          data-pr-href={prOwnerSignoffCheckpointCopy.prHref}
+          data-release-scope={prOwnerSignoffCheckpointCopy.releaseScope}
+          data-repair-targets={prOwnerSignoffCheckpointCopy.repairTargets}
+          data-reviewer-response-selector={prOwnerSignoffCheckpointCopy.reviewerResponseSelector}
+          data-route={prOwnerSignoffCheckpointCopy.route}
+          data-signoff-copy={prOwnerSignoffCheckpointCopy.signoffCopy}
+          data-signoff-owners={prOwnerSignoffCheckpointCopy.signoffOwners.join(",")}
+          data-signoff-scope={prOwnerSignoffCheckpointCopy.signoffScope}
+          data-source-marker-selector={prOwnerSignoffCheckpointCopy.sourceMarkerSelector}
+          data-status={prOwnerSignoffCheckpointCopy.status}
+          data-testid="pr-owner-signoff-checkpoint-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR owner signoff checkpoint copy</p>
+              <h2>Что подтверждает owner signoff checkpoint PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-owner-signoff-checkpoint-anchor"
+              href={prOwnerSignoffCheckpointCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prOwnerSignoffCheckpointCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "State"
+                    ? "CLEAN"
+                    : title === "Checks"
+                      ? "SUCCESS"
+                      : title === "Review"
+                        ? "Signoff"
+                        : "Packet next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prOwnerSignoffCheckpointCopy.signoffCopy}</p>
+          <p className="stage-line muted">{prOwnerSignoffCheckpointCopy.noMergeCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">

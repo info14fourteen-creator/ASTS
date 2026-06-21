@@ -285,3 +285,5 @@
 239. [done 2026-06-21] Проверить PR #17 approval wait-state copy: закрепить ожидание reviewer/owner approval при пустом reviewDecision, comments=0, reviews=0 и запрете merge/auto-merge до явного ответа.
 
 240. [done 2026-06-21] Подготовить PR #17 reviewer approval response copy: описать safe follow-up для approved, changes requested и still waiting исходов без merge action и без review submission.
+
+241. [done 2026-06-21] Подготовить PR #17 owner signoff checkpoint copy: собрать финальный owner gate для CLEAN, SUCCESS checks, нулевых review counters и approved/explicit owner signoff без merge action.
