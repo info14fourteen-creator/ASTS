@@ -269,3 +269,5 @@
 231. [done 2026-06-21] Добавить web build README workflow docs archive copy: закрепить owner-friendly archive handoff для Web build README workflow docs guard, который связывает release signoff, release note, CLEAN PR и smoke evidence.
 
 232. [done 2026-06-21] Подготовить финальный PR #17 handoff audit copy: закрепить owner-friendly audit trail для четырех archive guards, CLEAN PR и зеленого statusCheckRollup перед merge readiness note.
+
+233. [done 2026-06-21] Подготовить PR #17 merge readiness note copy: закрепить owner-friendly merge readiness note для final handoff audit, CLEAN PR, зеленого statusCheckRollup и отдельной проверки review threads.

@@ -26,7 +26,7 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Подготовить PR #17 merge readiness note copy", "свести handoff audit, CLEAN PR и release checklist"],
+  ["1", "Проверить PR #17 review threads copy", "сверить unresolved comments перед merge request"],
 ];
 
 const cycleRules = [
@@ -3875,6 +3875,39 @@ const finalPrHandoffAuditCopy = {
     ["CI", "Web build, API smoke и Shared validation остаются SUCCESS на PR #17"],
     ["PR", "PR #17 остается CLEAN между codex/app-site-shell и main"],
     ["Handoff", "Release owner видит единый audit trail перед merge readiness note"],
+  ],
+};
+
+const prMergeReadinessNoteCopy = {
+  route: "/plan",
+  branch: finalPrHandoffAuditCopy.branch,
+  baseBranch: finalPrHandoffAuditCopy.baseBranch,
+  command: finalPrHandoffAuditCopy.command,
+  auditScope: finalPrHandoffAuditCopy.auditScope,
+  auditSelector: "[data-testid='final-pr-handoff-audit-copy']",
+  expectedArchiveCount: finalPrHandoffAuditCopy.archiveCount,
+  expectedCheckGroups: finalPrHandoffAuditCopy.expectedCheckGroups,
+  expectedConclusion: finalPrHandoffAuditCopy.expectedConclusion,
+  expectedMergeState: finalPrHandoffAuditCopy.expectedMergeState,
+  expectedPrNumber: finalPrHandoffAuditCopy.expectedPrNumber,
+  expectedRouteCount: finalPrHandoffAuditCopy.expectedRouteCount,
+  linkSelector: "[data-testid='pr-merge-readiness-note-anchor']",
+  mergeReadinessScope: "PR #17 merge readiness note",
+  noMergeCopy:
+    "Не запрашивать merge readiness, пока final handoff audit, CLEAN PR, зеленый statusCheckRollup и review-thread check не лежат в одном handoff note",
+  ownerRole: "Release owner + QA owner + Reviewer",
+  prHref: finalPrHandoffAuditCopy.prHref,
+  readinessOwners: ["Release owner", "QA owner", "Reviewer"],
+  releaseScope: finalPrHandoffAuditCopy.releaseScope,
+  repairTargets:
+    "PR #17,merge readiness note,final handoff audit,review threads,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='final-pr-handoff-audit-copy']",
+  status: "armed",
+  checks: [
+    ["Audit", "Final handoff audit подтверждает четыре archive guards и единый evidence trail"],
+    ["CI", "Status check rollup остается SUCCESS для Web build, API smoke и Shared validation"],
+    ["Merge state", "PR #17 остается CLEAN между codex/app-site-shell и main"],
+    ["Review", "Перед merge request отдельно проверить unresolved review threads"],
   ],
 };
 
@@ -10618,6 +10651,65 @@ export default function PlanPage() {
             ))}
           </div>
           <p className="stage-line muted">{finalPrHandoffAuditCopy.noMergeCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-audit-scope={prMergeReadinessNoteCopy.auditScope}
+          data-audit-selector={prMergeReadinessNoteCopy.auditSelector}
+          data-base-branch={prMergeReadinessNoteCopy.baseBranch}
+          data-branch={prMergeReadinessNoteCopy.branch}
+          data-command={prMergeReadinessNoteCopy.command}
+          data-expected-archive-count={prMergeReadinessNoteCopy.expectedArchiveCount}
+          data-expected-check-groups={prMergeReadinessNoteCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prMergeReadinessNoteCopy.expectedConclusion}
+          data-expected-merge-state={prMergeReadinessNoteCopy.expectedMergeState}
+          data-expected-pr-number={prMergeReadinessNoteCopy.expectedPrNumber}
+          data-expected-route-count={prMergeReadinessNoteCopy.expectedRouteCount}
+          data-link-selector={prMergeReadinessNoteCopy.linkSelector}
+          data-merge-readiness-scope={prMergeReadinessNoteCopy.mergeReadinessScope}
+          data-no-merge-copy={prMergeReadinessNoteCopy.noMergeCopy}
+          data-owner-role={prMergeReadinessNoteCopy.ownerRole}
+          data-pr-href={prMergeReadinessNoteCopy.prHref}
+          data-readiness-owners={prMergeReadinessNoteCopy.readinessOwners.join(",")}
+          data-release-scope={prMergeReadinessNoteCopy.releaseScope}
+          data-repair-targets={prMergeReadinessNoteCopy.repairTargets}
+          data-route={prMergeReadinessNoteCopy.route}
+          data-source-marker-selector={prMergeReadinessNoteCopy.sourceMarkerSelector}
+          data-status={prMergeReadinessNoteCopy.status}
+          data-testid="pr-merge-readiness-note-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR merge readiness note copy</p>
+              <h2>Что должно быть в PR #17 merge readiness note</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-merge-readiness-note-anchor"
+              href={prMergeReadinessNoteCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prMergeReadinessNoteCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Review"
+                    ? "Threads checked"
+                    : title === "Merge state"
+                      ? "CLEAN"
+                      : title === "CI"
+                        ? "Checks green"
+                        : "Audit linked"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line muted">{prMergeReadinessNoteCopy.noMergeCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
