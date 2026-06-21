@@ -26,7 +26,7 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Подготовить PR #17 release archive handoff copy", "описать archive handoff без удаления branch"],
+  ["1", "Подготовить PR #17 final PR closeout note copy", "описать closeout note без закрытия PR"],
 ];
 
 const cycleRules = [
@@ -4346,6 +4346,47 @@ const prPostMergeVerificationChecklistCopy = {
     ["Main", "Проверить main checks и smoke после merge/deploy"],
     ["Release", "Зафиксировать release note, rollback contact и owner timestamp"],
     ["Standby", "До фактического merge этот checklist остается standby и ничего не меняет"],
+  ],
+};
+
+const prReleaseArchiveHandoffCopy = {
+  route: "/plan",
+  branch: prPostMergeVerificationChecklistCopy.branch,
+  baseBranch: prPostMergeVerificationChecklistCopy.baseBranch,
+  command: prPostMergeVerificationChecklistCopy.command,
+  postMergeVerificationSelector: "[data-testid='pr-post-merge-verification-checklist-copy']",
+  archiveScope: "PR #17 release archive handoff copy",
+  expectedCheckGroups: prPostMergeVerificationChecklistCopy.expectedCheckGroups,
+  expectedConclusion: prPostMergeVerificationChecklistCopy.expectedConclusion,
+  expectedMergeState: prPostMergeVerificationChecklistCopy.expectedMergeState,
+  expectedPrComments: prPostMergeVerificationChecklistCopy.expectedPrComments,
+  expectedReviewDecision: prPostMergeVerificationChecklistCopy.expectedReviewDecision,
+  expectedReviews: prPostMergeVerificationChecklistCopy.expectedReviews,
+  expectedReviewThreads: prPostMergeVerificationChecklistCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prPostMergeVerificationChecklistCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-release-archive-handoff-anchor']",
+  noBranchDeleteCopy:
+    "Release archive handoff только описывает archive evidence; branch deletion, PR close, release tagging и main push остаются отдельными owner actions",
+  ownerRole: "Release owner + QA owner + Repo admin",
+  archiveCopy:
+    "Release archive handoff для PR #17: после подтвержденного merge и post-merge verification сохранить release note, CI links, /plan smoke evidence, rollback contact и owner timestamp; если merge не выполнен, archive остается standby",
+  prHref: prPostMergeVerificationChecklistCopy.prHref,
+  releaseScope: prPostMergeVerificationChecklistCopy.releaseScope,
+  repairTargets:
+    "PR #17,release archive handoff,post-merge verification checklist,release note,CI links,rollback contact,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-post-merge-verification-checklist-copy']",
+  status: "archive-handoff-standby",
+  archiveEvidence: [
+    "Release note",
+    "CI links for Web build, API smoke, Shared validation",
+    "/plan smoke evidence",
+    "Rollback contact and owner timestamp",
+  ],
+  checks: [
+    ["Evidence", "Archive требует release note, CI links, smoke evidence и rollback contact"],
+    ["Timing", "Archive handoff активируется только после confirmed merge и post-merge verification"],
+    ["Branch", "Branch deletion не выполняется этим handoff"],
+    ["Closeout", "Следующий шаг готовит final PR closeout note без закрытия PR"],
   ],
 };
 
@@ -11873,6 +11914,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prPostMergeVerificationChecklistCopy.verificationCopy}</p>
           <p className="stage-line muted">{prPostMergeVerificationChecklistCopy.noMergeCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-archive-copy={prReleaseArchiveHandoffCopy.archiveCopy}
+          data-archive-evidence={prReleaseArchiveHandoffCopy.archiveEvidence.join(",")}
+          data-archive-scope={prReleaseArchiveHandoffCopy.archiveScope}
+          data-base-branch={prReleaseArchiveHandoffCopy.baseBranch}
+          data-branch={prReleaseArchiveHandoffCopy.branch}
+          data-command={prReleaseArchiveHandoffCopy.command}
+          data-expected-check-groups={prReleaseArchiveHandoffCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prReleaseArchiveHandoffCopy.expectedConclusion}
+          data-expected-merge-state={prReleaseArchiveHandoffCopy.expectedMergeState}
+          data-expected-pr-comments={prReleaseArchiveHandoffCopy.expectedPrComments}
+          data-expected-review-decision={prReleaseArchiveHandoffCopy.expectedReviewDecision}
+          data-expected-review-threads={prReleaseArchiveHandoffCopy.expectedReviewThreads}
+          data-expected-reviews={prReleaseArchiveHandoffCopy.expectedReviews}
+          data-expected-unresolved-threads={prReleaseArchiveHandoffCopy.expectedUnresolvedThreads}
+          data-link-selector={prReleaseArchiveHandoffCopy.linkSelector}
+          data-no-branch-delete-copy={prReleaseArchiveHandoffCopy.noBranchDeleteCopy}
+          data-owner-role={prReleaseArchiveHandoffCopy.ownerRole}
+          data-post-merge-verification-selector={prReleaseArchiveHandoffCopy.postMergeVerificationSelector}
+          data-pr-href={prReleaseArchiveHandoffCopy.prHref}
+          data-release-scope={prReleaseArchiveHandoffCopy.releaseScope}
+          data-repair-targets={prReleaseArchiveHandoffCopy.repairTargets}
+          data-route={prReleaseArchiveHandoffCopy.route}
+          data-source-marker-selector={prReleaseArchiveHandoffCopy.sourceMarkerSelector}
+          data-status={prReleaseArchiveHandoffCopy.status}
+          data-testid="pr-release-archive-handoff-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR release archive handoff copy</p>
+              <h2>Что сохранить в archive handoff PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-archive-handoff-anchor"
+              href={prReleaseArchiveHandoffCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReleaseArchiveHandoffCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Evidence"
+                    ? "Archive set"
+                    : title === "Timing"
+                      ? "After verify"
+                      : title === "Branch"
+                        ? "Keep branch"
+                        : "Closeout next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prReleaseArchiveHandoffCopy.archiveCopy}</p>
+          <p className="stage-line muted">{prReleaseArchiveHandoffCopy.noBranchDeleteCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
