@@ -26,7 +26,7 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Проверить PR #17 merge approval checklist copy", "сверить owner checklist перед запросом approval"],
+  ["1", "Подготовить PR #17 approval request copy", "сформировать owner-safe текст запроса approval без merge action"],
 ];
 
 const cycleRules = [
@@ -4007,6 +4007,41 @@ const prFinalMergeHandoffCopy = {
     ["CI", "Status check rollup SUCCESS покрывает Web build, API smoke и Shared validation"],
     ["Review", "reviewThreads=0, unresolved=0, comments=0 и reviews=0 перед approval request"],
     ["Handoff", "Final merge handoff связывает request copy с owner checklist"],
+  ],
+};
+
+const prMergeApprovalChecklistCopy = {
+  route: "/plan",
+  branch: prFinalMergeHandoffCopy.branch,
+  baseBranch: prFinalMergeHandoffCopy.baseBranch,
+  command:
+    "gh pr view 17 --json mergeStateStatus,statusCheckRollup,comments,reviews,reviewDecision && gh api graphql reviewThreads(first:100)",
+  checklistScope: "PR #17 merge approval checklist copy",
+  expectedCheckGroups: prFinalMergeHandoffCopy.expectedCheckGroups,
+  expectedConclusion: prFinalMergeHandoffCopy.expectedConclusion,
+  expectedMergeState: prFinalMergeHandoffCopy.expectedMergeState,
+  expectedPrComments: prFinalMergeHandoffCopy.expectedPrComments,
+  expectedReviewDecision: "none",
+  expectedReviews: prFinalMergeHandoffCopy.expectedReviews,
+  expectedReviewThreads: prFinalMergeHandoffCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prFinalMergeHandoffCopy.expectedUnresolvedThreads,
+  finalHandoffSelector: "[data-testid='pr-final-merge-handoff-copy']",
+  linkSelector: "[data-testid='pr-merge-approval-checklist-anchor']",
+  noMergeCopy:
+    "Не отправлять approval request, пока checklist не подтверждает CLEAN, SUCCESS, reviewThreads=0, comments=0, reviews=0 и пустой reviewDecision",
+  ownerRole: "Release owner + Reviewer + QA owner",
+  prHref: prFinalMergeHandoffCopy.prHref,
+  releaseScope: prFinalMergeHandoffCopy.releaseScope,
+  repairTargets:
+    "PR #17,merge approval checklist,final merge handoff,statusCheckRollup,reviewDecision,apps/web/scripts/smoke.mjs,/plan",
+  signoffOwners: prFinalMergeHandoffCopy.signoffOwners,
+  sourceMarkerSelector: "[data-testid='pr-final-merge-handoff-copy']",
+  status: "ready",
+  checks: [
+    ["Preconditions", "CLEAN PR, SUCCESS checks и нулевые review threads уже собраны"],
+    ["Review state", "reviewDecision пустой, reviews=0 и approval еще не запрошен"],
+    ["Comments", "comments=0 и нет открытого reviewer feedback перед approval request"],
+    ["Checklist", "Owner checklist готовит следующий approval request без merge action"],
   ],
 };
 
@@ -10977,6 +11012,66 @@ export default function PlanPage() {
             ))}
           </div>
           <p className="stage-line muted">{prFinalMergeHandoffCopy.noMergeCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={prMergeApprovalChecklistCopy.baseBranch}
+          data-branch={prMergeApprovalChecklistCopy.branch}
+          data-checklist-scope={prMergeApprovalChecklistCopy.checklistScope}
+          data-command={prMergeApprovalChecklistCopy.command}
+          data-expected-check-groups={prMergeApprovalChecklistCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prMergeApprovalChecklistCopy.expectedConclusion}
+          data-expected-merge-state={prMergeApprovalChecklistCopy.expectedMergeState}
+          data-expected-pr-comments={prMergeApprovalChecklistCopy.expectedPrComments}
+          data-expected-review-decision={prMergeApprovalChecklistCopy.expectedReviewDecision}
+          data-expected-review-threads={prMergeApprovalChecklistCopy.expectedReviewThreads}
+          data-expected-reviews={prMergeApprovalChecklistCopy.expectedReviews}
+          data-expected-unresolved-threads={prMergeApprovalChecklistCopy.expectedUnresolvedThreads}
+          data-final-handoff-selector={prMergeApprovalChecklistCopy.finalHandoffSelector}
+          data-link-selector={prMergeApprovalChecklistCopy.linkSelector}
+          data-no-merge-copy={prMergeApprovalChecklistCopy.noMergeCopy}
+          data-owner-role={prMergeApprovalChecklistCopy.ownerRole}
+          data-pr-href={prMergeApprovalChecklistCopy.prHref}
+          data-release-scope={prMergeApprovalChecklistCopy.releaseScope}
+          data-repair-targets={prMergeApprovalChecklistCopy.repairTargets}
+          data-route={prMergeApprovalChecklistCopy.route}
+          data-signoff-owners={prMergeApprovalChecklistCopy.signoffOwners.join(",")}
+          data-source-marker-selector={prMergeApprovalChecklistCopy.sourceMarkerSelector}
+          data-status={prMergeApprovalChecklistCopy.status}
+          data-testid="pr-merge-approval-checklist-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR merge approval checklist copy</p>
+              <h2>Что сверяет PR #17 approval checklist</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-merge-approval-checklist-anchor"
+              href={prMergeApprovalChecklistCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prMergeApprovalChecklistCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Preconditions"
+                    ? "Ready"
+                    : title === "Review state"
+                      ? "No approval"
+                      : title === "Comments"
+                        ? "0 comments"
+                        : "Request next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line muted">{prMergeApprovalChecklistCopy.noMergeCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
