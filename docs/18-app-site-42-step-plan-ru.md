@@ -257,3 +257,5 @@
 225. [done 2026-06-21] Добавить AI review queue README workflow docs release signoff copy: закрепить owner-friendly release signoff для AI review queue README workflow docs guard, который фиксирует AI workflow, API, QA и Release signoff evidence перед archive.
 
 226. [done 2026-06-21] Добавить shared validation README workflow docs release signoff copy: закрепить owner-friendly release signoff для shared validation README workflow docs guard, который фиксирует Schema, CI, QA и Release signoff evidence перед archive.
+
+227. [done 2026-06-21] Добавить web build README workflow docs release signoff copy: закрепить owner-friendly release signoff для Web build README workflow docs guard, который фиксирует Frontend, CI, QA и Release signoff evidence перед archive.

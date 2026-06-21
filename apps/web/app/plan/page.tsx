@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить web build README workflow docs release signoff copy", "закрепить Web build README workflow docs release signoff"],
-  ["2", "Добавить source connectors README workflow docs archive copy", "закрепить Source Connectors README workflow docs archive"],
-  ["3", "Добавить AI review queue README workflow docs archive copy", "закрепить AI review queue README workflow docs archive"],
-  ["4", "Добавить shared validation README workflow docs archive copy", "закрепить shared validation README workflow docs archive"],
+  ["1", "Добавить source connectors README workflow docs archive copy", "закрепить Source Connectors README workflow docs archive"],
+  ["2", "Добавить AI review queue README workflow docs archive copy", "закрепить AI review queue README workflow docs archive"],
+  ["3", "Добавить shared validation README workflow docs archive copy", "закрепить shared validation README workflow docs archive"],
+  ["4", "Добавить web build README workflow docs archive copy", "закрепить Web build README workflow docs archive"],
 ];
 
 const cycleRules = [
@@ -3714,6 +3714,46 @@ const webBuildReadmeWorkflowDocsReleaseApprovalCopy = {
     ["CI", "CI owner утверждает Web build workflow, expected command count и smoke coverage"],
     ["QA", "QA owner утверждает build, route smoke и Browser DOM QA evidence"],
     ["Release", "Release owner утверждает PR #17 CLEAN, release note и checklist acceptance"],
+  ],
+};
+
+const webBuildReadmeWorkflowDocsReleaseSignoffCopy = {
+  route: webBuildReadmeWorkflowDocsReleaseApprovalCopy.route,
+  checkedWorkflowPath: webBuildReadmeWorkflowDocsReleaseApprovalCopy.checkedWorkflowPath,
+  branch: webBuildReadmeWorkflowDocsReleaseApprovalCopy.branch,
+  baseBranch: webBuildReadmeWorkflowDocsReleaseApprovalCopy.baseBranch,
+  command: webBuildReadmeWorkflowDocsReleaseApprovalCopy.command,
+  approvalScope: webBuildReadmeWorkflowDocsReleaseApprovalCopy.approvalScope,
+  docsHref: webBuildReadmeWorkflowDocsReleaseApprovalCopy.docsHref,
+  expectedCommandCount: webBuildReadmeWorkflowDocsReleaseApprovalCopy.expectedCommandCount,
+  expectedCheckGroups: webBuildReadmeWorkflowDocsReleaseApprovalCopy.expectedCheckGroups,
+  expectedConclusion: webBuildReadmeWorkflowDocsReleaseApprovalCopy.expectedConclusion,
+  expectedMergeState: webBuildReadmeWorkflowDocsReleaseApprovalCopy.expectedMergeState,
+  expectedPrNumber: webBuildReadmeWorkflowDocsReleaseApprovalCopy.expectedPrNumber,
+  expectedRouteCount: webBuildReadmeWorkflowDocsReleaseApprovalCopy.expectedRouteCount,
+  finalQaScope: webBuildReadmeWorkflowDocsReleaseApprovalCopy.finalQaScope,
+  handoffScope: webBuildReadmeWorkflowDocsReleaseApprovalCopy.handoffScope,
+  linkSelector: "[data-testid='web-build-readme-workflow-docs-release-signoff-anchor']",
+  noMergeCopy:
+    "Не подписывать Web build README workflow docs release, пока Frontend, CI, QA и Release owners не приняли signoff evidence",
+  ownerRole: webBuildReadmeWorkflowDocsReleaseApprovalCopy.ownerRole,
+  prHref: webBuildReadmeWorkflowDocsReleaseApprovalCopy.prHref,
+  releaseNote: webBuildReadmeWorkflowDocsReleaseApprovalCopy.releaseNote,
+  releaseScope: webBuildReadmeWorkflowDocsReleaseApprovalCopy.releaseScope,
+  repairTargets:
+    "PR #17,release signoff,apps/web/scripts/smoke.mjs,/plan,[data-testid='web-build-readme-workflow-docs-release-approval-copy']",
+  signoffOwners: webBuildReadmeWorkflowDocsReleaseApprovalCopy.approvalOwners,
+  signoffScope: "Web build README workflow docs release signoff",
+  sourceMarkerSelector: "[data-testid='web-build-readme-workflow-docs-release-approval-copy']",
+  status: webBuildReadmeWorkflowDocsReleaseApprovalCopy.status,
+  workflowHref: webBuildReadmeWorkflowDocsReleaseApprovalCopy.workflowHref,
+  workflowName: webBuildReadmeWorkflowDocsReleaseApprovalCopy.workflowName,
+  workflowPath: webBuildReadmeWorkflowDocsReleaseApprovalCopy.workflowPath,
+  checks: [
+    ["Frontend", "Frontend owner подписывает static routes, README docs и approval acceptance"],
+    ["CI", "CI owner подписывает Web build workflow, expected command count и smoke coverage"],
+    ["QA", "QA owner подписывает build, route smoke и Browser DOM QA evidence"],
+    ["Release", "Release owner подписывает PR #17 CLEAN, release note и approval acceptance"],
   ],
 };
 
@@ -10195,6 +10235,72 @@ export default function PlanPage() {
             ))}
           </div>
           <p className="stage-line muted">{webBuildReadmeWorkflowDocsReleaseApprovalCopy.noMergeCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-approval-scope={webBuildReadmeWorkflowDocsReleaseSignoffCopy.approvalScope}
+          data-base-branch={webBuildReadmeWorkflowDocsReleaseSignoffCopy.baseBranch}
+          data-branch={webBuildReadmeWorkflowDocsReleaseSignoffCopy.branch}
+          data-checked-workflow-path={webBuildReadmeWorkflowDocsReleaseSignoffCopy.checkedWorkflowPath}
+          data-command={webBuildReadmeWorkflowDocsReleaseSignoffCopy.command}
+          data-docs-href={webBuildReadmeWorkflowDocsReleaseSignoffCopy.docsHref}
+          data-expected-command-count={webBuildReadmeWorkflowDocsReleaseSignoffCopy.expectedCommandCount}
+          data-expected-check-groups={webBuildReadmeWorkflowDocsReleaseSignoffCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={webBuildReadmeWorkflowDocsReleaseSignoffCopy.expectedConclusion}
+          data-expected-merge-state={webBuildReadmeWorkflowDocsReleaseSignoffCopy.expectedMergeState}
+          data-expected-pr-number={webBuildReadmeWorkflowDocsReleaseSignoffCopy.expectedPrNumber}
+          data-expected-route-count={webBuildReadmeWorkflowDocsReleaseSignoffCopy.expectedRouteCount}
+          data-final-qa-scope={webBuildReadmeWorkflowDocsReleaseSignoffCopy.finalQaScope}
+          data-handoff-scope={webBuildReadmeWorkflowDocsReleaseSignoffCopy.handoffScope}
+          data-link-selector={webBuildReadmeWorkflowDocsReleaseSignoffCopy.linkSelector}
+          data-no-merge-copy={webBuildReadmeWorkflowDocsReleaseSignoffCopy.noMergeCopy}
+          data-owner-role={webBuildReadmeWorkflowDocsReleaseSignoffCopy.ownerRole}
+          data-pr-href={webBuildReadmeWorkflowDocsReleaseSignoffCopy.prHref}
+          data-release-note={webBuildReadmeWorkflowDocsReleaseSignoffCopy.releaseNote}
+          data-release-scope={webBuildReadmeWorkflowDocsReleaseSignoffCopy.releaseScope}
+          data-repair-targets={webBuildReadmeWorkflowDocsReleaseSignoffCopy.repairTargets}
+          data-route={webBuildReadmeWorkflowDocsReleaseSignoffCopy.route}
+          data-signoff-owners={webBuildReadmeWorkflowDocsReleaseSignoffCopy.signoffOwners.join(",")}
+          data-signoff-scope={webBuildReadmeWorkflowDocsReleaseSignoffCopy.signoffScope}
+          data-source-marker-selector={webBuildReadmeWorkflowDocsReleaseSignoffCopy.sourceMarkerSelector}
+          data-status={webBuildReadmeWorkflowDocsReleaseSignoffCopy.status}
+          data-testid="web-build-readme-workflow-docs-release-signoff-copy"
+          data-workflow-href={webBuildReadmeWorkflowDocsReleaseSignoffCopy.workflowHref}
+          data-workflow-name={webBuildReadmeWorkflowDocsReleaseSignoffCopy.workflowName}
+          data-workflow-path={webBuildReadmeWorkflowDocsReleaseSignoffCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Web build README workflow docs release signoff copy</p>
+              <h2>Кто подписывает выпуск Web build README workflow docs guard</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="web-build-readme-workflow-docs-release-signoff-anchor"
+              href={webBuildReadmeWorkflowDocsReleaseSignoffCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {webBuildReadmeWorkflowDocsReleaseSignoffCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Release"
+                    ? "Release signed"
+                    : title === "QA"
+                      ? "QA signed"
+                      : title === "CI"
+                        ? "CI signed"
+                        : "Frontend signed"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line muted">{webBuildReadmeWorkflowDocsReleaseSignoffCopy.noMergeCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
