@@ -245,3 +245,5 @@
 219. [done 2026-06-21] Добавить web build README workflow docs release checklist copy: закрепить owner-friendly release checklist для Web build README workflow docs guard, который фиксирует Frontend, CI, QA и Release acceptance перед выпуском.
 
 220. [done 2026-06-21] Добавить source connectors README workflow docs release approval copy: закрепить owner-friendly release approval для Source Connectors README workflow docs guard, который фиксирует Data, API, QA и Release approval evidence перед signoff.
+
+221. [done 2026-06-21] Добавить AI review queue README workflow docs release approval copy: закрепить owner-friendly release approval для AI review queue README workflow docs guard, который фиксирует AI workflow, API, QA и Release approval evidence перед signoff.
