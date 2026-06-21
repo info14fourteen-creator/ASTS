@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 release action items triage copy",
-    "описать triage action items без назначения owner",
+    "Подготовить PR #17 release action items owner question copy",
+    "описать owner question без назначения owner",
   ],
 ];
 
@@ -4724,6 +4724,48 @@ const prReleaseActionItemsBacklogCopy = {
     ["Question", "Owner-question и suggested priority остаются draft без assignment"],
     ["Action", "Этот copy не создает tasks, GitHub issues или alerts"],
     ["Next", "Следующий шаг описывает release action items triage без назначения owner"],
+  ],
+};
+
+const prReleaseActionItemsTriageCopy = {
+  route: "/plan",
+  branch: prReleaseActionItemsBacklogCopy.branch,
+  baseBranch: prReleaseActionItemsBacklogCopy.baseBranch,
+  command: prReleaseActionItemsBacklogCopy.command,
+  backlogSelector: "[data-testid='pr-release-action-items-backlog-copy']",
+  triageScope: "PR #17 release action items triage copy",
+  expectedCheckGroups: prReleaseActionItemsBacklogCopy.expectedCheckGroups,
+  expectedConclusion: prReleaseActionItemsBacklogCopy.expectedConclusion,
+  expectedMergeState: prReleaseActionItemsBacklogCopy.expectedMergeState,
+  expectedPrComments: prReleaseActionItemsBacklogCopy.expectedPrComments,
+  expectedReviewDecision: prReleaseActionItemsBacklogCopy.expectedReviewDecision,
+  expectedReviews: prReleaseActionItemsBacklogCopy.expectedReviews,
+  expectedReviewThreads: prReleaseActionItemsBacklogCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prReleaseActionItemsBacklogCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-release-action-items-triage-anchor']",
+  noOwnerAssignmentCopy:
+    "Release action items triage copy только описывает triage text; owner assignment, task creation, GitHub issue creation, priority changes, merge action и main push остаются отдельными owner actions",
+  ownerRole: "Release owner + Delivery reviewer",
+  triageCopy:
+    "Release action items triage для PR #17: из backlog draft разложить follow-up candidates по impact, evidence gap, owner-question, suggested priority и monitoring dependency; если release еще не выполнен, triage остается draft",
+  prHref: prReleaseActionItemsBacklogCopy.prHref,
+  releaseScope: prReleaseActionItemsBacklogCopy.releaseScope,
+  repairTargets:
+    "PR #17,release action items triage,release action items backlog,impact,evidence gap,owner-question,suggested priority,monitoring dependency,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-release-action-items-backlog-copy']",
+  status: "action-items-triage-draft",
+  triageEvidence: [
+    "impact",
+    "evidence gap",
+    "owner-question",
+    "suggested priority",
+    "monitoring dependency",
+  ],
+  checks: [
+    ["Impact", "Triage text связывает impact, evidence gap и monitoring dependency"],
+    ["Question", "Owner-question остается вопросом без назначения owner"],
+    ["Action", "Этот copy не создает tasks, GitHub issues или priority changes"],
+    ["Next", "Следующий шаг описывает release action items owner question без назначения owner"],
   ],
 };
 
@@ -12809,6 +12851,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prReleaseActionItemsBacklogCopy.backlogCopy}</p>
           <p className="stage-line muted">{prReleaseActionItemsBacklogCopy.noTaskCreationCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-backlog-selector={prReleaseActionItemsTriageCopy.backlogSelector}
+          data-base-branch={prReleaseActionItemsTriageCopy.baseBranch}
+          data-branch={prReleaseActionItemsTriageCopy.branch}
+          data-command={prReleaseActionItemsTriageCopy.command}
+          data-expected-check-groups={prReleaseActionItemsTriageCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prReleaseActionItemsTriageCopy.expectedConclusion}
+          data-expected-merge-state={prReleaseActionItemsTriageCopy.expectedMergeState}
+          data-expected-pr-comments={prReleaseActionItemsTriageCopy.expectedPrComments}
+          data-expected-review-decision={prReleaseActionItemsTriageCopy.expectedReviewDecision}
+          data-expected-review-threads={prReleaseActionItemsTriageCopy.expectedReviewThreads}
+          data-expected-reviews={prReleaseActionItemsTriageCopy.expectedReviews}
+          data-expected-unresolved-threads={prReleaseActionItemsTriageCopy.expectedUnresolvedThreads}
+          data-link-selector={prReleaseActionItemsTriageCopy.linkSelector}
+          data-no-owner-assignment-copy={prReleaseActionItemsTriageCopy.noOwnerAssignmentCopy}
+          data-owner-role={prReleaseActionItemsTriageCopy.ownerRole}
+          data-pr-href={prReleaseActionItemsTriageCopy.prHref}
+          data-release-scope={prReleaseActionItemsTriageCopy.releaseScope}
+          data-repair-targets={prReleaseActionItemsTriageCopy.repairTargets}
+          data-route={prReleaseActionItemsTriageCopy.route}
+          data-source-marker-selector={prReleaseActionItemsTriageCopy.sourceMarkerSelector}
+          data-status={prReleaseActionItemsTriageCopy.status}
+          data-triage-copy={prReleaseActionItemsTriageCopy.triageCopy}
+          data-triage-evidence={prReleaseActionItemsTriageCopy.triageEvidence.join(",")}
+          data-triage-scope={prReleaseActionItemsTriageCopy.triageScope}
+          data-testid="pr-release-action-items-triage-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR release action items triage copy</p>
+              <h2>Как описать action items triage PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-action-items-triage-anchor"
+              href={prReleaseActionItemsTriageCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReleaseActionItemsTriageCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Impact"
+                    ? "Impact"
+                    : title === "Question"
+                      ? "Question"
+                      : title === "Action"
+                        ? "No assignment"
+                        : "Owner next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prReleaseActionItemsTriageCopy.triageCopy}</p>
+          <p className="stage-line muted">{prReleaseActionItemsTriageCopy.noOwnerAssignmentCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
