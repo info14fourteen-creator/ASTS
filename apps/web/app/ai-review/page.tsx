@@ -693,6 +693,47 @@ const aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy = {
   ],
 };
 
+const aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy = {
+  route: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.route,
+  apiRoute: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.apiRoute,
+  branch: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.branch,
+  baseBranch: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.baseBranch,
+  command: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.command,
+  approvalScope: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.approvalScope,
+  docsHref: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.docsHref,
+  expectedCheckGroups: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.expectedCheckGroups,
+  expectedConclusion: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.expectedConclusion,
+  expectedMergeState: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.expectedMergeState,
+  expectedOwnerCount: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.expectedOwnerCount,
+  expectedPrNumber: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.expectedPrNumber,
+  expectedRouteCount: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.expectedRouteCount,
+  expectedRuleCount: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.expectedRuleCount,
+  finalQaScope: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.finalQaScope,
+  handoffScope: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.handoffScope,
+  linkSelector: "[data-testid='ai-review-queue-readme-workflow-docs-release-signoff-anchor']",
+  noMergeCopy:
+    "Не подписывать AI review queue README workflow docs release, пока AI workflow, API, QA и Release owners не приняли signoff evidence",
+  ownerRole: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.ownerRole,
+  prHref: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.prHref,
+  releaseNote: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.releaseNote,
+  releaseScope: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.releaseScope,
+  repairTargets:
+    "PR #17,release signoff,apps/web/scripts/smoke.mjs,/ai-review,[data-testid='ai-review-queue-readme-workflow-docs-release-approval-copy']",
+  signoffOwners: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.approvalOwners,
+  signoffScope: "AI review queue README workflow docs release signoff",
+  sourceMarkerSelector: "[data-testid='ai-review-queue-readme-workflow-docs-release-approval-copy']",
+  status: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.status,
+  workflowHref: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.workflowHref,
+  workflowName: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.workflowName,
+  workflowPath: aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.workflowPath,
+  checks: [
+    ["AI", "AI workflow owner подписывает queue facts, confidence rules и approval acceptance"],
+    ["API", "API owner подписывает `/v1/ai/review-queue`, README contract link и smoke coverage"],
+    ["QA", "QA owner подписывает build, route smoke и Browser DOM QA evidence"],
+    ["Release", "Release owner подписывает PR #17 CLEAN, release note и approval acceptance"],
+  ],
+};
+
 const aiReviewReceiptWriteContract = aiReviewQueueFixture.write_contract;
 const aiReviewReceiptWriteDocsDeepLink = {
   route: "/ai-review",
@@ -1510,6 +1551,73 @@ export default function AiReviewPage() {
             ))}
           </div>
           <p className="stage-line muted">{aiReviewQueueReadmeWorkflowDocsReleaseApprovalCopy.noMergeCopy}</p>
+        </section>
+
+        <section
+          className="panel ai-confidence-browser-loop-panel"
+          data-api-route={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.apiRoute}
+          data-approval-scope={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.approvalScope}
+          data-base-branch={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.baseBranch}
+          data-branch={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.branch}
+          data-command={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.command}
+          data-docs-href={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.docsHref}
+          data-expected-check-groups={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.expectedConclusion}
+          data-expected-merge-state={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.expectedMergeState}
+          data-expected-owner-count={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.expectedOwnerCount}
+          data-expected-pr-number={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.expectedPrNumber}
+          data-expected-route-count={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.expectedRouteCount}
+          data-expected-rule-count={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.expectedRuleCount}
+          data-final-qa-scope={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.finalQaScope}
+          data-handoff-scope={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.handoffScope}
+          data-link-selector={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.linkSelector}
+          data-no-merge-copy={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.noMergeCopy}
+          data-owner-role={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.ownerRole}
+          data-pr-href={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.prHref}
+          data-release-note={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.releaseNote}
+          data-release-scope={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.releaseScope}
+          data-repair-targets={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.repairTargets}
+          data-route={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.route}
+          data-signoff-owners={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.signoffOwners.join(",")}
+          data-signoff-scope={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.signoffScope}
+          data-source-marker-selector={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.sourceMarkerSelector}
+          data-status={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.status}
+          data-testid="ai-review-queue-readme-workflow-docs-release-signoff-copy"
+          data-workflow-href={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.workflowHref}
+          data-workflow-name={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.workflowName}
+          data-workflow-path={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">AI review queue README workflow docs release signoff copy</p>
+              <h2>Кто подписывает выпуск AI review queue README workflow docs guard</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="ai-review-queue-readme-workflow-docs-release-signoff-anchor"
+              href={aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="ai-confidence-browser-loop-grid">
+            {aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Release"
+                    ? "Release signed"
+                    : title === "QA"
+                      ? "QA signed"
+                      : title === "API"
+                        ? "API signed"
+                        : "AI signed"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line muted">{aiReviewQueueReadmeWorkflowDocsReleaseSignoffCopy.noMergeCopy}</p>
         </section>
 
         <section
