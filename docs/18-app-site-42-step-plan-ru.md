@@ -311,3 +311,5 @@
 252. [done 2026-06-22] Подготовить PR #17 release retrospective note copy: описать draft retrospective note для release result, SUCCESS checks, /plan smoke, review counters и rollback contact без создания docs issue.
 
 253. [done 2026-06-22] Подготовить PR #17 release lessons learned follow-up copy: описать draft follow-up для what worked, watchouts, evidence gaps, follow-up candidates и monitoring reminder без назначения owner actions.
+
+254. [done 2026-06-22] Подготовить PR #17 release action items backlog copy: описать draft backlog для follow-up candidates, evidence gaps, monitoring reminder, owner-question и suggested priority без создания задач.

@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 release action items backlog copy",
-    "описать action items backlog без создания задач",
+    "Подготовить PR #17 release action items triage copy",
+    "описать triage action items без назначения owner",
   ],
 ];
 
@@ -4682,6 +4682,48 @@ const prReleaseLessonsLearnedFollowUpCopy = {
     ["Follow-up", "Follow-up candidates остаются текстом без task creation или backlog mutation"],
     ["Action", "Этот copy не назначает owner actions и не создает docs issue"],
     ["Next", "Следующий шаг описывает release action items backlog без создания задач"],
+  ],
+};
+
+const prReleaseActionItemsBacklogCopy = {
+  route: "/plan",
+  branch: prReleaseLessonsLearnedFollowUpCopy.branch,
+  baseBranch: prReleaseLessonsLearnedFollowUpCopy.baseBranch,
+  command: prReleaseLessonsLearnedFollowUpCopy.command,
+  lessonsLearnedSelector: "[data-testid='pr-release-lessons-learned-follow-up-copy']",
+  backlogScope: "PR #17 release action items backlog copy",
+  expectedCheckGroups: prReleaseLessonsLearnedFollowUpCopy.expectedCheckGroups,
+  expectedConclusion: prReleaseLessonsLearnedFollowUpCopy.expectedConclusion,
+  expectedMergeState: prReleaseLessonsLearnedFollowUpCopy.expectedMergeState,
+  expectedPrComments: prReleaseLessonsLearnedFollowUpCopy.expectedPrComments,
+  expectedReviewDecision: prReleaseLessonsLearnedFollowUpCopy.expectedReviewDecision,
+  expectedReviews: prReleaseLessonsLearnedFollowUpCopy.expectedReviews,
+  expectedReviewThreads: prReleaseLessonsLearnedFollowUpCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prReleaseLessonsLearnedFollowUpCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-release-action-items-backlog-anchor']",
+  noTaskCreationCopy:
+    "Release action items backlog copy только описывает backlog text; task creation, GitHub issue creation, owner assignment, alert changes, merge action и main push остаются отдельными owner actions",
+  ownerRole: "Release owner + Delivery reviewer",
+  backlogCopy:
+    "Release action items backlog для PR #17: из lessons learned выписать follow-up candidates, evidence gaps, monitoring reminder, owner-question и suggested priority; если release еще не выполнен, backlog остается draft",
+  prHref: prReleaseLessonsLearnedFollowUpCopy.prHref,
+  releaseScope: prReleaseLessonsLearnedFollowUpCopy.releaseScope,
+  repairTargets:
+    "PR #17,release action items backlog,release lessons learned,follow-up candidates,evidence gaps,monitoring reminder,owner-question,suggested priority,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-release-lessons-learned-follow-up-copy']",
+  status: "action-items-backlog-draft",
+  backlogEvidence: [
+    "follow-up candidates",
+    "evidence gaps",
+    "monitoring reminder",
+    "owner-question",
+    "suggested priority",
+  ],
+  checks: [
+    ["Backlog", "Backlog text связывает follow-up candidates, evidence gaps и monitoring reminder"],
+    ["Question", "Owner-question и suggested priority остаются draft без assignment"],
+    ["Action", "Этот copy не создает tasks, GitHub issues или alerts"],
+    ["Next", "Следующий шаг описывает release action items triage без назначения owner"],
   ],
 };
 
@@ -12705,6 +12747,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prReleaseLessonsLearnedFollowUpCopy.lessonsCopy}</p>
           <p className="stage-line muted">{prReleaseLessonsLearnedFollowUpCopy.noOwnerActionCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-backlog-copy={prReleaseActionItemsBacklogCopy.backlogCopy}
+          data-backlog-evidence={prReleaseActionItemsBacklogCopy.backlogEvidence.join(",")}
+          data-backlog-scope={prReleaseActionItemsBacklogCopy.backlogScope}
+          data-base-branch={prReleaseActionItemsBacklogCopy.baseBranch}
+          data-branch={prReleaseActionItemsBacklogCopy.branch}
+          data-command={prReleaseActionItemsBacklogCopy.command}
+          data-expected-check-groups={prReleaseActionItemsBacklogCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prReleaseActionItemsBacklogCopy.expectedConclusion}
+          data-expected-merge-state={prReleaseActionItemsBacklogCopy.expectedMergeState}
+          data-expected-pr-comments={prReleaseActionItemsBacklogCopy.expectedPrComments}
+          data-expected-review-decision={prReleaseActionItemsBacklogCopy.expectedReviewDecision}
+          data-expected-review-threads={prReleaseActionItemsBacklogCopy.expectedReviewThreads}
+          data-expected-reviews={prReleaseActionItemsBacklogCopy.expectedReviews}
+          data-expected-unresolved-threads={prReleaseActionItemsBacklogCopy.expectedUnresolvedThreads}
+          data-lessons-learned-selector={prReleaseActionItemsBacklogCopy.lessonsLearnedSelector}
+          data-link-selector={prReleaseActionItemsBacklogCopy.linkSelector}
+          data-no-task-creation-copy={prReleaseActionItemsBacklogCopy.noTaskCreationCopy}
+          data-owner-role={prReleaseActionItemsBacklogCopy.ownerRole}
+          data-pr-href={prReleaseActionItemsBacklogCopy.prHref}
+          data-release-scope={prReleaseActionItemsBacklogCopy.releaseScope}
+          data-repair-targets={prReleaseActionItemsBacklogCopy.repairTargets}
+          data-route={prReleaseActionItemsBacklogCopy.route}
+          data-source-marker-selector={prReleaseActionItemsBacklogCopy.sourceMarkerSelector}
+          data-status={prReleaseActionItemsBacklogCopy.status}
+          data-testid="pr-release-action-items-backlog-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR release action items backlog copy</p>
+              <h2>Как описать action items backlog PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-action-items-backlog-anchor"
+              href={prReleaseActionItemsBacklogCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReleaseActionItemsBacklogCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Backlog"
+                    ? "Backlog"
+                    : title === "Question"
+                      ? "Draft"
+                      : title === "Action"
+                        ? "No tasks"
+                        : "Triage next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prReleaseActionItemsBacklogCopy.backlogCopy}</p>
+          <p className="stage-line muted">{prReleaseActionItemsBacklogCopy.noTaskCreationCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
