@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить shared validation README workflow docs release signoff copy", "закрепить shared validation README workflow docs release signoff"],
-  ["2", "Добавить web build README workflow docs release signoff copy", "закрепить Web build README workflow docs release signoff"],
-  ["3", "Добавить source connectors README workflow docs archive copy", "закрепить Source Connectors README workflow docs archive"],
-  ["4", "Добавить AI review queue README workflow docs archive copy", "закрепить AI review queue README workflow docs archive"],
+  ["1", "Добавить web build README workflow docs release signoff copy", "закрепить Web build README workflow docs release signoff"],
+  ["2", "Добавить source connectors README workflow docs archive copy", "закрепить Source Connectors README workflow docs archive"],
+  ["3", "Добавить AI review queue README workflow docs archive copy", "закрепить AI review queue README workflow docs archive"],
+  ["4", "Добавить shared validation README workflow docs archive copy", "закрепить shared validation README workflow docs archive"],
 ];
 
 const cycleRules = [
@@ -823,6 +823,47 @@ const sharedValidationReadmeWorkflowDocsReleaseApprovalCopy = {
     ["CI", "CI owner утверждает Shared validation workflow, expected check groups и smoke coverage"],
     ["QA", "QA owner утверждает build, route smoke и Browser DOM QA evidence"],
     ["Release", "Release owner утверждает PR #17 CLEAN, release note и checklist acceptance"],
+  ],
+};
+
+const sharedValidationReadmeWorkflowDocsReleaseSignoffCopy = {
+  route: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.route,
+  checkedWorkflowPath: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.checkedWorkflowPath,
+  branch: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.branch,
+  baseBranch: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.baseBranch,
+  command: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.command,
+  approvalScope: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.approvalScope,
+  docsHref: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.docsHref,
+  expectedCheckCount: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.expectedCheckCount,
+  expectedCheckGroups: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.expectedCheckGroups,
+  expectedConclusion: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.expectedConclusion,
+  expectedMergeState: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.expectedMergeState,
+  expectedPrNumber: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.expectedPrNumber,
+  expectedRouteCount: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.expectedRouteCount,
+  finalQaScope: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.finalQaScope,
+  handoffScope: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.handoffScope,
+  linkSelector: "[data-testid='shared-validation-readme-workflow-docs-release-signoff-anchor']",
+  noMergeCopy:
+    "Не подписывать shared validation README workflow docs release, пока Schema, CI, QA и Release owners не приняли signoff evidence",
+  ownerRole: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.ownerRole,
+  prHref: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.prHref,
+  readmePath: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.readmePath,
+  releaseNote: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.releaseNote,
+  releaseScope: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.releaseScope,
+  repairTargets:
+    "PR #17,release signoff,apps/web/scripts/smoke.mjs,/plan,[data-testid='shared-validation-readme-workflow-docs-release-approval-copy']",
+  signoffOwners: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.approvalOwners,
+  signoffScope: "shared validation README workflow docs release signoff",
+  sourceMarkerSelector: "[data-testid='shared-validation-readme-workflow-docs-release-approval-copy']",
+  status: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.status,
+  workflowHref: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.workflowHref,
+  workflowName: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.workflowName,
+  workflowPath: sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.workflowPath,
+  checks: [
+    ["Schema", "Schema owner подписывает schema index, fixtures и 14 check count"],
+    ["CI", "CI owner подписывает Shared validation workflow, expected check groups и smoke coverage"],
+    ["QA", "QA owner подписывает build, route smoke и Browser DOM QA evidence"],
+    ["Release", "Release owner подписывает PR #17 CLEAN, release note и approval acceptance"],
   ],
 };
 
@@ -5158,6 +5199,73 @@ export default function PlanPage() {
             ))}
           </div>
           <p className="stage-line muted">{sharedValidationReadmeWorkflowDocsReleaseApprovalCopy.noMergeCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-approval-scope={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.approvalScope}
+          data-base-branch={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.baseBranch}
+          data-branch={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.branch}
+          data-checked-workflow-path={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.checkedWorkflowPath}
+          data-command={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.command}
+          data-docs-href={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.docsHref}
+          data-expected-check-count={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.expectedCheckCount}
+          data-expected-check-groups={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.expectedConclusion}
+          data-expected-merge-state={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.expectedMergeState}
+          data-expected-pr-number={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.expectedPrNumber}
+          data-expected-route-count={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.expectedRouteCount}
+          data-final-qa-scope={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.finalQaScope}
+          data-handoff-scope={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.handoffScope}
+          data-link-selector={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.linkSelector}
+          data-no-merge-copy={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.noMergeCopy}
+          data-owner-role={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.ownerRole}
+          data-pr-href={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.prHref}
+          data-readme-path={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.readmePath}
+          data-release-note={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.releaseNote}
+          data-release-scope={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.releaseScope}
+          data-repair-targets={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.repairTargets}
+          data-route={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.route}
+          data-signoff-owners={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.signoffOwners.join(",")}
+          data-signoff-scope={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.signoffScope}
+          data-source-marker-selector={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.sourceMarkerSelector}
+          data-status={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.status}
+          data-testid="shared-validation-readme-workflow-docs-release-signoff-copy"
+          data-workflow-href={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.workflowHref}
+          data-workflow-name={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.workflowName}
+          data-workflow-path={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Shared validation README workflow docs release signoff copy</p>
+              <h2>Кто подписывает выпуск shared validation README workflow docs guard</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="shared-validation-readme-workflow-docs-release-signoff-anchor"
+              href={sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Release"
+                    ? "Release signed"
+                    : title === "QA"
+                      ? "QA signed"
+                      : title === "CI"
+                        ? "CI signed"
+                        : "Schema signed"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line muted">{sharedValidationReadmeWorkflowDocsReleaseSignoffCopy.noMergeCopy}</p>
         </section>
 
         <section
