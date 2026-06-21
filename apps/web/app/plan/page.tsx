@@ -26,7 +26,7 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Подготовить PR #17 final PR closeout note copy", "описать closeout note без закрытия PR"],
+  ["1", "Подготовить PR #17 branch retention notice copy", "описать branch retention после closeout без удаления ветки"],
 ];
 
 const cycleRules = [
@@ -4387,6 +4387,48 @@ const prReleaseArchiveHandoffCopy = {
     ["Timing", "Archive handoff активируется только после confirmed merge и post-merge verification"],
     ["Branch", "Branch deletion не выполняется этим handoff"],
     ["Closeout", "Следующий шаг готовит final PR closeout note без закрытия PR"],
+  ],
+};
+
+const prFinalPrCloseoutNoteCopy = {
+  route: "/plan",
+  branch: prReleaseArchiveHandoffCopy.branch,
+  baseBranch: prReleaseArchiveHandoffCopy.baseBranch,
+  command: prReleaseArchiveHandoffCopy.command,
+  archiveHandoffSelector: "[data-testid='pr-release-archive-handoff-copy']",
+  closeoutScope: "PR #17 final PR closeout note copy",
+  expectedCheckGroups: prReleaseArchiveHandoffCopy.expectedCheckGroups,
+  expectedConclusion: prReleaseArchiveHandoffCopy.expectedConclusion,
+  expectedMergeState: prReleaseArchiveHandoffCopy.expectedMergeState,
+  expectedPrComments: prReleaseArchiveHandoffCopy.expectedPrComments,
+  expectedReviewDecision: prReleaseArchiveHandoffCopy.expectedReviewDecision,
+  expectedReviews: prReleaseArchiveHandoffCopy.expectedReviews,
+  expectedReviewThreads: prReleaseArchiveHandoffCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prReleaseArchiveHandoffCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-final-pr-closeout-note-anchor']",
+  noCloseCopy:
+    "Final PR closeout note только готовит owner-facing summary; PR close, merge, release tagging, branch deletion и main push остаются отдельными owner actions",
+  ownerRole: "Release owner + Repo admin",
+  closeoutCopy:
+    "Final PR closeout note для PR #17: зафиксировать CLEAN PR, SUCCESS checks, review counters=0, archive handoff evidence и next owner action; если owner signoff/merge не выполнены, closeout остается standby",
+  prHref: prReleaseArchiveHandoffCopy.prHref,
+  releaseScope: prReleaseArchiveHandoffCopy.releaseScope,
+  repairTargets:
+    "PR #17,final PR closeout note,release archive handoff,CLEAN PR,SUCCESS checks,review counters,owner action,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-release-archive-handoff-copy']",
+  status: "closeout-note-standby",
+  closeoutEvidence: [
+    "CLEAN PR",
+    "SUCCESS statusCheckRollup",
+    "reviewThreads=0 comments=0 reviews=0",
+    "release archive handoff evidence",
+    "next owner action",
+  ],
+  checks: [
+    ["State", "Closeout note фиксирует CLEAN PR и SUCCESS checks без выполнения merge"],
+    ["Counters", "Review counters остаются нулевыми перед owner closeout"],
+    ["Archive", "Closeout ссылается на release archive handoff evidence"],
+    ["Owner", "Следующий шаг описывает branch retention без удаления ветки"],
   ],
 };
 
@@ -11976,6 +12018,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prReleaseArchiveHandoffCopy.archiveCopy}</p>
           <p className="stage-line muted">{prReleaseArchiveHandoffCopy.noBranchDeleteCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-archive-handoff-selector={prFinalPrCloseoutNoteCopy.archiveHandoffSelector}
+          data-base-branch={prFinalPrCloseoutNoteCopy.baseBranch}
+          data-branch={prFinalPrCloseoutNoteCopy.branch}
+          data-closeout-copy={prFinalPrCloseoutNoteCopy.closeoutCopy}
+          data-closeout-evidence={prFinalPrCloseoutNoteCopy.closeoutEvidence.join(",")}
+          data-closeout-scope={prFinalPrCloseoutNoteCopy.closeoutScope}
+          data-command={prFinalPrCloseoutNoteCopy.command}
+          data-expected-check-groups={prFinalPrCloseoutNoteCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prFinalPrCloseoutNoteCopy.expectedConclusion}
+          data-expected-merge-state={prFinalPrCloseoutNoteCopy.expectedMergeState}
+          data-expected-pr-comments={prFinalPrCloseoutNoteCopy.expectedPrComments}
+          data-expected-review-decision={prFinalPrCloseoutNoteCopy.expectedReviewDecision}
+          data-expected-review-threads={prFinalPrCloseoutNoteCopy.expectedReviewThreads}
+          data-expected-reviews={prFinalPrCloseoutNoteCopy.expectedReviews}
+          data-expected-unresolved-threads={prFinalPrCloseoutNoteCopy.expectedUnresolvedThreads}
+          data-link-selector={prFinalPrCloseoutNoteCopy.linkSelector}
+          data-no-close-copy={prFinalPrCloseoutNoteCopy.noCloseCopy}
+          data-owner-role={prFinalPrCloseoutNoteCopy.ownerRole}
+          data-pr-href={prFinalPrCloseoutNoteCopy.prHref}
+          data-release-scope={prFinalPrCloseoutNoteCopy.releaseScope}
+          data-repair-targets={prFinalPrCloseoutNoteCopy.repairTargets}
+          data-route={prFinalPrCloseoutNoteCopy.route}
+          data-source-marker-selector={prFinalPrCloseoutNoteCopy.sourceMarkerSelector}
+          data-status={prFinalPrCloseoutNoteCopy.status}
+          data-testid="pr-final-pr-closeout-note-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR final closeout note copy</p>
+              <h2>Что включить в final closeout note PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-final-pr-closeout-note-anchor"
+              href={prFinalPrCloseoutNoteCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prFinalPrCloseoutNoteCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "State"
+                    ? "Clean + green"
+                    : title === "Counters"
+                      ? "Counters zero"
+                      : title === "Archive"
+                        ? "Archive linked"
+                        : "Owner next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prFinalPrCloseoutNoteCopy.closeoutCopy}</p>
+          <p className="stage-line muted">{prFinalPrCloseoutNoteCopy.noCloseCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">

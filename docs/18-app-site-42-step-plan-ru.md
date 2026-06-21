@@ -297,3 +297,5 @@
 245. [done 2026-06-21] Подготовить PR #17 post-merge verification checklist copy: описать standby verification checklist для main checks, /plan smoke, release note и rollback contact без изменения main.
 
 246. [done 2026-06-21] Подготовить PR #17 release archive handoff copy: описать standby archive handoff для release note, CI links, smoke evidence и rollback contact без удаления branch.
+
+247. [done 2026-06-21] Подготовить PR #17 final PR closeout note copy: описать standby closeout note для CLEAN PR, SUCCESS checks, нулевых review counters и archive handoff без закрытия PR.
