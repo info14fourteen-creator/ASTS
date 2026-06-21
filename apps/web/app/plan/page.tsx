@@ -26,7 +26,7 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Проверить PR #17 review threads copy", "сверить unresolved comments перед merge request"],
+  ["1", "Подготовить PR #17 merge request copy", "связать review-thread check, CLEAN PR и зеленые checks в merge request"],
 ];
 
 const cycleRules = [
@@ -3908,6 +3908,39 @@ const prMergeReadinessNoteCopy = {
     ["CI", "Status check rollup остается SUCCESS для Web build, API smoke и Shared validation"],
     ["Merge state", "PR #17 остается CLEAN между codex/app-site-shell и main"],
     ["Review", "Перед merge request отдельно проверить unresolved review threads"],
+  ],
+};
+
+const prReviewThreadsCopy = {
+  route: "/plan",
+  branch: prMergeReadinessNoteCopy.branch,
+  baseBranch: prMergeReadinessNoteCopy.baseBranch,
+  command:
+    "gh api graphql -f query='reviewThreads(first:100){totalCount nodes{isResolved isOutdated path line}}'",
+  expectedReviewThreads: 0,
+  expectedUnresolvedThreads: 0,
+  expectedOutdatedThreads: 0,
+  expectedPrComments: 0,
+  expectedReviews: 0,
+  linkSelector: "[data-testid='pr-review-threads-anchor']",
+  mergeReadinessSelector: "[data-testid='pr-merge-readiness-note-copy']",
+  noMergeCopy:
+    "Не формировать merge request, пока reviewThreads.totalCount=0, unresolved=0 и PR #17 остается CLEAN с зелеными checks",
+  ownerRole: "Reviewer + QA owner + Release owner",
+  prHref: prMergeReadinessNoteCopy.prHref,
+  reviewThreadScope: "PR #17 review threads check",
+  reviewThreadSource: "GitHub GraphQL reviewThreads(first:100)",
+  reviewThreadStatus: "no review threads",
+  reviewOwners: ["Reviewer", "QA owner", "Release owner"],
+  releaseScope: prMergeReadinessNoteCopy.releaseScope,
+  repairTargets: "PR #17,review threads,merge readiness note,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-merge-readiness-note-copy']",
+  status: "verified",
+  checks: [
+    ["Threads", "GitHub GraphQL вернул reviewThreads.totalCount=0 для PR #17"],
+    ["Unresolved", "Нет unresolved или outdated review threads перед merge request"],
+    ["Comments", "Top-level PR comments и reviews пустые по gh pr view"],
+    ["Handoff", "Merge readiness note теперь ссылается на отдельную review-thread проверку"],
   ],
 };
 
@@ -10710,6 +10743,61 @@ export default function PlanPage() {
             ))}
           </div>
           <p className="stage-line muted">{prMergeReadinessNoteCopy.noMergeCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={prReviewThreadsCopy.baseBranch}
+          data-branch={prReviewThreadsCopy.branch}
+          data-command={prReviewThreadsCopy.command}
+          data-expected-outdated-threads={prReviewThreadsCopy.expectedOutdatedThreads}
+          data-expected-pr-comments={prReviewThreadsCopy.expectedPrComments}
+          data-expected-review-threads={prReviewThreadsCopy.expectedReviewThreads}
+          data-expected-reviews={prReviewThreadsCopy.expectedReviews}
+          data-expected-unresolved-threads={prReviewThreadsCopy.expectedUnresolvedThreads}
+          data-link-selector={prReviewThreadsCopy.linkSelector}
+          data-merge-readiness-selector={prReviewThreadsCopy.mergeReadinessSelector}
+          data-no-merge-copy={prReviewThreadsCopy.noMergeCopy}
+          data-owner-role={prReviewThreadsCopy.ownerRole}
+          data-pr-href={prReviewThreadsCopy.prHref}
+          data-release-scope={prReviewThreadsCopy.releaseScope}
+          data-repair-targets={prReviewThreadsCopy.repairTargets}
+          data-review-owners={prReviewThreadsCopy.reviewOwners.join(",")}
+          data-review-thread-scope={prReviewThreadsCopy.reviewThreadScope}
+          data-review-thread-source={prReviewThreadsCopy.reviewThreadSource}
+          data-review-thread-status={prReviewThreadsCopy.reviewThreadStatus}
+          data-route={prReviewThreadsCopy.route}
+          data-source-marker-selector={prReviewThreadsCopy.sourceMarkerSelector}
+          data-status={prReviewThreadsCopy.status}
+          data-testid="pr-review-threads-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR review threads copy</p>
+              <h2>Что проверено по PR #17 review threads</h2>
+            </div>
+            <a className="primary-link" data-testid="pr-review-threads-anchor" href={prReviewThreadsCopy.prHref}>
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReviewThreadsCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Threads"
+                    ? "0 threads"
+                    : title === "Unresolved"
+                      ? "0 unresolved"
+                      : title === "Comments"
+                        ? "0 comments"
+                        : "Ready linked"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line muted">{prReviewThreadsCopy.noMergeCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">

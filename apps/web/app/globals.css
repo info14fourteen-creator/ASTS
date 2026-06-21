@@ -618,6 +618,7 @@ h3 {
 .fixture-coverage-card p,
 .plan-block-card p {
   display: block;
+  overflow-wrap: anywhere;
 }
 
 .plan-cycle-card strong,
