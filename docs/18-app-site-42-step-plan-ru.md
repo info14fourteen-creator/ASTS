@@ -265,3 +265,5 @@
 229. [done 2026-06-21] Добавить AI review queue README workflow docs archive copy: закрепить owner-friendly archive handoff для AI review queue README workflow docs guard, который связывает release signoff, release note, CLEAN PR и smoke evidence.
 
 230. [done 2026-06-21] Добавить shared validation README workflow docs archive copy: закрепить owner-friendly archive handoff для shared validation README workflow docs guard, который связывает release signoff, release note, CLEAN PR и smoke evidence.
+
+231. [done 2026-06-21] Добавить web build README workflow docs archive copy: закрепить owner-friendly archive handoff для Web build README workflow docs guard, который связывает release signoff, release note, CLEAN PR и smoke evidence.

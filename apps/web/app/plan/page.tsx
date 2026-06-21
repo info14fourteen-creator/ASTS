@@ -26,7 +26,7 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить web build README workflow docs archive copy", "закрепить Web build README workflow docs archive"],
+  ["1", "Подготовить финальный PR #17 handoff audit copy", "свести archive guards, CLEAN PR и CI evidence"],
 ];
 
 const cycleRules = [
@@ -3794,6 +3794,48 @@ const webBuildReadmeWorkflowDocsReleaseSignoffCopy = {
     ["CI", "CI owner подписывает Web build workflow, expected command count и smoke coverage"],
     ["QA", "QA owner подписывает build, route smoke и Browser DOM QA evidence"],
     ["Release", "Release owner подписывает PR #17 CLEAN, release note и approval acceptance"],
+  ],
+};
+
+const webBuildReadmeWorkflowDocsArchiveCopy = {
+  route: webBuildReadmeWorkflowDocsReleaseSignoffCopy.route,
+  checkedWorkflowPath: webBuildReadmeWorkflowDocsReleaseSignoffCopy.checkedWorkflowPath,
+  branch: webBuildReadmeWorkflowDocsReleaseSignoffCopy.branch,
+  baseBranch: webBuildReadmeWorkflowDocsReleaseSignoffCopy.baseBranch,
+  command: webBuildReadmeWorkflowDocsReleaseSignoffCopy.command,
+  approvalScope: webBuildReadmeWorkflowDocsReleaseSignoffCopy.approvalScope,
+  archiveOwners: webBuildReadmeWorkflowDocsReleaseSignoffCopy.signoffOwners,
+  archiveScope: "Web build README workflow docs archive",
+  docsHref: webBuildReadmeWorkflowDocsReleaseSignoffCopy.docsHref,
+  expectedCommandCount: webBuildReadmeWorkflowDocsReleaseSignoffCopy.expectedCommandCount,
+  expectedCheckGroups: webBuildReadmeWorkflowDocsReleaseSignoffCopy.expectedCheckGroups,
+  expectedConclusion: webBuildReadmeWorkflowDocsReleaseSignoffCopy.expectedConclusion,
+  expectedMergeState: webBuildReadmeWorkflowDocsReleaseSignoffCopy.expectedMergeState,
+  expectedPrNumber: webBuildReadmeWorkflowDocsReleaseSignoffCopy.expectedPrNumber,
+  expectedRouteCount: webBuildReadmeWorkflowDocsReleaseSignoffCopy.expectedRouteCount,
+  finalQaScope: webBuildReadmeWorkflowDocsReleaseSignoffCopy.finalQaScope,
+  handoffScope: webBuildReadmeWorkflowDocsReleaseSignoffCopy.handoffScope,
+  linkSelector: "[data-testid='web-build-readme-workflow-docs-archive-anchor']",
+  noMergeCopy:
+    "Не архивировать Web build README workflow docs release, пока archive evidence не связывает signoff, release note, CLEAN PR и smoke coverage",
+  ownerRole: webBuildReadmeWorkflowDocsReleaseSignoffCopy.ownerRole,
+  prHref: webBuildReadmeWorkflowDocsReleaseSignoffCopy.prHref,
+  releaseNote: webBuildReadmeWorkflowDocsReleaseSignoffCopy.releaseNote,
+  releaseScope: webBuildReadmeWorkflowDocsReleaseSignoffCopy.releaseScope,
+  repairTargets:
+    "PR #17,release archive,apps/web/scripts/smoke.mjs,/plan,[data-testid='web-build-readme-workflow-docs-release-signoff-copy']",
+  signoffOwners: webBuildReadmeWorkflowDocsReleaseSignoffCopy.signoffOwners,
+  signoffScope: webBuildReadmeWorkflowDocsReleaseSignoffCopy.signoffScope,
+  sourceMarkerSelector: "[data-testid='web-build-readme-workflow-docs-release-signoff-copy']",
+  status: webBuildReadmeWorkflowDocsReleaseSignoffCopy.status,
+  workflowHref: webBuildReadmeWorkflowDocsReleaseSignoffCopy.workflowHref,
+  workflowName: webBuildReadmeWorkflowDocsReleaseSignoffCopy.workflowName,
+  workflowPath: webBuildReadmeWorkflowDocsReleaseSignoffCopy.workflowPath,
+  checks: [
+    ["Frontend", "Frontend owner архивирует static routes, README docs и signoff evidence"],
+    ["CI", "CI owner архивирует Web build workflow, expected command count и smoke coverage"],
+    ["QA", "QA owner архивирует build, route smoke и Browser DOM QA evidence"],
+    ["Release", "Release owner архивирует PR #17 CLEAN, release note и signoff acceptance"],
   ],
 };
 
@@ -10410,6 +10452,74 @@ export default function PlanPage() {
             ))}
           </div>
           <p className="stage-line muted">{webBuildReadmeWorkflowDocsReleaseSignoffCopy.noMergeCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-approval-scope={webBuildReadmeWorkflowDocsArchiveCopy.approvalScope}
+          data-archive-owners={webBuildReadmeWorkflowDocsArchiveCopy.archiveOwners.join(",")}
+          data-archive-scope={webBuildReadmeWorkflowDocsArchiveCopy.archiveScope}
+          data-base-branch={webBuildReadmeWorkflowDocsArchiveCopy.baseBranch}
+          data-branch={webBuildReadmeWorkflowDocsArchiveCopy.branch}
+          data-checked-workflow-path={webBuildReadmeWorkflowDocsArchiveCopy.checkedWorkflowPath}
+          data-command={webBuildReadmeWorkflowDocsArchiveCopy.command}
+          data-docs-href={webBuildReadmeWorkflowDocsArchiveCopy.docsHref}
+          data-expected-command-count={webBuildReadmeWorkflowDocsArchiveCopy.expectedCommandCount}
+          data-expected-check-groups={webBuildReadmeWorkflowDocsArchiveCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={webBuildReadmeWorkflowDocsArchiveCopy.expectedConclusion}
+          data-expected-merge-state={webBuildReadmeWorkflowDocsArchiveCopy.expectedMergeState}
+          data-expected-pr-number={webBuildReadmeWorkflowDocsArchiveCopy.expectedPrNumber}
+          data-expected-route-count={webBuildReadmeWorkflowDocsArchiveCopy.expectedRouteCount}
+          data-final-qa-scope={webBuildReadmeWorkflowDocsArchiveCopy.finalQaScope}
+          data-handoff-scope={webBuildReadmeWorkflowDocsArchiveCopy.handoffScope}
+          data-link-selector={webBuildReadmeWorkflowDocsArchiveCopy.linkSelector}
+          data-no-merge-copy={webBuildReadmeWorkflowDocsArchiveCopy.noMergeCopy}
+          data-owner-role={webBuildReadmeWorkflowDocsArchiveCopy.ownerRole}
+          data-pr-href={webBuildReadmeWorkflowDocsArchiveCopy.prHref}
+          data-release-note={webBuildReadmeWorkflowDocsArchiveCopy.releaseNote}
+          data-release-scope={webBuildReadmeWorkflowDocsArchiveCopy.releaseScope}
+          data-repair-targets={webBuildReadmeWorkflowDocsArchiveCopy.repairTargets}
+          data-route={webBuildReadmeWorkflowDocsArchiveCopy.route}
+          data-signoff-owners={webBuildReadmeWorkflowDocsArchiveCopy.signoffOwners.join(",")}
+          data-signoff-scope={webBuildReadmeWorkflowDocsArchiveCopy.signoffScope}
+          data-source-marker-selector={webBuildReadmeWorkflowDocsArchiveCopy.sourceMarkerSelector}
+          data-status={webBuildReadmeWorkflowDocsArchiveCopy.status}
+          data-testid="web-build-readme-workflow-docs-archive-copy"
+          data-workflow-href={webBuildReadmeWorkflowDocsArchiveCopy.workflowHref}
+          data-workflow-name={webBuildReadmeWorkflowDocsArchiveCopy.workflowName}
+          data-workflow-path={webBuildReadmeWorkflowDocsArchiveCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Web build README workflow docs archive copy</p>
+              <h2>Что архивирует Web build README workflow docs guard</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="web-build-readme-workflow-docs-archive-anchor"
+              href={webBuildReadmeWorkflowDocsArchiveCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {webBuildReadmeWorkflowDocsArchiveCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Release"
+                    ? "Release archived"
+                    : title === "QA"
+                      ? "QA archived"
+                      : title === "CI"
+                        ? "CI archived"
+                        : "Frontend archived"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line muted">{webBuildReadmeWorkflowDocsArchiveCopy.noMergeCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
