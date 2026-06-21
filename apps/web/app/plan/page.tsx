@@ -26,7 +26,7 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Подготовить финальный PR #17 handoff audit copy", "свести archive guards, CLEAN PR и CI evidence"],
+  ["1", "Подготовить PR #17 merge readiness note copy", "свести handoff audit, CLEAN PR и release checklist"],
 ];
 
 const cycleRules = [
@@ -3836,6 +3836,45 @@ const webBuildReadmeWorkflowDocsArchiveCopy = {
     ["CI", "CI owner архивирует Web build workflow, expected command count и smoke coverage"],
     ["QA", "QA owner архивирует build, route smoke и Browser DOM QA evidence"],
     ["Release", "Release owner архивирует PR #17 CLEAN, release note и signoff acceptance"],
+  ],
+};
+
+const finalPrHandoffAuditCopy = {
+  route: "/plan",
+  branch: "codex/app-site-shell",
+  baseBranch: "main",
+  command:
+    "npm run build && npm run smoke -- --url http://127.0.0.1:4177/ && gh pr view 17 --json mergeStateStatus,statusCheckRollup",
+  archiveCount: 4,
+  archiveRoutes: ["/plan", "/ai-review", "/sources"],
+  archiveSelectors: [
+    "[data-testid='shared-validation-readme-workflow-docs-archive-copy']",
+    "[data-testid='web-build-readme-workflow-docs-archive-copy']",
+    "[data-testid='ai-review-queue-readme-workflow-docs-archive-copy']",
+    "[data-testid='source-connectors-readme-workflow-docs-archive-copy']",
+  ],
+  auditOwners: ["Frontend owner", "Schema owner", "AI workflow owner", "Data owner", "QA owner", "Release owner"],
+  auditScope: "PR #17 final handoff audit",
+  expectedCheckGroups: ["Web build", "API smoke", "Shared validation"],
+  expectedConclusion: "SUCCESS",
+  expectedMergeState: "CLEAN",
+  expectedPrNumber: 17,
+  expectedRouteCount: 16,
+  linkSelector: "[data-testid='final-pr-handoff-audit-anchor']",
+  noMergeCopy:
+    "Не закрывать финальный PR #17 handoff audit, пока четыре archive guards, CLEAN PR и зеленый statusCheckRollup не связаны в одном evidence trail",
+  ownerRole: "Frontend owner + Schema owner + AI workflow owner + Data owner + QA owner + Release owner",
+  prHref: "https://github.com/info14fourteen-creator/ASTS/pull/17",
+  releaseScope: "ASTS app.site.ru PR #17",
+  repairTargets:
+    "PR #17,final handoff audit,apps/web/scripts/smoke.mjs,/plan,/ai-review,/sources,archive guards",
+  sourceMarkerSelector: "[data-testid='web-build-readme-workflow-docs-archive-copy']",
+  status: "armed",
+  checks: [
+    ["Archives", "Четыре archive guards покрывают shared validation, Web build, AI review queue и Source Connectors"],
+    ["CI", "Web build, API smoke и Shared validation остаются SUCCESS на PR #17"],
+    ["PR", "PR #17 остается CLEAN между codex/app-site-shell и main"],
+    ["Handoff", "Release owner видит единый audit trail перед merge readiness note"],
   ],
 };
 
@@ -10520,6 +10559,65 @@ export default function PlanPage() {
             ))}
           </div>
           <p className="stage-line muted">{webBuildReadmeWorkflowDocsArchiveCopy.noMergeCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-archive-count={finalPrHandoffAuditCopy.archiveCount}
+          data-archive-routes={finalPrHandoffAuditCopy.archiveRoutes.join(",")}
+          data-archive-selectors={finalPrHandoffAuditCopy.archiveSelectors.join(",")}
+          data-audit-owners={finalPrHandoffAuditCopy.auditOwners.join(",")}
+          data-audit-scope={finalPrHandoffAuditCopy.auditScope}
+          data-base-branch={finalPrHandoffAuditCopy.baseBranch}
+          data-branch={finalPrHandoffAuditCopy.branch}
+          data-command={finalPrHandoffAuditCopy.command}
+          data-expected-check-groups={finalPrHandoffAuditCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={finalPrHandoffAuditCopy.expectedConclusion}
+          data-expected-merge-state={finalPrHandoffAuditCopy.expectedMergeState}
+          data-expected-pr-number={finalPrHandoffAuditCopy.expectedPrNumber}
+          data-expected-route-count={finalPrHandoffAuditCopy.expectedRouteCount}
+          data-link-selector={finalPrHandoffAuditCopy.linkSelector}
+          data-no-merge-copy={finalPrHandoffAuditCopy.noMergeCopy}
+          data-owner-role={finalPrHandoffAuditCopy.ownerRole}
+          data-pr-href={finalPrHandoffAuditCopy.prHref}
+          data-release-scope={finalPrHandoffAuditCopy.releaseScope}
+          data-repair-targets={finalPrHandoffAuditCopy.repairTargets}
+          data-route={finalPrHandoffAuditCopy.route}
+          data-source-marker-selector={finalPrHandoffAuditCopy.sourceMarkerSelector}
+          data-status={finalPrHandoffAuditCopy.status}
+          data-testid="final-pr-handoff-audit-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Final PR handoff audit copy</p>
+              <h2>Что связывает финальный PR #17 handoff audit</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="final-pr-handoff-audit-anchor"
+              href={finalPrHandoffAuditCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {finalPrHandoffAuditCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Handoff"
+                    ? "Audit trail"
+                    : title === "PR"
+                      ? "Merge state"
+                      : title === "CI"
+                        ? "Status checks"
+                        : "Archive guards"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line muted">{finalPrHandoffAuditCopy.noMergeCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
