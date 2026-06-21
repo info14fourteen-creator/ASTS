@@ -26,7 +26,7 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Подготовить PR #17 merge request copy", "связать review-thread check, CLEAN PR и зеленые checks в merge request"],
+  ["1", "Подготовить PR #17 final merge handoff copy", "собрать финальный owner handoff перед merge approval"],
 ];
 
 const cycleRules = [
@@ -3941,6 +3941,38 @@ const prReviewThreadsCopy = {
     ["Unresolved", "Нет unresolved или outdated review threads перед merge request"],
     ["Comments", "Top-level PR comments и reviews пустые по gh pr view"],
     ["Handoff", "Merge readiness note теперь ссылается на отдельную review-thread проверку"],
+  ],
+};
+
+const prMergeRequestCopy = {
+  route: "/plan",
+  branch: prReviewThreadsCopy.branch,
+  baseBranch: prReviewThreadsCopy.baseBranch,
+  command:
+    "gh pr view 17 --json mergeStateStatus,statusCheckRollup && gh api graphql reviewThreads(first:100)",
+  expectedCheckGroups: prMergeReadinessNoteCopy.expectedCheckGroups,
+  expectedConclusion: prMergeReadinessNoteCopy.expectedConclusion,
+  expectedMergeState: prMergeReadinessNoteCopy.expectedMergeState,
+  expectedReviewThreads: prReviewThreadsCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prReviewThreadsCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-merge-request-anchor']",
+  mergeRequestScope: "PR #17 merge request copy",
+  mergeReadinessSelector: "[data-testid='pr-merge-readiness-note-copy']",
+  noMergeCopy:
+    "Не просить merge approval, пока CLEAN PR, зеленый statusCheckRollup и нулевые reviewThreads не отражены в одном merge request note",
+  ownerRole: "Release owner + Reviewer + QA owner",
+  prHref: prReviewThreadsCopy.prHref,
+  releaseScope: prReviewThreadsCopy.releaseScope,
+  repairTargets: "PR #17,merge request copy,review threads,statusCheckRollup,apps/web/scripts/smoke.mjs,/plan",
+  requestOwners: ["Release owner", "Reviewer", "QA owner"],
+  reviewThreadsSelector: "[data-testid='pr-review-threads-copy']",
+  sourceMarkerSelector: "[data-testid='pr-review-threads-copy']",
+  status: "ready",
+  checks: [
+    ["Merge state", "PR #17 остается CLEAN между codex/app-site-shell и main"],
+    ["Checks", "Status check rollup SUCCESS для Web build, API smoke и Shared validation"],
+    ["Review", "reviewThreads.totalCount=0 и unresolved=0 перед merge request"],
+    ["Request", "Merge request copy связывает audit, readiness и review-thread evidence"],
   ],
 };
 
@@ -10798,6 +10830,60 @@ export default function PlanPage() {
             ))}
           </div>
           <p className="stage-line muted">{prReviewThreadsCopy.noMergeCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={prMergeRequestCopy.baseBranch}
+          data-branch={prMergeRequestCopy.branch}
+          data-command={prMergeRequestCopy.command}
+          data-expected-check-groups={prMergeRequestCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prMergeRequestCopy.expectedConclusion}
+          data-expected-merge-state={prMergeRequestCopy.expectedMergeState}
+          data-expected-review-threads={prMergeRequestCopy.expectedReviewThreads}
+          data-expected-unresolved-threads={prMergeRequestCopy.expectedUnresolvedThreads}
+          data-link-selector={prMergeRequestCopy.linkSelector}
+          data-merge-readiness-selector={prMergeRequestCopy.mergeReadinessSelector}
+          data-merge-request-scope={prMergeRequestCopy.mergeRequestScope}
+          data-no-merge-copy={prMergeRequestCopy.noMergeCopy}
+          data-owner-role={prMergeRequestCopy.ownerRole}
+          data-pr-href={prMergeRequestCopy.prHref}
+          data-release-scope={prMergeRequestCopy.releaseScope}
+          data-repair-targets={prMergeRequestCopy.repairTargets}
+          data-request-owners={prMergeRequestCopy.requestOwners.join(",")}
+          data-review-threads-selector={prMergeRequestCopy.reviewThreadsSelector}
+          data-route={prMergeRequestCopy.route}
+          data-source-marker-selector={prMergeRequestCopy.sourceMarkerSelector}
+          data-status={prMergeRequestCopy.status}
+          data-testid="pr-merge-request-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR merge request copy</p>
+              <h2>Что должно быть в PR #17 merge request</h2>
+            </div>
+            <a className="primary-link" data-testid="pr-merge-request-anchor" href={prMergeRequestCopy.prHref}>
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prMergeRequestCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Merge state"
+                    ? "CLEAN"
+                    : title === "Checks"
+                      ? "SUCCESS"
+                      : title === "Review"
+                        ? "0 threads"
+                        : "Request ready"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line muted">{prMergeRequestCopy.noMergeCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">

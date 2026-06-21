@@ -273,3 +273,5 @@
 233. [done 2026-06-21] Подготовить PR #17 merge readiness note copy: закрепить owner-friendly merge readiness note для final handoff audit, CLEAN PR, зеленого statusCheckRollup и отдельной проверки review threads.
 
 234. [done 2026-06-21] Проверить PR #17 review threads copy: закрепить GraphQL-проверку reviewThreads.totalCount=0, отсутствие unresolved/outdated threads, пустые PR comments/reviews и связь с merge readiness note перед merge request.
+
+235. [done 2026-06-21] Подготовить PR #17 merge request copy: связать CLEAN PR, зеленый statusCheckRollup, нулевые reviewThreads и merge readiness evidence в один проверяемый merge request handoff.
