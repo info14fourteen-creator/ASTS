@@ -767,6 +767,49 @@ const sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy = {
   ],
 };
 
+const sourceConnectorsReadmeWorkflowDocsArchiveCopy = {
+  route: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.route,
+  apiRoute: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.apiRoute,
+  branch: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.branch,
+  baseBranch: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.baseBranch,
+  command: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.command,
+  approvalScope: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.approvalScope,
+  connectorIds: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.connectorIds,
+  docsHref: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.docsHref,
+  expectedCheckGroups: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.expectedCheckGroups,
+  expectedConclusion: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.expectedConclusion,
+  expectedMergeState: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.expectedMergeState,
+  expectedPrNumber: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.expectedPrNumber,
+  expectedRouteCount: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.expectedRouteCount,
+  finalQaScope: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.finalQaScope,
+  handoffScope: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.handoffScope,
+  linkSelector: "[data-testid='source-connectors-readme-workflow-docs-archive-anchor']",
+  mode: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.mode,
+  noMergeCopy:
+    "Не архивировать Source Connectors README workflow docs release, пока archive evidence не связывает signoff, release note, CLEAN PR и smoke coverage",
+  ownerRole: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.ownerRole,
+  prHref: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.prHref,
+  releaseNote: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.releaseNote,
+  releaseScope: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.releaseScope,
+  repairTargets:
+    "PR #17,release archive,apps/web/scripts/smoke.mjs,/sources,[data-testid='source-connectors-readme-workflow-docs-release-signoff-copy']",
+  signoffOwners: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.signoffOwners,
+  signoffScope: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.signoffScope,
+  archiveOwners: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.signoffOwners,
+  archiveScope: "Source Connectors README workflow docs archive",
+  sourceMarkerSelector: "[data-testid='source-connectors-readme-workflow-docs-release-signoff-copy']",
+  status: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.status,
+  workflowHref: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.workflowHref,
+  workflowName: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.workflowName,
+  workflowPath: sourceConnectorsReadmeWorkflowDocsReleaseSignoffCopy.workflowPath,
+  checks: [
+    ["Data", "Data owner архивирует connector ids, contract_only mode и source contract docs evidence"],
+    ["API", "API owner архивирует `/v1/sources/connectors`, README contract link и smoke coverage"],
+    ["QA", "QA owner архивирует build, route smoke и Browser DOM QA evidence"],
+    ["Release", "Release owner архивирует PR #17 CLEAN, release note и signoff acceptance"],
+  ],
+};
+
 const fnsNetworkGateBrowserLoop = {
   route: "/sources",
   apiRoute: "/v1/sources/connectors",
@@ -2025,6 +2068,74 @@ export default function SourcesPage() {
                       : title === "API"
                         ? "API signed"
                         : "Data signed"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-api-route={sourceConnectorsReadmeWorkflowDocsArchiveCopy.apiRoute}
+          data-approval-scope={sourceConnectorsReadmeWorkflowDocsArchiveCopy.approvalScope}
+          data-archive-owners={sourceConnectorsReadmeWorkflowDocsArchiveCopy.archiveOwners.join(",")}
+          data-archive-scope={sourceConnectorsReadmeWorkflowDocsArchiveCopy.archiveScope}
+          data-base-branch={sourceConnectorsReadmeWorkflowDocsArchiveCopy.baseBranch}
+          data-branch={sourceConnectorsReadmeWorkflowDocsArchiveCopy.branch}
+          data-command={sourceConnectorsReadmeWorkflowDocsArchiveCopy.command}
+          data-connector-ids={sourceConnectorsReadmeWorkflowDocsArchiveCopy.connectorIds.join(",")}
+          data-docs-href={sourceConnectorsReadmeWorkflowDocsArchiveCopy.docsHref}
+          data-expected-check-groups={sourceConnectorsReadmeWorkflowDocsArchiveCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={sourceConnectorsReadmeWorkflowDocsArchiveCopy.expectedConclusion}
+          data-expected-merge-state={sourceConnectorsReadmeWorkflowDocsArchiveCopy.expectedMergeState}
+          data-expected-pr-number={sourceConnectorsReadmeWorkflowDocsArchiveCopy.expectedPrNumber}
+          data-expected-route-count={sourceConnectorsReadmeWorkflowDocsArchiveCopy.expectedRouteCount}
+          data-final-qa-scope={sourceConnectorsReadmeWorkflowDocsArchiveCopy.finalQaScope}
+          data-handoff-scope={sourceConnectorsReadmeWorkflowDocsArchiveCopy.handoffScope}
+          data-link-selector={sourceConnectorsReadmeWorkflowDocsArchiveCopy.linkSelector}
+          data-mode={sourceConnectorsReadmeWorkflowDocsArchiveCopy.mode}
+          data-no-merge-copy={sourceConnectorsReadmeWorkflowDocsArchiveCopy.noMergeCopy}
+          data-owner-role={sourceConnectorsReadmeWorkflowDocsArchiveCopy.ownerRole}
+          data-pr-href={sourceConnectorsReadmeWorkflowDocsArchiveCopy.prHref}
+          data-release-note={sourceConnectorsReadmeWorkflowDocsArchiveCopy.releaseNote}
+          data-release-scope={sourceConnectorsReadmeWorkflowDocsArchiveCopy.releaseScope}
+          data-repair-targets={sourceConnectorsReadmeWorkflowDocsArchiveCopy.repairTargets}
+          data-route={sourceConnectorsReadmeWorkflowDocsArchiveCopy.route}
+          data-signoff-owners={sourceConnectorsReadmeWorkflowDocsArchiveCopy.signoffOwners.join(",")}
+          data-signoff-scope={sourceConnectorsReadmeWorkflowDocsArchiveCopy.signoffScope}
+          data-source-marker-selector={sourceConnectorsReadmeWorkflowDocsArchiveCopy.sourceMarkerSelector}
+          data-status={sourceConnectorsReadmeWorkflowDocsArchiveCopy.status}
+          data-testid="source-connectors-readme-workflow-docs-archive-copy"
+          data-workflow-href={sourceConnectorsReadmeWorkflowDocsArchiveCopy.workflowHref}
+          data-workflow-name={sourceConnectorsReadmeWorkflowDocsArchiveCopy.workflowName}
+          data-workflow-path={sourceConnectorsReadmeWorkflowDocsArchiveCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source connectors README workflow docs archive copy</p>
+              <h2>Что архивирует Source Connectors README workflow docs guard</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="source-connectors-readme-workflow-docs-archive-anchor"
+              href={sourceConnectorsReadmeWorkflowDocsArchiveCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {sourceConnectorsReadmeWorkflowDocsArchiveCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Release"
+                    ? "Release archived"
+                    : title === "QA"
+                      ? "QA archived"
+                      : title === "API"
+                        ? "API archived"
+                        : "Data archived"}
                 </strong>
                 <p>{text}</p>
               </article>
