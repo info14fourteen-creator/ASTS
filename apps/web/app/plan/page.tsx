@@ -26,10 +26,10 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить web build README workflow docs release checklist copy", "закрепить Web build README workflow docs release checklist"],
-  ["2", "Добавить source connectors README workflow docs release approval copy", "закрепить Source Connectors README workflow docs release approval"],
-  ["3", "Добавить AI review queue README workflow docs release approval copy", "закрепить AI review queue README workflow docs release approval"],
-  ["4", "Добавить shared validation README workflow docs release approval copy", "закрепить shared validation README workflow docs release approval"],
+  ["1", "Добавить source connectors README workflow docs release approval copy", "закрепить Source Connectors README workflow docs release approval"],
+  ["2", "Добавить AI review queue README workflow docs release approval copy", "закрепить AI review queue README workflow docs release approval"],
+  ["3", "Добавить shared validation README workflow docs release approval copy", "закрепить shared validation README workflow docs release approval"],
+  ["4", "Добавить web build README workflow docs release approval copy", "закрепить Web build README workflow docs release approval"],
 ];
 
 const cycleRules = [
@@ -3553,6 +3553,45 @@ const webBuildReadmeWorkflowDocsOwnerHandoffCopy = {
     ["CI", "CI owner принимает Web build workflow и expected command count"],
     ["QA", "QA owner принимает build, route smoke и Browser DOM QA evidence"],
     ["Release", "Release owner принимает PR #17 CLEAN и release note text"],
+  ],
+};
+
+const webBuildReadmeWorkflowDocsReleaseChecklistCopy = {
+  route: webBuildReadmeWorkflowDocsOwnerHandoffCopy.route,
+  checkedWorkflowPath: webBuildReadmeWorkflowDocsOwnerHandoffCopy.checkedWorkflowPath,
+  branch: webBuildReadmeWorkflowDocsOwnerHandoffCopy.branch,
+  baseBranch: webBuildReadmeWorkflowDocsOwnerHandoffCopy.baseBranch,
+  command: webBuildReadmeWorkflowDocsOwnerHandoffCopy.command,
+  checklistOwners: webBuildReadmeWorkflowDocsOwnerHandoffCopy.handoffOwners,
+  checklistScope: "Web build README workflow docs release checklist",
+  docsHref: webBuildReadmeWorkflowDocsOwnerHandoffCopy.docsHref,
+  expectedCommandCount: webBuildReadmeWorkflowDocsOwnerHandoffCopy.expectedCommandCount,
+  expectedCheckGroups: webBuildReadmeWorkflowDocsOwnerHandoffCopy.expectedCheckGroups,
+  expectedConclusion: webBuildReadmeWorkflowDocsOwnerHandoffCopy.expectedConclusion,
+  expectedMergeState: webBuildReadmeWorkflowDocsOwnerHandoffCopy.expectedMergeState,
+  expectedPrNumber: webBuildReadmeWorkflowDocsOwnerHandoffCopy.expectedPrNumber,
+  expectedRouteCount: webBuildReadmeWorkflowDocsOwnerHandoffCopy.expectedRouteCount,
+  finalQaScope: webBuildReadmeWorkflowDocsOwnerHandoffCopy.finalQaScope,
+  handoffScope: webBuildReadmeWorkflowDocsOwnerHandoffCopy.handoffScope,
+  linkSelector: "[data-testid='web-build-readme-workflow-docs-release-checklist-anchor']",
+  noMergeCopy:
+    "Не выпускать Web build README workflow docs release, пока Frontend, CI, QA и Release owners не приняли checklist evidence",
+  ownerRole: webBuildReadmeWorkflowDocsOwnerHandoffCopy.ownerRole,
+  prHref: webBuildReadmeWorkflowDocsOwnerHandoffCopy.prHref,
+  releaseNote: webBuildReadmeWorkflowDocsOwnerHandoffCopy.releaseNote,
+  releaseScope: webBuildReadmeWorkflowDocsOwnerHandoffCopy.releaseScope,
+  repairTargets:
+    "PR #17,release checklist,apps/web/scripts/smoke.mjs,/plan,[data-testid='web-build-readme-workflow-docs-owner-handoff-copy']",
+  sourceMarkerSelector: "[data-testid='web-build-readme-workflow-docs-owner-handoff-copy']",
+  status: webBuildReadmeWorkflowDocsOwnerHandoffCopy.status,
+  workflowHref: webBuildReadmeWorkflowDocsOwnerHandoffCopy.workflowHref,
+  workflowName: webBuildReadmeWorkflowDocsOwnerHandoffCopy.workflowName,
+  workflowPath: webBuildReadmeWorkflowDocsOwnerHandoffCopy.workflowPath,
+  checks: [
+    ["Frontend", "Frontend owner отмечает static routes, README docs и owner handoff"],
+    ["CI", "CI owner отмечает Web build workflow, expected command count и smoke coverage"],
+    ["QA", "QA owner отмечает build, route smoke и Browser DOM QA evidence"],
+    ["Release", "Release owner отмечает PR #17 CLEAN, release note и owner handoff acceptance"],
   ],
 };
 
@@ -9765,6 +9804,70 @@ export default function PlanPage() {
                       : title === "CI"
                         ? "CI accepts"
                         : "Frontend accepts"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={webBuildReadmeWorkflowDocsReleaseChecklistCopy.baseBranch}
+          data-branch={webBuildReadmeWorkflowDocsReleaseChecklistCopy.branch}
+          data-checked-workflow-path={webBuildReadmeWorkflowDocsReleaseChecklistCopy.checkedWorkflowPath}
+          data-checklist-owners={webBuildReadmeWorkflowDocsReleaseChecklistCopy.checklistOwners.join(",")}
+          data-checklist-scope={webBuildReadmeWorkflowDocsReleaseChecklistCopy.checklistScope}
+          data-command={webBuildReadmeWorkflowDocsReleaseChecklistCopy.command}
+          data-docs-href={webBuildReadmeWorkflowDocsReleaseChecklistCopy.docsHref}
+          data-expected-command-count={webBuildReadmeWorkflowDocsReleaseChecklistCopy.expectedCommandCount}
+          data-expected-check-groups={webBuildReadmeWorkflowDocsReleaseChecklistCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={webBuildReadmeWorkflowDocsReleaseChecklistCopy.expectedConclusion}
+          data-expected-merge-state={webBuildReadmeWorkflowDocsReleaseChecklistCopy.expectedMergeState}
+          data-expected-pr-number={webBuildReadmeWorkflowDocsReleaseChecklistCopy.expectedPrNumber}
+          data-expected-route-count={webBuildReadmeWorkflowDocsReleaseChecklistCopy.expectedRouteCount}
+          data-final-qa-scope={webBuildReadmeWorkflowDocsReleaseChecklistCopy.finalQaScope}
+          data-handoff-scope={webBuildReadmeWorkflowDocsReleaseChecklistCopy.handoffScope}
+          data-link-selector={webBuildReadmeWorkflowDocsReleaseChecklistCopy.linkSelector}
+          data-no-merge-copy={webBuildReadmeWorkflowDocsReleaseChecklistCopy.noMergeCopy}
+          data-owner-role={webBuildReadmeWorkflowDocsReleaseChecklistCopy.ownerRole}
+          data-pr-href={webBuildReadmeWorkflowDocsReleaseChecklistCopy.prHref}
+          data-release-note={webBuildReadmeWorkflowDocsReleaseChecklistCopy.releaseNote}
+          data-release-scope={webBuildReadmeWorkflowDocsReleaseChecklistCopy.releaseScope}
+          data-repair-targets={webBuildReadmeWorkflowDocsReleaseChecklistCopy.repairTargets}
+          data-route={webBuildReadmeWorkflowDocsReleaseChecklistCopy.route}
+          data-source-marker-selector={webBuildReadmeWorkflowDocsReleaseChecklistCopy.sourceMarkerSelector}
+          data-status={webBuildReadmeWorkflowDocsReleaseChecklistCopy.status}
+          data-testid="web-build-readme-workflow-docs-release-checklist-copy"
+          data-workflow-href={webBuildReadmeWorkflowDocsReleaseChecklistCopy.workflowHref}
+          data-workflow-name={webBuildReadmeWorkflowDocsReleaseChecklistCopy.workflowName}
+          data-workflow-path={webBuildReadmeWorkflowDocsReleaseChecklistCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Web build README workflow docs release checklist copy</p>
+              <h2>Что отметить перед выпуском Web build README workflow docs guard</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="web-build-readme-workflow-docs-release-checklist-anchor"
+              href={webBuildReadmeWorkflowDocsReleaseChecklistCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {webBuildReadmeWorkflowDocsReleaseChecklistCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Release"
+                    ? "Release checked"
+                    : title === "QA"
+                      ? "QA checked"
+                      : title === "CI"
+                        ? "CI checked"
+                        : "Frontend checked"}
                 </strong>
                 <p>{text}</p>
               </article>

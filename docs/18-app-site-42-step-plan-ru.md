@@ -241,3 +241,5 @@
 217. [done 2026-06-21] Добавить AI review queue README workflow docs release checklist copy: закрепить owner-friendly release checklist для AI review queue README workflow docs guard, который фиксирует AI workflow, API, QA и Release acceptance перед выпуском.
 
 218. [done 2026-06-21] Добавить shared validation README workflow docs release checklist copy: закрепить owner-friendly release checklist для shared validation README workflow docs guard, который фиксирует Schema, CI, QA и Release acceptance перед выпуском.
+
+219. [done 2026-06-21] Добавить web build README workflow docs release checklist copy: закрепить owner-friendly release checklist для Web build README workflow docs guard, который фиксирует Frontend, CI, QA и Release acceptance перед выпуском.
