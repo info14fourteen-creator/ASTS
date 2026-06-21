@@ -299,3 +299,5 @@
 246. [done 2026-06-21] Подготовить PR #17 release archive handoff copy: описать standby archive handoff для release note, CI links, smoke evidence и rollback contact без удаления branch.
 
 247. [done 2026-06-21] Подготовить PR #17 final PR closeout note copy: описать standby closeout note для CLEAN PR, SUCCESS checks, нулевых review counters и archive handoff без закрытия PR.
+
+248. [done 2026-06-21] Подготовить PR #17 branch retention notice copy: описать standby retention notice для codex/app-site-shell, audit trail и rollback review без удаления ветки.

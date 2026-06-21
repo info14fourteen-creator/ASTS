@@ -26,7 +26,7 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Подготовить PR #17 branch retention notice copy", "описать branch retention после closeout без удаления ветки"],
+  ["1", "Подготовить PR #17 release tag wait-state copy", "описать ожидание release tag без создания tag"],
 ];
 
 const cycleRules = [
@@ -4429,6 +4429,47 @@ const prFinalPrCloseoutNoteCopy = {
     ["Counters", "Review counters остаются нулевыми перед owner closeout"],
     ["Archive", "Closeout ссылается на release archive handoff evidence"],
     ["Owner", "Следующий шаг описывает branch retention без удаления ветки"],
+  ],
+};
+
+const prBranchRetentionNoticeCopy = {
+  route: "/plan",
+  branch: prFinalPrCloseoutNoteCopy.branch,
+  baseBranch: prFinalPrCloseoutNoteCopy.baseBranch,
+  command: prFinalPrCloseoutNoteCopy.command,
+  closeoutSelector: "[data-testid='pr-final-pr-closeout-note-copy']",
+  retentionScope: "PR #17 branch retention notice copy",
+  expectedCheckGroups: prFinalPrCloseoutNoteCopy.expectedCheckGroups,
+  expectedConclusion: prFinalPrCloseoutNoteCopy.expectedConclusion,
+  expectedMergeState: prFinalPrCloseoutNoteCopy.expectedMergeState,
+  expectedPrComments: prFinalPrCloseoutNoteCopy.expectedPrComments,
+  expectedReviewDecision: prFinalPrCloseoutNoteCopy.expectedReviewDecision,
+  expectedReviews: prFinalPrCloseoutNoteCopy.expectedReviews,
+  expectedReviewThreads: prFinalPrCloseoutNoteCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prFinalPrCloseoutNoteCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-branch-retention-notice-anchor']",
+  noDeleteCopy:
+    "Branch retention notice только фиксирует, что codex/app-site-shell остается доступной для audit trail; branch deletion, archive cleanup, release tagging и main push остаются отдельными owner actions",
+  ownerRole: "Repo admin + Release owner",
+  retentionCopy:
+    "Branch retention notice для PR #17: после final closeout сохранить branch codex/app-site-shell до owner archive/rollback review, не удалять branch автоматически и не закрывать PR этим notice",
+  prHref: prFinalPrCloseoutNoteCopy.prHref,
+  releaseScope: prFinalPrCloseoutNoteCopy.releaseScope,
+  repairTargets:
+    "PR #17,branch retention notice,final PR closeout note,codex/app-site-shell,audit trail,rollback review,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-final-pr-closeout-note-copy']",
+  status: "branch-retention-standby",
+  retentionEvidence: [
+    "codex/app-site-shell retained",
+    "final closeout note linked",
+    "audit trail preserved",
+    "rollback review available",
+  ],
+  checks: [
+    ["Branch", "codex/app-site-shell остается доступной для audit trail"],
+    ["Delete", "Branch deletion не выполняется автоматически этим notice"],
+    ["Rollback", "Rollback review сохраняет доступ к PR branch evidence"],
+    ["Next", "Следующий шаг описывает release tag wait-state без создания tag"],
   ],
 };
 
@@ -12080,6 +12121,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prFinalPrCloseoutNoteCopy.closeoutCopy}</p>
           <p className="stage-line muted">{prFinalPrCloseoutNoteCopy.noCloseCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={prBranchRetentionNoticeCopy.baseBranch}
+          data-branch={prBranchRetentionNoticeCopy.branch}
+          data-closeout-selector={prBranchRetentionNoticeCopy.closeoutSelector}
+          data-command={prBranchRetentionNoticeCopy.command}
+          data-expected-check-groups={prBranchRetentionNoticeCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prBranchRetentionNoticeCopy.expectedConclusion}
+          data-expected-merge-state={prBranchRetentionNoticeCopy.expectedMergeState}
+          data-expected-pr-comments={prBranchRetentionNoticeCopy.expectedPrComments}
+          data-expected-review-decision={prBranchRetentionNoticeCopy.expectedReviewDecision}
+          data-expected-review-threads={prBranchRetentionNoticeCopy.expectedReviewThreads}
+          data-expected-reviews={prBranchRetentionNoticeCopy.expectedReviews}
+          data-expected-unresolved-threads={prBranchRetentionNoticeCopy.expectedUnresolvedThreads}
+          data-link-selector={prBranchRetentionNoticeCopy.linkSelector}
+          data-no-delete-copy={prBranchRetentionNoticeCopy.noDeleteCopy}
+          data-owner-role={prBranchRetentionNoticeCopy.ownerRole}
+          data-pr-href={prBranchRetentionNoticeCopy.prHref}
+          data-release-scope={prBranchRetentionNoticeCopy.releaseScope}
+          data-repair-targets={prBranchRetentionNoticeCopy.repairTargets}
+          data-retention-copy={prBranchRetentionNoticeCopy.retentionCopy}
+          data-retention-evidence={prBranchRetentionNoticeCopy.retentionEvidence.join(",")}
+          data-retention-scope={prBranchRetentionNoticeCopy.retentionScope}
+          data-route={prBranchRetentionNoticeCopy.route}
+          data-source-marker-selector={prBranchRetentionNoticeCopy.sourceMarkerSelector}
+          data-status={prBranchRetentionNoticeCopy.status}
+          data-testid="pr-branch-retention-notice-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR branch retention notice copy</p>
+              <h2>Как сохранить branch после closeout PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-branch-retention-notice-anchor"
+              href={prBranchRetentionNoticeCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prBranchRetentionNoticeCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Branch"
+                    ? "Retained"
+                    : title === "Delete"
+                      ? "No delete"
+                      : title === "Rollback"
+                        ? "Review ready"
+                        : "Tag wait next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prBranchRetentionNoticeCopy.retentionCopy}</p>
+          <p className="stage-line muted">{prBranchRetentionNoticeCopy.noDeleteCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
