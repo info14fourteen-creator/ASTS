@@ -309,3 +309,5 @@
 251. [done 2026-06-21] Подготовить PR #17 release incident fallback copy: описать standby fallback для failed check, broken /plan smoke, impacted surface и rollback note без открытия incident.
 
 252. [done 2026-06-22] Подготовить PR #17 release retrospective note copy: описать draft retrospective note для release result, SUCCESS checks, /plan smoke, review counters и rollback contact без создания docs issue.
+
+253. [done 2026-06-22] Подготовить PR #17 release lessons learned follow-up copy: описать draft follow-up для what worked, watchouts, evidence gaps, follow-up candidates и monitoring reminder без назначения owner actions.

@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 release lessons learned follow-up copy",
-    "описать lessons learned follow-up без назначения owner actions",
+    "Подготовить PR #17 release action items backlog copy",
+    "описать action items backlog без создания задач",
   ],
 ];
 
@@ -4640,6 +4640,48 @@ const prReleaseRetrospectiveNoteCopy = {
     ["Evidence", "Note перечисляет /plan smoke, review counters, rollback contact и standby fallback"],
     ["Action", "Этот copy не создает docs issue, GitHub issue или owner assignment"],
     ["Next", "Следующий шаг описывает release lessons learned follow-up без owner actions"],
+  ],
+};
+
+const prReleaseLessonsLearnedFollowUpCopy = {
+  route: "/plan",
+  branch: prReleaseRetrospectiveNoteCopy.branch,
+  baseBranch: prReleaseRetrospectiveNoteCopy.baseBranch,
+  command: prReleaseRetrospectiveNoteCopy.command,
+  retrospectiveNoteSelector: "[data-testid='pr-release-retrospective-note-copy']",
+  lessonsScope: "PR #17 release lessons learned follow-up copy",
+  expectedCheckGroups: prReleaseRetrospectiveNoteCopy.expectedCheckGroups,
+  expectedConclusion: prReleaseRetrospectiveNoteCopy.expectedConclusion,
+  expectedMergeState: prReleaseRetrospectiveNoteCopy.expectedMergeState,
+  expectedPrComments: prReleaseRetrospectiveNoteCopy.expectedPrComments,
+  expectedReviewDecision: prReleaseRetrospectiveNoteCopy.expectedReviewDecision,
+  expectedReviews: prReleaseRetrospectiveNoteCopy.expectedReviews,
+  expectedReviewThreads: prReleaseRetrospectiveNoteCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prReleaseRetrospectiveNoteCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-release-lessons-learned-anchor']",
+  noOwnerActionCopy:
+    "Release lessons learned follow-up copy только описывает follow-up text; owner actions, task creation, docs issue, backlog mutation, merge action и main push остаются отдельными owner actions",
+  ownerRole: "Release owner + Delivery reviewer",
+  lessonsCopy:
+    "Release lessons learned follow-up для PR #17: после retrospective note собрать what worked, watchouts, evidence gaps, follow-up candidates и monitoring reminder; если release еще не выполнен, follow-up остается draft",
+  prHref: prReleaseRetrospectiveNoteCopy.prHref,
+  releaseScope: prReleaseRetrospectiveNoteCopy.releaseScope,
+  repairTargets:
+    "PR #17,release lessons learned,release retrospective note,what worked,watchouts,evidence gaps,follow-up candidates,monitoring reminder,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-release-retrospective-note-copy']",
+  status: "lessons-learned-draft",
+  lessonsEvidence: [
+    "what worked",
+    "watchouts",
+    "evidence gaps",
+    "follow-up candidates",
+    "monitoring reminder",
+  ],
+  checks: [
+    ["Learn", "Lessons learned связывает what worked, watchouts и evidence gaps"],
+    ["Follow-up", "Follow-up candidates остаются текстом без task creation или backlog mutation"],
+    ["Action", "Этот copy не назначает owner actions и не создает docs issue"],
+    ["Next", "Следующий шаг описывает release action items backlog без создания задач"],
   ],
 };
 
@@ -12601,6 +12643,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prReleaseRetrospectiveNoteCopy.retrospectiveCopy}</p>
           <p className="stage-line muted">{prReleaseRetrospectiveNoteCopy.noDocsIssueCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={prReleaseLessonsLearnedFollowUpCopy.baseBranch}
+          data-branch={prReleaseLessonsLearnedFollowUpCopy.branch}
+          data-command={prReleaseLessonsLearnedFollowUpCopy.command}
+          data-expected-check-groups={prReleaseLessonsLearnedFollowUpCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prReleaseLessonsLearnedFollowUpCopy.expectedConclusion}
+          data-expected-merge-state={prReleaseLessonsLearnedFollowUpCopy.expectedMergeState}
+          data-expected-pr-comments={prReleaseLessonsLearnedFollowUpCopy.expectedPrComments}
+          data-expected-review-decision={prReleaseLessonsLearnedFollowUpCopy.expectedReviewDecision}
+          data-expected-review-threads={prReleaseLessonsLearnedFollowUpCopy.expectedReviewThreads}
+          data-expected-reviews={prReleaseLessonsLearnedFollowUpCopy.expectedReviews}
+          data-expected-unresolved-threads={prReleaseLessonsLearnedFollowUpCopy.expectedUnresolvedThreads}
+          data-lessons-copy={prReleaseLessonsLearnedFollowUpCopy.lessonsCopy}
+          data-lessons-evidence={prReleaseLessonsLearnedFollowUpCopy.lessonsEvidence.join(",")}
+          data-lessons-scope={prReleaseLessonsLearnedFollowUpCopy.lessonsScope}
+          data-link-selector={prReleaseLessonsLearnedFollowUpCopy.linkSelector}
+          data-no-owner-action-copy={prReleaseLessonsLearnedFollowUpCopy.noOwnerActionCopy}
+          data-owner-role={prReleaseLessonsLearnedFollowUpCopy.ownerRole}
+          data-pr-href={prReleaseLessonsLearnedFollowUpCopy.prHref}
+          data-release-scope={prReleaseLessonsLearnedFollowUpCopy.releaseScope}
+          data-repair-targets={prReleaseLessonsLearnedFollowUpCopy.repairTargets}
+          data-retrospective-note-selector={prReleaseLessonsLearnedFollowUpCopy.retrospectiveNoteSelector}
+          data-route={prReleaseLessonsLearnedFollowUpCopy.route}
+          data-source-marker-selector={prReleaseLessonsLearnedFollowUpCopy.sourceMarkerSelector}
+          data-status={prReleaseLessonsLearnedFollowUpCopy.status}
+          data-testid="pr-release-lessons-learned-follow-up-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR release lessons learned follow-up copy</p>
+              <h2>Как описать lessons learned PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-lessons-learned-anchor"
+              href={prReleaseLessonsLearnedFollowUpCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReleaseLessonsLearnedFollowUpCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Learn"
+                    ? "Lessons"
+                    : title === "Follow-up"
+                      ? "Candidates"
+                      : title === "Action"
+                        ? "No owner action"
+                        : "Backlog next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prReleaseLessonsLearnedFollowUpCopy.lessonsCopy}</p>
+          <p className="stage-line muted">{prReleaseLessonsLearnedFollowUpCopy.noOwnerActionCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
