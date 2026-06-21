@@ -26,7 +26,7 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Подготовить PR #17 approval request copy", "сформировать owner-safe текст запроса approval без merge action"],
+  ["1", "Проверить PR #17 approval wait-state copy", "зафиксировать ожидание reviewer approval без merge action"],
 ];
 
 const cycleRules = [
@@ -4042,6 +4042,43 @@ const prMergeApprovalChecklistCopy = {
     ["Review state", "reviewDecision пустой, reviews=0 и approval еще не запрошен"],
     ["Comments", "comments=0 и нет открытого reviewer feedback перед approval request"],
     ["Checklist", "Owner checklist готовит следующий approval request без merge action"],
+  ],
+};
+
+const prMergeApprovalRequestCopy = {
+  route: "/plan",
+  branch: prMergeApprovalChecklistCopy.branch,
+  baseBranch: prMergeApprovalChecklistCopy.baseBranch,
+  command: prMergeApprovalChecklistCopy.command,
+  approvalRequestScope: "PR #17 approval request copy",
+  checklistSelector: "[data-testid='pr-merge-approval-checklist-copy']",
+  expectedCheckGroups: prMergeApprovalChecklistCopy.expectedCheckGroups,
+  expectedConclusion: prMergeApprovalChecklistCopy.expectedConclusion,
+  expectedMergeState: prMergeApprovalChecklistCopy.expectedMergeState,
+  expectedPrComments: prMergeApprovalChecklistCopy.expectedPrComments,
+  expectedReviewDecision: prMergeApprovalChecklistCopy.expectedReviewDecision,
+  expectedReviews: prMergeApprovalChecklistCopy.expectedReviews,
+  expectedReviewThreads: prMergeApprovalChecklistCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prMergeApprovalChecklistCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-approval-request-anchor']",
+  noMergeCopy:
+    "Approval request copy не выполняет merge action и не отправляет GitHub review без отдельного owner signoff",
+  ownerRole: "Release owner + Reviewer",
+  prHref: prMergeApprovalChecklistCopy.prHref,
+  releaseScope: prMergeApprovalChecklistCopy.releaseScope,
+  repairTargets:
+    "PR #17,approval request copy,merge approval checklist,reviewDecision,statusCheckRollup,apps/web/scripts/smoke.mjs,/plan",
+  requestChannel: "Owner handoff comment",
+  requestCopy:
+    "Прошу owner/reviewer approval для PR #17: branch codex/app-site-shell to main, checks SUCCESS, mergeState CLEAN, reviewThreads=0, comments=0, reviews=0, reviewDecision пустой; merge action не выполнять до отдельного owner signoff",
+  requestOwners: ["Release owner", "Reviewer"],
+  sourceMarkerSelector: "[data-testid='pr-merge-approval-checklist-copy']",
+  status: "draft-ready",
+  checks: [
+    ["Scope", "Approval request ссылается на checklist, final handoff и PR #17"],
+    ["Preconditions", "CLEAN, SUCCESS, reviewThreads=0, comments=0, reviews=0 уже подтверждены"],
+    ["Request", "Текст просит reviewer approval без merge или auto-merge действия"],
+    ["Guardrail", "Если reviewDecision изменится или появятся comments, вернуться к checklist"],
   ],
 };
 
@@ -11072,6 +11109,69 @@ export default function PlanPage() {
             ))}
           </div>
           <p className="stage-line muted">{prMergeApprovalChecklistCopy.noMergeCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-approval-request-scope={prMergeApprovalRequestCopy.approvalRequestScope}
+          data-base-branch={prMergeApprovalRequestCopy.baseBranch}
+          data-branch={prMergeApprovalRequestCopy.branch}
+          data-checklist-selector={prMergeApprovalRequestCopy.checklistSelector}
+          data-command={prMergeApprovalRequestCopy.command}
+          data-expected-check-groups={prMergeApprovalRequestCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prMergeApprovalRequestCopy.expectedConclusion}
+          data-expected-merge-state={prMergeApprovalRequestCopy.expectedMergeState}
+          data-expected-pr-comments={prMergeApprovalRequestCopy.expectedPrComments}
+          data-expected-review-decision={prMergeApprovalRequestCopy.expectedReviewDecision}
+          data-expected-review-threads={prMergeApprovalRequestCopy.expectedReviewThreads}
+          data-expected-reviews={prMergeApprovalRequestCopy.expectedReviews}
+          data-expected-unresolved-threads={prMergeApprovalRequestCopy.expectedUnresolvedThreads}
+          data-link-selector={prMergeApprovalRequestCopy.linkSelector}
+          data-no-merge-copy={prMergeApprovalRequestCopy.noMergeCopy}
+          data-owner-role={prMergeApprovalRequestCopy.ownerRole}
+          data-pr-href={prMergeApprovalRequestCopy.prHref}
+          data-release-scope={prMergeApprovalRequestCopy.releaseScope}
+          data-repair-targets={prMergeApprovalRequestCopy.repairTargets}
+          data-request-channel={prMergeApprovalRequestCopy.requestChannel}
+          data-request-copy={prMergeApprovalRequestCopy.requestCopy}
+          data-request-owners={prMergeApprovalRequestCopy.requestOwners.join(",")}
+          data-route={prMergeApprovalRequestCopy.route}
+          data-source-marker-selector={prMergeApprovalRequestCopy.sourceMarkerSelector}
+          data-status={prMergeApprovalRequestCopy.status}
+          data-testid="pr-approval-request-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR approval request copy</p>
+              <h2>Что отправлять как PR #17 approval request</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-approval-request-anchor"
+              href={prMergeApprovalRequestCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prMergeApprovalRequestCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Scope"
+                    ? "PR #17"
+                    : title === "Preconditions"
+                      ? "Verified"
+                      : title === "Request"
+                        ? "Approval only"
+                        : "Checklist first"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prMergeApprovalRequestCopy.requestCopy}</p>
+          <p className="stage-line muted">{prMergeApprovalRequestCopy.noMergeCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">

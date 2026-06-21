@@ -279,3 +279,5 @@
 236. [done 2026-06-21] Подготовить PR #17 final merge handoff copy: собрать CLEAN PR, SUCCESS checks, reviewThreads=0, comments=0 и reviews=0 в один owner-ready handoff перед approval checklist.
 
 237. [done 2026-06-21] Проверить PR #17 merge approval checklist copy: закрепить owner checklist для CLEAN PR, SUCCESS checks, reviewThreads=0, comments=0, reviews=0 и пустого reviewDecision перед approval request.
+
+238. [done 2026-06-21] Подготовить PR #17 approval request copy: сформировать owner-safe текст запроса approval, который ссылается на checklist, CLEAN PR, SUCCESS checks и запрещает merge action до отдельного owner signoff.
