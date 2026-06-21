@@ -645,6 +645,46 @@ const sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy = {
   ],
 };
 
+const sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy = {
+  route: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.route,
+  apiRoute: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.apiRoute,
+  branch: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.branch,
+  baseBranch: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.baseBranch,
+  command: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.command,
+  checklistOwners: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.handoffOwners,
+  checklistScope: "Source Connectors README workflow docs release checklist",
+  connectorIds: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.connectorIds,
+  docsHref: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.docsHref,
+  expectedCheckGroups: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.expectedCheckGroups,
+  expectedConclusion: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.expectedConclusion,
+  expectedMergeState: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.expectedMergeState,
+  expectedPrNumber: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.expectedPrNumber,
+  expectedRouteCount: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.expectedRouteCount,
+  finalQaScope: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.finalQaScope,
+  handoffScope: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.handoffScope,
+  linkSelector: "[data-testid='source-connectors-readme-workflow-docs-release-checklist-anchor']",
+  mode: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.mode,
+  noMergeCopy:
+    "Не выпускать Source Connectors README workflow docs release, пока Data, API, QA и Release owners не приняли checklist evidence",
+  ownerRole: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.ownerRole,
+  prHref: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.prHref,
+  releaseNote: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.releaseNote,
+  releaseScope: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.releaseScope,
+  repairTargets:
+    "PR #17,release checklist,apps/web/scripts/smoke.mjs,/sources,[data-testid='source-connectors-readme-workflow-docs-owner-handoff-copy']",
+  sourceMarkerSelector: "[data-testid='source-connectors-readme-workflow-docs-owner-handoff-copy']",
+  status: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.status,
+  workflowHref: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.workflowHref,
+  workflowName: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.workflowName,
+  workflowPath: sourceConnectorsReadmeWorkflowDocsOwnerHandoffCopy.workflowPath,
+  checks: [
+    ["Data", "Data owner отмечает connector ids, contract_only mode и source contract docs"],
+    ["API", "API owner отмечает `/v1/sources/connectors`, README contract link и smoke coverage"],
+    ["QA", "QA owner отмечает build, route smoke и Browser DOM QA evidence"],
+    ["Release", "Release owner отмечает PR #17 CLEAN, release note и owner handoff acceptance"],
+  ],
+};
+
 const fnsNetworkGateBrowserLoop = {
   route: "/sources",
   apiRoute: "/v1/sources/connectors",
@@ -1706,6 +1746,71 @@ export default function SourcesPage() {
                       : title === "API"
                         ? "API accepts"
                         : "Data accepts"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="panel source-quarantine-browser-loop-panel"
+          data-api-route={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.apiRoute}
+          data-base-branch={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.baseBranch}
+          data-branch={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.branch}
+          data-checklist-owners={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.checklistOwners.join(",")}
+          data-checklist-scope={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.checklistScope}
+          data-command={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.command}
+          data-connector-ids={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.connectorIds.join(",")}
+          data-docs-href={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.docsHref}
+          data-expected-check-groups={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.expectedConclusion}
+          data-expected-merge-state={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.expectedMergeState}
+          data-expected-pr-number={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.expectedPrNumber}
+          data-expected-route-count={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.expectedRouteCount}
+          data-final-qa-scope={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.finalQaScope}
+          data-handoff-scope={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.handoffScope}
+          data-link-selector={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.linkSelector}
+          data-mode={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.mode}
+          data-no-merge-copy={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.noMergeCopy}
+          data-owner-role={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.ownerRole}
+          data-pr-href={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.prHref}
+          data-release-note={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.releaseNote}
+          data-release-scope={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.releaseScope}
+          data-repair-targets={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.repairTargets}
+          data-route={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.route}
+          data-source-marker-selector={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.sourceMarkerSelector}
+          data-status={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.status}
+          data-testid="source-connectors-readme-workflow-docs-release-checklist-copy"
+          data-workflow-href={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.workflowHref}
+          data-workflow-name={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.workflowName}
+          data-workflow-path={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.workflowPath}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">Source connectors README workflow docs release checklist copy</p>
+              <h2>Что отметить перед выпуском Source Connectors README workflow docs guard</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="source-connectors-readme-workflow-docs-release-checklist-anchor"
+              href={sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="source-quarantine-browser-loop-grid">
+            {sourceConnectorsReadmeWorkflowDocsReleaseChecklistCopy.checks.map(([title, text]) => (
+              <article key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Release"
+                    ? "Release checked"
+                    : title === "QA"
+                      ? "QA checked"
+                      : title === "API"
+                        ? "API checked"
+                        : "Data checked"}
                 </strong>
                 <p>{text}</p>
               </article>
