@@ -281,3 +281,5 @@
 237. [done 2026-06-21] Проверить PR #17 merge approval checklist copy: закрепить owner checklist для CLEAN PR, SUCCESS checks, reviewThreads=0, comments=0, reviews=0 и пустого reviewDecision перед approval request.
 
 238. [done 2026-06-21] Подготовить PR #17 approval request copy: сформировать owner-safe текст запроса approval, который ссылается на checklist, CLEAN PR, SUCCESS checks и запрещает merge action до отдельного owner signoff.
+
+239. [done 2026-06-21] Проверить PR #17 approval wait-state copy: закрепить ожидание reviewer/owner approval при пустом reviewDecision, comments=0, reviews=0 и запрете merge/auto-merge до явного ответа.
