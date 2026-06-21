@@ -26,7 +26,7 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Подготовить PR #17 post-merge verification checklist copy", "описать verification checklist без изменения main"],
+  ["1", "Подготовить PR #17 release archive handoff copy", "описать archive handoff без удаления branch"],
 ];
 
 const cycleRules = [
@@ -4305,6 +4305,47 @@ const prPostAuthorizationMergeExecutionChecklistCopy = {
     ["Method", "Owner должен явно выбрать merge method: squash, merge commit или rebase"],
     ["Rollback", "Назначить rollback contact до ручного merge action"],
     ["Stop", "Checklist останавливает execution при новых comments, reviews или failed checks"],
+  ],
+};
+
+const prPostMergeVerificationChecklistCopy = {
+  route: "/plan",
+  branch: prPostAuthorizationMergeExecutionChecklistCopy.branch,
+  baseBranch: prPostAuthorizationMergeExecutionChecklistCopy.baseBranch,
+  command: prPostAuthorizationMergeExecutionChecklistCopy.command,
+  executionChecklistSelector: "[data-testid='pr-post-authorization-merge-execution-checklist-copy']",
+  verificationScope: "PR #17 post-merge verification checklist copy",
+  expectedCheckGroups: prPostAuthorizationMergeExecutionChecklistCopy.expectedCheckGroups,
+  expectedConclusion: prPostAuthorizationMergeExecutionChecklistCopy.expectedConclusion,
+  expectedMergeState: prPostAuthorizationMergeExecutionChecklistCopy.expectedMergeState,
+  expectedPrComments: prPostAuthorizationMergeExecutionChecklistCopy.expectedPrComments,
+  expectedReviewDecision: prPostAuthorizationMergeExecutionChecklistCopy.expectedReviewDecision,
+  expectedReviews: prPostAuthorizationMergeExecutionChecklistCopy.expectedReviews,
+  expectedReviewThreads: prPostAuthorizationMergeExecutionChecklistCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prPostAuthorizationMergeExecutionChecklistCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-post-merge-verification-checklist-anchor']",
+  noMergeCopy:
+    "Post-merge verification checklist является условным handoff после ручного merge; он не выполняет merge, не пушит main, не удаляет branch и не меняет release state",
+  ownerRole: "Release owner + QA owner",
+  verificationCopy:
+    "Post-merge verification checklist для PR #17: после ручного merge проверить main Web build/API smoke/Shared validation, /plan smoke, отсутствие новых review counters, release note и rollback contact; если merge не выполнен, checklist остается standby",
+  prHref: prPostAuthorizationMergeExecutionChecklistCopy.prHref,
+  releaseScope: prPostAuthorizationMergeExecutionChecklistCopy.releaseScope,
+  repairTargets:
+    "PR #17,post-merge verification checklist,post-authorization merge execution checklist,main checks,release note,rollback contact,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-post-authorization-merge-execution-checklist-copy']",
+  status: "verification-checklist-standby",
+  verificationSteps: [
+    "Confirm manual merge completed by owner",
+    "Verify main Web build, API smoke, Shared validation",
+    "Run /plan smoke after main deploy",
+    "Record release note and rollback contact",
+  ],
+  checks: [
+    ["Merge", "Verification starts only after owner confirms manual merge completed"],
+    ["Main", "Проверить main checks и smoke после merge/deploy"],
+    ["Release", "Зафиксировать release note, rollback contact и owner timestamp"],
+    ["Standby", "До фактического merge этот checklist остается standby и ничего не меняет"],
   ],
 };
 
@@ -11770,6 +11811,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prPostAuthorizationMergeExecutionChecklistCopy.checklistCopy}</p>
           <p className="stage-line muted">{prPostAuthorizationMergeExecutionChecklistCopy.noMergeCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={prPostMergeVerificationChecklistCopy.baseBranch}
+          data-branch={prPostMergeVerificationChecklistCopy.branch}
+          data-command={prPostMergeVerificationChecklistCopy.command}
+          data-execution-checklist-selector={prPostMergeVerificationChecklistCopy.executionChecklistSelector}
+          data-expected-check-groups={prPostMergeVerificationChecklistCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prPostMergeVerificationChecklistCopy.expectedConclusion}
+          data-expected-merge-state={prPostMergeVerificationChecklistCopy.expectedMergeState}
+          data-expected-pr-comments={prPostMergeVerificationChecklistCopy.expectedPrComments}
+          data-expected-review-decision={prPostMergeVerificationChecklistCopy.expectedReviewDecision}
+          data-expected-review-threads={prPostMergeVerificationChecklistCopy.expectedReviewThreads}
+          data-expected-reviews={prPostMergeVerificationChecklistCopy.expectedReviews}
+          data-expected-unresolved-threads={prPostMergeVerificationChecklistCopy.expectedUnresolvedThreads}
+          data-link-selector={prPostMergeVerificationChecklistCopy.linkSelector}
+          data-no-merge-copy={prPostMergeVerificationChecklistCopy.noMergeCopy}
+          data-owner-role={prPostMergeVerificationChecklistCopy.ownerRole}
+          data-pr-href={prPostMergeVerificationChecklistCopy.prHref}
+          data-release-scope={prPostMergeVerificationChecklistCopy.releaseScope}
+          data-repair-targets={prPostMergeVerificationChecklistCopy.repairTargets}
+          data-route={prPostMergeVerificationChecklistCopy.route}
+          data-source-marker-selector={prPostMergeVerificationChecklistCopy.sourceMarkerSelector}
+          data-status={prPostMergeVerificationChecklistCopy.status}
+          data-verification-copy={prPostMergeVerificationChecklistCopy.verificationCopy}
+          data-verification-scope={prPostMergeVerificationChecklistCopy.verificationScope}
+          data-verification-steps={prPostMergeVerificationChecklistCopy.verificationSteps.join(",")}
+          data-testid="pr-post-merge-verification-checklist-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR post-merge verification checklist copy</p>
+              <h2>Что проверить после ручного merge PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-post-merge-verification-checklist-anchor"
+              href={prPostMergeVerificationChecklistCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prPostMergeVerificationChecklistCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Merge"
+                    ? "After merge"
+                    : title === "Main"
+                      ? "Main checks"
+                      : title === "Release"
+                        ? "Release note"
+                        : "Standby"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prPostMergeVerificationChecklistCopy.verificationCopy}</p>
+          <p className="stage-line muted">{prPostMergeVerificationChecklistCopy.noMergeCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
