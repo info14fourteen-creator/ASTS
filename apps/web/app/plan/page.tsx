@@ -26,9 +26,8 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Добавить AI review queue README workflow docs archive copy", "закрепить AI review queue README workflow docs archive"],
-  ["2", "Добавить shared validation README workflow docs archive copy", "закрепить shared validation README workflow docs archive"],
-  ["3", "Добавить web build README workflow docs archive copy", "закрепить Web build README workflow docs archive"],
+  ["1", "Добавить shared validation README workflow docs archive copy", "закрепить shared validation README workflow docs archive"],
+  ["2", "Добавить web build README workflow docs archive copy", "закрепить Web build README workflow docs archive"],
 ];
 
 const cycleRules = [

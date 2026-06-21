@@ -261,3 +261,5 @@
 227. [done 2026-06-21] Добавить web build README workflow docs release signoff copy: закрепить owner-friendly release signoff для Web build README workflow docs guard, который фиксирует Frontend, CI, QA и Release signoff evidence перед archive.
 
 228. [done 2026-06-21] Добавить source connectors README workflow docs archive copy: закрепить owner-friendly archive handoff для Source Connectors README workflow docs guard, который связывает release signoff, release note, CLEAN PR и smoke evidence.
+
+229. [done 2026-06-21] Добавить AI review queue README workflow docs archive copy: закрепить owner-friendly archive handoff для AI review queue README workflow docs guard, который связывает release signoff, release note, CLEAN PR и smoke evidence.
