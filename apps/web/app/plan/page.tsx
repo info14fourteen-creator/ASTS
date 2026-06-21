@@ -26,7 +26,7 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Подготовить PR #17 final merge handoff copy", "собрать финальный owner handoff перед merge approval"],
+  ["1", "Проверить PR #17 merge approval checklist copy", "сверить owner checklist перед запросом approval"],
 ];
 
 const cycleRules = [
@@ -3973,6 +3973,40 @@ const prMergeRequestCopy = {
     ["Checks", "Status check rollup SUCCESS для Web build, API smoke и Shared validation"],
     ["Review", "reviewThreads.totalCount=0 и unresolved=0 перед merge request"],
     ["Request", "Merge request copy связывает audit, readiness и review-thread evidence"],
+  ],
+};
+
+const prFinalMergeHandoffCopy = {
+  route: "/plan",
+  branch: prMergeRequestCopy.branch,
+  baseBranch: prMergeRequestCopy.baseBranch,
+  command:
+    "gh pr view 17 --json mergeStateStatus,statusCheckRollup,comments,reviews && gh api graphql reviewThreads(first:100)",
+  expectedCheckGroups: prMergeRequestCopy.expectedCheckGroups,
+  expectedConclusion: prMergeRequestCopy.expectedConclusion,
+  expectedMergeState: prMergeRequestCopy.expectedMergeState,
+  expectedPrComments: prReviewThreadsCopy.expectedPrComments,
+  expectedReviews: prReviewThreadsCopy.expectedReviews,
+  expectedReviewThreads: prMergeRequestCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prMergeRequestCopy.expectedUnresolvedThreads,
+  finalHandoffScope: "PR #17 final merge handoff copy",
+  linkSelector: "[data-testid='pr-final-merge-handoff-anchor']",
+  mergeRequestSelector: "[data-testid='pr-merge-request-copy']",
+  noMergeCopy:
+    "Не переводить PR #17 в merge approval, пока final handoff не показывает CLEAN, SUCCESS, reviewThreads=0, comments=0 и reviews=0",
+  ownerRole: "Release owner + Reviewer + QA owner",
+  prHref: prMergeRequestCopy.prHref,
+  releaseScope: prMergeRequestCopy.releaseScope,
+  repairTargets:
+    "PR #17,final merge handoff,merge request copy,review threads,statusCheckRollup,apps/web/scripts/smoke.mjs,/plan",
+  signoffOwners: ["Release owner", "Reviewer", "QA owner"],
+  sourceMarkerSelector: "[data-testid='pr-merge-request-copy']",
+  status: "ready",
+  checks: [
+    ["State", "PR #17 остается CLEAN между codex/app-site-shell и main"],
+    ["CI", "Status check rollup SUCCESS покрывает Web build, API smoke и Shared validation"],
+    ["Review", "reviewThreads=0, unresolved=0, comments=0 и reviews=0 перед approval request"],
+    ["Handoff", "Final merge handoff связывает request copy с owner checklist"],
   ],
 };
 
@@ -10884,6 +10918,65 @@ export default function PlanPage() {
             ))}
           </div>
           <p className="stage-line muted">{prMergeRequestCopy.noMergeCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={prFinalMergeHandoffCopy.baseBranch}
+          data-branch={prFinalMergeHandoffCopy.branch}
+          data-command={prFinalMergeHandoffCopy.command}
+          data-expected-check-groups={prFinalMergeHandoffCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prFinalMergeHandoffCopy.expectedConclusion}
+          data-expected-merge-state={prFinalMergeHandoffCopy.expectedMergeState}
+          data-expected-pr-comments={prFinalMergeHandoffCopy.expectedPrComments}
+          data-expected-review-threads={prFinalMergeHandoffCopy.expectedReviewThreads}
+          data-expected-reviews={prFinalMergeHandoffCopy.expectedReviews}
+          data-expected-unresolved-threads={prFinalMergeHandoffCopy.expectedUnresolvedThreads}
+          data-final-handoff-scope={prFinalMergeHandoffCopy.finalHandoffScope}
+          data-link-selector={prFinalMergeHandoffCopy.linkSelector}
+          data-merge-request-selector={prFinalMergeHandoffCopy.mergeRequestSelector}
+          data-no-merge-copy={prFinalMergeHandoffCopy.noMergeCopy}
+          data-owner-role={prFinalMergeHandoffCopy.ownerRole}
+          data-pr-href={prFinalMergeHandoffCopy.prHref}
+          data-release-scope={prFinalMergeHandoffCopy.releaseScope}
+          data-repair-targets={prFinalMergeHandoffCopy.repairTargets}
+          data-route={prFinalMergeHandoffCopy.route}
+          data-signoff-owners={prFinalMergeHandoffCopy.signoffOwners.join(",")}
+          data-source-marker-selector={prFinalMergeHandoffCopy.sourceMarkerSelector}
+          data-status={prFinalMergeHandoffCopy.status}
+          data-testid="pr-final-merge-handoff-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR final merge handoff copy</p>
+              <h2>Что фиксирует PR #17 final merge handoff</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-final-merge-handoff-anchor"
+              href={prFinalMergeHandoffCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prFinalMergeHandoffCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "State"
+                    ? "CLEAN"
+                    : title === "CI"
+                      ? "SUCCESS"
+                      : title === "Review"
+                        ? "0 open"
+                        : "Owners ready"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line muted">{prFinalMergeHandoffCopy.noMergeCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
