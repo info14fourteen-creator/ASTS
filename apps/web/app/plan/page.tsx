@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 release action items owner question copy",
-    "описать owner question без назначения owner",
+    "Подготовить PR #17 release action items owner answer copy",
+    "описать answer states без назначения owner",
   ],
 ];
 
@@ -4766,6 +4766,48 @@ const prReleaseActionItemsTriageCopy = {
     ["Question", "Owner-question остается вопросом без назначения owner"],
     ["Action", "Этот copy не создает tasks, GitHub issues или priority changes"],
     ["Next", "Следующий шаг описывает release action items owner question без назначения owner"],
+  ],
+};
+
+const prReleaseActionItemsOwnerQuestionCopy = {
+  route: "/plan",
+  branch: prReleaseActionItemsTriageCopy.branch,
+  baseBranch: prReleaseActionItemsTriageCopy.baseBranch,
+  command: prReleaseActionItemsTriageCopy.command,
+  triageSelector: "[data-testid='pr-release-action-items-triage-copy']",
+  ownerQuestionScope: "PR #17 release action items owner question copy",
+  expectedCheckGroups: prReleaseActionItemsTriageCopy.expectedCheckGroups,
+  expectedConclusion: prReleaseActionItemsTriageCopy.expectedConclusion,
+  expectedMergeState: prReleaseActionItemsTriageCopy.expectedMergeState,
+  expectedPrComments: prReleaseActionItemsTriageCopy.expectedPrComments,
+  expectedReviewDecision: prReleaseActionItemsTriageCopy.expectedReviewDecision,
+  expectedReviews: prReleaseActionItemsTriageCopy.expectedReviews,
+  expectedReviewThreads: prReleaseActionItemsTriageCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prReleaseActionItemsTriageCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-release-action-items-owner-question-anchor']",
+  noOwnerAssignmentCopy:
+    "Release action items owner question copy только описывает owner question text; owner assignment, answer capture, task creation, GitHub issue creation, merge action и main push остаются отдельными owner actions",
+  ownerRole: "Release owner + Delivery reviewer",
+  ownerQuestionCopy:
+    "Release action items owner question для PR #17: после triage draft задать owner-safe вопрос о нужном follow-up owner, acceptable evidence, priority signal и monitoring dependency; если owner еще не ответил, вопрос остается draft",
+  prHref: prReleaseActionItemsTriageCopy.prHref,
+  releaseScope: prReleaseActionItemsTriageCopy.releaseScope,
+  repairTargets:
+    "PR #17,release action items owner question,release action items triage,follow-up owner,acceptable evidence,priority signal,monitoring dependency,answer capture,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-release-action-items-triage-copy']",
+  status: "action-items-owner-question-draft",
+  ownerQuestionEvidence: [
+    "follow-up owner",
+    "acceptable evidence",
+    "priority signal",
+    "monitoring dependency",
+    "answer capture",
+  ],
+  checks: [
+    ["Owner", "Owner question связывает follow-up owner, acceptable evidence и priority signal"],
+    ["Evidence", "Monitoring dependency остается частью вопроса без alert changes"],
+    ["Action", "Этот copy не назначает owner и не сохраняет answer capture"],
+    ["Next", "Следующий шаг описывает release action items owner answer states без назначения owner"],
   ],
 };
 
@@ -12913,6 +12955,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prReleaseActionItemsTriageCopy.triageCopy}</p>
           <p className="stage-line muted">{prReleaseActionItemsTriageCopy.noOwnerAssignmentCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={prReleaseActionItemsOwnerQuestionCopy.baseBranch}
+          data-branch={prReleaseActionItemsOwnerQuestionCopy.branch}
+          data-command={prReleaseActionItemsOwnerQuestionCopy.command}
+          data-expected-check-groups={prReleaseActionItemsOwnerQuestionCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prReleaseActionItemsOwnerQuestionCopy.expectedConclusion}
+          data-expected-merge-state={prReleaseActionItemsOwnerQuestionCopy.expectedMergeState}
+          data-expected-pr-comments={prReleaseActionItemsOwnerQuestionCopy.expectedPrComments}
+          data-expected-review-decision={prReleaseActionItemsOwnerQuestionCopy.expectedReviewDecision}
+          data-expected-review-threads={prReleaseActionItemsOwnerQuestionCopy.expectedReviewThreads}
+          data-expected-reviews={prReleaseActionItemsOwnerQuestionCopy.expectedReviews}
+          data-expected-unresolved-threads={prReleaseActionItemsOwnerQuestionCopy.expectedUnresolvedThreads}
+          data-link-selector={prReleaseActionItemsOwnerQuestionCopy.linkSelector}
+          data-no-owner-assignment-copy={prReleaseActionItemsOwnerQuestionCopy.noOwnerAssignmentCopy}
+          data-owner-question-copy={prReleaseActionItemsOwnerQuestionCopy.ownerQuestionCopy}
+          data-owner-question-evidence={prReleaseActionItemsOwnerQuestionCopy.ownerQuestionEvidence.join(",")}
+          data-owner-question-scope={prReleaseActionItemsOwnerQuestionCopy.ownerQuestionScope}
+          data-owner-role={prReleaseActionItemsOwnerQuestionCopy.ownerRole}
+          data-pr-href={prReleaseActionItemsOwnerQuestionCopy.prHref}
+          data-release-scope={prReleaseActionItemsOwnerQuestionCopy.releaseScope}
+          data-repair-targets={prReleaseActionItemsOwnerQuestionCopy.repairTargets}
+          data-route={prReleaseActionItemsOwnerQuestionCopy.route}
+          data-source-marker-selector={prReleaseActionItemsOwnerQuestionCopy.sourceMarkerSelector}
+          data-status={prReleaseActionItemsOwnerQuestionCopy.status}
+          data-triage-selector={prReleaseActionItemsOwnerQuestionCopy.triageSelector}
+          data-testid="pr-release-action-items-owner-question-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR release action items owner question copy</p>
+              <h2>Как описать action items owner question PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-action-items-owner-question-anchor"
+              href={prReleaseActionItemsOwnerQuestionCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReleaseActionItemsOwnerQuestionCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Owner"
+                    ? "Question"
+                    : title === "Evidence"
+                      ? "Evidence"
+                      : title === "Action"
+                        ? "No answer"
+                        : "Answer next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prReleaseActionItemsOwnerQuestionCopy.ownerQuestionCopy}</p>
+          <p className="stage-line muted">{prReleaseActionItemsOwnerQuestionCopy.noOwnerAssignmentCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">

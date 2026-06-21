@@ -315,3 +315,5 @@
 254. [done 2026-06-22] Подготовить PR #17 release action items backlog copy: описать draft backlog для follow-up candidates, evidence gaps, monitoring reminder, owner-question и suggested priority без создания задач.
 
 255. [done 2026-06-22] Подготовить PR #17 release action items triage copy: описать draft triage для impact, evidence gap, owner-question, suggested priority и monitoring dependency без назначения owner.
+
+256. [done 2026-06-22] Подготовить PR #17 release action items owner question copy: описать draft owner question для follow-up owner, acceptable evidence, priority signal и monitoring dependency без назначения owner или capture ответа.
