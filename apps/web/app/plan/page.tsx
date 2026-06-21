@@ -26,7 +26,7 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Подготовить PR #17 reviewer approval response copy", "описать safe follow-up после owner/reviewer ответа"],
+  ["1", "Подготовить PR #17 owner signoff checkpoint copy", "собрать финальный owner gate без merge action"],
 ];
 
 const cycleRules = [
@@ -4115,6 +4115,42 @@ const prApprovalWaitStateCopy = {
     ["Decision", "reviewDecision пустой, поэтому PR остается в wait-state"],
     ["Feedback", "comments=0, reviews=0 и reviewThreads=0 перед ожиданием ответа"],
     ["Next step", "Любой owner/reviewer ответ сначала отражается в response copy"],
+  ],
+};
+
+const prReviewerApprovalResponseCopy = {
+  route: "/plan",
+  branch: prApprovalWaitStateCopy.branch,
+  baseBranch: prApprovalWaitStateCopy.baseBranch,
+  command: prApprovalWaitStateCopy.command,
+  approvalWaitStateSelector: "[data-testid='pr-approval-wait-state-copy']",
+  responseScope: "PR #17 reviewer approval response copy",
+  expectedCheckGroups: prApprovalWaitStateCopy.expectedCheckGroups,
+  expectedConclusion: prApprovalWaitStateCopy.expectedConclusion,
+  expectedMergeState: prApprovalWaitStateCopy.expectedMergeState,
+  expectedPrComments: prApprovalWaitStateCopy.expectedPrComments,
+  expectedReviewDecision: prApprovalWaitStateCopy.expectedReviewDecision,
+  expectedReviews: prApprovalWaitStateCopy.expectedReviews,
+  expectedReviewThreads: prApprovalWaitStateCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prApprovalWaitStateCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-reviewer-approval-response-anchor']",
+  noMergeCopy:
+    "Reviewer approval response copy только описывает follow-up; merge, auto-merge и review submission остаются запрещены без явного owner signoff",
+  ownerRole: "Release owner + Reviewer + QA owner",
+  prHref: prApprovalWaitStateCopy.prHref,
+  releaseScope: prApprovalWaitStateCopy.releaseScope,
+  repairTargets:
+    "PR #17,reviewer approval response,approval wait-state,reviewDecision,owner signoff,apps/web/scripts/smoke.mjs,/plan",
+  responseOwners: prApprovalWaitStateCopy.responseOwners,
+  responseCopy:
+    "Если owner/reviewer approved: перейти к owner signoff checkpoint; если changes requested или comments появились: остановить merge path и вернуться к review follow-up; если ответа нет: оставить PR #17 в approval wait-state",
+  sourceMarkerSelector: "[data-testid='pr-approval-wait-state-copy']",
+  status: "response-playbook-ready",
+  checks: [
+    ["Approved", "Approved response ведет только к owner signoff checkpoint"],
+    ["Changes", "Changes requested или comments переводят работу в review follow-up"],
+    ["Waiting", "При пустом reviewDecision PR остается в approval wait-state"],
+    ["Guardrail", "Ни один response branch не выполняет merge action автоматически"],
   ],
 };
 
@@ -11270,6 +11306,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prApprovalWaitStateCopy.waitStateCopy}</p>
           <p className="stage-line muted">{prApprovalWaitStateCopy.noMergeCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-approval-wait-state-selector={prReviewerApprovalResponseCopy.approvalWaitStateSelector}
+          data-base-branch={prReviewerApprovalResponseCopy.baseBranch}
+          data-branch={prReviewerApprovalResponseCopy.branch}
+          data-command={prReviewerApprovalResponseCopy.command}
+          data-expected-check-groups={prReviewerApprovalResponseCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prReviewerApprovalResponseCopy.expectedConclusion}
+          data-expected-merge-state={prReviewerApprovalResponseCopy.expectedMergeState}
+          data-expected-pr-comments={prReviewerApprovalResponseCopy.expectedPrComments}
+          data-expected-review-decision={prReviewerApprovalResponseCopy.expectedReviewDecision}
+          data-expected-review-threads={prReviewerApprovalResponseCopy.expectedReviewThreads}
+          data-expected-reviews={prReviewerApprovalResponseCopy.expectedReviews}
+          data-expected-unresolved-threads={prReviewerApprovalResponseCopy.expectedUnresolvedThreads}
+          data-link-selector={prReviewerApprovalResponseCopy.linkSelector}
+          data-no-merge-copy={prReviewerApprovalResponseCopy.noMergeCopy}
+          data-owner-role={prReviewerApprovalResponseCopy.ownerRole}
+          data-pr-href={prReviewerApprovalResponseCopy.prHref}
+          data-release-scope={prReviewerApprovalResponseCopy.releaseScope}
+          data-repair-targets={prReviewerApprovalResponseCopy.repairTargets}
+          data-response-copy={prReviewerApprovalResponseCopy.responseCopy}
+          data-response-owners={prReviewerApprovalResponseCopy.responseOwners.join(",")}
+          data-response-scope={prReviewerApprovalResponseCopy.responseScope}
+          data-route={prReviewerApprovalResponseCopy.route}
+          data-source-marker-selector={prReviewerApprovalResponseCopy.sourceMarkerSelector}
+          data-status={prReviewerApprovalResponseCopy.status}
+          data-testid="pr-reviewer-approval-response-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR reviewer approval response copy</p>
+              <h2>Как реагировать на owner/reviewer ответ по PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-reviewer-approval-response-anchor"
+              href={prReviewerApprovalResponseCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReviewerApprovalResponseCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Approved"
+                    ? "Signoff next"
+                    : title === "Changes"
+                      ? "Review path"
+                      : title === "Waiting"
+                        ? "Wait-state"
+                        : "No merge"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prReviewerApprovalResponseCopy.responseCopy}</p>
+          <p className="stage-line muted">{prReviewerApprovalResponseCopy.noMergeCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
