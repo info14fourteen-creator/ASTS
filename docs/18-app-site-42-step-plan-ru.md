@@ -301,3 +301,5 @@
 247. [done 2026-06-21] Подготовить PR #17 final PR closeout note copy: описать standby closeout note для CLEAN PR, SUCCESS checks, нулевых review counters и archive handoff без закрытия PR.
 
 248. [done 2026-06-21] Подготовить PR #17 branch retention notice copy: описать standby retention notice для codex/app-site-shell, audit trail и rollback review без удаления ветки.
+
+249. [done 2026-06-21] Подготовить PR #17 release tag wait-state copy: описать standby ожидание owner-created release tag, source commit и rollback note без создания tag.

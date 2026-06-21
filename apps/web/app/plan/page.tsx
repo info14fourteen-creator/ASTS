@@ -26,7 +26,7 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Подготовить PR #17 release tag wait-state copy", "описать ожидание release tag без создания tag"],
+  ["1", "Подготовить PR #17 post-release monitor copy", "описать monitor после release без запуска deploy"],
 ];
 
 const cycleRules = [
@@ -4470,6 +4470,47 @@ const prBranchRetentionNoticeCopy = {
     ["Delete", "Branch deletion не выполняется автоматически этим notice"],
     ["Rollback", "Rollback review сохраняет доступ к PR branch evidence"],
     ["Next", "Следующий шаг описывает release tag wait-state без создания tag"],
+  ],
+};
+
+const prReleaseTagWaitStateCopy = {
+  route: "/plan",
+  branch: prBranchRetentionNoticeCopy.branch,
+  baseBranch: prBranchRetentionNoticeCopy.baseBranch,
+  command: prBranchRetentionNoticeCopy.command,
+  branchRetentionSelector: "[data-testid='pr-branch-retention-notice-copy']",
+  tagScope: "PR #17 release tag wait-state copy",
+  expectedCheckGroups: prBranchRetentionNoticeCopy.expectedCheckGroups,
+  expectedConclusion: prBranchRetentionNoticeCopy.expectedConclusion,
+  expectedMergeState: prBranchRetentionNoticeCopy.expectedMergeState,
+  expectedPrComments: prBranchRetentionNoticeCopy.expectedPrComments,
+  expectedReviewDecision: prBranchRetentionNoticeCopy.expectedReviewDecision,
+  expectedReviews: prBranchRetentionNoticeCopy.expectedReviews,
+  expectedReviewThreads: prBranchRetentionNoticeCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prBranchRetentionNoticeCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-release-tag-wait-state-anchor']",
+  noTagCopy:
+    "Release tag wait-state только описывает ожидание owner-created tag; git tag, git push --tags, GitHub release creation, deploy trigger и main push остаются отдельными owner actions",
+  ownerRole: "Release owner + Repo admin",
+  tagCopy:
+    "Release tag wait-state для PR #17: после merge/closeout и branch retention ждать owner-created release tag, сверить tag name, source commit и rollback note; если tag не создан owner, wait-state остается standby",
+  prHref: prBranchRetentionNoticeCopy.prHref,
+  releaseScope: prBranchRetentionNoticeCopy.releaseScope,
+  repairTargets:
+    "PR #17,release tag wait-state,branch retention notice,owner-created tag,source commit,rollback note,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-branch-retention-notice-copy']",
+  status: "release-tag-wait-standby",
+  tagEvidence: [
+    "owner-created release tag",
+    "tag name",
+    "source commit",
+    "rollback note",
+  ],
+  checks: [
+    ["Wait", "Wait-state активируется только после owner-created release tag"],
+    ["Tag", "Этот copy не создает git tag и не пушит tags"],
+    ["Source", "Tag evidence должен связать tag name, source commit и rollback note"],
+    ["Next", "Следующий шаг описывает post-release monitor без запуска deploy"],
   ],
 };
 
@@ -12183,6 +12224,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prBranchRetentionNoticeCopy.retentionCopy}</p>
           <p className="stage-line muted">{prBranchRetentionNoticeCopy.noDeleteCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={prReleaseTagWaitStateCopy.baseBranch}
+          data-branch={prReleaseTagWaitStateCopy.branch}
+          data-branch-retention-selector={prReleaseTagWaitStateCopy.branchRetentionSelector}
+          data-command={prReleaseTagWaitStateCopy.command}
+          data-expected-check-groups={prReleaseTagWaitStateCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prReleaseTagWaitStateCopy.expectedConclusion}
+          data-expected-merge-state={prReleaseTagWaitStateCopy.expectedMergeState}
+          data-expected-pr-comments={prReleaseTagWaitStateCopy.expectedPrComments}
+          data-expected-review-decision={prReleaseTagWaitStateCopy.expectedReviewDecision}
+          data-expected-review-threads={prReleaseTagWaitStateCopy.expectedReviewThreads}
+          data-expected-reviews={prReleaseTagWaitStateCopy.expectedReviews}
+          data-expected-unresolved-threads={prReleaseTagWaitStateCopy.expectedUnresolvedThreads}
+          data-link-selector={prReleaseTagWaitStateCopy.linkSelector}
+          data-no-tag-copy={prReleaseTagWaitStateCopy.noTagCopy}
+          data-owner-role={prReleaseTagWaitStateCopy.ownerRole}
+          data-pr-href={prReleaseTagWaitStateCopy.prHref}
+          data-release-scope={prReleaseTagWaitStateCopy.releaseScope}
+          data-repair-targets={prReleaseTagWaitStateCopy.repairTargets}
+          data-route={prReleaseTagWaitStateCopy.route}
+          data-source-marker-selector={prReleaseTagWaitStateCopy.sourceMarkerSelector}
+          data-status={prReleaseTagWaitStateCopy.status}
+          data-tag-copy={prReleaseTagWaitStateCopy.tagCopy}
+          data-tag-evidence={prReleaseTagWaitStateCopy.tagEvidence.join(",")}
+          data-tag-scope={prReleaseTagWaitStateCopy.tagScope}
+          data-testid="pr-release-tag-wait-state-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR release tag wait-state copy</p>
+              <h2>Как ждать release tag PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-tag-wait-state-anchor"
+              href={prReleaseTagWaitStateCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReleaseTagWaitStateCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Wait"
+                    ? "Owner tag"
+                    : title === "Tag"
+                      ? "No tag push"
+                      : title === "Source"
+                        ? "Evidence"
+                        : "Monitor next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prReleaseTagWaitStateCopy.tagCopy}</p>
+          <p className="stage-line muted">{prReleaseTagWaitStateCopy.noTagCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
