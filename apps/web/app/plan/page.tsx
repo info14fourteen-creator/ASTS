@@ -26,7 +26,7 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Подготовить PR #17 final merge decision packet copy", "собрать decision packet без merge action"],
+  ["1", "Подготовить PR #17 owner merge authorization copy", "описать owner authorization без merge action"],
 ];
 
 const cycleRules = [
@@ -4187,6 +4187,47 @@ const prOwnerSignoffCheckpointCopy = {
     ["Checks", "Web build, API smoke и Shared validation должны быть SUCCESS"],
     ["Review", "Owner signoff требует approved response или явный owner approval"],
     ["Handoff", "Checkpoint передает только final merge decision packet без merge action"],
+  ],
+};
+
+const prFinalMergeDecisionPacketCopy = {
+  route: "/plan",
+  branch: prOwnerSignoffCheckpointCopy.branch,
+  baseBranch: prOwnerSignoffCheckpointCopy.baseBranch,
+  command: prOwnerSignoffCheckpointCopy.command,
+  ownerSignoffSelector: "[data-testid='pr-owner-signoff-checkpoint-copy']",
+  decisionScope: "PR #17 final merge decision packet copy",
+  expectedCheckGroups: prOwnerSignoffCheckpointCopy.expectedCheckGroups,
+  expectedConclusion: prOwnerSignoffCheckpointCopy.expectedConclusion,
+  expectedMergeState: prOwnerSignoffCheckpointCopy.expectedMergeState,
+  expectedPrComments: prOwnerSignoffCheckpointCopy.expectedPrComments,
+  expectedReviewDecision: prOwnerSignoffCheckpointCopy.expectedReviewDecision,
+  expectedReviews: prOwnerSignoffCheckpointCopy.expectedReviews,
+  expectedReviewThreads: prOwnerSignoffCheckpointCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prOwnerSignoffCheckpointCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-final-merge-decision-packet-anchor']",
+  noMergeCopy:
+    "Final merge decision packet только собирает decision evidence; merge, auto-merge, branch deletion и approval submission остаются отдельным owner action",
+  ownerRole: "Release owner + QA owner + Reviewer",
+  packetCopy:
+    "Final merge decision packet для PR #17: CLEAN mergeState, SUCCESS Web build/API smoke/Shared validation, reviewThreads=0, comments=0, reviews=0, owner signoff checkpoint и explicit merge authorization должны быть подтверждены перед любым merge action",
+  prHref: prOwnerSignoffCheckpointCopy.prHref,
+  releaseScope: prOwnerSignoffCheckpointCopy.releaseScope,
+  repairTargets:
+    "PR #17,final merge decision packet,owner signoff checkpoint,CLEAN,SUCCESS,review counters,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-owner-signoff-checkpoint-copy']",
+  status: "decision-packet-ready",
+  decisionInputs: [
+    "CLEAN mergeStateStatus",
+    "SUCCESS Web build, API smoke, Shared validation",
+    "reviewThreads=0, comments=0, reviews=0",
+    "Owner signoff checkpoint or explicit owner approval",
+  ],
+  checks: [
+    ["Ready", "Decision packet подтверждает, что PR #17 готов к owner merge authorization"],
+    ["Blocked", "Любой non-SUCCESS check, comment или review thread останавливает merge path"],
+    ["Decision", "Owner должен выбрать approve-to-merge, wait или return-to-review"],
+    ["Action", "Этот packet не нажимает merge и не включает auto-merge"],
   ],
 };
 
@@ -11466,6 +11507,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prOwnerSignoffCheckpointCopy.signoffCopy}</p>
           <p className="stage-line muted">{prOwnerSignoffCheckpointCopy.noMergeCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={prFinalMergeDecisionPacketCopy.baseBranch}
+          data-branch={prFinalMergeDecisionPacketCopy.branch}
+          data-command={prFinalMergeDecisionPacketCopy.command}
+          data-decision-inputs={prFinalMergeDecisionPacketCopy.decisionInputs.join(",")}
+          data-decision-scope={prFinalMergeDecisionPacketCopy.decisionScope}
+          data-expected-check-groups={prFinalMergeDecisionPacketCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prFinalMergeDecisionPacketCopy.expectedConclusion}
+          data-expected-merge-state={prFinalMergeDecisionPacketCopy.expectedMergeState}
+          data-expected-pr-comments={prFinalMergeDecisionPacketCopy.expectedPrComments}
+          data-expected-review-decision={prFinalMergeDecisionPacketCopy.expectedReviewDecision}
+          data-expected-review-threads={prFinalMergeDecisionPacketCopy.expectedReviewThreads}
+          data-expected-reviews={prFinalMergeDecisionPacketCopy.expectedReviews}
+          data-expected-unresolved-threads={prFinalMergeDecisionPacketCopy.expectedUnresolvedThreads}
+          data-link-selector={prFinalMergeDecisionPacketCopy.linkSelector}
+          data-no-merge-copy={prFinalMergeDecisionPacketCopy.noMergeCopy}
+          data-owner-role={prFinalMergeDecisionPacketCopy.ownerRole}
+          data-owner-signoff-selector={prFinalMergeDecisionPacketCopy.ownerSignoffSelector}
+          data-packet-copy={prFinalMergeDecisionPacketCopy.packetCopy}
+          data-pr-href={prFinalMergeDecisionPacketCopy.prHref}
+          data-release-scope={prFinalMergeDecisionPacketCopy.releaseScope}
+          data-repair-targets={prFinalMergeDecisionPacketCopy.repairTargets}
+          data-route={prFinalMergeDecisionPacketCopy.route}
+          data-source-marker-selector={prFinalMergeDecisionPacketCopy.sourceMarkerSelector}
+          data-status={prFinalMergeDecisionPacketCopy.status}
+          data-testid="pr-final-merge-decision-packet-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR final merge decision packet copy</p>
+              <h2>Что входит в final merge decision packet PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-final-merge-decision-packet-anchor"
+              href={prFinalMergeDecisionPacketCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prFinalMergeDecisionPacketCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Ready"
+                    ? "Authorize next"
+                    : title === "Blocked"
+                      ? "Stop"
+                      : title === "Decision"
+                        ? "Owner choice"
+                        : "No merge"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prFinalMergeDecisionPacketCopy.packetCopy}</p>
+          <p className="stage-line muted">{prFinalMergeDecisionPacketCopy.noMergeCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
