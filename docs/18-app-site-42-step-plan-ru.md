@@ -303,3 +303,5 @@
 248. [done 2026-06-21] Подготовить PR #17 branch retention notice copy: описать standby retention notice для codex/app-site-shell, audit trail и rollback review без удаления ветки.
 
 249. [done 2026-06-21] Подготовить PR #17 release tag wait-state copy: описать standby ожидание owner-created release tag, source commit и rollback note без создания tag.
+
+250. [done 2026-06-21] Подготовить PR #17 post-release monitor copy: описать standby observation window для Web build, API smoke, Shared validation, /plan smoke и rollback contact без запуска deploy.

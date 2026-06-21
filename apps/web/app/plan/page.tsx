@@ -26,7 +26,7 @@ const planBlocks = [
 ];
 
 const nextIncrements = [
-  ["1", "Подготовить PR #17 post-release monitor copy", "описать monitor после release без запуска deploy"],
+  ["1", "Подготовить PR #17 release incident fallback copy", "описать fallback при post-release signal без открытия incident"],
 ];
 
 const cycleRules = [
@@ -4511,6 +4511,48 @@ const prReleaseTagWaitStateCopy = {
     ["Tag", "Этот copy не создает git tag и не пушит tags"],
     ["Source", "Tag evidence должен связать tag name, source commit и rollback note"],
     ["Next", "Следующий шаг описывает post-release monitor без запуска deploy"],
+  ],
+};
+
+const prPostReleaseMonitorCopy = {
+  route: "/plan",
+  branch: prReleaseTagWaitStateCopy.branch,
+  baseBranch: prReleaseTagWaitStateCopy.baseBranch,
+  command: prReleaseTagWaitStateCopy.command,
+  releaseTagWaitSelector: "[data-testid='pr-release-tag-wait-state-copy']",
+  monitorScope: "PR #17 post-release monitor copy",
+  expectedCheckGroups: prReleaseTagWaitStateCopy.expectedCheckGroups,
+  expectedConclusion: prReleaseTagWaitStateCopy.expectedConclusion,
+  expectedMergeState: prReleaseTagWaitStateCopy.expectedMergeState,
+  expectedPrComments: prReleaseTagWaitStateCopy.expectedPrComments,
+  expectedReviewDecision: prReleaseTagWaitStateCopy.expectedReviewDecision,
+  expectedReviews: prReleaseTagWaitStateCopy.expectedReviews,
+  expectedReviewThreads: prReleaseTagWaitStateCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prReleaseTagWaitStateCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-post-release-monitor-anchor']",
+  noDeployCopy:
+    "Post-release monitor copy только описывает observation window; deploy, rollback, incident creation, alert changes и main push остаются отдельными owner actions",
+  ownerRole: "Release owner + On-call observer",
+  monitorCopy:
+    "Post-release monitor для PR #17: после owner-created tag и release note наблюдать Web build, API smoke, shared validation, /plan smoke и rollback contact в течение owner-defined window; если release не выполнен, monitor остается standby",
+  prHref: prReleaseTagWaitStateCopy.prHref,
+  releaseScope: prReleaseTagWaitStateCopy.releaseScope,
+  repairTargets:
+    "PR #17,post-release monitor,release tag wait-state,Web build,API smoke,Shared validation,/plan smoke,rollback contact,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-release-tag-wait-state-copy']",
+  status: "post-release-monitor-standby",
+  monitorEvidence: [
+    "Web build",
+    "API smoke",
+    "Shared validation",
+    "/plan smoke",
+    "rollback contact",
+  ],
+  checks: [
+    ["Signals", "Monitor смотрит Web build, API smoke, Shared validation и /plan smoke"],
+    ["Window", "Observation window задает owner после release tag и release note"],
+    ["Deploy", "Этот copy не запускает deploy, rollback или incident"],
+    ["Next", "Следующий шаг описывает release incident fallback без открытия incident"],
   ],
 };
 
@@ -12286,6 +12328,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prReleaseTagWaitStateCopy.tagCopy}</p>
           <p className="stage-line muted">{prReleaseTagWaitStateCopy.noTagCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={prPostReleaseMonitorCopy.baseBranch}
+          data-branch={prPostReleaseMonitorCopy.branch}
+          data-command={prPostReleaseMonitorCopy.command}
+          data-expected-check-groups={prPostReleaseMonitorCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prPostReleaseMonitorCopy.expectedConclusion}
+          data-expected-merge-state={prPostReleaseMonitorCopy.expectedMergeState}
+          data-expected-pr-comments={prPostReleaseMonitorCopy.expectedPrComments}
+          data-expected-review-decision={prPostReleaseMonitorCopy.expectedReviewDecision}
+          data-expected-review-threads={prPostReleaseMonitorCopy.expectedReviewThreads}
+          data-expected-reviews={prPostReleaseMonitorCopy.expectedReviews}
+          data-expected-unresolved-threads={prPostReleaseMonitorCopy.expectedUnresolvedThreads}
+          data-link-selector={prPostReleaseMonitorCopy.linkSelector}
+          data-monitor-copy={prPostReleaseMonitorCopy.monitorCopy}
+          data-monitor-evidence={prPostReleaseMonitorCopy.monitorEvidence.join(",")}
+          data-monitor-scope={prPostReleaseMonitorCopy.monitorScope}
+          data-no-deploy-copy={prPostReleaseMonitorCopy.noDeployCopy}
+          data-owner-role={prPostReleaseMonitorCopy.ownerRole}
+          data-pr-href={prPostReleaseMonitorCopy.prHref}
+          data-release-scope={prPostReleaseMonitorCopy.releaseScope}
+          data-release-tag-wait-selector={prPostReleaseMonitorCopy.releaseTagWaitSelector}
+          data-repair-targets={prPostReleaseMonitorCopy.repairTargets}
+          data-route={prPostReleaseMonitorCopy.route}
+          data-source-marker-selector={prPostReleaseMonitorCopy.sourceMarkerSelector}
+          data-status={prPostReleaseMonitorCopy.status}
+          data-testid="pr-post-release-monitor-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR post-release monitor copy</p>
+              <h2>Что наблюдать после release PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-post-release-monitor-anchor"
+              href={prPostReleaseMonitorCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prPostReleaseMonitorCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Signals"
+                    ? "Watch"
+                    : title === "Window"
+                      ? "Owner window"
+                      : title === "Deploy"
+                        ? "No action"
+                        : "Fallback next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prPostReleaseMonitorCopy.monitorCopy}</p>
+          <p className="stage-line muted">{prPostReleaseMonitorCopy.noDeployCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
