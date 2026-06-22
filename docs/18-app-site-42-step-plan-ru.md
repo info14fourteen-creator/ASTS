@@ -325,3 +325,5 @@
 259. [done 2026-06-22] Подготовить PR #17 release action items implementation guardrails copy: описать draft guardrails для accepted criteria, scoped change, dry-run check, owner confirmation и rollback path без выполнения actions.
 
 260. [done 2026-06-22] Подготовить PR #17 release action items tracking handoff copy: описать draft tracking handoff для tracking target, status owner, evidence link, check cadence и rollback contact без создания задач или изменения tracker.
+
+261. [done 2026-06-22] Подготовить PR #17 release action items status rollup copy: описать draft status rollup для current state, blocked reason, next owner action, evidence freshness и follow-up window без изменения статусов или tracker.

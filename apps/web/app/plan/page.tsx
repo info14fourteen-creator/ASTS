@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 release action items status rollup copy",
-    "описать status rollup без изменения статусов",
+    "Подготовить PR #17 release action items closure note copy",
+    "описать closure note без закрытия задач",
   ],
 ];
 
@@ -4976,6 +4976,48 @@ const prReleaseActionItemsTrackingHandoffCopy = {
     ["Cadence", "Check cadence и rollback contact остаются handoff text без tracker mutation"],
     ["Action", "Этот copy не создает tasks, issues или owner assignment"],
     ["Next", "Следующий шаг описывает release action items status rollup без изменения статусов"],
+  ],
+};
+
+const prReleaseActionItemsStatusRollupCopy = {
+  route: "/plan",
+  branch: prReleaseActionItemsTrackingHandoffCopy.branch,
+  baseBranch: prReleaseActionItemsTrackingHandoffCopy.baseBranch,
+  command: prReleaseActionItemsTrackingHandoffCopy.command,
+  trackingHandoffSelector: "[data-testid='pr-release-action-items-tracking-handoff-copy']",
+  statusRollupScope: "PR #17 release action items status rollup copy",
+  expectedCheckGroups: prReleaseActionItemsTrackingHandoffCopy.expectedCheckGroups,
+  expectedConclusion: prReleaseActionItemsTrackingHandoffCopy.expectedConclusion,
+  expectedMergeState: prReleaseActionItemsTrackingHandoffCopy.expectedMergeState,
+  expectedPrComments: prReleaseActionItemsTrackingHandoffCopy.expectedPrComments,
+  expectedReviewDecision: prReleaseActionItemsTrackingHandoffCopy.expectedReviewDecision,
+  expectedReviews: prReleaseActionItemsTrackingHandoffCopy.expectedReviews,
+  expectedReviewThreads: prReleaseActionItemsTrackingHandoffCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prReleaseActionItemsTrackingHandoffCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-release-action-items-status-rollup-anchor']",
+  noStatusMutationCopy:
+    "Release action items status rollup copy только описывает rollup text; tracker mutation, status field update, task closure, issue creation, merge action и main push остаются отдельными owner actions",
+  ownerRole: "Release owner + Delivery reviewer",
+  statusRollupCopy:
+    "Release action items status rollup для PR #17: после tracking handoff подготовить draft rollup с current state, blocked reason, next owner action, evidence freshness и follow-up window; пока owner action не подтвержден, статусы не изменяются",
+  prHref: prReleaseActionItemsTrackingHandoffCopy.prHref,
+  releaseScope: prReleaseActionItemsTrackingHandoffCopy.releaseScope,
+  repairTargets:
+    "PR #17,release action items status rollup,release action items tracking handoff,current state,blocked reason,next owner action,evidence freshness,follow-up window,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-release-action-items-tracking-handoff-copy']",
+  status: "action-items-status-rollup-draft",
+  statusRollupFields: [
+    "current state",
+    "blocked reason",
+    "next owner action",
+    "evidence freshness",
+    "follow-up window",
+  ],
+  checks: [
+    ["State", "Status rollup связывает current state, blocked reason и next owner action"],
+    ["Evidence", "Evidence freshness и follow-up window остаются rollup text без status update"],
+    ["Action", "Этот copy не меняет tracker, tasks, issues или status fields"],
+    ["Next", "Следующий шаг описывает release action items closure note без закрытия задач"],
   ],
 };
 
@@ -13435,6 +13477,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prReleaseActionItemsTrackingHandoffCopy.trackingHandoffCopy}</p>
           <p className="stage-line muted">{prReleaseActionItemsTrackingHandoffCopy.noTaskCreationCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={prReleaseActionItemsStatusRollupCopy.baseBranch}
+          data-branch={prReleaseActionItemsStatusRollupCopy.branch}
+          data-command={prReleaseActionItemsStatusRollupCopy.command}
+          data-expected-check-groups={prReleaseActionItemsStatusRollupCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prReleaseActionItemsStatusRollupCopy.expectedConclusion}
+          data-expected-merge-state={prReleaseActionItemsStatusRollupCopy.expectedMergeState}
+          data-expected-pr-comments={prReleaseActionItemsStatusRollupCopy.expectedPrComments}
+          data-expected-review-decision={prReleaseActionItemsStatusRollupCopy.expectedReviewDecision}
+          data-expected-review-threads={prReleaseActionItemsStatusRollupCopy.expectedReviewThreads}
+          data-expected-reviews={prReleaseActionItemsStatusRollupCopy.expectedReviews}
+          data-expected-unresolved-threads={prReleaseActionItemsStatusRollupCopy.expectedUnresolvedThreads}
+          data-link-selector={prReleaseActionItemsStatusRollupCopy.linkSelector}
+          data-no-status-mutation-copy={prReleaseActionItemsStatusRollupCopy.noStatusMutationCopy}
+          data-owner-role={prReleaseActionItemsStatusRollupCopy.ownerRole}
+          data-pr-href={prReleaseActionItemsStatusRollupCopy.prHref}
+          data-release-scope={prReleaseActionItemsStatusRollupCopy.releaseScope}
+          data-repair-targets={prReleaseActionItemsStatusRollupCopy.repairTargets}
+          data-route={prReleaseActionItemsStatusRollupCopy.route}
+          data-source-marker-selector={prReleaseActionItemsStatusRollupCopy.sourceMarkerSelector}
+          data-status={prReleaseActionItemsStatusRollupCopy.status}
+          data-status-rollup-copy={prReleaseActionItemsStatusRollupCopy.statusRollupCopy}
+          data-status-rollup-fields={prReleaseActionItemsStatusRollupCopy.statusRollupFields.join(",")}
+          data-status-rollup-scope={prReleaseActionItemsStatusRollupCopy.statusRollupScope}
+          data-testid="pr-release-action-items-status-rollup-copy"
+          data-tracking-handoff-selector={prReleaseActionItemsStatusRollupCopy.trackingHandoffSelector}
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR release action items status rollup copy</p>
+              <h2>Как описать action items status rollup PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-action-items-status-rollup-anchor"
+              href={prReleaseActionItemsStatusRollupCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReleaseActionItemsStatusRollupCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "State"
+                    ? "Rollup"
+                    : title === "Evidence"
+                      ? "Freshness"
+                      : title === "Action"
+                        ? "No status"
+                        : "Closure next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prReleaseActionItemsStatusRollupCopy.statusRollupCopy}</p>
+          <p className="stage-line muted">{prReleaseActionItemsStatusRollupCopy.noStatusMutationCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
