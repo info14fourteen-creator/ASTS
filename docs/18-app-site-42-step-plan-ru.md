@@ -347,3 +347,5 @@
 270. [done 2026-06-22] Подготовить PR #17 release action items post-merge receipt review copy: описать draft receipt review для reviewer, receipt completeness, stale evidence check, follow-up decision и tracker boundary без записи review outcome или изменения tracker.
 
 271. [done 2026-06-22] Подготовить PR #17 release action items post-merge follow-up decision copy: описать draft follow-up decision для decision owner, decision options, evidence reference, action boundary и deferral note без назначения actions или изменения tracker.
+
+272. [done 2026-06-22] Подготовить PR #17 release action items post-merge decision handoff copy: описать draft decision handoff для handoff owner, decision summary, evidence packet, ownership boundary и return path без передачи ownership или изменения tracker.
