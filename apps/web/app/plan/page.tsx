@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 release action items post-merge decision record approval receipt copy",
-    "описать post-merge decision record approval receipt без записи receipt",
+    "Подготовить PR #17 release action items post-merge decision record approval receipt review copy",
+    "описать post-merge decision record approval receipt review без review write",
   ],
 ];
 
@@ -5648,6 +5648,50 @@ const prReleaseActionItemsPostMergeDecisionRecordApprovalCopy = {
     ["Boundary", "Approval boundary и receipt path остаются approval text без action"],
     ["Action", "Этот copy не выполняет approval action, не пишет outcome и не меняет tracker"],
     ["Next", "Следующий шаг описывает release action items post-merge decision record approval receipt без записи receipt"],
+  ],
+};
+
+const prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy = {
+  route: "/plan",
+  branch: prReleaseActionItemsPostMergeDecisionRecordApprovalCopy.branch,
+  baseBranch: prReleaseActionItemsPostMergeDecisionRecordApprovalCopy.baseBranch,
+  command: prReleaseActionItemsPostMergeDecisionRecordApprovalCopy.command,
+  postMergeDecisionRecordApprovalSelector:
+    "[data-testid='pr-release-action-items-post-merge-decision-record-approval-copy']",
+  postMergeDecisionRecordApprovalReceiptScope:
+    "PR #17 release action items post-merge decision record approval receipt copy",
+  expectedCheckGroups: prReleaseActionItemsPostMergeDecisionRecordApprovalCopy.expectedCheckGroups,
+  expectedConclusion: prReleaseActionItemsPostMergeDecisionRecordApprovalCopy.expectedConclusion,
+  expectedMergeState: prReleaseActionItemsPostMergeDecisionRecordApprovalCopy.expectedMergeState,
+  expectedPrComments: prReleaseActionItemsPostMergeDecisionRecordApprovalCopy.expectedPrComments,
+  expectedReviewDecision: prReleaseActionItemsPostMergeDecisionRecordApprovalCopy.expectedReviewDecision,
+  expectedReviews: prReleaseActionItemsPostMergeDecisionRecordApprovalCopy.expectedReviews,
+  expectedReviewThreads: prReleaseActionItemsPostMergeDecisionRecordApprovalCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prReleaseActionItemsPostMergeDecisionRecordApprovalCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-release-action-items-post-merge-decision-record-approval-receipt-anchor']",
+  noReceiptWriteCopy:
+    "Release action items post-merge decision record approval receipt copy только описывает receipt text; receipt write, approval action, review outcome write, tracker mutation, event creation, status field update и audit append остаются отдельными owner actions",
+  ownerRole: "Release owner + Delivery reviewer",
+  decisionRecordApprovalReceiptCopy:
+    "Release action items post-merge decision record approval receipt для PR #17: после decision record approval подготовить draft receipt с receipt owner, approved record, approval evidence, receipt boundary и review path; пока owner action не подтвержден, receipt не записывается",
+  prHref: prReleaseActionItemsPostMergeDecisionRecordApprovalCopy.prHref,
+  releaseScope: prReleaseActionItemsPostMergeDecisionRecordApprovalCopy.releaseScope,
+  repairTargets:
+    "PR #17,release action items post-merge decision record approval receipt,release action items post-merge decision record approval,receipt owner,approved record,approval evidence,receipt boundary,review path,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-release-action-items-post-merge-decision-record-approval-copy']",
+  status: "action-items-post-merge-decision-record-approval-receipt-draft",
+  decisionRecordApprovalReceiptFields: [
+    "receipt owner",
+    "approved record",
+    "approval evidence",
+    "receipt boundary",
+    "review path",
+  ],
+  checks: [
+    ["Owner", "Decision record approval receipt связывает receipt owner, approved record и approval evidence"],
+    ["Boundary", "Receipt boundary и review path остаются receipt text без write"],
+    ["Action", "Этот copy не записывает receipt, не выполняет approval action и не меняет tracker"],
+    ["Next", "Следующий шаг описывает release action items post-merge decision record approval receipt review без review write"],
   ],
 };
 
@@ -15138,6 +15182,88 @@ export default function PlanPage() {
           </p>
           <p className="stage-line muted">
             {prReleaseActionItemsPostMergeDecisionRecordApprovalCopy.noApprovalActionCopy}
+          </p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.baseBranch}
+          data-branch={prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.branch}
+          data-command={prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.command}
+          data-decision-record-approval-receipt-copy={
+            prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.decisionRecordApprovalReceiptCopy
+          }
+          data-decision-record-approval-receipt-fields={prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.decisionRecordApprovalReceiptFields.join(
+            ",",
+          )}
+          data-expected-check-groups={prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.expectedCheckGroups.join(
+            ",",
+          )}
+          data-expected-conclusion={prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.expectedConclusion}
+          data-expected-merge-state={prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.expectedMergeState}
+          data-expected-pr-comments={prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.expectedPrComments}
+          data-expected-review-decision={
+            prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.expectedReviewDecision
+          }
+          data-expected-review-threads={
+            prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.expectedReviewThreads
+          }
+          data-expected-reviews={prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.expectedReviews}
+          data-expected-unresolved-threads={
+            prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.expectedUnresolvedThreads
+          }
+          data-link-selector={prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.linkSelector}
+          data-no-receipt-write-copy={prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.noReceiptWriteCopy}
+          data-owner-role={prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.ownerRole}
+          data-post-merge-decision-record-approval-receipt-scope={
+            prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.postMergeDecisionRecordApprovalReceiptScope
+          }
+          data-post-merge-decision-record-approval-selector={
+            prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.postMergeDecisionRecordApprovalSelector
+          }
+          data-pr-href={prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.prHref}
+          data-release-scope={prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.releaseScope}
+          data-repair-targets={prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.repairTargets}
+          data-route={prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.route}
+          data-source-marker-selector={prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.sourceMarkerSelector}
+          data-status={prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.status}
+          data-testid="pr-release-action-items-post-merge-decision-record-approval-receipt-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR release action items post-merge decision record approval receipt copy</p>
+              <h2>Как описать post-merge decision record approval receipt PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-action-items-post-merge-decision-record-approval-receipt-anchor"
+              href={prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Owner"
+                    ? "Receipt owner"
+                    : title === "Boundary"
+                      ? "Receipt boundary"
+                      : title === "Action"
+                        ? "No write"
+                        : "Review next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">
+            {prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.decisionRecordApprovalReceiptCopy}
+          </p>
+          <p className="stage-line muted">
+            {prReleaseActionItemsPostMergeDecisionRecordApprovalReceiptCopy.noReceiptWriteCopy}
           </p>
         </section>
 
