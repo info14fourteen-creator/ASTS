@@ -329,3 +329,5 @@
 261. [done 2026-06-22] Подготовить PR #17 release action items status rollup copy: описать draft status rollup для current state, blocked reason, next owner action, evidence freshness и follow-up window без изменения статусов или tracker.
 
 262. [done 2026-06-22] Подготовить PR #17 release action items closure note copy: описать draft closure note для closure condition, final evidence, owner signoff, residual risk и reopen trigger без закрытия задач или изменения tracker.
+
+263. [done 2026-06-22] Подготовить PR #17 release action items archive note copy: описать draft archive note для archive reason, retained evidence, owner record, lookup path и restore trigger без архивирования или изменения tracker.

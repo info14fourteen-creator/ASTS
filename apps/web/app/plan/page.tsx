@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 release action items archive note copy",
-    "описать archive note без архивирования",
+    "Подготовить PR #17 release action items handover summary copy",
+    "описать handover summary без передачи владения",
   ],
 ];
 
@@ -5060,6 +5060,48 @@ const prReleaseActionItemsClosureNoteCopy = {
     ["Risk", "Residual risk и reopen trigger остаются note text без task closure"],
     ["Action", "Этот copy не закрывает tasks, issues, tracker или status fields"],
     ["Next", "Следующий шаг описывает release action items archive note без архивирования"],
+  ],
+};
+
+const prReleaseActionItemsArchiveNoteCopy = {
+  route: "/plan",
+  branch: prReleaseActionItemsClosureNoteCopy.branch,
+  baseBranch: prReleaseActionItemsClosureNoteCopy.baseBranch,
+  command: prReleaseActionItemsClosureNoteCopy.command,
+  closureNoteSelector: "[data-testid='pr-release-action-items-closure-note-copy']",
+  archiveNoteScope: "PR #17 release action items archive note copy",
+  expectedCheckGroups: prReleaseActionItemsClosureNoteCopy.expectedCheckGroups,
+  expectedConclusion: prReleaseActionItemsClosureNoteCopy.expectedConclusion,
+  expectedMergeState: prReleaseActionItemsClosureNoteCopy.expectedMergeState,
+  expectedPrComments: prReleaseActionItemsClosureNoteCopy.expectedPrComments,
+  expectedReviewDecision: prReleaseActionItemsClosureNoteCopy.expectedReviewDecision,
+  expectedReviews: prReleaseActionItemsClosureNoteCopy.expectedReviews,
+  expectedReviewThreads: prReleaseActionItemsClosureNoteCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prReleaseActionItemsClosureNoteCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-release-action-items-archive-note-anchor']",
+  noArchiveMutationCopy:
+    "Release action items archive note copy только описывает archive note text; archive action, tracker mutation, status field update, task closure, merge action и main push остаются отдельными owner actions",
+  ownerRole: "Release owner + Delivery reviewer",
+  archiveNoteCopy:
+    "Release action items archive note для PR #17: после closure note подготовить draft archive note с archive reason, retained evidence, owner record, lookup path и restore trigger; пока owner action не подтвержден, ничего не архивируется",
+  prHref: prReleaseActionItemsClosureNoteCopy.prHref,
+  releaseScope: prReleaseActionItemsClosureNoteCopy.releaseScope,
+  repairTargets:
+    "PR #17,release action items archive note,release action items closure note,archive reason,retained evidence,owner record,lookup path,restore trigger,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-release-action-items-closure-note-copy']",
+  status: "action-items-archive-note-draft",
+  archiveNoteFields: [
+    "archive reason",
+    "retained evidence",
+    "owner record",
+    "lookup path",
+    "restore trigger",
+  ],
+  checks: [
+    ["Reason", "Archive note связывает archive reason, retained evidence и owner record"],
+    ["Restore", "Lookup path и restore trigger остаются note text без archive action"],
+    ["Action", "Этот copy не архивирует tasks, issues, tracker или status fields"],
+    ["Next", "Следующий шаг описывает release action items handover summary без передачи владения"],
   ],
 };
 
@@ -13643,6 +13685,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prReleaseActionItemsClosureNoteCopy.closureNoteCopy}</p>
           <p className="stage-line muted">{prReleaseActionItemsClosureNoteCopy.noClosureMutationCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-archive-note-copy={prReleaseActionItemsArchiveNoteCopy.archiveNoteCopy}
+          data-archive-note-fields={prReleaseActionItemsArchiveNoteCopy.archiveNoteFields.join(",")}
+          data-archive-note-scope={prReleaseActionItemsArchiveNoteCopy.archiveNoteScope}
+          data-base-branch={prReleaseActionItemsArchiveNoteCopy.baseBranch}
+          data-branch={prReleaseActionItemsArchiveNoteCopy.branch}
+          data-closure-note-selector={prReleaseActionItemsArchiveNoteCopy.closureNoteSelector}
+          data-command={prReleaseActionItemsArchiveNoteCopy.command}
+          data-expected-check-groups={prReleaseActionItemsArchiveNoteCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prReleaseActionItemsArchiveNoteCopy.expectedConclusion}
+          data-expected-merge-state={prReleaseActionItemsArchiveNoteCopy.expectedMergeState}
+          data-expected-pr-comments={prReleaseActionItemsArchiveNoteCopy.expectedPrComments}
+          data-expected-review-decision={prReleaseActionItemsArchiveNoteCopy.expectedReviewDecision}
+          data-expected-review-threads={prReleaseActionItemsArchiveNoteCopy.expectedReviewThreads}
+          data-expected-reviews={prReleaseActionItemsArchiveNoteCopy.expectedReviews}
+          data-expected-unresolved-threads={prReleaseActionItemsArchiveNoteCopy.expectedUnresolvedThreads}
+          data-link-selector={prReleaseActionItemsArchiveNoteCopy.linkSelector}
+          data-no-archive-mutation-copy={prReleaseActionItemsArchiveNoteCopy.noArchiveMutationCopy}
+          data-owner-role={prReleaseActionItemsArchiveNoteCopy.ownerRole}
+          data-pr-href={prReleaseActionItemsArchiveNoteCopy.prHref}
+          data-release-scope={prReleaseActionItemsArchiveNoteCopy.releaseScope}
+          data-repair-targets={prReleaseActionItemsArchiveNoteCopy.repairTargets}
+          data-route={prReleaseActionItemsArchiveNoteCopy.route}
+          data-source-marker-selector={prReleaseActionItemsArchiveNoteCopy.sourceMarkerSelector}
+          data-status={prReleaseActionItemsArchiveNoteCopy.status}
+          data-testid="pr-release-action-items-archive-note-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR release action items archive note copy</p>
+              <h2>Как описать action items archive note PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-action-items-archive-note-anchor"
+              href={prReleaseActionItemsArchiveNoteCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReleaseActionItemsArchiveNoteCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Reason"
+                    ? "Archive"
+                    : title === "Restore"
+                      ? "Restore"
+                      : title === "Action"
+                        ? "No archive"
+                        : "Handover next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prReleaseActionItemsArchiveNoteCopy.archiveNoteCopy}</p>
+          <p className="stage-line muted">{prReleaseActionItemsArchiveNoteCopy.noArchiveMutationCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
