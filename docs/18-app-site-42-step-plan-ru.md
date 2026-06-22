@@ -341,3 +341,5 @@
 267. [done 2026-06-22] Подготовить PR #17 release action items merge request handoff copy: описать draft handoff для requester, readiness evidence, review-thread receipt, merge boundary и rollback contact без выполнения merge или изменения PR state.
 
 268. [done 2026-06-22] Подготовить PR #17 release action items post-merge monitor handoff copy: описать draft post-merge monitor handoff для monitor owner, check window, signal source, rollback trigger и evidence receipt path без выполнения merge или запуска monitoring.
+
+269. [done 2026-06-22] Подготовить PR #17 release action items post-merge evidence receipt copy: описать draft evidence receipt для receipt owner, evidence source, timestamp expectation, status snapshot и storage path без записи событий или изменения tracker.
