@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 release action items merge readiness bridge copy",
-    "связать audit trail с merge readiness без запроса merge",
+    "Подготовить PR #17 release action items merge request handoff copy",
+    "описать merge request handoff без выполнения merge",
   ],
 ];
 
@@ -5186,6 +5186,48 @@ const prReleaseActionItemsAuditTrailCopy = {
     ["Decision", "Decision point и verification link остаются trail text без event write"],
     ["Action", "Этот copy не пишет events, tasks, tracker или status fields"],
     ["Next", "Следующий шаг описывает release action items merge readiness bridge без merge request"],
+  ],
+};
+
+const prReleaseActionItemsMergeReadinessBridgeCopy = {
+  route: "/plan",
+  branch: prReleaseActionItemsAuditTrailCopy.branch,
+  baseBranch: prReleaseActionItemsAuditTrailCopy.baseBranch,
+  command: prReleaseActionItemsAuditTrailCopy.command,
+  auditTrailSelector: "[data-testid='pr-release-action-items-audit-trail-copy']",
+  mergeReadinessBridgeScope: "PR #17 release action items merge readiness bridge copy",
+  expectedCheckGroups: prReleaseActionItemsAuditTrailCopy.expectedCheckGroups,
+  expectedConclusion: prReleaseActionItemsAuditTrailCopy.expectedConclusion,
+  expectedMergeState: prReleaseActionItemsAuditTrailCopy.expectedMergeState,
+  expectedPrComments: prReleaseActionItemsAuditTrailCopy.expectedPrComments,
+  expectedReviewDecision: prReleaseActionItemsAuditTrailCopy.expectedReviewDecision,
+  expectedReviews: prReleaseActionItemsAuditTrailCopy.expectedReviews,
+  expectedReviewThreads: prReleaseActionItemsAuditTrailCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prReleaseActionItemsAuditTrailCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-release-action-items-merge-readiness-bridge-anchor']",
+  noMergeRequestCopy:
+    "Release action items merge readiness bridge copy только связывает readiness text; merge request, PR state change, tracker mutation, status field update, main push и branch deletion остаются отдельными owner actions",
+  ownerRole: "Release owner + Delivery reviewer",
+  bridgeCopy:
+    "Release action items merge readiness bridge для PR #17: после audit trail связать readiness note, зеленый statusCheckRollup, review-thread check, owner confirmation и merge request boundary; пока owner action не подтвержден, merge не запрашивается",
+  prHref: prReleaseActionItemsAuditTrailCopy.prHref,
+  releaseScope: prReleaseActionItemsAuditTrailCopy.releaseScope,
+  repairTargets:
+    "PR #17,release action items merge readiness bridge,release action items audit trail,merge readiness note,statusCheckRollup,review-thread check,owner confirmation,merge request boundary,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-release-action-items-audit-trail-copy']",
+  status: "action-items-merge-readiness-bridge-draft",
+  bridgeFields: [
+    "readiness note",
+    "statusCheckRollup",
+    "review-thread check",
+    "owner confirmation",
+    "merge request boundary",
+  ],
+  checks: [
+    ["Bridge", "Bridge связывает audit trail, readiness note и statusCheckRollup"],
+    ["Threads", "Review-thread check и owner confirmation остаются readiness text без merge request"],
+    ["Action", "Этот copy не запрашивает merge, не меняет PR state, tracker или main"],
+    ["Next", "Следующий шаг описывает release action items merge request handoff без выполнения merge"],
   ],
 };
 
@@ -13955,6 +13997,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prReleaseActionItemsAuditTrailCopy.auditTrailCopy}</p>
           <p className="stage-line muted">{prReleaseActionItemsAuditTrailCopy.noEventWriteCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-audit-trail-selector={prReleaseActionItemsMergeReadinessBridgeCopy.auditTrailSelector}
+          data-base-branch={prReleaseActionItemsMergeReadinessBridgeCopy.baseBranch}
+          data-branch={prReleaseActionItemsMergeReadinessBridgeCopy.branch}
+          data-bridge-copy={prReleaseActionItemsMergeReadinessBridgeCopy.bridgeCopy}
+          data-bridge-fields={prReleaseActionItemsMergeReadinessBridgeCopy.bridgeFields.join(",")}
+          data-command={prReleaseActionItemsMergeReadinessBridgeCopy.command}
+          data-expected-check-groups={prReleaseActionItemsMergeReadinessBridgeCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prReleaseActionItemsMergeReadinessBridgeCopy.expectedConclusion}
+          data-expected-merge-state={prReleaseActionItemsMergeReadinessBridgeCopy.expectedMergeState}
+          data-expected-pr-comments={prReleaseActionItemsMergeReadinessBridgeCopy.expectedPrComments}
+          data-expected-review-decision={prReleaseActionItemsMergeReadinessBridgeCopy.expectedReviewDecision}
+          data-expected-review-threads={prReleaseActionItemsMergeReadinessBridgeCopy.expectedReviewThreads}
+          data-expected-reviews={prReleaseActionItemsMergeReadinessBridgeCopy.expectedReviews}
+          data-expected-unresolved-threads={prReleaseActionItemsMergeReadinessBridgeCopy.expectedUnresolvedThreads}
+          data-link-selector={prReleaseActionItemsMergeReadinessBridgeCopy.linkSelector}
+          data-merge-readiness-bridge-scope={prReleaseActionItemsMergeReadinessBridgeCopy.mergeReadinessBridgeScope}
+          data-no-merge-request-copy={prReleaseActionItemsMergeReadinessBridgeCopy.noMergeRequestCopy}
+          data-owner-role={prReleaseActionItemsMergeReadinessBridgeCopy.ownerRole}
+          data-pr-href={prReleaseActionItemsMergeReadinessBridgeCopy.prHref}
+          data-release-scope={prReleaseActionItemsMergeReadinessBridgeCopy.releaseScope}
+          data-repair-targets={prReleaseActionItemsMergeReadinessBridgeCopy.repairTargets}
+          data-route={prReleaseActionItemsMergeReadinessBridgeCopy.route}
+          data-source-marker-selector={prReleaseActionItemsMergeReadinessBridgeCopy.sourceMarkerSelector}
+          data-status={prReleaseActionItemsMergeReadinessBridgeCopy.status}
+          data-testid="pr-release-action-items-merge-readiness-bridge-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR release action items merge readiness bridge copy</p>
+              <h2>Как связать action items с merge readiness PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-action-items-merge-readiness-bridge-anchor"
+              href={prReleaseActionItemsMergeReadinessBridgeCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReleaseActionItemsMergeReadinessBridgeCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Bridge"
+                    ? "Readiness"
+                    : title === "Threads"
+                      ? "Thread check"
+                      : title === "Action"
+                        ? "No merge"
+                        : "Handoff next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prReleaseActionItemsMergeReadinessBridgeCopy.bridgeCopy}</p>
+          <p className="stage-line muted">{prReleaseActionItemsMergeReadinessBridgeCopy.noMergeRequestCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">

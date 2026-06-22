@@ -335,3 +335,5 @@
 264. [done 2026-06-22] Подготовить PR #17 release action items handover summary copy: описать draft handover summary для handover owner, active context, evidence packet, pending decision и return path без передачи владения или изменения tracker.
 
 265. [done 2026-06-22] Подготовить PR #17 release action items audit trail copy: описать draft audit trail для source note, evidence packet, owner handoff, decision point и verification link без записи событий или изменения tracker.
+
+266. [done 2026-06-22] Подготовить PR #17 release action items merge readiness bridge copy: связать draft audit trail с readiness note, зеленым statusCheckRollup, review-thread check, owner confirmation и merge request boundary без запроса merge или изменения PR state.
