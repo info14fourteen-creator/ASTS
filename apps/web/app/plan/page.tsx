@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 release action items merge request handoff copy",
-    "описать merge request handoff без выполнения merge",
+    "Подготовить PR #17 release action items post-merge monitor handoff copy",
+    "описать post-merge monitoring handoff без выполнения merge",
   ],
 ];
 
@@ -5228,6 +5228,48 @@ const prReleaseActionItemsMergeReadinessBridgeCopy = {
     ["Threads", "Review-thread check и owner confirmation остаются readiness text без merge request"],
     ["Action", "Этот copy не запрашивает merge, не меняет PR state, tracker или main"],
     ["Next", "Следующий шаг описывает release action items merge request handoff без выполнения merge"],
+  ],
+};
+
+const prReleaseActionItemsMergeRequestHandoffCopy = {
+  route: "/plan",
+  branch: prReleaseActionItemsMergeReadinessBridgeCopy.branch,
+  baseBranch: prReleaseActionItemsMergeReadinessBridgeCopy.baseBranch,
+  command: prReleaseActionItemsMergeReadinessBridgeCopy.command,
+  mergeReadinessBridgeSelector: "[data-testid='pr-release-action-items-merge-readiness-bridge-copy']",
+  mergeRequestHandoffScope: "PR #17 release action items merge request handoff copy",
+  expectedCheckGroups: prReleaseActionItemsMergeReadinessBridgeCopy.expectedCheckGroups,
+  expectedConclusion: prReleaseActionItemsMergeReadinessBridgeCopy.expectedConclusion,
+  expectedMergeState: prReleaseActionItemsMergeReadinessBridgeCopy.expectedMergeState,
+  expectedPrComments: prReleaseActionItemsMergeReadinessBridgeCopy.expectedPrComments,
+  expectedReviewDecision: prReleaseActionItemsMergeReadinessBridgeCopy.expectedReviewDecision,
+  expectedReviews: prReleaseActionItemsMergeReadinessBridgeCopy.expectedReviews,
+  expectedReviewThreads: prReleaseActionItemsMergeReadinessBridgeCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prReleaseActionItemsMergeReadinessBridgeCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-release-action-items-merge-request-handoff-anchor']",
+  noMergeExecutionCopy:
+    "Release action items merge request handoff copy только описывает handoff text; merge execution, PR state change, tracker mutation, status field update, main push и branch deletion остаются отдельными owner actions",
+  ownerRole: "Release owner + Delivery reviewer",
+  handoffCopy:
+    "Release action items merge request handoff для PR #17: после merge readiness bridge подготовить draft handoff с requester, readiness evidence, review-thread receipt, merge boundary и rollback contact; пока owner action не подтвержден, merge не выполняется",
+  prHref: prReleaseActionItemsMergeReadinessBridgeCopy.prHref,
+  releaseScope: prReleaseActionItemsMergeReadinessBridgeCopy.releaseScope,
+  repairTargets:
+    "PR #17,release action items merge request handoff,release action items merge readiness bridge,requester,readiness evidence,review-thread receipt,merge boundary,rollback contact,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-release-action-items-merge-readiness-bridge-copy']",
+  status: "action-items-merge-request-handoff-draft",
+  handoffFields: [
+    "requester",
+    "readiness evidence",
+    "review-thread receipt",
+    "merge boundary",
+    "rollback contact",
+  ],
+  checks: [
+    ["Requester", "Handoff связывает requester, readiness evidence и review-thread receipt"],
+    ["Boundary", "Merge boundary и rollback contact остаются handoff text без merge execution"],
+    ["Action", "Этот copy не выполняет merge, не меняет PR state, tracker или main"],
+    ["Next", "Следующий шаг описывает release action items post-merge monitor handoff без выполнения merge"],
   ],
 };
 
@@ -14059,6 +14101,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prReleaseActionItemsMergeReadinessBridgeCopy.bridgeCopy}</p>
           <p className="stage-line muted">{prReleaseActionItemsMergeReadinessBridgeCopy.noMergeRequestCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={prReleaseActionItemsMergeRequestHandoffCopy.baseBranch}
+          data-branch={prReleaseActionItemsMergeRequestHandoffCopy.branch}
+          data-command={prReleaseActionItemsMergeRequestHandoffCopy.command}
+          data-expected-check-groups={prReleaseActionItemsMergeRequestHandoffCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prReleaseActionItemsMergeRequestHandoffCopy.expectedConclusion}
+          data-expected-merge-state={prReleaseActionItemsMergeRequestHandoffCopy.expectedMergeState}
+          data-expected-pr-comments={prReleaseActionItemsMergeRequestHandoffCopy.expectedPrComments}
+          data-expected-review-decision={prReleaseActionItemsMergeRequestHandoffCopy.expectedReviewDecision}
+          data-expected-review-threads={prReleaseActionItemsMergeRequestHandoffCopy.expectedReviewThreads}
+          data-expected-reviews={prReleaseActionItemsMergeRequestHandoffCopy.expectedReviews}
+          data-expected-unresolved-threads={prReleaseActionItemsMergeRequestHandoffCopy.expectedUnresolvedThreads}
+          data-handoff-copy={prReleaseActionItemsMergeRequestHandoffCopy.handoffCopy}
+          data-handoff-fields={prReleaseActionItemsMergeRequestHandoffCopy.handoffFields.join(",")}
+          data-link-selector={prReleaseActionItemsMergeRequestHandoffCopy.linkSelector}
+          data-merge-readiness-bridge-selector={prReleaseActionItemsMergeRequestHandoffCopy.mergeReadinessBridgeSelector}
+          data-merge-request-handoff-scope={prReleaseActionItemsMergeRequestHandoffCopy.mergeRequestHandoffScope}
+          data-no-merge-execution-copy={prReleaseActionItemsMergeRequestHandoffCopy.noMergeExecutionCopy}
+          data-owner-role={prReleaseActionItemsMergeRequestHandoffCopy.ownerRole}
+          data-pr-href={prReleaseActionItemsMergeRequestHandoffCopy.prHref}
+          data-release-scope={prReleaseActionItemsMergeRequestHandoffCopy.releaseScope}
+          data-repair-targets={prReleaseActionItemsMergeRequestHandoffCopy.repairTargets}
+          data-route={prReleaseActionItemsMergeRequestHandoffCopy.route}
+          data-source-marker-selector={prReleaseActionItemsMergeRequestHandoffCopy.sourceMarkerSelector}
+          data-status={prReleaseActionItemsMergeRequestHandoffCopy.status}
+          data-testid="pr-release-action-items-merge-request-handoff-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR release action items merge request handoff copy</p>
+              <h2>Как описать action items merge request handoff PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-action-items-merge-request-handoff-anchor"
+              href={prReleaseActionItemsMergeRequestHandoffCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReleaseActionItemsMergeRequestHandoffCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Requester"
+                    ? "Requester"
+                    : title === "Boundary"
+                      ? "Boundary"
+                      : title === "Action"
+                        ? "No merge"
+                        : "Monitor next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prReleaseActionItemsMergeRequestHandoffCopy.handoffCopy}</p>
+          <p className="stage-line muted">{prReleaseActionItemsMergeRequestHandoffCopy.noMergeExecutionCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
