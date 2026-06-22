@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 release action items handover summary copy",
-    "описать handover summary без передачи владения",
+    "Подготовить PR #17 release action items audit trail copy",
+    "описать audit trail без записи событий",
   ],
 ];
 
@@ -5102,6 +5102,48 @@ const prReleaseActionItemsArchiveNoteCopy = {
     ["Restore", "Lookup path и restore trigger остаются note text без archive action"],
     ["Action", "Этот copy не архивирует tasks, issues, tracker или status fields"],
     ["Next", "Следующий шаг описывает release action items handover summary без передачи владения"],
+  ],
+};
+
+const prReleaseActionItemsHandoverSummaryCopy = {
+  route: "/plan",
+  branch: prReleaseActionItemsArchiveNoteCopy.branch,
+  baseBranch: prReleaseActionItemsArchiveNoteCopy.baseBranch,
+  command: prReleaseActionItemsArchiveNoteCopy.command,
+  archiveNoteSelector: "[data-testid='pr-release-action-items-archive-note-copy']",
+  handoverSummaryScope: "PR #17 release action items handover summary copy",
+  expectedCheckGroups: prReleaseActionItemsArchiveNoteCopy.expectedCheckGroups,
+  expectedConclusion: prReleaseActionItemsArchiveNoteCopy.expectedConclusion,
+  expectedMergeState: prReleaseActionItemsArchiveNoteCopy.expectedMergeState,
+  expectedPrComments: prReleaseActionItemsArchiveNoteCopy.expectedPrComments,
+  expectedReviewDecision: prReleaseActionItemsArchiveNoteCopy.expectedReviewDecision,
+  expectedReviews: prReleaseActionItemsArchiveNoteCopy.expectedReviews,
+  expectedReviewThreads: prReleaseActionItemsArchiveNoteCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prReleaseActionItemsArchiveNoteCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-release-action-items-handover-summary-anchor']",
+  noOwnerTransferCopy:
+    "Release action items handover summary copy только описывает handover text; owner transfer, tracker mutation, status field update, assignment change, merge action и main push остаются отдельными owner actions",
+  ownerRole: "Release owner + Delivery reviewer",
+  handoverSummaryCopy:
+    "Release action items handover summary для PR #17: после archive note подготовить draft summary с handover owner, active context, evidence packet, pending decision и return path; пока owner action не подтвержден, владение не передается",
+  prHref: prReleaseActionItemsArchiveNoteCopy.prHref,
+  releaseScope: prReleaseActionItemsArchiveNoteCopy.releaseScope,
+  repairTargets:
+    "PR #17,release action items handover summary,release action items archive note,handover owner,active context,evidence packet,pending decision,return path,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-release-action-items-archive-note-copy']",
+  status: "action-items-handover-summary-draft",
+  handoverSummaryFields: [
+    "handover owner",
+    "active context",
+    "evidence packet",
+    "pending decision",
+    "return path",
+  ],
+  checks: [
+    ["Owner", "Handover summary связывает handover owner, active context и evidence packet"],
+    ["Decision", "Pending decision и return path остаются summary text без owner transfer"],
+    ["Action", "Этот copy не меняет owner, assignments, tracker или status fields"],
+    ["Next", "Следующий шаг описывает release action items audit trail без записи событий"],
   ],
 };
 
@@ -13747,6 +13789,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prReleaseActionItemsArchiveNoteCopy.archiveNoteCopy}</p>
           <p className="stage-line muted">{prReleaseActionItemsArchiveNoteCopy.noArchiveMutationCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-archive-note-selector={prReleaseActionItemsHandoverSummaryCopy.archiveNoteSelector}
+          data-base-branch={prReleaseActionItemsHandoverSummaryCopy.baseBranch}
+          data-branch={prReleaseActionItemsHandoverSummaryCopy.branch}
+          data-command={prReleaseActionItemsHandoverSummaryCopy.command}
+          data-expected-check-groups={prReleaseActionItemsHandoverSummaryCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prReleaseActionItemsHandoverSummaryCopy.expectedConclusion}
+          data-expected-merge-state={prReleaseActionItemsHandoverSummaryCopy.expectedMergeState}
+          data-expected-pr-comments={prReleaseActionItemsHandoverSummaryCopy.expectedPrComments}
+          data-expected-review-decision={prReleaseActionItemsHandoverSummaryCopy.expectedReviewDecision}
+          data-expected-review-threads={prReleaseActionItemsHandoverSummaryCopy.expectedReviewThreads}
+          data-expected-reviews={prReleaseActionItemsHandoverSummaryCopy.expectedReviews}
+          data-expected-unresolved-threads={prReleaseActionItemsHandoverSummaryCopy.expectedUnresolvedThreads}
+          data-handover-summary-copy={prReleaseActionItemsHandoverSummaryCopy.handoverSummaryCopy}
+          data-handover-summary-fields={prReleaseActionItemsHandoverSummaryCopy.handoverSummaryFields.join(",")}
+          data-handover-summary-scope={prReleaseActionItemsHandoverSummaryCopy.handoverSummaryScope}
+          data-link-selector={prReleaseActionItemsHandoverSummaryCopy.linkSelector}
+          data-no-owner-transfer-copy={prReleaseActionItemsHandoverSummaryCopy.noOwnerTransferCopy}
+          data-owner-role={prReleaseActionItemsHandoverSummaryCopy.ownerRole}
+          data-pr-href={prReleaseActionItemsHandoverSummaryCopy.prHref}
+          data-release-scope={prReleaseActionItemsHandoverSummaryCopy.releaseScope}
+          data-repair-targets={prReleaseActionItemsHandoverSummaryCopy.repairTargets}
+          data-route={prReleaseActionItemsHandoverSummaryCopy.route}
+          data-source-marker-selector={prReleaseActionItemsHandoverSummaryCopy.sourceMarkerSelector}
+          data-status={prReleaseActionItemsHandoverSummaryCopy.status}
+          data-testid="pr-release-action-items-handover-summary-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR release action items handover summary copy</p>
+              <h2>Как описать action items handover summary PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-action-items-handover-summary-anchor"
+              href={prReleaseActionItemsHandoverSummaryCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReleaseActionItemsHandoverSummaryCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Owner"
+                    ? "Handover"
+                    : title === "Decision"
+                      ? "Return path"
+                      : title === "Action"
+                        ? "No transfer"
+                        : "Audit next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prReleaseActionItemsHandoverSummaryCopy.handoverSummaryCopy}</p>
+          <p className="stage-line muted">{prReleaseActionItemsHandoverSummaryCopy.noOwnerTransferCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
