@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 release action items acceptance criteria copy",
-    "описать acceptance criteria без создания задач",
+    "Подготовить PR #17 release action items implementation guardrails copy",
+    "описать guardrails без выполнения actions",
   ],
 ];
 
@@ -4850,6 +4850,48 @@ const prReleaseActionItemsOwnerAnswerCopy = {
     ["Evidence", "Needs evidence остается draft state без изменения evidence gates"],
     ["Action", "Этот copy не записывает answer capture и не назначает owner"],
     ["Next", "Следующий шаг описывает release action items acceptance criteria без создания задач"],
+  ],
+};
+
+const prReleaseActionItemsAcceptanceCriteriaCopy = {
+  route: "/plan",
+  branch: prReleaseActionItemsOwnerAnswerCopy.branch,
+  baseBranch: prReleaseActionItemsOwnerAnswerCopy.baseBranch,
+  command: prReleaseActionItemsOwnerAnswerCopy.command,
+  ownerAnswerSelector: "[data-testid='pr-release-action-items-owner-answer-copy']",
+  acceptanceCriteriaScope: "PR #17 release action items acceptance criteria copy",
+  expectedCheckGroups: prReleaseActionItemsOwnerAnswerCopy.expectedCheckGroups,
+  expectedConclusion: prReleaseActionItemsOwnerAnswerCopy.expectedConclusion,
+  expectedMergeState: prReleaseActionItemsOwnerAnswerCopy.expectedMergeState,
+  expectedPrComments: prReleaseActionItemsOwnerAnswerCopy.expectedPrComments,
+  expectedReviewDecision: prReleaseActionItemsOwnerAnswerCopy.expectedReviewDecision,
+  expectedReviews: prReleaseActionItemsOwnerAnswerCopy.expectedReviews,
+  expectedReviewThreads: prReleaseActionItemsOwnerAnswerCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prReleaseActionItemsOwnerAnswerCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-release-action-items-acceptance-criteria-anchor']",
+  noTaskCreationCopy:
+    "Release action items acceptance criteria copy только описывает criteria text; task creation, issue creation, owner assignment, alert changes, merge action и main push остаются отдельными owner actions",
+  ownerRole: "Release owner + Delivery reviewer",
+  acceptanceCriteriaCopy:
+    "Release action items acceptance criteria для PR #17: action item draft считается готовым к owner action только когда есть accepted owner answer, evidence threshold, priority signal, monitoring dependency и rollback note; до этого criteria остаются draft",
+  prHref: prReleaseActionItemsOwnerAnswerCopy.prHref,
+  releaseScope: prReleaseActionItemsOwnerAnswerCopy.releaseScope,
+  repairTargets:
+    "PR #17,release action items acceptance criteria,release action items owner answer,accepted owner answer,evidence threshold,priority signal,monitoring dependency,rollback note,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-release-action-items-owner-answer-copy']",
+  status: "action-items-acceptance-criteria-draft",
+  acceptanceCriteria: [
+    "accepted owner answer",
+    "evidence threshold",
+    "priority signal",
+    "monitoring dependency",
+    "rollback note",
+  ],
+  checks: [
+    ["Ready", "Acceptance criteria связывают accepted owner answer и evidence threshold"],
+    ["Priority", "Priority signal и monitoring dependency остаются criteria без alert changes"],
+    ["Action", "Этот copy не создает tasks, issues или owner assignment"],
+    ["Next", "Следующий шаг описывает release action items implementation guardrails без выполнения actions"],
   ],
 };
 
@@ -13121,6 +13163,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prReleaseActionItemsOwnerAnswerCopy.ownerAnswerCopy}</p>
           <p className="stage-line muted">{prReleaseActionItemsOwnerAnswerCopy.noAnswerCaptureCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-acceptance-criteria={prReleaseActionItemsAcceptanceCriteriaCopy.acceptanceCriteria.join(",")}
+          data-acceptance-criteria-copy={prReleaseActionItemsAcceptanceCriteriaCopy.acceptanceCriteriaCopy}
+          data-acceptance-criteria-scope={prReleaseActionItemsAcceptanceCriteriaCopy.acceptanceCriteriaScope}
+          data-base-branch={prReleaseActionItemsAcceptanceCriteriaCopy.baseBranch}
+          data-branch={prReleaseActionItemsAcceptanceCriteriaCopy.branch}
+          data-command={prReleaseActionItemsAcceptanceCriteriaCopy.command}
+          data-expected-check-groups={prReleaseActionItemsAcceptanceCriteriaCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prReleaseActionItemsAcceptanceCriteriaCopy.expectedConclusion}
+          data-expected-merge-state={prReleaseActionItemsAcceptanceCriteriaCopy.expectedMergeState}
+          data-expected-pr-comments={prReleaseActionItemsAcceptanceCriteriaCopy.expectedPrComments}
+          data-expected-review-decision={prReleaseActionItemsAcceptanceCriteriaCopy.expectedReviewDecision}
+          data-expected-review-threads={prReleaseActionItemsAcceptanceCriteriaCopy.expectedReviewThreads}
+          data-expected-reviews={prReleaseActionItemsAcceptanceCriteriaCopy.expectedReviews}
+          data-expected-unresolved-threads={prReleaseActionItemsAcceptanceCriteriaCopy.expectedUnresolvedThreads}
+          data-link-selector={prReleaseActionItemsAcceptanceCriteriaCopy.linkSelector}
+          data-no-task-creation-copy={prReleaseActionItemsAcceptanceCriteriaCopy.noTaskCreationCopy}
+          data-owner-answer-selector={prReleaseActionItemsAcceptanceCriteriaCopy.ownerAnswerSelector}
+          data-owner-role={prReleaseActionItemsAcceptanceCriteriaCopy.ownerRole}
+          data-pr-href={prReleaseActionItemsAcceptanceCriteriaCopy.prHref}
+          data-release-scope={prReleaseActionItemsAcceptanceCriteriaCopy.releaseScope}
+          data-repair-targets={prReleaseActionItemsAcceptanceCriteriaCopy.repairTargets}
+          data-route={prReleaseActionItemsAcceptanceCriteriaCopy.route}
+          data-source-marker-selector={prReleaseActionItemsAcceptanceCriteriaCopy.sourceMarkerSelector}
+          data-status={prReleaseActionItemsAcceptanceCriteriaCopy.status}
+          data-testid="pr-release-action-items-acceptance-criteria-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR release action items acceptance criteria copy</p>
+              <h2>Как описать action items acceptance criteria PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-action-items-acceptance-criteria-anchor"
+              href={prReleaseActionItemsAcceptanceCriteriaCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReleaseActionItemsAcceptanceCriteriaCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Ready"
+                    ? "Criteria"
+                    : title === "Priority"
+                      ? "Signal"
+                      : title === "Action"
+                        ? "No tasks"
+                        : "Guardrails next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prReleaseActionItemsAcceptanceCriteriaCopy.acceptanceCriteriaCopy}</p>
+          <p className="stage-line muted">{prReleaseActionItemsAcceptanceCriteriaCopy.noTaskCreationCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">

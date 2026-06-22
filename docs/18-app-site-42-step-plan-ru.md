@@ -319,3 +319,5 @@
 256. [done 2026-06-22] Подготовить PR #17 release action items owner question copy: описать draft owner question для follow-up owner, acceptable evidence, priority signal и monitoring dependency без назначения owner или capture ответа.
 
 257. [done 2026-06-22] Подготовить PR #17 release action items owner answer copy: описать draft answer states accept follow-up, defer until release, needs evidence и no action без записи ответа или назначения owner.
+
+258. [done 2026-06-22] Подготовить PR #17 release action items acceptance criteria copy: описать draft acceptance criteria для accepted owner answer, evidence threshold, priority signal, monitoring dependency и rollback note без создания задач.
