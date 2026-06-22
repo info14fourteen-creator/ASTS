@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 release action items post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff archive copy",
-    "описать post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff archive без archive write",
+    "Подготовить PR #17 release action items post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff closeout copy",
+    "описать post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff closeout без closeout write",
   ],
 ];
 
@@ -8070,6 +8070,57 @@ const finalReportPathReviewHandoffFinalReportPathReviewHandoffAcceptanceCopy = {
     [
       "Next",
       "Следующий шаг описывает release action items post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff archive без archive write",
+    ],
+  ],
+};
+
+const finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy = {
+  route: "/plan",
+  branch: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.branch,
+  baseBranch: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.baseBranch,
+  command: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.command,
+  sourceMarkerSelector:
+    "[data-testid='pr-release-action-items-post-merge-decision-record-approval-receipt-review-handoff-final-report-distribution-receipt-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-path-review-handoff-final-report-path-review-handoff-acceptance-copy']",
+  finalReportPathReviewHandoffArchiveScope:
+    "PR #17 release action items post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff archive copy",
+  expectedCheckGroups: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.expectedCheckGroups,
+  expectedConclusion: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.expectedConclusion,
+  expectedMergeState: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.expectedMergeState,
+  expectedPrComments: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.expectedPrComments,
+  expectedReviewDecision: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.expectedReviewDecision,
+  expectedReviews: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.expectedReviews,
+  expectedReviewThreads: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.expectedUnresolvedThreads,
+  linkSelector:
+    "[data-testid='pr-release-action-items-post-merge-decision-record-approval-receipt-review-handoff-final-report-distribution-receipt-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-path-review-handoff-final-report-path-review-handoff-archive-anchor']",
+  noFinalReportPathReviewHandoffArchiveWriteCopy:
+    "Release action items post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff archive copy только описывает archive text; archive write, acceptance write, handoff action, review write, final report write, closeout write, receipt write, distribution write, tracker mutation, event creation, status field update и audit append остаются отдельными owner actions",
+  ownerRole: "Release owner + Delivery reviewer",
+  finalReportPathReviewHandoffArchiveCopy:
+    "Release action items post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff archive для PR #17: после decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff acceptance подготовить draft archive с archive owner, accepted final report path review handoff acceptance, distribution evidence summary, archive boundary и closeout path; пока owner action не подтвержден, archive не записывается",
+  prHref: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.prHref,
+  releaseScope: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.releaseScope,
+  repairTargets:
+    "PR #17,release action items post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff archive,release action items post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff acceptance,archive owner,accepted final report path review handoff acceptance,distribution evidence summary,archive boundary,closeout path,apps/web/scripts/smoke.mjs,/plan",
+  status:
+    "action-items-post-merge-decision-record-approval-receipt-review-handoff-final-report-distribution-receipt-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-path-review-handoff-final-report-path-review-handoff-archive-draft",
+  finalReportPathReviewHandoffArchiveFields: [
+    "archive owner",
+    "accepted final report path review handoff acceptance",
+    "distribution evidence summary",
+    "archive boundary",
+    "closeout path",
+  ],
+  checks: [
+    [
+      "Owner",
+      "Decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff archive связывает archive owner, accepted final report path review handoff acceptance и distribution evidence summary",
+    ],
+    ["Boundary", "Archive boundary и closeout path остаются archive text без write"],
+    ["Action", "Этот copy не записывает archive, не записывает acceptance и не меняет tracker"],
+    [
+      "Next",
+      "Следующий шаг описывает release action items post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff closeout без closeout write",
     ],
   ],
 };
@@ -22112,6 +22163,79 @@ export default function PlanPage() {
           </p>
           <p className="stage-line muted">
             {finalReportPathReviewHandoffFinalReportPathReviewHandoffAcceptanceCopy.noFinalReportPathReviewHandoffAcceptanceWriteCopy}
+          </p>
+        </section>
+
+        <section
+          className="panel"
+          data-base-branch={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.baseBranch}
+          data-branch={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.branch}
+          data-command={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.command}
+          data-expected-check-groups={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.expectedCheckGroups}
+          data-expected-conclusion={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.expectedConclusion}
+          data-expected-merge-state={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.expectedMergeState}
+          data-expected-pr-comments={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.expectedPrComments}
+          data-expected-review-decision={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.expectedReviewDecision}
+          data-expected-review-threads={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.expectedReviewThreads}
+          data-expected-reviews={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.expectedReviews}
+          data-expected-unresolved-threads={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.expectedUnresolvedThreads}
+          data-final-report-path-review-handoff-archive-copy={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.finalReportPathReviewHandoffArchiveCopy}
+          data-final-report-path-review-handoff-archive-fields={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.finalReportPathReviewHandoffArchiveFields.join(",")}
+          data-final-report-path-review-handoff-archive-scope={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.finalReportPathReviewHandoffArchiveScope}
+          data-link-selector={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.linkSelector}
+          data-no-final-report-path-review-handoff-archive-write-copy={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.noFinalReportPathReviewHandoffArchiveWriteCopy}
+          data-owner-role={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.ownerRole}
+          data-pr-href={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.prHref}
+          data-release-scope={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.releaseScope}
+          data-repair-targets={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.repairTargets}
+          data-route={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.route}
+          data-source-marker-selector={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.sourceMarkerSelector}
+          data-status={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.status}
+          data-testid="pr-release-action-items-post-merge-decision-record-approval-receipt-review-handoff-final-report-distribution-receipt-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-path-review-handoff-final-report-path-review-handoff-archive-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">
+                PR release action items post-merge decision record approval receipt review handoff final report
+                distribution receipt review handoff final report review handoff final report review handoff final report
+                review handoff final report path review handoff final report path review handoff archive copy
+              </p>
+              <h2>
+                Как описать post-merge decision record approval receipt review handoff final report distribution receipt
+                review handoff final report review handoff final report review handoff final report review handoff final
+                report path review handoff final report path review handoff archive PR #17
+              </h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-action-items-post-merge-decision-record-approval-receipt-review-handoff-final-report-distribution-receipt-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-path-review-handoff-final-report-path-review-handoff-archive-anchor"
+              href={finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Owner"
+                    ? "Final report path review handoff archive owner"
+                    : title === "Boundary"
+                      ? "Final report path review handoff archive boundary"
+                      : title === "Action"
+                        ? "No archive write"
+                        : "Final report path review handoff closeout next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">
+            {finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.finalReportPathReviewHandoffArchiveCopy}
+          </p>
+          <p className="stage-line muted">
+            {finalReportPathReviewHandoffFinalReportPathReviewHandoffArchiveCopy.noFinalReportPathReviewHandoffArchiveWriteCopy}
           </p>
         </section>
 
