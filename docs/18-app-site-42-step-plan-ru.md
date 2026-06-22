@@ -353,3 +353,5 @@
 273. [done 2026-06-22] Подготовить PR #17 release action items post-merge decision acceptance copy: описать draft decision acceptance для acceptance owner, accepted handoff, evidence packet, acceptance boundary и pending record note без записи acceptance или изменения tracker.
 
 274. [done 2026-06-22] Подготовить PR #17 release action items post-merge decision record copy: описать draft decision record для record owner, accepted decision, evidence packet, record boundary и audit note без записи decision record или изменения tracker.
+
+275. [done 2026-06-22] Подготовить PR #17 release action items post-merge decision record review copy: описать draft decision record review для record reviewer, record completeness, stale evidence check, review boundary и follow-up note без записи review outcome или изменения tracker.
