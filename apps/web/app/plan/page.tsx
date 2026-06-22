@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 release action items post-merge receipt review copy",
-    "описать post-merge receipt review без изменения tracker",
+    "Подготовить PR #17 release action items post-merge follow-up decision copy",
+    "описать post-merge follow-up decision без назначения actions",
   ],
 ];
 
@@ -5354,6 +5354,48 @@ const prReleaseActionItemsPostMergeEvidenceReceiptCopy = {
     ["Snapshot", "Status snapshot и storage path остаются receipt text без event creation"],
     ["Action", "Этот copy не пишет events, не запускает monitoring, не меняет tracker или main"],
     ["Next", "Следующий шаг описывает release action items post-merge receipt review без изменения tracker"],
+  ],
+};
+
+const prReleaseActionItemsPostMergeReceiptReviewCopy = {
+  route: "/plan",
+  branch: prReleaseActionItemsPostMergeEvidenceReceiptCopy.branch,
+  baseBranch: prReleaseActionItemsPostMergeEvidenceReceiptCopy.baseBranch,
+  command: prReleaseActionItemsPostMergeEvidenceReceiptCopy.command,
+  postMergeEvidenceReceiptSelector: "[data-testid='pr-release-action-items-post-merge-evidence-receipt-copy']",
+  postMergeReceiptReviewScope: "PR #17 release action items post-merge receipt review copy",
+  expectedCheckGroups: prReleaseActionItemsPostMergeEvidenceReceiptCopy.expectedCheckGroups,
+  expectedConclusion: prReleaseActionItemsPostMergeEvidenceReceiptCopy.expectedConclusion,
+  expectedMergeState: prReleaseActionItemsPostMergeEvidenceReceiptCopy.expectedMergeState,
+  expectedPrComments: prReleaseActionItemsPostMergeEvidenceReceiptCopy.expectedPrComments,
+  expectedReviewDecision: prReleaseActionItemsPostMergeEvidenceReceiptCopy.expectedReviewDecision,
+  expectedReviews: prReleaseActionItemsPostMergeEvidenceReceiptCopy.expectedReviews,
+  expectedReviewThreads: prReleaseActionItemsPostMergeEvidenceReceiptCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prReleaseActionItemsPostMergeEvidenceReceiptCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-release-action-items-post-merge-receipt-review-anchor']",
+  noReviewWriteCopy:
+    "Release action items post-merge receipt review copy только описывает review text; review outcome write, tracker mutation, event creation, status field update, audit append и owner assignment остаются отдельными owner actions",
+  ownerRole: "Release owner + Delivery reviewer",
+  receiptReviewCopy:
+    "Release action items post-merge receipt review для PR #17: после evidence receipt подготовить draft review с reviewer, receipt completeness, stale evidence check, follow-up decision и tracker boundary; пока owner action не подтвержден, review outcome и tracker не изменяются",
+  prHref: prReleaseActionItemsPostMergeEvidenceReceiptCopy.prHref,
+  releaseScope: prReleaseActionItemsPostMergeEvidenceReceiptCopy.releaseScope,
+  repairTargets:
+    "PR #17,release action items post-merge receipt review,release action items post-merge evidence receipt,reviewer,receipt completeness,stale evidence check,follow-up decision,tracker boundary,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-release-action-items-post-merge-evidence-receipt-copy']",
+  status: "action-items-post-merge-receipt-review-draft",
+  receiptReviewFields: [
+    "reviewer",
+    "receipt completeness",
+    "stale evidence check",
+    "follow-up decision",
+    "tracker boundary",
+  ],
+  checks: [
+    ["Reviewer", "Receipt review связывает reviewer, receipt completeness и stale evidence check"],
+    ["Decision", "Follow-up decision и tracker boundary остаются review text без tracker mutation"],
+    ["Action", "Этот copy не пишет review outcome, не создает events и не назначает owner"],
+    ["Next", "Следующий шаг описывает release action items post-merge follow-up decision без назначения actions"],
   ],
 };
 
@@ -14375,6 +14417,70 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prReleaseActionItemsPostMergeEvidenceReceiptCopy.evidenceReceiptCopy}</p>
           <p className="stage-line muted">{prReleaseActionItemsPostMergeEvidenceReceiptCopy.noEvidenceWriteCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={prReleaseActionItemsPostMergeReceiptReviewCopy.baseBranch}
+          data-branch={prReleaseActionItemsPostMergeReceiptReviewCopy.branch}
+          data-command={prReleaseActionItemsPostMergeReceiptReviewCopy.command}
+          data-expected-check-groups={prReleaseActionItemsPostMergeReceiptReviewCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prReleaseActionItemsPostMergeReceiptReviewCopy.expectedConclusion}
+          data-expected-merge-state={prReleaseActionItemsPostMergeReceiptReviewCopy.expectedMergeState}
+          data-expected-pr-comments={prReleaseActionItemsPostMergeReceiptReviewCopy.expectedPrComments}
+          data-expected-review-decision={prReleaseActionItemsPostMergeReceiptReviewCopy.expectedReviewDecision}
+          data-expected-review-threads={prReleaseActionItemsPostMergeReceiptReviewCopy.expectedReviewThreads}
+          data-expected-reviews={prReleaseActionItemsPostMergeReceiptReviewCopy.expectedReviews}
+          data-expected-unresolved-threads={prReleaseActionItemsPostMergeReceiptReviewCopy.expectedUnresolvedThreads}
+          data-link-selector={prReleaseActionItemsPostMergeReceiptReviewCopy.linkSelector}
+          data-no-review-write-copy={prReleaseActionItemsPostMergeReceiptReviewCopy.noReviewWriteCopy}
+          data-owner-role={prReleaseActionItemsPostMergeReceiptReviewCopy.ownerRole}
+          data-post-merge-evidence-receipt-selector={
+            prReleaseActionItemsPostMergeReceiptReviewCopy.postMergeEvidenceReceiptSelector
+          }
+          data-post-merge-receipt-review-scope={prReleaseActionItemsPostMergeReceiptReviewCopy.postMergeReceiptReviewScope}
+          data-pr-href={prReleaseActionItemsPostMergeReceiptReviewCopy.prHref}
+          data-receipt-review-copy={prReleaseActionItemsPostMergeReceiptReviewCopy.receiptReviewCopy}
+          data-receipt-review-fields={prReleaseActionItemsPostMergeReceiptReviewCopy.receiptReviewFields.join(",")}
+          data-release-scope={prReleaseActionItemsPostMergeReceiptReviewCopy.releaseScope}
+          data-repair-targets={prReleaseActionItemsPostMergeReceiptReviewCopy.repairTargets}
+          data-route={prReleaseActionItemsPostMergeReceiptReviewCopy.route}
+          data-source-marker-selector={prReleaseActionItemsPostMergeReceiptReviewCopy.sourceMarkerSelector}
+          data-status={prReleaseActionItemsPostMergeReceiptReviewCopy.status}
+          data-testid="pr-release-action-items-post-merge-receipt-review-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR release action items post-merge receipt review copy</p>
+              <h2>Как описать post-merge receipt review PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-action-items-post-merge-receipt-review-anchor"
+              href={prReleaseActionItemsPostMergeReceiptReviewCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReleaseActionItemsPostMergeReceiptReviewCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Reviewer"
+                    ? "Reviewer"
+                    : title === "Decision"
+                      ? "Decision"
+                      : title === "Action"
+                        ? "No review write"
+                        : "Decision next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prReleaseActionItemsPostMergeReceiptReviewCopy.receiptReviewCopy}</p>
+          <p className="stage-line muted">{prReleaseActionItemsPostMergeReceiptReviewCopy.noReviewWriteCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
