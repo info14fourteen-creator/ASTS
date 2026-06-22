@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 release action items implementation guardrails copy",
-    "описать guardrails без выполнения actions",
+    "Подготовить PR #17 release action items tracking handoff copy",
+    "описать tracking handoff без создания задач",
   ],
 ];
 
@@ -4892,6 +4892,48 @@ const prReleaseActionItemsAcceptanceCriteriaCopy = {
     ["Priority", "Priority signal и monitoring dependency остаются criteria без alert changes"],
     ["Action", "Этот copy не создает tasks, issues или owner assignment"],
     ["Next", "Следующий шаг описывает release action items implementation guardrails без выполнения actions"],
+  ],
+};
+
+const prReleaseActionItemsImplementationGuardrailsCopy = {
+  route: "/plan",
+  branch: prReleaseActionItemsAcceptanceCriteriaCopy.branch,
+  baseBranch: prReleaseActionItemsAcceptanceCriteriaCopy.baseBranch,
+  command: prReleaseActionItemsAcceptanceCriteriaCopy.command,
+  acceptanceCriteriaSelector: "[data-testid='pr-release-action-items-acceptance-criteria-copy']",
+  implementationGuardrailsScope: "PR #17 release action items implementation guardrails copy",
+  expectedCheckGroups: prReleaseActionItemsAcceptanceCriteriaCopy.expectedCheckGroups,
+  expectedConclusion: prReleaseActionItemsAcceptanceCriteriaCopy.expectedConclusion,
+  expectedMergeState: prReleaseActionItemsAcceptanceCriteriaCopy.expectedMergeState,
+  expectedPrComments: prReleaseActionItemsAcceptanceCriteriaCopy.expectedPrComments,
+  expectedReviewDecision: prReleaseActionItemsAcceptanceCriteriaCopy.expectedReviewDecision,
+  expectedReviews: prReleaseActionItemsAcceptanceCriteriaCopy.expectedReviews,
+  expectedReviewThreads: prReleaseActionItemsAcceptanceCriteriaCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prReleaseActionItemsAcceptanceCriteriaCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-release-action-items-implementation-guardrails-anchor']",
+  noExecutionCopy:
+    "Release action items implementation guardrails copy только описывает guardrails text; code changes, task creation, issue creation, owner assignment, merge action и main push остаются отдельными owner actions",
+  ownerRole: "Release owner + Delivery reviewer",
+  implementationGuardrailsCopy:
+    "Release action items implementation guardrails для PR #17: перед любым action item implementation проверить accepted criteria, scoped change, dry-run check, owner confirmation и rollback path; пока owner action не подтвержден, implementation не выполняется",
+  prHref: prReleaseActionItemsAcceptanceCriteriaCopy.prHref,
+  releaseScope: prReleaseActionItemsAcceptanceCriteriaCopy.releaseScope,
+  repairTargets:
+    "PR #17,release action items implementation guardrails,release action items acceptance criteria,accepted criteria,scoped change,dry-run check,owner confirmation,rollback path,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-release-action-items-acceptance-criteria-copy']",
+  status: "action-items-implementation-guardrails-draft",
+  implementationGuardrails: [
+    "accepted criteria",
+    "scoped change",
+    "dry-run check",
+    "owner confirmation",
+    "rollback path",
+  ],
+  checks: [
+    ["Scope", "Guardrails связывают accepted criteria, scoped change и dry-run check"],
+    ["Owner", "Owner confirmation остается prerequisite без выполнения actions"],
+    ["Action", "Этот copy не меняет code, tasks, issues или main"],
+    ["Next", "Следующий шаг описывает release action items tracking handoff без создания задач"],
   ],
 };
 
@@ -13225,6 +13267,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prReleaseActionItemsAcceptanceCriteriaCopy.acceptanceCriteriaCopy}</p>
           <p className="stage-line muted">{prReleaseActionItemsAcceptanceCriteriaCopy.noTaskCreationCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-acceptance-criteria-selector={prReleaseActionItemsImplementationGuardrailsCopy.acceptanceCriteriaSelector}
+          data-base-branch={prReleaseActionItemsImplementationGuardrailsCopy.baseBranch}
+          data-branch={prReleaseActionItemsImplementationGuardrailsCopy.branch}
+          data-command={prReleaseActionItemsImplementationGuardrailsCopy.command}
+          data-expected-check-groups={prReleaseActionItemsImplementationGuardrailsCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prReleaseActionItemsImplementationGuardrailsCopy.expectedConclusion}
+          data-expected-merge-state={prReleaseActionItemsImplementationGuardrailsCopy.expectedMergeState}
+          data-expected-pr-comments={prReleaseActionItemsImplementationGuardrailsCopy.expectedPrComments}
+          data-expected-review-decision={prReleaseActionItemsImplementationGuardrailsCopy.expectedReviewDecision}
+          data-expected-review-threads={prReleaseActionItemsImplementationGuardrailsCopy.expectedReviewThreads}
+          data-expected-reviews={prReleaseActionItemsImplementationGuardrailsCopy.expectedReviews}
+          data-expected-unresolved-threads={prReleaseActionItemsImplementationGuardrailsCopy.expectedUnresolvedThreads}
+          data-implementation-guardrails={prReleaseActionItemsImplementationGuardrailsCopy.implementationGuardrails.join(",")}
+          data-implementation-guardrails-copy={prReleaseActionItemsImplementationGuardrailsCopy.implementationGuardrailsCopy}
+          data-implementation-guardrails-scope={prReleaseActionItemsImplementationGuardrailsCopy.implementationGuardrailsScope}
+          data-link-selector={prReleaseActionItemsImplementationGuardrailsCopy.linkSelector}
+          data-no-execution-copy={prReleaseActionItemsImplementationGuardrailsCopy.noExecutionCopy}
+          data-owner-role={prReleaseActionItemsImplementationGuardrailsCopy.ownerRole}
+          data-pr-href={prReleaseActionItemsImplementationGuardrailsCopy.prHref}
+          data-release-scope={prReleaseActionItemsImplementationGuardrailsCopy.releaseScope}
+          data-repair-targets={prReleaseActionItemsImplementationGuardrailsCopy.repairTargets}
+          data-route={prReleaseActionItemsImplementationGuardrailsCopy.route}
+          data-source-marker-selector={prReleaseActionItemsImplementationGuardrailsCopy.sourceMarkerSelector}
+          data-status={prReleaseActionItemsImplementationGuardrailsCopy.status}
+          data-testid="pr-release-action-items-implementation-guardrails-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR release action items implementation guardrails copy</p>
+              <h2>Как описать action items implementation guardrails PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-action-items-implementation-guardrails-anchor"
+              href={prReleaseActionItemsImplementationGuardrailsCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReleaseActionItemsImplementationGuardrailsCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Scope"
+                    ? "Rules"
+                    : title === "Owner"
+                      ? "Owner gate"
+                      : title === "Action"
+                        ? "No action"
+                        : "Handoff next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prReleaseActionItemsImplementationGuardrailsCopy.implementationGuardrailsCopy}</p>
+          <p className="stage-line muted">{prReleaseActionItemsImplementationGuardrailsCopy.noExecutionCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
