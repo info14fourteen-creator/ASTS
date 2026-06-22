@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 release action items post-merge follow-up decision copy",
-    "описать post-merge follow-up decision без назначения actions",
+    "Подготовить PR #17 release action items post-merge decision handoff copy",
+    "описать post-merge decision handoff без передачи ownership",
   ],
 ];
 
@@ -5396,6 +5396,48 @@ const prReleaseActionItemsPostMergeReceiptReviewCopy = {
     ["Decision", "Follow-up decision и tracker boundary остаются review text без tracker mutation"],
     ["Action", "Этот copy не пишет review outcome, не создает events и не назначает owner"],
     ["Next", "Следующий шаг описывает release action items post-merge follow-up decision без назначения actions"],
+  ],
+};
+
+const prReleaseActionItemsPostMergeFollowUpDecisionCopy = {
+  route: "/plan",
+  branch: prReleaseActionItemsPostMergeReceiptReviewCopy.branch,
+  baseBranch: prReleaseActionItemsPostMergeReceiptReviewCopy.baseBranch,
+  command: prReleaseActionItemsPostMergeReceiptReviewCopy.command,
+  postMergeReceiptReviewSelector: "[data-testid='pr-release-action-items-post-merge-receipt-review-copy']",
+  postMergeFollowUpDecisionScope: "PR #17 release action items post-merge follow-up decision copy",
+  expectedCheckGroups: prReleaseActionItemsPostMergeReceiptReviewCopy.expectedCheckGroups,
+  expectedConclusion: prReleaseActionItemsPostMergeReceiptReviewCopy.expectedConclusion,
+  expectedMergeState: prReleaseActionItemsPostMergeReceiptReviewCopy.expectedMergeState,
+  expectedPrComments: prReleaseActionItemsPostMergeReceiptReviewCopy.expectedPrComments,
+  expectedReviewDecision: prReleaseActionItemsPostMergeReceiptReviewCopy.expectedReviewDecision,
+  expectedReviews: prReleaseActionItemsPostMergeReceiptReviewCopy.expectedReviews,
+  expectedReviewThreads: prReleaseActionItemsPostMergeReceiptReviewCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prReleaseActionItemsPostMergeReceiptReviewCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-release-action-items-post-merge-follow-up-decision-anchor']",
+  noActionAssignmentCopy:
+    "Release action items post-merge follow-up decision copy только описывает decision text; action assignment, tracker mutation, event creation, status field update, audit append и ownership transfer остаются отдельными owner actions",
+  ownerRole: "Release owner + Delivery reviewer",
+  followUpDecisionCopy:
+    "Release action items post-merge follow-up decision для PR #17: после receipt review подготовить draft decision с decision owner, decision options, evidence reference, action boundary и deferral note; пока owner action не подтвержден, follow-up actions не назначаются",
+  prHref: prReleaseActionItemsPostMergeReceiptReviewCopy.prHref,
+  releaseScope: prReleaseActionItemsPostMergeReceiptReviewCopy.releaseScope,
+  repairTargets:
+    "PR #17,release action items post-merge follow-up decision,release action items post-merge receipt review,decision owner,decision options,evidence reference,action boundary,deferral note,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-release-action-items-post-merge-receipt-review-copy']",
+  status: "action-items-post-merge-follow-up-decision-draft",
+  followUpDecisionFields: [
+    "decision owner",
+    "decision options",
+    "evidence reference",
+    "action boundary",
+    "deferral note",
+  ],
+  checks: [
+    ["Owner", "Follow-up decision связывает decision owner, decision options и evidence reference"],
+    ["Boundary", "Action boundary и deferral note остаются decision text без assignment"],
+    ["Action", "Этот copy не назначает actions, не создает events и не меняет tracker"],
+    ["Next", "Следующий шаг описывает release action items post-merge decision handoff без передачи ownership"],
   ],
 };
 
@@ -14481,6 +14523,72 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prReleaseActionItemsPostMergeReceiptReviewCopy.receiptReviewCopy}</p>
           <p className="stage-line muted">{prReleaseActionItemsPostMergeReceiptReviewCopy.noReviewWriteCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={prReleaseActionItemsPostMergeFollowUpDecisionCopy.baseBranch}
+          data-branch={prReleaseActionItemsPostMergeFollowUpDecisionCopy.branch}
+          data-command={prReleaseActionItemsPostMergeFollowUpDecisionCopy.command}
+          data-expected-check-groups={prReleaseActionItemsPostMergeFollowUpDecisionCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prReleaseActionItemsPostMergeFollowUpDecisionCopy.expectedConclusion}
+          data-expected-merge-state={prReleaseActionItemsPostMergeFollowUpDecisionCopy.expectedMergeState}
+          data-expected-pr-comments={prReleaseActionItemsPostMergeFollowUpDecisionCopy.expectedPrComments}
+          data-expected-review-decision={prReleaseActionItemsPostMergeFollowUpDecisionCopy.expectedReviewDecision}
+          data-expected-review-threads={prReleaseActionItemsPostMergeFollowUpDecisionCopy.expectedReviewThreads}
+          data-expected-reviews={prReleaseActionItemsPostMergeFollowUpDecisionCopy.expectedReviews}
+          data-expected-unresolved-threads={prReleaseActionItemsPostMergeFollowUpDecisionCopy.expectedUnresolvedThreads}
+          data-follow-up-decision-copy={prReleaseActionItemsPostMergeFollowUpDecisionCopy.followUpDecisionCopy}
+          data-follow-up-decision-fields={prReleaseActionItemsPostMergeFollowUpDecisionCopy.followUpDecisionFields.join(",")}
+          data-link-selector={prReleaseActionItemsPostMergeFollowUpDecisionCopy.linkSelector}
+          data-no-action-assignment-copy={prReleaseActionItemsPostMergeFollowUpDecisionCopy.noActionAssignmentCopy}
+          data-owner-role={prReleaseActionItemsPostMergeFollowUpDecisionCopy.ownerRole}
+          data-post-merge-follow-up-decision-scope={
+            prReleaseActionItemsPostMergeFollowUpDecisionCopy.postMergeFollowUpDecisionScope
+          }
+          data-post-merge-receipt-review-selector={
+            prReleaseActionItemsPostMergeFollowUpDecisionCopy.postMergeReceiptReviewSelector
+          }
+          data-pr-href={prReleaseActionItemsPostMergeFollowUpDecisionCopy.prHref}
+          data-release-scope={prReleaseActionItemsPostMergeFollowUpDecisionCopy.releaseScope}
+          data-repair-targets={prReleaseActionItemsPostMergeFollowUpDecisionCopy.repairTargets}
+          data-route={prReleaseActionItemsPostMergeFollowUpDecisionCopy.route}
+          data-source-marker-selector={prReleaseActionItemsPostMergeFollowUpDecisionCopy.sourceMarkerSelector}
+          data-status={prReleaseActionItemsPostMergeFollowUpDecisionCopy.status}
+          data-testid="pr-release-action-items-post-merge-follow-up-decision-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR release action items post-merge follow-up decision copy</p>
+              <h2>Как описать post-merge follow-up decision PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-action-items-post-merge-follow-up-decision-anchor"
+              href={prReleaseActionItemsPostMergeFollowUpDecisionCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReleaseActionItemsPostMergeFollowUpDecisionCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Owner"
+                    ? "Decision owner"
+                    : title === "Boundary"
+                      ? "Boundary"
+                      : title === "Action"
+                        ? "No assignment"
+                        : "Handoff next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prReleaseActionItemsPostMergeFollowUpDecisionCopy.followUpDecisionCopy}</p>
+          <p className="stage-line muted">{prReleaseActionItemsPostMergeFollowUpDecisionCopy.noActionAssignmentCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
