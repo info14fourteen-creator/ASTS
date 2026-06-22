@@ -333,3 +333,5 @@
 263. [done 2026-06-22] Подготовить PR #17 release action items archive note copy: описать draft archive note для archive reason, retained evidence, owner record, lookup path и restore trigger без архивирования или изменения tracker.
 
 264. [done 2026-06-22] Подготовить PR #17 release action items handover summary copy: описать draft handover summary для handover owner, active context, evidence packet, pending decision и return path без передачи владения или изменения tracker.
+
+265. [done 2026-06-22] Подготовить PR #17 release action items audit trail copy: описать draft audit trail для source note, evidence packet, owner handoff, decision point и verification link без записи событий или изменения tracker.

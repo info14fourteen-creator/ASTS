@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 release action items audit trail copy",
-    "описать audit trail без записи событий",
+    "Подготовить PR #17 release action items merge readiness bridge copy",
+    "связать audit trail с merge readiness без запроса merge",
   ],
 ];
 
@@ -5144,6 +5144,48 @@ const prReleaseActionItemsHandoverSummaryCopy = {
     ["Decision", "Pending decision и return path остаются summary text без owner transfer"],
     ["Action", "Этот copy не меняет owner, assignments, tracker или status fields"],
     ["Next", "Следующий шаг описывает release action items audit trail без записи событий"],
+  ],
+};
+
+const prReleaseActionItemsAuditTrailCopy = {
+  route: "/plan",
+  branch: prReleaseActionItemsHandoverSummaryCopy.branch,
+  baseBranch: prReleaseActionItemsHandoverSummaryCopy.baseBranch,
+  command: prReleaseActionItemsHandoverSummaryCopy.command,
+  handoverSummarySelector: "[data-testid='pr-release-action-items-handover-summary-copy']",
+  auditTrailScope: "PR #17 release action items audit trail copy",
+  expectedCheckGroups: prReleaseActionItemsHandoverSummaryCopy.expectedCheckGroups,
+  expectedConclusion: prReleaseActionItemsHandoverSummaryCopy.expectedConclusion,
+  expectedMergeState: prReleaseActionItemsHandoverSummaryCopy.expectedMergeState,
+  expectedPrComments: prReleaseActionItemsHandoverSummaryCopy.expectedPrComments,
+  expectedReviewDecision: prReleaseActionItemsHandoverSummaryCopy.expectedReviewDecision,
+  expectedReviews: prReleaseActionItemsHandoverSummaryCopy.expectedReviews,
+  expectedReviewThreads: prReleaseActionItemsHandoverSummaryCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prReleaseActionItemsHandoverSummaryCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-release-action-items-audit-trail-anchor']",
+  noEventWriteCopy:
+    "Release action items audit trail copy только описывает audit trail text; event creation, tracker mutation, status field update, assignment change, merge action и main push остаются отдельными owner actions",
+  ownerRole: "Release owner + Delivery reviewer",
+  auditTrailCopy:
+    "Release action items audit trail для PR #17: после handover summary собрать draft chain с source note, evidence packet, owner handoff, decision point и verification link; пока owner action не подтвержден, события не записываются",
+  prHref: prReleaseActionItemsHandoverSummaryCopy.prHref,
+  releaseScope: prReleaseActionItemsHandoverSummaryCopy.releaseScope,
+  repairTargets:
+    "PR #17,release action items audit trail,release action items handover summary,source note,evidence packet,owner handoff,decision point,verification link,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-release-action-items-handover-summary-copy']",
+  status: "action-items-audit-trail-draft",
+  auditTrailFields: [
+    "source note",
+    "evidence packet",
+    "owner handoff",
+    "decision point",
+    "verification link",
+  ],
+  checks: [
+    ["Chain", "Audit trail связывает source note, evidence packet и owner handoff"],
+    ["Decision", "Decision point и verification link остаются trail text без event write"],
+    ["Action", "Этот copy не пишет events, tasks, tracker или status fields"],
+    ["Next", "Следующий шаг описывает release action items merge readiness bridge без merge request"],
   ],
 };
 
@@ -13851,6 +13893,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prReleaseActionItemsHandoverSummaryCopy.handoverSummaryCopy}</p>
           <p className="stage-line muted">{prReleaseActionItemsHandoverSummaryCopy.noOwnerTransferCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-audit-trail-copy={prReleaseActionItemsAuditTrailCopy.auditTrailCopy}
+          data-audit-trail-fields={prReleaseActionItemsAuditTrailCopy.auditTrailFields.join(",")}
+          data-audit-trail-scope={prReleaseActionItemsAuditTrailCopy.auditTrailScope}
+          data-base-branch={prReleaseActionItemsAuditTrailCopy.baseBranch}
+          data-branch={prReleaseActionItemsAuditTrailCopy.branch}
+          data-command={prReleaseActionItemsAuditTrailCopy.command}
+          data-expected-check-groups={prReleaseActionItemsAuditTrailCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prReleaseActionItemsAuditTrailCopy.expectedConclusion}
+          data-expected-merge-state={prReleaseActionItemsAuditTrailCopy.expectedMergeState}
+          data-expected-pr-comments={prReleaseActionItemsAuditTrailCopy.expectedPrComments}
+          data-expected-review-decision={prReleaseActionItemsAuditTrailCopy.expectedReviewDecision}
+          data-expected-review-threads={prReleaseActionItemsAuditTrailCopy.expectedReviewThreads}
+          data-expected-reviews={prReleaseActionItemsAuditTrailCopy.expectedReviews}
+          data-expected-unresolved-threads={prReleaseActionItemsAuditTrailCopy.expectedUnresolvedThreads}
+          data-handover-summary-selector={prReleaseActionItemsAuditTrailCopy.handoverSummarySelector}
+          data-link-selector={prReleaseActionItemsAuditTrailCopy.linkSelector}
+          data-no-event-write-copy={prReleaseActionItemsAuditTrailCopy.noEventWriteCopy}
+          data-owner-role={prReleaseActionItemsAuditTrailCopy.ownerRole}
+          data-pr-href={prReleaseActionItemsAuditTrailCopy.prHref}
+          data-release-scope={prReleaseActionItemsAuditTrailCopy.releaseScope}
+          data-repair-targets={prReleaseActionItemsAuditTrailCopy.repairTargets}
+          data-route={prReleaseActionItemsAuditTrailCopy.route}
+          data-source-marker-selector={prReleaseActionItemsAuditTrailCopy.sourceMarkerSelector}
+          data-status={prReleaseActionItemsAuditTrailCopy.status}
+          data-testid="pr-release-action-items-audit-trail-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR release action items audit trail copy</p>
+              <h2>Как описать action items audit trail PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-action-items-audit-trail-anchor"
+              href={prReleaseActionItemsAuditTrailCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReleaseActionItemsAuditTrailCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Chain"
+                    ? "Audit chain"
+                    : title === "Decision"
+                      ? "Verification"
+                      : title === "Action"
+                        ? "No events"
+                        : "Bridge next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prReleaseActionItemsAuditTrailCopy.auditTrailCopy}</p>
+          <p className="stage-line muted">{prReleaseActionItemsAuditTrailCopy.noEventWriteCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
