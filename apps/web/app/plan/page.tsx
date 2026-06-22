@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 release action items post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff post-merge audit receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt copy",
-    "описать post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff post-merge audit receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt без receipt write",
+    "Подготовить PR #17 release action items post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff post-merge audit receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt review copy",
+    "описать post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff post-merge audit receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt review без review write",
   ],
 ];
 
@@ -8733,6 +8733,57 @@ const finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditRece
     [
       "Next",
       "Следующий шаг описывает release action items post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff post-merge audit receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt без receipt write",
+    ],
+  ],
+};
+
+const finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy = {
+  route: "/plan",
+  branch: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.branch,
+  baseBranch: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.baseBranch,
+  command: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.command,
+  sourceMarkerSelector:
+    "[data-testid='pr-release-action-items-post-merge-decision-record-approval-receipt-review-handoff-final-report-distribution-receipt-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-path-review-handoff-final-report-path-review-handoff-post-merge-audit-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-copy']",
+  finalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptScope:
+    "PR #17 release action items post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff post-merge audit receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt copy",
+  expectedCheckGroups: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.expectedCheckGroups,
+  expectedConclusion: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.expectedConclusion,
+  expectedMergeState: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.expectedMergeState,
+  expectedPrComments: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.expectedPrComments,
+  expectedReviewDecision: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.expectedReviewDecision,
+  expectedReviews: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.expectedReviews,
+  expectedReviewThreads: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.expectedUnresolvedThreads,
+  linkSelector:
+    "[data-testid='pr-release-action-items-post-merge-decision-record-approval-receipt-review-handoff-final-report-distribution-receipt-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-path-review-handoff-final-report-path-review-handoff-post-merge-audit-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-anchor']",
+  noFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptWriteCopy:
+    "Release action items post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff post-merge audit receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt copy только описывает receipt text; receipt write, handoff action, acceptance write, review write, audit append, closeout write, archive write, final report write, distribution write, tracker mutation, event creation и status field update остаются отдельными owner actions",
+  ownerRole: "Release owner + Delivery reviewer",
+  finalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy:
+    "Release action items post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff post-merge audit receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt для PR #17: после decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff post-merge audit receipt review handoff acceptance handoff receipt review handoff acceptance handoff подготовить draft receipt с receipt owner, handed off final report path review handoff post-merge audit receipt review handoff acceptance handoff receipt review handoff acceptance handoff, distribution evidence summary, receipt boundary и receipt review path; пока owner action не подтвержден, receipt не записывается",
+  prHref: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.prHref,
+  releaseScope: finalReportPathReviewHandoffFinalReportPathReviewHandoffCopy.releaseScope,
+  repairTargets:
+    "PR #17,release action items post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff post-merge audit receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt,release action items post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff post-merge audit receipt review handoff acceptance handoff receipt review handoff acceptance handoff,receipt owner,handed off final report path review handoff post-merge audit receipt review handoff acceptance handoff receipt review handoff acceptance handoff,distribution evidence summary,receipt boundary,receipt review path,apps/web/scripts/smoke.mjs,/plan",
+  status:
+    "action-items-post-merge-decision-record-approval-receipt-review-handoff-final-report-distribution-receipt-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-path-review-handoff-final-report-path-review-handoff-post-merge-audit-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-draft",
+  finalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptFields: [
+    "receipt owner",
+    "handed off final report path review handoff post-merge audit receipt review handoff acceptance handoff receipt review handoff acceptance handoff",
+    "distribution evidence summary",
+    "receipt boundary",
+    "receipt review path",
+  ],
+  checks: [
+    [
+      "Owner",
+      "Decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff post-merge audit receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt связывает receipt owner, handed off final report path review handoff post-merge audit receipt review handoff acceptance handoff receipt review handoff acceptance handoff и distribution evidence summary",
+    ],
+    ["Boundary", "Receipt boundary и receipt review path остаются receipt text без write"],
+    ["Action", "Этот copy не записывает receipt, не выполняет handoff action и не меняет tracker"],
+    [
+      "Next",
+      "Следующий шаг описывает release action items post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff post-merge audit receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt review без review write",
     ],
   ],
 };
@@ -24216,6 +24267,135 @@ export default function PlanPage() {
           <p className="stage-line muted">
             {
               finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffCopy.noFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffActionCopy
+            }
+          </p>
+        </section>
+
+        <section
+          className="panel pr-gates-panel"
+          data-base-branch={
+            finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.baseBranch
+          }
+          data-branch={
+            finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.branch
+          }
+          data-command={
+            finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.command
+          }
+          data-expected-check-groups={
+            finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.expectedCheckGroups
+          }
+          data-expected-conclusion={
+            finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.expectedConclusion
+          }
+          data-expected-merge-state={
+            finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.expectedMergeState
+          }
+          data-expected-pr-comments={
+            finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.expectedPrComments
+          }
+          data-expected-review-decision={
+            finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.expectedReviewDecision
+          }
+          data-expected-review-threads={
+            finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.expectedReviewThreads
+          }
+          data-expected-reviews={
+            finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.expectedReviews
+          }
+          data-expected-unresolved-threads={
+            finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.expectedUnresolvedThreads
+          }
+          data-final-report-path-review-handoff-post-merge-audit-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-copy={
+            finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.finalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy
+          }
+          data-final-report-path-review-handoff-post-merge-audit-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-fields={finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.finalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptFields.join(
+            ",",
+          )}
+          data-final-report-path-review-handoff-post-merge-audit-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-scope={
+            finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.finalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptScope
+          }
+          data-link-selector={
+            finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.linkSelector
+          }
+          data-no-final-report-path-review-handoff-post-merge-audit-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-write-copy={
+            finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.noFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptWriteCopy
+          }
+          data-owner-role={
+            finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.ownerRole
+          }
+          data-pr-href={
+            finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.prHref
+          }
+          data-release-scope={
+            finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.releaseScope
+          }
+          data-repair-targets={
+            finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.repairTargets
+          }
+          data-route={
+            finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.route
+          }
+          data-source-marker-selector={
+            finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.sourceMarkerSelector
+          }
+          data-status={
+            finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.status
+          }
+          data-testid="pr-release-action-items-post-merge-decision-record-approval-receipt-review-handoff-final-report-distribution-receipt-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-path-review-handoff-final-report-path-review-handoff-post-merge-audit-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">
+                PR release action items post-merge decision record approval receipt review handoff final report
+                distribution receipt review handoff final report review handoff final report review handoff final report
+                review handoff final report path review handoff final report path review handoff post-merge audit receipt
+                review handoff acceptance handoff receipt review handoff acceptance handoff receipt copy
+              </p>
+              <h2>
+                Как описать post-merge decision record approval receipt review handoff final report distribution receipt
+                review handoff final report review handoff final report review handoff final report review handoff final
+                report path review handoff final report path review handoff post-merge audit receipt review handoff
+                acceptance handoff receipt review handoff acceptance handoff receipt PR #17
+              </h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-action-items-post-merge-decision-record-approval-receipt-review-handoff-final-report-distribution-receipt-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-path-review-handoff-final-report-path-review-handoff-post-merge-audit-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-anchor"
+              href={
+                finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.prHref
+              }
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.checks.map(
+              ([title, text]) => (
+                <article className="fixture-coverage-card" key={title}>
+                  <span>{title}</span>
+                  <strong>
+                    {title === "Owner"
+                      ? "Final report path review handoff post-merge audit receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt owner"
+                      : title === "Boundary"
+                        ? "Final report path review handoff post-merge audit receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt boundary"
+                        : title === "Action"
+                          ? "No receipt write"
+                          : "Final report path review handoff post-merge audit receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt review next"}
+                  </strong>
+                  <p>{text}</p>
+                </article>
+              ),
+            )}
+          </div>
+          <p className="stage-line">
+            {
+              finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.finalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy
+            }
+          </p>
+          <p className="stage-line muted">
+            {
+              finalReportPathReviewHandoffFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptCopy.noFinalReportPathReviewHandoffPostMergeAuditReceiptReviewHandoffAcceptanceHandoffReceiptReviewHandoffAcceptanceHandoffReceiptWriteCopy
             }
           </p>
         </section>
