@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 release action items post-merge decision acceptance copy",
-    "описать post-merge decision acceptance без записи acceptance",
+    "Подготовить PR #17 release action items post-merge decision record copy",
+    "описать post-merge decision record без записи record",
   ],
 ];
 
@@ -5480,6 +5480,48 @@ const prReleaseActionItemsPostMergeDecisionHandoffCopy = {
     ["Boundary", "Ownership boundary и return path остаются handoff text без transfer"],
     ["Action", "Этот copy не передает ownership, не назначает actions и не меняет tracker"],
     ["Next", "Следующий шаг описывает release action items post-merge decision acceptance без записи acceptance"],
+  ],
+};
+
+const prReleaseActionItemsPostMergeDecisionAcceptanceCopy = {
+  route: "/plan",
+  branch: prReleaseActionItemsPostMergeDecisionHandoffCopy.branch,
+  baseBranch: prReleaseActionItemsPostMergeDecisionHandoffCopy.baseBranch,
+  command: prReleaseActionItemsPostMergeDecisionHandoffCopy.command,
+  postMergeDecisionHandoffSelector: "[data-testid='pr-release-action-items-post-merge-decision-handoff-copy']",
+  postMergeDecisionAcceptanceScope: "PR #17 release action items post-merge decision acceptance copy",
+  expectedCheckGroups: prReleaseActionItemsPostMergeDecisionHandoffCopy.expectedCheckGroups,
+  expectedConclusion: prReleaseActionItemsPostMergeDecisionHandoffCopy.expectedConclusion,
+  expectedMergeState: prReleaseActionItemsPostMergeDecisionHandoffCopy.expectedMergeState,
+  expectedPrComments: prReleaseActionItemsPostMergeDecisionHandoffCopy.expectedPrComments,
+  expectedReviewDecision: prReleaseActionItemsPostMergeDecisionHandoffCopy.expectedReviewDecision,
+  expectedReviews: prReleaseActionItemsPostMergeDecisionHandoffCopy.expectedReviews,
+  expectedReviewThreads: prReleaseActionItemsPostMergeDecisionHandoffCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prReleaseActionItemsPostMergeDecisionHandoffCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-release-action-items-post-merge-decision-acceptance-anchor']",
+  noAcceptanceRecordCopy:
+    "Release action items post-merge decision acceptance copy только описывает acceptance text; acceptance record, owner assignment, tracker mutation, event creation, status field update и audit append остаются отдельными owner actions",
+  ownerRole: "Release owner + Delivery reviewer",
+  decisionAcceptanceCopy:
+    "Release action items post-merge decision acceptance для PR #17: после decision handoff подготовить draft acceptance с acceptance owner, accepted handoff, evidence packet, acceptance boundary и pending record note; пока owner action не подтвержден, acceptance не записывается",
+  prHref: prReleaseActionItemsPostMergeDecisionHandoffCopy.prHref,
+  releaseScope: prReleaseActionItemsPostMergeDecisionHandoffCopy.releaseScope,
+  repairTargets:
+    "PR #17,release action items post-merge decision acceptance,release action items post-merge decision handoff,acceptance owner,accepted handoff,evidence packet,acceptance boundary,pending record note,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-release-action-items-post-merge-decision-handoff-copy']",
+  status: "action-items-post-merge-decision-acceptance-draft",
+  decisionAcceptanceFields: [
+    "acceptance owner",
+    "accepted handoff",
+    "evidence packet",
+    "acceptance boundary",
+    "pending record note",
+  ],
+  checks: [
+    ["Owner", "Decision acceptance связывает acceptance owner, accepted handoff и evidence packet"],
+    ["Boundary", "Acceptance boundary и pending record note остаются acceptance text без record"],
+    ["Action", "Этот copy не пишет acceptance, не назначает owner и не меняет tracker"],
+    ["Next", "Следующий шаг описывает release action items post-merge decision record без записи record"],
   ],
 };
 
@@ -14695,6 +14737,72 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prReleaseActionItemsPostMergeDecisionHandoffCopy.decisionHandoffCopy}</p>
           <p className="stage-line muted">{prReleaseActionItemsPostMergeDecisionHandoffCopy.noOwnershipTransferCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={prReleaseActionItemsPostMergeDecisionAcceptanceCopy.baseBranch}
+          data-branch={prReleaseActionItemsPostMergeDecisionAcceptanceCopy.branch}
+          data-command={prReleaseActionItemsPostMergeDecisionAcceptanceCopy.command}
+          data-decision-acceptance-copy={prReleaseActionItemsPostMergeDecisionAcceptanceCopy.decisionAcceptanceCopy}
+          data-decision-acceptance-fields={prReleaseActionItemsPostMergeDecisionAcceptanceCopy.decisionAcceptanceFields.join(",")}
+          data-expected-check-groups={prReleaseActionItemsPostMergeDecisionAcceptanceCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prReleaseActionItemsPostMergeDecisionAcceptanceCopy.expectedConclusion}
+          data-expected-merge-state={prReleaseActionItemsPostMergeDecisionAcceptanceCopy.expectedMergeState}
+          data-expected-pr-comments={prReleaseActionItemsPostMergeDecisionAcceptanceCopy.expectedPrComments}
+          data-expected-review-decision={prReleaseActionItemsPostMergeDecisionAcceptanceCopy.expectedReviewDecision}
+          data-expected-review-threads={prReleaseActionItemsPostMergeDecisionAcceptanceCopy.expectedReviewThreads}
+          data-expected-reviews={prReleaseActionItemsPostMergeDecisionAcceptanceCopy.expectedReviews}
+          data-expected-unresolved-threads={prReleaseActionItemsPostMergeDecisionAcceptanceCopy.expectedUnresolvedThreads}
+          data-link-selector={prReleaseActionItemsPostMergeDecisionAcceptanceCopy.linkSelector}
+          data-no-acceptance-record-copy={prReleaseActionItemsPostMergeDecisionAcceptanceCopy.noAcceptanceRecordCopy}
+          data-owner-role={prReleaseActionItemsPostMergeDecisionAcceptanceCopy.ownerRole}
+          data-post-merge-decision-acceptance-scope={
+            prReleaseActionItemsPostMergeDecisionAcceptanceCopy.postMergeDecisionAcceptanceScope
+          }
+          data-post-merge-decision-handoff-selector={
+            prReleaseActionItemsPostMergeDecisionAcceptanceCopy.postMergeDecisionHandoffSelector
+          }
+          data-pr-href={prReleaseActionItemsPostMergeDecisionAcceptanceCopy.prHref}
+          data-release-scope={prReleaseActionItemsPostMergeDecisionAcceptanceCopy.releaseScope}
+          data-repair-targets={prReleaseActionItemsPostMergeDecisionAcceptanceCopy.repairTargets}
+          data-route={prReleaseActionItemsPostMergeDecisionAcceptanceCopy.route}
+          data-source-marker-selector={prReleaseActionItemsPostMergeDecisionAcceptanceCopy.sourceMarkerSelector}
+          data-status={prReleaseActionItemsPostMergeDecisionAcceptanceCopy.status}
+          data-testid="pr-release-action-items-post-merge-decision-acceptance-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR release action items post-merge decision acceptance copy</p>
+              <h2>Как описать post-merge decision acceptance PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-action-items-post-merge-decision-acceptance-anchor"
+              href={prReleaseActionItemsPostMergeDecisionAcceptanceCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReleaseActionItemsPostMergeDecisionAcceptanceCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Owner"
+                    ? "Acceptance owner"
+                    : title === "Boundary"
+                      ? "Acceptance boundary"
+                      : title === "Action"
+                        ? "No record"
+                        : "Record next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prReleaseActionItemsPostMergeDecisionAcceptanceCopy.decisionAcceptanceCopy}</p>
+          <p className="stage-line muted">{prReleaseActionItemsPostMergeDecisionAcceptanceCopy.noAcceptanceRecordCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
