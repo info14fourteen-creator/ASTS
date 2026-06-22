@@ -323,3 +323,5 @@
 258. [done 2026-06-22] Подготовить PR #17 release action items acceptance criteria copy: описать draft acceptance criteria для accepted owner answer, evidence threshold, priority signal, monitoring dependency и rollback note без создания задач.
 
 259. [done 2026-06-22] Подготовить PR #17 release action items implementation guardrails copy: описать draft guardrails для accepted criteria, scoped change, dry-run check, owner confirmation и rollback path без выполнения actions.
+
+260. [done 2026-06-22] Подготовить PR #17 release action items tracking handoff copy: описать draft tracking handoff для tracking target, status owner, evidence link, check cadence и rollback contact без создания задач или изменения tracker.
