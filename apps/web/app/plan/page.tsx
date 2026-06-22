@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 release action items closure note copy",
-    "описать closure note без закрытия задач",
+    "Подготовить PR #17 release action items archive note copy",
+    "описать archive note без архивирования",
   ],
 ];
 
@@ -5018,6 +5018,48 @@ const prReleaseActionItemsStatusRollupCopy = {
     ["Evidence", "Evidence freshness и follow-up window остаются rollup text без status update"],
     ["Action", "Этот copy не меняет tracker, tasks, issues или status fields"],
     ["Next", "Следующий шаг описывает release action items closure note без закрытия задач"],
+  ],
+};
+
+const prReleaseActionItemsClosureNoteCopy = {
+  route: "/plan",
+  branch: prReleaseActionItemsStatusRollupCopy.branch,
+  baseBranch: prReleaseActionItemsStatusRollupCopy.baseBranch,
+  command: prReleaseActionItemsStatusRollupCopy.command,
+  statusRollupSelector: "[data-testid='pr-release-action-items-status-rollup-copy']",
+  closureNoteScope: "PR #17 release action items closure note copy",
+  expectedCheckGroups: prReleaseActionItemsStatusRollupCopy.expectedCheckGroups,
+  expectedConclusion: prReleaseActionItemsStatusRollupCopy.expectedConclusion,
+  expectedMergeState: prReleaseActionItemsStatusRollupCopy.expectedMergeState,
+  expectedPrComments: prReleaseActionItemsStatusRollupCopy.expectedPrComments,
+  expectedReviewDecision: prReleaseActionItemsStatusRollupCopy.expectedReviewDecision,
+  expectedReviews: prReleaseActionItemsStatusRollupCopy.expectedReviews,
+  expectedReviewThreads: prReleaseActionItemsStatusRollupCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prReleaseActionItemsStatusRollupCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-release-action-items-closure-note-anchor']",
+  noClosureMutationCopy:
+    "Release action items closure note copy только описывает closure note text; task closure, tracker mutation, status field update, issue closure, merge action и main push остаются отдельными owner actions",
+  ownerRole: "Release owner + Delivery reviewer",
+  closureNoteCopy:
+    "Release action items closure note для PR #17: после status rollup подготовить draft note с closure condition, final evidence, owner signoff, residual risk и reopen trigger; пока owner action не подтвержден, задачи не закрываются",
+  prHref: prReleaseActionItemsStatusRollupCopy.prHref,
+  releaseScope: prReleaseActionItemsStatusRollupCopy.releaseScope,
+  repairTargets:
+    "PR #17,release action items closure note,release action items status rollup,closure condition,final evidence,owner signoff,residual risk,reopen trigger,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-release-action-items-status-rollup-copy']",
+  status: "action-items-closure-note-draft",
+  closureNoteFields: [
+    "closure condition",
+    "final evidence",
+    "owner signoff",
+    "residual risk",
+    "reopen trigger",
+  ],
+  checks: [
+    ["Condition", "Closure note связывает closure condition, final evidence и owner signoff"],
+    ["Risk", "Residual risk и reopen trigger остаются note text без task closure"],
+    ["Action", "Этот copy не закрывает tasks, issues, tracker или status fields"],
+    ["Next", "Следующий шаг описывает release action items archive note без архивирования"],
   ],
 };
 
@@ -13539,6 +13581,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prReleaseActionItemsStatusRollupCopy.statusRollupCopy}</p>
           <p className="stage-line muted">{prReleaseActionItemsStatusRollupCopy.noStatusMutationCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={prReleaseActionItemsClosureNoteCopy.baseBranch}
+          data-branch={prReleaseActionItemsClosureNoteCopy.branch}
+          data-closure-note-copy={prReleaseActionItemsClosureNoteCopy.closureNoteCopy}
+          data-closure-note-fields={prReleaseActionItemsClosureNoteCopy.closureNoteFields.join(",")}
+          data-closure-note-scope={prReleaseActionItemsClosureNoteCopy.closureNoteScope}
+          data-command={prReleaseActionItemsClosureNoteCopy.command}
+          data-expected-check-groups={prReleaseActionItemsClosureNoteCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prReleaseActionItemsClosureNoteCopy.expectedConclusion}
+          data-expected-merge-state={prReleaseActionItemsClosureNoteCopy.expectedMergeState}
+          data-expected-pr-comments={prReleaseActionItemsClosureNoteCopy.expectedPrComments}
+          data-expected-review-decision={prReleaseActionItemsClosureNoteCopy.expectedReviewDecision}
+          data-expected-review-threads={prReleaseActionItemsClosureNoteCopy.expectedReviewThreads}
+          data-expected-reviews={prReleaseActionItemsClosureNoteCopy.expectedReviews}
+          data-expected-unresolved-threads={prReleaseActionItemsClosureNoteCopy.expectedUnresolvedThreads}
+          data-link-selector={prReleaseActionItemsClosureNoteCopy.linkSelector}
+          data-no-closure-mutation-copy={prReleaseActionItemsClosureNoteCopy.noClosureMutationCopy}
+          data-owner-role={prReleaseActionItemsClosureNoteCopy.ownerRole}
+          data-pr-href={prReleaseActionItemsClosureNoteCopy.prHref}
+          data-release-scope={prReleaseActionItemsClosureNoteCopy.releaseScope}
+          data-repair-targets={prReleaseActionItemsClosureNoteCopy.repairTargets}
+          data-route={prReleaseActionItemsClosureNoteCopy.route}
+          data-source-marker-selector={prReleaseActionItemsClosureNoteCopy.sourceMarkerSelector}
+          data-status={prReleaseActionItemsClosureNoteCopy.status}
+          data-status-rollup-selector={prReleaseActionItemsClosureNoteCopy.statusRollupSelector}
+          data-testid="pr-release-action-items-closure-note-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR release action items closure note copy</p>
+              <h2>Как описать action items closure note PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-action-items-closure-note-anchor"
+              href={prReleaseActionItemsClosureNoteCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReleaseActionItemsClosureNoteCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Condition"
+                    ? "Closure"
+                    : title === "Risk"
+                      ? "Reopen"
+                      : title === "Action"
+                        ? "No close"
+                        : "Archive next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prReleaseActionItemsClosureNoteCopy.closureNoteCopy}</p>
+          <p className="stage-line muted">{prReleaseActionItemsClosureNoteCopy.noClosureMutationCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
