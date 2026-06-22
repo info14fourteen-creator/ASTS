@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 release action items post-merge monitor handoff copy",
-    "описать post-merge monitoring handoff без выполнения merge",
+    "Подготовить PR #17 release action items post-merge evidence receipt copy",
+    "описать post-merge evidence receipt без записи событий",
   ],
 ];
 
@@ -5270,6 +5270,48 @@ const prReleaseActionItemsMergeRequestHandoffCopy = {
     ["Boundary", "Merge boundary и rollback contact остаются handoff text без merge execution"],
     ["Action", "Этот copy не выполняет merge, не меняет PR state, tracker или main"],
     ["Next", "Следующий шаг описывает release action items post-merge monitor handoff без выполнения merge"],
+  ],
+};
+
+const prReleaseActionItemsPostMergeMonitorHandoffCopy = {
+  route: "/plan",
+  branch: prReleaseActionItemsMergeRequestHandoffCopy.branch,
+  baseBranch: prReleaseActionItemsMergeRequestHandoffCopy.baseBranch,
+  command: prReleaseActionItemsMergeRequestHandoffCopy.command,
+  mergeRequestHandoffSelector: "[data-testid='pr-release-action-items-merge-request-handoff-copy']",
+  postMergeMonitorHandoffScope: "PR #17 release action items post-merge monitor handoff copy",
+  expectedCheckGroups: prReleaseActionItemsMergeRequestHandoffCopy.expectedCheckGroups,
+  expectedConclusion: prReleaseActionItemsMergeRequestHandoffCopy.expectedConclusion,
+  expectedMergeState: prReleaseActionItemsMergeRequestHandoffCopy.expectedMergeState,
+  expectedPrComments: prReleaseActionItemsMergeRequestHandoffCopy.expectedPrComments,
+  expectedReviewDecision: prReleaseActionItemsMergeRequestHandoffCopy.expectedReviewDecision,
+  expectedReviews: prReleaseActionItemsMergeRequestHandoffCopy.expectedReviews,
+  expectedReviewThreads: prReleaseActionItemsMergeRequestHandoffCopy.expectedReviewThreads,
+  expectedUnresolvedThreads: prReleaseActionItemsMergeRequestHandoffCopy.expectedUnresolvedThreads,
+  linkSelector: "[data-testid='pr-release-action-items-post-merge-monitor-handoff-anchor']",
+  noMonitorExecutionCopy:
+    "Release action items post-merge monitor handoff copy только описывает monitoring handoff text; merge execution, monitor activation, event creation, tracker mutation, status field update и main push остаются отдельными owner actions",
+  ownerRole: "Release owner + Delivery reviewer",
+  monitorHandoffCopy:
+    "Release action items post-merge monitor handoff для PR #17: после merge request handoff подготовить draft handoff с monitor owner, check window, signal source, rollback trigger и evidence receipt path; пока owner action не подтвержден, post-merge monitoring не запускается",
+  prHref: prReleaseActionItemsMergeRequestHandoffCopy.prHref,
+  releaseScope: prReleaseActionItemsMergeRequestHandoffCopy.releaseScope,
+  repairTargets:
+    "PR #17,release action items post-merge monitor handoff,release action items merge request handoff,monitor owner,check window,signal source,rollback trigger,evidence receipt path,apps/web/scripts/smoke.mjs,/plan",
+  sourceMarkerSelector: "[data-testid='pr-release-action-items-merge-request-handoff-copy']",
+  status: "action-items-post-merge-monitor-handoff-draft",
+  monitorHandoffFields: [
+    "monitor owner",
+    "check window",
+    "signal source",
+    "rollback trigger",
+    "evidence receipt path",
+  ],
+  checks: [
+    ["Owner", "Monitor handoff связывает monitor owner, check window и signal source"],
+    ["Rollback", "Rollback trigger и evidence receipt path остаются handoff text без monitor activation"],
+    ["Action", "Этот copy не выполняет merge, не запускает monitoring, не пишет events или tracker"],
+    ["Next", "Следующий шаг описывает release action items post-merge evidence receipt без записи событий"],
   ],
 };
 
@@ -14163,6 +14205,68 @@ export default function PlanPage() {
           </div>
           <p className="stage-line">{prReleaseActionItemsMergeRequestHandoffCopy.handoffCopy}</p>
           <p className="stage-line muted">{prReleaseActionItemsMergeRequestHandoffCopy.noMergeExecutionCopy}</p>
+        </section>
+
+        <section
+          className="panel fixture-coverage-panel"
+          data-base-branch={prReleaseActionItemsPostMergeMonitorHandoffCopy.baseBranch}
+          data-branch={prReleaseActionItemsPostMergeMonitorHandoffCopy.branch}
+          data-command={prReleaseActionItemsPostMergeMonitorHandoffCopy.command}
+          data-expected-check-groups={prReleaseActionItemsPostMergeMonitorHandoffCopy.expectedCheckGroups.join(",")}
+          data-expected-conclusion={prReleaseActionItemsPostMergeMonitorHandoffCopy.expectedConclusion}
+          data-expected-merge-state={prReleaseActionItemsPostMergeMonitorHandoffCopy.expectedMergeState}
+          data-expected-pr-comments={prReleaseActionItemsPostMergeMonitorHandoffCopy.expectedPrComments}
+          data-expected-review-decision={prReleaseActionItemsPostMergeMonitorHandoffCopy.expectedReviewDecision}
+          data-expected-review-threads={prReleaseActionItemsPostMergeMonitorHandoffCopy.expectedReviewThreads}
+          data-expected-reviews={prReleaseActionItemsPostMergeMonitorHandoffCopy.expectedReviews}
+          data-expected-unresolved-threads={prReleaseActionItemsPostMergeMonitorHandoffCopy.expectedUnresolvedThreads}
+          data-link-selector={prReleaseActionItemsPostMergeMonitorHandoffCopy.linkSelector}
+          data-merge-request-handoff-selector={prReleaseActionItemsPostMergeMonitorHandoffCopy.mergeRequestHandoffSelector}
+          data-monitor-handoff-copy={prReleaseActionItemsPostMergeMonitorHandoffCopy.monitorHandoffCopy}
+          data-monitor-handoff-fields={prReleaseActionItemsPostMergeMonitorHandoffCopy.monitorHandoffFields.join(",")}
+          data-no-monitor-execution-copy={prReleaseActionItemsPostMergeMonitorHandoffCopy.noMonitorExecutionCopy}
+          data-owner-role={prReleaseActionItemsPostMergeMonitorHandoffCopy.ownerRole}
+          data-post-merge-monitor-handoff-scope={prReleaseActionItemsPostMergeMonitorHandoffCopy.postMergeMonitorHandoffScope}
+          data-pr-href={prReleaseActionItemsPostMergeMonitorHandoffCopy.prHref}
+          data-release-scope={prReleaseActionItemsPostMergeMonitorHandoffCopy.releaseScope}
+          data-repair-targets={prReleaseActionItemsPostMergeMonitorHandoffCopy.repairTargets}
+          data-route={prReleaseActionItemsPostMergeMonitorHandoffCopy.route}
+          data-source-marker-selector={prReleaseActionItemsPostMergeMonitorHandoffCopy.sourceMarkerSelector}
+          data-status={prReleaseActionItemsPostMergeMonitorHandoffCopy.status}
+          data-testid="pr-release-action-items-post-merge-monitor-handoff-copy"
+        >
+          <div className="panel-head compact">
+            <div>
+              <p className="eyebrow">PR release action items post-merge monitor handoff copy</p>
+              <h2>Как описать post-merge monitor handoff PR #17</h2>
+            </div>
+            <a
+              className="primary-link"
+              data-testid="pr-release-action-items-post-merge-monitor-handoff-anchor"
+              href={prReleaseActionItemsPostMergeMonitorHandoffCopy.prHref}
+            >
+              PR #17
+            </a>
+          </div>
+          <div className="fixture-coverage-grid">
+            {prReleaseActionItemsPostMergeMonitorHandoffCopy.checks.map(([title, text]) => (
+              <article className="fixture-coverage-card" key={title}>
+                <span>{title}</span>
+                <strong>
+                  {title === "Owner"
+                    ? "Monitor owner"
+                    : title === "Rollback"
+                      ? "Rollback"
+                      : title === "Action"
+                        ? "No monitor"
+                        : "Receipt next"}
+                </strong>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <p className="stage-line">{prReleaseActionItemsPostMergeMonitorHandoffCopy.monitorHandoffCopy}</p>
+          <p className="stage-line muted">{prReleaseActionItemsPostMergeMonitorHandoffCopy.noMonitorExecutionCopy}</p>
         </section>
 
         <section className="panel plan-next-panel">
