@@ -373,3 +373,5 @@
 283. [done 2026-06-22] Подготовить PR #17 release action items post-merge decision record approval receipt review handoff final report copy: описать draft decision record approval receipt review handoff final report для final report owner, closed handoff, approval evidence summary, final report boundary и distribution path без записи final report или изменения tracker.
 
 284. [done 2026-06-22] Подготовить PR #17 release action items post-merge decision record approval receipt review handoff final report distribution copy: описать draft decision record approval receipt review handoff final report distribution для distribution owner, final report packet, approval evidence summary, distribution boundary и receipt path без записи distribution или изменения tracker.
+
+285. [done 2026-06-22] Подготовить PR #17 release action items post-merge decision record approval receipt review handoff final report distribution receipt copy: описать draft decision record approval receipt review handoff final report distribution receipt для receipt owner, distributed packet, distribution evidence, receipt boundary и review path без записи receipt или изменения tracker.
