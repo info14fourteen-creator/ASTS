@@ -58,8 +58,8 @@ const nextIncrements = [
   ],
   [
     "7",
-    "Подготовить PR #17 release action items post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff post-merge audit receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt copy",
-    "описать post-merge decision record approval receipt review handoff final report distribution receipt review handoff final report review handoff final report review handoff final report review handoff final report path review handoff final report path review handoff post-merge audit receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt review handoff acceptance handoff receipt без receipt write",
+    "Подготовить PR #17 next increment backlog trim second receipt copy",
+    "сократить седьмой visible next item до второго receipt-copy шага, сохранить release backlog evidence без receipt write, tracker mutation или main push",
   ],
   [
     "8",
