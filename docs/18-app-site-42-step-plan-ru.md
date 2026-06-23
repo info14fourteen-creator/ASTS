@@ -597,3 +597,5 @@
 385. [done 2026-06-23] Синхронизировать PR #17 next increments после закрытия receipt copy backlog: закрепить fresh-next marker для очереди PR #17, подтвердить, что все 10 прежних next increments уже отражены в done-журнале, и оставить следующий выбор за новым неповторяющимся инкрементом без owner action, tracker mutation или main push.
 
 386. [done 2026-06-23] Подготовить PR #17 next increment hygiene handoff copy: закрепить короткий hygiene handoff для первого слота next increments, убрать закрытый sync-marker из видимого top-next, оставить release backlog без tracker mutation, owner action или main push.
+
+387. [done 2026-06-23] Подготовить PR #17 next increment backlog trim receipt copy: сократить второй visible next item до понятного receipt-copy шага, оставить release backlog evidence без записи receipt, tracker mutation, owner action или main push.
