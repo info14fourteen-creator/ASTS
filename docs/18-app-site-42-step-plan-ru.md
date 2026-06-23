@@ -601,3 +601,5 @@
 387. [done 2026-06-23] Подготовить PR #17 next increment backlog trim receipt copy: сократить второй visible next item до понятного receipt-copy шага, оставить release backlog evidence без записи receipt, tracker mutation, owner action или main push.
 
 388. [done 2026-06-23] Подготовить PR #17 next increment backlog trim review copy: сократить третий visible next item до понятного review-copy шага, оставить release backlog evidence без записи review, tracker mutation, owner action или main push.
+
+389. [done 2026-06-23] Подготовить PR #17 next increment backlog trim final receipt copy: сократить четвертый visible next item до финального receipt-copy шага, оставить release backlog evidence без записи receipt, tracker mutation, owner action или main push.
