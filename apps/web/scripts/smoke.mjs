@@ -102,7 +102,7 @@ const routeChecks = [
       "Next increments",
       "Подготовить PR #17 next cycle route evidence seed copy",
       "Подготовить PR #17 next cycle source surface seed copy",
-      "Подготовить PR #17 next queue surface mapping copy",
+      "Подготовить PR #17 next cycle route surface mapping seed copy",
       "Подготовить PR #17 next queue smoke coverage copy",
       "Подготовить PR #17 next queue gate alignment copy",
       "Подготовить PR #17 next queue owner boundary copy",

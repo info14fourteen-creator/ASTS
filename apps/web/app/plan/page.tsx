@@ -38,8 +38,8 @@ const nextIncrements = [
   ],
   [
     "3",
-    "Подготовить PR #17 next queue surface mapping copy",
-    "связать source inventory с конкретными app.site.ru surfaces и smoke evidence без tracker mutation или main push",
+    "Подготовить PR #17 next cycle route surface mapping seed copy",
+    "связать source-surface seed с route-to-surface mapping, live smoke anchors и PR readiness notes без tracker mutation или main push",
   ],
   [
     "4",

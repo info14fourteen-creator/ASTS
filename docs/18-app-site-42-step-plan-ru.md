@@ -639,3 +639,5 @@
 406. [done 2026-06-24] Подготовить PR #17 next cycle route evidence seed copy: заменить закрытый refresh-sync seed в первом visible next slot на route-evidence seed для следующей backlog очереди, связать route evidence, source surfaces и PR readiness notes без tracker mutation, owner action или main push.
 
 407. [done 2026-06-24] Подготовить PR #17 next cycle source surface seed copy: заменить закрытый source-inventory item во втором visible next slot на source-surface seed для нового цикла, связать route evidence seed с source surfaces, smoke coverage и PR readiness notes без tracker mutation, owner action или main push.
+
+408. [done 2026-06-24] Подготовить PR #17 next cycle route surface mapping seed copy: заменить закрытый surface-mapping item в третьем visible next slot на route-surface mapping seed для нового цикла, связать source-surface seed с route-to-surface mapping, live smoke anchors и PR readiness notes без tracker mutation, owner action или main push.
