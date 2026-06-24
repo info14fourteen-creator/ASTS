@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 next cycle route evidence seed copy",
-    "собрать следующий backlog seed по route evidence, source surfaces и PR readiness notes без tracker mutation или main push",
+    "Подготовить PR #17 next cycle route evidence follow-up copy",
+    "собрать follow-up backlog по route evidence, source surfaces и PR readiness notes без tracker mutation или main push",
   ],
   [
     "2",
