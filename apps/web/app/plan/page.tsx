@@ -58,8 +58,8 @@ const nextIncrements = [
   ],
   [
     "7",
-    "Подготовить PR #17 next cycle review handoff seed copy",
-    "связать owner-boundary seed с review handoff notes, merge readiness receipts и CI evidence без review write, tracker mutation или main push",
+    "Подготовить PR #17 next cycle review handoff follow-up copy",
+    "связать owner-boundary follow-up с review handoff notes, merge readiness receipts и CI evidence без review write, tracker mutation или main push",
   ],
   [
     "8",
