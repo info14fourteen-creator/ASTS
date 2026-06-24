@@ -665,3 +665,5 @@
 419. [done 2026-06-24] Подготовить PR #17 next cycle live smoke coverage follow-up copy: заменить четвертый visible next slot с live-smoke coverage seed на live-smoke coverage follow-up, связать route-surface mapping follow-up с live smoke route coverage, HTML contract и PR readiness notes без tracker mutation, owner action или main push.
 
 420. [done 2026-06-24] Подготовить PR #17 next cycle PR gate alignment follow-up copy: заменить пятый visible next slot с PR-gate alignment seed на PR-gate alignment follow-up, связать live-smoke coverage follow-up с PR gate badges, status checks и reviewThreads evidence без tracker mutation, owner action или main push.
+
+421. [done 2026-06-24] Подготовить PR #17 next cycle owner boundary follow-up copy: заменить шестой visible next slot с owner-boundary seed на owner-boundary follow-up, связать PR-gate alignment follow-up с owner approval boundaries, no-write constraints и merge readiness evidence без tracker mutation, owner action или main push.

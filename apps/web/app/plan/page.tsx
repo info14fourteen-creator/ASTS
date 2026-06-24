@@ -53,8 +53,8 @@ const nextIncrements = [
   ],
   [
     "6",
-    "Подготовить PR #17 next cycle owner boundary seed copy",
-    "связать PR-gate alignment seed с owner approval boundaries, no-write constraints и merge readiness evidence без tracker mutation или main push",
+    "Подготовить PR #17 next cycle owner boundary follow-up copy",
+    "связать PR-gate alignment follow-up с owner approval boundaries, no-write constraints и merge readiness evidence без tracker mutation или main push",
   ],
   [
     "7",
