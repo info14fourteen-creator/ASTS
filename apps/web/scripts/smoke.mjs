@@ -107,7 +107,7 @@ const routeChecks = [
       "Подготовить PR #17 next queue gate alignment copy",
       "Подготовить PR #17 next queue owner boundary copy",
       "Подготовить PR #17 next queue review handoff copy",
-      "Подготовить PR #17 next increment backlog trim second handoff copy",
+      "Подготовить PR #17 next queue release receipt copy",
       "Подготовить PR #17 next increment backlog trim second acceptance copy",
       "Подготовить PR #17 next increment backlog trim final handoff copy",
       "data-testid=\"pr-release-action-items-post-merge-decision-record-approval-receipt-review-handoff-final-report-distribution-receipt-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-path-review-handoff-final-report-path-review-handoff-post-merge-audit-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-receipt-review-handoff-acceptance-handoff-receipt-copy\"",
