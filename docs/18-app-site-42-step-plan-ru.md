@@ -677,3 +677,5 @@
 425. [done 2026-06-24] Подготовить PR #17 next cycle handoff readiness follow-up copy: заменить десятый visible next slot с handoff-readiness seed на handoff-readiness follow-up, связать acceptance-criteria follow-up с handoff readiness evidence, PR summary wording и next-cycle queue seed без handoff action, tracker mutation, owner action или main push.
 
 426. [done 2026-06-24] Подготовить PR #17 next cycle route evidence final-pass copy: начать final-pass проход next queue, заменить первый visible next slot с route-evidence follow-up на route-evidence final-pass, связать route evidence, source surfaces и PR readiness notes без tracker mutation, owner action или main push.
+
+427. [done 2026-06-24] Подготовить PR #17 next cycle source surface final-pass copy: заменить второй visible next slot с source-surface follow-up на source-surface final-pass, связать route-evidence final-pass с source surfaces, smoke coverage и PR readiness notes без tracker mutation, owner action или main push.
