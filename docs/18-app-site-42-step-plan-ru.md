@@ -615,3 +615,5 @@
 394. [done 2026-06-24] Подготовить PR #17 next increment backlog trim second acceptance copy: сократить девятый visible next item до второго acceptance-copy шага, оставить release backlog evidence без acceptance write, tracker mutation, owner action или main push.
 
 395. [done 2026-06-24] Подготовить PR #17 next increment backlog trim final handoff copy: сократить десятый visible next item до финального handoff-copy шага, оставить release backlog evidence без handoff action, tracker mutation, owner action или main push.
+
+396. [done 2026-06-24] Подготовить PR #17 next queue refresh sync copy: заменить закрытый hygiene handoff в первом visible next slot на sync-copy для обновления следующей неповторяющейся backlog очереди без tracker mutation, owner action или main push.

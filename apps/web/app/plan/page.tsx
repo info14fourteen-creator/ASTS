@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 next increment hygiene handoff copy",
-    "описать короткий hygiene handoff для следующей очереди: убрать закрытый sync-marker из первого слота, оставить backlog без tracker mutation и без main push",
+    "Подготовить PR #17 next queue refresh sync copy",
+    "зафиксировать, что visible next queue очищена, и подготовить следующий неповторяющийся backlog slice без tracker mutation или main push",
   ],
   [
     "2",
