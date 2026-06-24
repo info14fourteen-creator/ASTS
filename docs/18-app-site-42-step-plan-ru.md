@@ -673,3 +673,5 @@
 423. [done 2026-06-24] Подготовить PR #17 next cycle release receipt follow-up copy: заменить восьмой visible next slot с release-receipt seed на release-receipt follow-up, связать review-handoff follow-up с release receipt evidence, CI pass summary и PR readiness copy без receipt write, tracker mutation, owner action или main push.
 
 424. [done 2026-06-24] Подготовить PR #17 next cycle acceptance criteria follow-up copy: заменить девятый visible next slot с acceptance-criteria seed на acceptance-criteria follow-up, связать release-receipt follow-up с acceptance criteria, owner-ready wording и CI evidence summary без acceptance write, tracker mutation, owner action или main push.
+
+425. [done 2026-06-24] Подготовить PR #17 next cycle handoff readiness follow-up copy: заменить десятый visible next slot с handoff-readiness seed на handoff-readiness follow-up, связать acceptance-criteria follow-up с handoff readiness evidence, PR summary wording и next-cycle queue seed без handoff action, tracker mutation, owner action или main push.
