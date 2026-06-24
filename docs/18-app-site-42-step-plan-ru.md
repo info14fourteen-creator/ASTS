@@ -683,3 +683,5 @@
 428. [done 2026-06-24] Подготовить PR #17 next cycle route surface mapping final-pass copy: заменить третий visible next slot с route-surface mapping follow-up на route-surface mapping final-pass, связать source-surface final-pass с route-to-surface mapping, live smoke anchors и PR readiness notes без tracker mutation, owner action или main push.
 
 429. [done 2026-06-24] Подготовить PR #17 next cycle live smoke coverage final-pass copy: заменить четвертый visible next slot с live-smoke coverage follow-up на live-smoke coverage final-pass, связать route-surface mapping final-pass с live smoke route coverage, HTML contract и PR readiness notes без tracker mutation, owner action или main push.
+
+430. [done 2026-06-25] Подготовить PR #17 next cycle PR gate alignment final-pass copy: заменить пятый visible next slot с PR-gate alignment follow-up на PR-gate alignment final-pass, связать live-smoke coverage final-pass с PR gate badges, status checks и reviewThreads evidence без tracker mutation, owner action или main push.
