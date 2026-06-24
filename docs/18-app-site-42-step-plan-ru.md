@@ -635,3 +635,5 @@
 404. [done 2026-06-24] Подготовить PR #17 next queue acceptance criteria copy: заменить закрытый second-acceptance trim в девятом visible next slot на acceptance-criteria copy, связать release receipt с acceptance criteria, owner-ready wording и CI evidence summary без acceptance write, tracker mutation, owner action или main push.
 
 405. [done 2026-06-24] Подготовить PR #17 next queue handoff readiness copy: заменить закрытый final-handoff trim в десятом visible next slot на handoff-readiness copy, связать acceptance criteria с handoff readiness evidence, PR summary wording и next-cycle queue seed без handoff action, tracker mutation, owner action или main push.
+
+406. [done 2026-06-24] Подготовить PR #17 next cycle route evidence seed copy: заменить закрытый refresh-sync seed в первом visible next slot на route-evidence seed для следующей backlog очереди, связать route evidence, source surfaces и PR readiness notes без tracker mutation, owner action или main push.
