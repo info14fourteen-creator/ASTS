@@ -58,8 +58,8 @@ const nextIncrements = [
   ],
   [
     "7",
-    "Подготовить PR #17 next increment backlog trim second receipt copy",
-    "сократить седьмой visible next item до второго receipt-copy шага, сохранить release backlog evidence без receipt write, tracker mutation или main push",
+    "Подготовить PR #17 next queue review handoff copy",
+    "связать owner boundary с review handoff notes, merge readiness receipts и CI evidence без review write, tracker mutation или main push",
   ],
   [
     "8",
