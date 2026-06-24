@@ -103,7 +103,7 @@ const routeChecks = [
       "Подготовить PR #17 next queue refresh sync copy",
       "Подготовить PR #17 next queue source inventory copy",
       "Подготовить PR #17 next queue surface mapping copy",
-      "Подготовить PR #17 next increment backlog trim final receipt copy",
+      "Подготовить PR #17 next queue smoke coverage copy",
       "Подготовить PR #17 next increment backlog trim handoff copy",
       "Подготовить PR #17 next increment backlog trim second review copy",
       "Подготовить PR #17 next increment backlog trim second receipt copy",

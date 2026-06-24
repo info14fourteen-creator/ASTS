@@ -43,8 +43,8 @@ const nextIncrements = [
   ],
   [
     "4",
-    "Подготовить PR #17 next increment backlog trim final receipt copy",
-    "сократить четвертый visible next item до финального receipt-copy шага, сохранить release backlog evidence без записи receipt, tracker mutation или main push",
+    "Подготовить PR #17 next queue smoke coverage copy",
+    "привязать surface mapping к маршрутам live smoke и HTML contract без tracker mutation или main push",
   ],
   [
     "5",
