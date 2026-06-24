@@ -689,3 +689,5 @@
 431. [done 2026-06-25] Подготовить PR #17 next cycle owner boundary final-pass copy: заменить шестой visible next slot с owner-boundary follow-up на owner-boundary final-pass, связать PR-gate alignment final-pass с owner approval boundaries, no-write constraints и merge readiness evidence без tracker mutation, owner action или main push.
 
 432. [done 2026-06-25] Подготовить PR #17 next cycle review handoff final-pass copy: заменить седьмой visible next slot с review-handoff follow-up на review-handoff final-pass, связать owner-boundary final-pass с review handoff notes, merge readiness receipts и CI evidence без review write, tracker mutation, owner action или main push.
+
+433. [done 2026-06-25] Подготовить PR #17 next cycle release receipt final-pass copy: заменить восьмой visible next slot с release-receipt follow-up на release-receipt final-pass, связать review-handoff final-pass с release receipt evidence, CI pass summary и PR readiness copy без receipt write, tracker mutation, owner action или main push.

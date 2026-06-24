@@ -63,8 +63,8 @@ const nextIncrements = [
   ],
   [
     "8",
-    "Подготовить PR #17 next cycle release receipt follow-up copy",
-    "связать review-handoff follow-up с release receipt evidence, CI pass summary и PR readiness copy без receipt write, tracker mutation или main push",
+    "Подготовить PR #17 next cycle release receipt final-pass copy",
+    "связать review-handoff final-pass с release receipt evidence, CI pass summary и PR readiness copy без receipt write, tracker mutation или main push",
   ],
   [
     "9",
