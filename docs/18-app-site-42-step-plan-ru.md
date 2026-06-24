@@ -625,3 +625,5 @@
 399. [done 2026-06-24] Подготовить PR #17 next queue smoke coverage copy: заменить закрытый final-receipt trim в четвертом visible next slot на smoke-coverage copy, привязать surface mapping к live smoke routes и HTML contract без tracker mutation, owner action или main push.
 
 400. [done 2026-06-24] Подготовить PR #17 next queue gate alignment copy: заменить закрытый handoff-trim в пятом visible next slot на gate-alignment copy, связать smoke coverage с PR gate badges, status checks и reviewThreads evidence без tracker mutation, owner action или main push.
+
+401. [done 2026-06-24] Подготовить PR #17 next queue owner boundary copy: заменить закрытый second-review trim в шестом visible next slot на owner-boundary copy, связать gate alignment с owner approval boundaries, no-write constraints и merge readiness evidence без tracker mutation, owner action или main push.

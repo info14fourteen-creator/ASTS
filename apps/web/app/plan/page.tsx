@@ -53,8 +53,8 @@ const nextIncrements = [
   ],
   [
     "6",
-    "Подготовить PR #17 next increment backlog trim second review copy",
-    "сократить шестой visible next item до второго review-copy шага, сохранить release backlog evidence без review write, tracker mutation или main push",
+    "Подготовить PR #17 next queue owner boundary copy",
+    "связать gate alignment с owner approval boundaries, no-write constraints и merge readiness evidence без tracker mutation или main push",
   ],
   [
     "7",
