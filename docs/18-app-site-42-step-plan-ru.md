@@ -669,3 +669,5 @@
 421. [done 2026-06-24] Подготовить PR #17 next cycle owner boundary follow-up copy: заменить шестой visible next slot с owner-boundary seed на owner-boundary follow-up, связать PR-gate alignment follow-up с owner approval boundaries, no-write constraints и merge readiness evidence без tracker mutation, owner action или main push.
 
 422. [done 2026-06-24] Подготовить PR #17 next cycle review handoff follow-up copy: заменить седьмой visible next slot с review-handoff seed на review-handoff follow-up, связать owner-boundary follow-up с review handoff notes, merge readiness receipts и CI evidence без review write, tracker mutation, owner action или main push.
+
+423. [done 2026-06-24] Подготовить PR #17 next cycle release receipt follow-up copy: заменить восьмой visible next slot с release-receipt seed на release-receipt follow-up, связать review-handoff follow-up с release receipt evidence, CI pass summary и PR readiness copy без receipt write, tracker mutation, owner action или main push.
