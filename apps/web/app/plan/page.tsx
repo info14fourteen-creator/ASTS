@@ -73,8 +73,8 @@ const nextIncrements = [
   ],
   [
     "10",
-    "Подготовить PR #17 next increment backlog trim final handoff copy",
-    "сократить десятый visible next item до финального handoff-copy шага, сохранить release backlog evidence без handoff action, tracker mutation или main push",
+    "Подготовить PR #17 next queue handoff readiness copy",
+    "связать acceptance criteria с handoff readiness evidence, PR summary wording и next-cycle queue seed без handoff action, tracker mutation или main push",
   ],
 ];
 
