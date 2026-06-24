@@ -107,7 +107,7 @@ const routeChecks = [
       "Подготовить PR #17 next cycle PR gate alignment seed copy",
       "Подготовить PR #17 next cycle owner boundary seed copy",
       "Подготовить PR #17 next cycle review handoff seed copy",
-      "Подготовить PR #17 next queue release receipt copy",
+      "Подготовить PR #17 next cycle release receipt seed copy",
       "Подготовить PR #17 next queue acceptance criteria copy",
       "Подготовить PR #17 next queue handoff readiness copy",
       "data-testid=\"pr-release-action-items-post-merge-decision-record-approval-receipt-review-handoff-final-report-distribution-receipt-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-path-review-handoff-final-report-path-review-handoff-post-merge-audit-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-receipt-review-handoff-acceptance-handoff-receipt-copy\"",

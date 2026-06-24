@@ -649,3 +649,5 @@
 411. [done 2026-06-24] Подготовить PR #17 next cycle owner boundary seed copy: заменить закрытый owner-boundary item в шестом visible next slot на owner-boundary seed для нового цикла, связать PR-gate alignment seed с owner approval boundaries, no-write constraints и merge readiness evidence без tracker mutation, owner action или main push.
 
 412. [done 2026-06-24] Подготовить PR #17 next cycle review handoff seed copy: заменить закрытый review-handoff item в седьмом visible next slot на review-handoff seed для нового цикла, связать owner-boundary seed с review handoff notes, merge readiness receipts и CI evidence без review write, tracker mutation, owner action или main push.
+
+413. [done 2026-06-24] Подготовить PR #17 next cycle release receipt seed copy: заменить закрытый release-receipt item в восьмом visible next slot на release-receipt seed для нового цикла, связать review-handoff seed с release receipt evidence, CI pass summary и PR readiness copy без receipt write, tracker mutation, owner action или main push.
