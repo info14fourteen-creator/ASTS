@@ -643,3 +643,5 @@
 408. [done 2026-06-24] Подготовить PR #17 next cycle route surface mapping seed copy: заменить закрытый surface-mapping item в третьем visible next slot на route-surface mapping seed для нового цикла, связать source-surface seed с route-to-surface mapping, live smoke anchors и PR readiness notes без tracker mutation, owner action или main push.
 
 409. [done 2026-06-24] Подготовить PR #17 next cycle live smoke coverage seed copy: заменить закрытый smoke-coverage item в четвертом visible next slot на live-smoke coverage seed для нового цикла, связать route-surface mapping seed с live smoke route coverage, HTML contract и PR readiness notes без tracker mutation, owner action или main push.
+
+410. [done 2026-06-24] Подготовить PR #17 next cycle PR gate alignment seed copy: заменить закрытый gate-alignment item в пятом visible next slot на PR-gate alignment seed для нового цикла, связать live-smoke coverage seed с PR gate badges, status checks и reviewThreads evidence без tracker mutation, owner action или main push.
