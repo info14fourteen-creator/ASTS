@@ -101,7 +101,7 @@ const routeChecks = [
       "80-point plan",
       "Next increments",
       "Подготовить PR #17 next queue refresh sync copy",
-      "Подготовить PR #17 next increment backlog trim receipt copy",
+      "Подготовить PR #17 next queue source inventory copy",
       "Подготовить PR #17 next increment backlog trim review copy",
       "Подготовить PR #17 next increment backlog trim final receipt copy",
       "Подготовить PR #17 next increment backlog trim handoff copy",

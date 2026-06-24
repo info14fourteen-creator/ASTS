@@ -33,8 +33,8 @@ const nextIncrements = [
   ],
   [
     "2",
-    "Подготовить PR #17 next increment backlog trim receipt copy",
-    "сократить второй visible next item до понятного receipt-copy шага, сохранить release backlog evidence без записи receipt, tracker mutation или main push",
+    "Подготовить PR #17 next queue source inventory copy",
+    "собрать первый новый backlog slice по remaining plan surfaces и PR gate evidence без tracker mutation или main push",
   ],
   [
     "3",
