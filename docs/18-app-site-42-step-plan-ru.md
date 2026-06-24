@@ -631,3 +631,5 @@
 402. [done 2026-06-24] Подготовить PR #17 next queue review handoff copy: заменить закрытый second-receipt trim в седьмом visible next slot на review-handoff copy, связать owner boundary с review handoff notes, merge readiness receipts и CI evidence без review write, tracker mutation, owner action или main push.
 
 403. [done 2026-06-24] Подготовить PR #17 next queue release receipt copy: заменить закрытый second-handoff trim в восьмом visible next slot на release-receipt copy, связать review handoff с release receipt evidence, CI pass summary и PR readiness copy без receipt write, tracker mutation, owner action или main push.
+
+404. [done 2026-06-24] Подготовить PR #17 next queue acceptance criteria copy: заменить закрытый second-acceptance trim в девятом visible next slot на acceptance-criteria copy, связать release receipt с acceptance criteria, owner-ready wording и CI evidence summary без acceptance write, tracker mutation, owner action или main push.
