@@ -33,8 +33,8 @@ const nextIncrements = [
   ],
   [
     "2",
-    "Подготовить PR #17 next queue source inventory copy",
-    "собрать первый новый backlog slice по remaining plan surfaces и PR gate evidence без tracker mutation или main push",
+    "Подготовить PR #17 next cycle source surface seed copy",
+    "связать route evidence seed с source surfaces, smoke coverage и PR readiness notes без tracker mutation или main push",
   ],
   [
     "3",
