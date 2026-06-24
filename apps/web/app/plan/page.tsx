@@ -38,8 +38,8 @@ const nextIncrements = [
   ],
   [
     "3",
-    "Подготовить PR #17 next increment backlog trim review copy",
-    "сократить третий visible next item до понятного review-copy шага, сохранить release backlog evidence без записи review, tracker mutation или main push",
+    "Подготовить PR #17 next queue surface mapping copy",
+    "связать source inventory с конкретными app.site.ru surfaces и smoke evidence без tracker mutation или main push",
   ],
   [
     "4",

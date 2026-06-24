@@ -619,3 +619,5 @@
 396. [done 2026-06-24] Подготовить PR #17 next queue refresh sync copy: заменить закрытый hygiene handoff в первом visible next slot на sync-copy для обновления следующей неповторяющейся backlog очереди без tracker mutation, owner action или main push.
 
 397. [done 2026-06-24] Подготовить PR #17 next queue source inventory copy: заменить закрытый receipt-trim во втором visible next slot на inventory-copy для первого нового backlog slice по remaining plan surfaces и PR gate evidence без tracker mutation, owner action или main push.
+
+398. [done 2026-06-24] Подготовить PR #17 next queue surface mapping copy: заменить закрытый review-trim в третьем visible next slot на surface-mapping copy, связать source inventory с app.site.ru surfaces и smoke evidence без tracker mutation, owner action или main push.
