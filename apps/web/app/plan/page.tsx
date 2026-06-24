@@ -48,8 +48,8 @@ const nextIncrements = [
   ],
   [
     "5",
-    "Подготовить PR #17 next increment backlog trim handoff copy",
-    "сократить пятый visible next item до понятного handoff-copy шага, сохранить release backlog evidence без handoff action, tracker mutation или main push",
+    "Подготовить PR #17 next queue gate alignment copy",
+    "связать smoke coverage с PR gate badges, status checks и reviewThreads evidence без tracker mutation или main push",
   ],
   [
     "6",
