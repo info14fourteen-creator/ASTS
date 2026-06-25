@@ -713,3 +713,5 @@
 443. [done 2026-06-25] Подготовить PR #17 next cycle release receipt closeout copy: заменить восьмой visible next slot с release-receipt final-pass на release-receipt closeout, связать review-handoff closeout с release receipt closeout, CI pass summary и PR readiness copy без receipt write, tracker mutation, owner action или main push.
 
 444. [done 2026-06-25] Подготовить PR #17 next cycle acceptance criteria closeout copy: заменить девятый visible next slot с acceptance-criteria final-pass на acceptance-criteria closeout, связать release-receipt closeout с acceptance criteria closeout, owner-ready wording и CI evidence summary без acceptance write, tracker mutation, owner action или main push.
+
+445. [done 2026-06-25] Подготовить PR #17 next cycle handoff readiness closeout copy: заменить десятый visible next slot с handoff-readiness final-pass на handoff-readiness closeout, связать acceptance-criteria closeout с handoff readiness closeout, PR summary wording и next-cycle queue seed без handoff action, tracker mutation, owner action или main push.
