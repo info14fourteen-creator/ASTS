@@ -102,7 +102,7 @@ const routeChecks = [
       "Next increments",
       "Подготовить PR #17 next cycle route evidence approval-ready copy",
       "Подготовить PR #17 next cycle source surface approval-ready copy",
-      "Подготовить PR #17 next cycle route surface mapping owner-ready copy",
+      "Подготовить PR #17 next cycle route surface mapping approval-ready copy",
       "Подготовить PR #17 next cycle live smoke coverage owner-ready copy",
       "Подготовить PR #17 next cycle PR gate alignment owner-ready copy",
       "Подготовить PR #17 next cycle owner boundary owner-ready copy",
