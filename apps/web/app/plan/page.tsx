@@ -38,8 +38,8 @@ const nextIncrements = [
   ],
   [
     "3",
-    "Подготовить PR #17 next cycle route surface mapping post-approval seed copy",
-    "связать source-surface post-approval seed с route-to-surface mapping post-approval seed, live smoke anchors и PR readiness notes без tracker mutation или main push",
+    "Подготовить PR #17 next cycle route surface mapping post-approval follow-up copy",
+    "связать source-surface post-approval follow-up с route-to-surface mapping post-approval follow-up, live smoke anchors и PR readiness notes без tracker mutation или main push",
   ],
   [
     "4",
