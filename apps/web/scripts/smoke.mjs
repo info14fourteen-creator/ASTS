@@ -104,7 +104,7 @@ const routeChecks = [
       "Подготовить PR #17 next cycle source surface post-approval seed copy",
       "Подготовить PR #17 next cycle route surface mapping post-approval seed copy",
       "Подготовить PR #17 next cycle live smoke coverage post-approval seed copy",
-      "Подготовить PR #17 next cycle PR gate alignment approval-ready copy",
+      "Подготовить PR #17 next cycle PR gate alignment post-approval seed copy",
       "Подготовить PR #17 next cycle owner boundary approval-ready copy",
       "Подготовить PR #17 next cycle review handoff approval-ready copy",
       "Подготовить PR #17 next cycle release receipt approval-ready copy",
