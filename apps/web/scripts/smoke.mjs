@@ -105,7 +105,7 @@ const routeChecks = [
       "Подготовить PR #17 next cycle route surface mapping closeout copy",
       "Подготовить PR #17 next cycle live smoke coverage closeout copy",
       "Подготовить PR #17 next cycle PR gate alignment closeout copy",
-      "Подготовить PR #17 next cycle owner boundary final-pass copy",
+      "Подготовить PR #17 next cycle owner boundary closeout copy",
       "Подготовить PR #17 next cycle review handoff final-pass copy",
       "Подготовить PR #17 next cycle release receipt final-pass copy",
       "Подготовить PR #17 next cycle acceptance criteria final-pass copy",
