@@ -747,3 +747,5 @@
 460. [done 2026-06-25] Подготовить PR #17 next cycle PR gate alignment approval-ready copy: заменить пятый visible next slot с PR-gate alignment owner-ready на PR-gate alignment approval-ready, связать live-smoke coverage approval-ready с PR gate alignment approval-ready, status checks и reviewThreads evidence без tracker mutation, owner action или main push.
 
 461. [done 2026-06-25] Подготовить PR #17 next cycle owner boundary approval-ready copy: заменить шестой visible next slot с owner-boundary owner-ready на owner-boundary approval-ready, связать PR-gate alignment approval-ready с owner boundary approval-ready, no-write constraints и merge readiness evidence без tracker mutation, owner action или main push.
+
+462. [done 2026-06-25] Подготовить PR #17 next cycle review handoff approval-ready copy: заменить седьмой visible next slot с review-handoff owner-ready на review-handoff approval-ready, связать owner-boundary approval-ready с review handoff approval-ready, merge readiness receipts и CI evidence без review write, tracker mutation, owner action или main push.
