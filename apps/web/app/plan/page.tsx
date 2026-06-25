@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 next cycle route evidence closeout copy",
-    "связать handoff-readiness final-pass с route evidence closeout, merge readiness receipts и source surface anchors без tracker mutation или main push",
+    "Подготовить PR #17 next cycle route evidence owner-ready copy",
+    "связать handoff-readiness closeout с route evidence owner-ready, merge readiness receipts и source surface anchors без tracker mutation или main push",
   ],
   [
     "2",
