@@ -68,8 +68,8 @@ const nextIncrements = [
   ],
   [
     "9",
-    "Подготовить PR #17 next cycle acceptance criteria closeout copy",
-    "связать release-receipt closeout с acceptance criteria closeout, owner-ready wording и CI evidence summary без acceptance write, tracker mutation или main push",
+    "Подготовить PR #17 next cycle acceptance criteria owner-ready copy",
+    "связать release-receipt owner-ready с acceptance criteria owner-ready, owner-ready wording и CI evidence summary без acceptance write, tracker mutation или main push",
   ],
   [
     "10",
