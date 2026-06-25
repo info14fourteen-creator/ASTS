@@ -43,8 +43,8 @@ const nextIncrements = [
   ],
   [
     "4",
-    "Подготовить PR #17 next cycle live smoke coverage approval-ready copy",
-    "связать route-surface mapping approval-ready с live smoke coverage approval-ready, HTML contract и PR readiness notes без tracker mutation или main push",
+    "Подготовить PR #17 next cycle live smoke coverage post-approval seed copy",
+    "связать route-surface mapping post-approval seed с live smoke coverage post-approval seed, HTML contract и PR readiness notes без tracker mutation или main push",
   ],
   [
     "5",
