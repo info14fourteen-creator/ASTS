@@ -723,3 +723,5 @@
 448. [done 2026-06-25] Подготовить PR #17 next cycle route surface mapping owner-ready copy: заменить третий visible next slot с route-surface mapping closeout на route-surface mapping owner-ready, связать source-surface owner-ready с route-to-surface mapping owner-ready, live smoke anchors и PR readiness notes без tracker mutation, owner action или main push.
 
 449. [done 2026-06-25] Подготовить PR #17 next cycle live smoke coverage owner-ready copy: заменить четвертый visible next slot с live-smoke coverage closeout на live-smoke coverage owner-ready, связать route-surface mapping owner-ready с live smoke coverage owner-ready, HTML contract и PR readiness notes без tracker mutation, owner action или main push.
+
+450. [done 2026-06-25] Подготовить PR #17 next cycle PR gate alignment owner-ready copy: заменить пятый visible next slot с PR-gate alignment closeout на PR-gate alignment owner-ready, связать live-smoke coverage owner-ready с PR gate alignment owner-ready, status checks и reviewThreads evidence без tracker mutation, owner action или main push.
