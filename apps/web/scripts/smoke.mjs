@@ -101,7 +101,7 @@ const routeChecks = [
       "80-point plan",
       "Next increments",
       "Подготовить PR #17 next cycle route evidence owner-ready copy",
-      "Подготовить PR #17 next cycle source surface closeout copy",
+      "Подготовить PR #17 next cycle source surface owner-ready copy",
       "Подготовить PR #17 next cycle route surface mapping closeout copy",
       "Подготовить PR #17 next cycle live smoke coverage closeout copy",
       "Подготовить PR #17 next cycle PR gate alignment closeout copy",
