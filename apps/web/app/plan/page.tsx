@@ -38,8 +38,8 @@ const nextIncrements = [
   ],
   [
     "3",
-    "Подготовить PR #17 next cycle route surface mapping closeout copy",
-    "связать source-surface closeout с route-to-surface mapping closeout, live smoke anchors и PR readiness notes без tracker mutation или main push",
+    "Подготовить PR #17 next cycle route surface mapping owner-ready copy",
+    "связать source-surface owner-ready с route-to-surface mapping owner-ready, live smoke anchors и PR readiness notes без tracker mutation или main push",
   ],
   [
     "4",
