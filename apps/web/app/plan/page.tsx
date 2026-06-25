@@ -48,8 +48,8 @@ const nextIncrements = [
   ],
   [
     "5",
-    "Подготовить PR #17 next cycle PR gate alignment owner-ready copy",
-    "связать live-smoke coverage owner-ready с PR gate alignment owner-ready, status checks и reviewThreads evidence без tracker mutation или main push",
+    "Подготовить PR #17 next cycle PR gate alignment approval-ready copy",
+    "связать live-smoke coverage approval-ready с PR gate alignment approval-ready, status checks и reviewThreads evidence без tracker mutation или main push",
   ],
   [
     "6",
