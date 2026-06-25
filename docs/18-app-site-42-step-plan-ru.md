@@ -737,3 +737,5 @@
 455. [done 2026-06-25] Подготовить PR #17 next cycle handoff readiness owner-ready copy: заменить десятый visible next slot с handoff-readiness closeout на handoff-readiness owner-ready, связать acceptance-criteria owner-ready с handoff readiness owner-ready, PR summary wording и next-cycle queue seed без handoff action, tracker mutation, owner action или main push.
 
 456. [done 2026-06-25] Подготовить PR #17 next cycle route evidence approval-ready copy: начать approval-ready проход next queue, заменить первый visible next slot с route-evidence owner-ready на route-evidence approval-ready, связать handoff-readiness owner-ready с route evidence approval-ready, approval checklist receipts и source surface anchors без tracker mutation, owner action или main push.
+
+457. [done 2026-06-25] Подготовить PR #17 next cycle source surface approval-ready copy: заменить второй visible next slot с source-surface owner-ready на source-surface approval-ready, связать route-evidence approval-ready с source surface approval-ready, smoke coverage и PR readiness notes без tracker mutation, owner action или main push.
