@@ -807,3 +807,5 @@
 490. [done 2026-06-26] Подготовить PR #17 next cycle PR gate alignment post-approval stabilization copy: заменить пятый visible next slot с PR-gate alignment post-approval follow-up на PR-gate alignment post-approval stabilization, связать live-smoke coverage post-approval stabilization со status checks и reviewThreads evidence без tracker mutation, owner action или main push.
 
 491. [done 2026-06-26] Подготовить PR #17 next cycle owner boundary post-approval stabilization copy: заменить шестой visible next slot с owner-boundary post-approval follow-up на owner-boundary post-approval stabilization, связать PR-gate alignment post-approval stabilization с no-write constraints и merge readiness evidence без tracker mutation, owner action или main push.
+
+492. [done 2026-06-26] Подготовить PR #17 next cycle review handoff post-approval stabilization copy: заменить седьмой visible next slot с review-handoff post-approval follow-up на review-handoff post-approval stabilization, связать owner-boundary post-approval stabilization с merge readiness receipts и CI evidence без review write, tracker mutation, owner action или main push.
