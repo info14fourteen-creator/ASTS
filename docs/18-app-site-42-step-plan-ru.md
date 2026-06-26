@@ -841,3 +841,5 @@
 507. [done 2026-06-26] Подготовить PR #17 next cycle source surface post-approval closeout copy: заменить второй visible next slot с source-surface post-approval finalization на source-surface post-approval closeout, связать route-evidence post-approval closeout с smoke coverage и PR readiness notes без tracker mutation, owner action или main push.
 
 508. [done 2026-06-26] Подготовить PR #17 next cycle route surface mapping post-approval closeout copy: заменить третий visible next slot с route-surface mapping post-approval finalization на route-surface mapping post-approval closeout, связать source-surface post-approval closeout с live smoke anchors и PR readiness notes без tracker mutation, owner action или main push.
+
+509. [done 2026-06-26] Подготовить PR #17 next cycle live smoke coverage post-approval closeout copy: заменить четвертый visible next slot с live-smoke coverage post-approval finalization на live-smoke coverage post-approval closeout, связать route-surface mapping post-approval closeout с HTML contract и PR readiness notes без tracker mutation, owner action или main push.
