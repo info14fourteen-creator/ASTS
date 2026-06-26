@@ -73,8 +73,8 @@ const nextIncrements = [
   ],
   [
     "10",
-    "Подготовить PR #17 next cycle handoff readiness post-approval follow-up copy",
-    "связать acceptance-criteria post-approval follow-up с handoff readiness post-approval follow-up, PR summary wording и next-cycle queue seed без handoff action, tracker mutation или main push",
+    "Подготовить PR #17 next cycle handoff readiness post-approval stabilization copy",
+    "связать acceptance-criteria post-approval stabilization с handoff readiness post-approval stabilization, PR summary wording и next-cycle queue seed без handoff action, tracker mutation или main push",
   ],
 ];
 
