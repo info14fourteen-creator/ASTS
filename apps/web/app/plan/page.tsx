@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 next cycle route evidence post-approval closeout-rollover closure copy",
-    "связать handoff-readiness post-approval closeout-rollover finalization с route evidence post-approval closeout-rollover closure, approval checklist receipts и source surface anchors без tracker mutation или main push",
+    "Подготовить PR #17 next cycle route evidence post-approval closeout-rollover completion copy",
+    "связать handoff-readiness post-approval closeout-rollover closure с route evidence post-approval closeout-rollover completion, approval checklist receipts и source surface anchors без tracker mutation или main push",
   ],
   [
     "2",
