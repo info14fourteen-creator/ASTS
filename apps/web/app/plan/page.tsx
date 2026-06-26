@@ -53,8 +53,8 @@ const nextIncrements = [
   ],
   [
     "6",
-    "Подготовить PR #17 next cycle owner boundary post-approval closeout copy",
-    "связать PR-gate alignment post-approval closeout с owner boundary post-approval closeout, no-write constraints и merge readiness evidence без tracker mutation или main push",
+    "Подготовить PR #17 next cycle owner boundary post-approval closeout-rollover copy",
+    "связать PR-gate alignment post-approval closeout-rollover с owner boundary post-approval closeout-rollover, no-write constraints и merge readiness evidence без tracker mutation или main push",
   ],
   [
     "7",
