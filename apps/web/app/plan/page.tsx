@@ -68,8 +68,8 @@ const nextIncrements = [
   ],
   [
     "9",
-    "Подготовить PR #17 next cycle acceptance criteria post-approval stabilization copy",
-    "связать release-receipt post-approval stabilization с acceptance criteria post-approval stabilization, approval-ready wording и CI evidence summary без acceptance write, tracker mutation или main push",
+    "Подготовить PR #17 next cycle acceptance criteria post-approval finalization copy",
+    "связать release-receipt post-approval finalization с acceptance criteria post-approval finalization, approval-ready wording и CI evidence summary без acceptance write, tracker mutation или main push",
   ],
   [
     "10",
