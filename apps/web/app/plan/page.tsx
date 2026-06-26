@@ -33,8 +33,8 @@ const nextIncrements = [
   ],
   [
     "2",
-    "Подготовить PR #17 next cycle source surface post-approval finalization copy",
-    "связать route-evidence post-approval finalization с source surface post-approval finalization, smoke coverage и PR readiness notes без tracker mutation или main push",
+    "Подготовить PR #17 next cycle source surface post-approval closeout copy",
+    "связать route-evidence post-approval closeout с source surface post-approval closeout, smoke coverage и PR readiness notes без tracker mutation или main push",
   ],
   [
     "3",
