@@ -100,7 +100,7 @@ const routeChecks = [
       "План разработки ASTS",
       "80-point plan",
       "Next increments",
-      "Подготовить PR #17 next cycle route evidence post-approval closeout-rollover completion copy",
+      "Подготовить PR #17 next cycle route evidence post-approval closeout-rollover verification copy",
       "Подготовить PR #17 next cycle source surface post-approval closeout-rollover completion copy",
       "Подготовить PR #17 next cycle route surface mapping post-approval closeout-rollover completion copy",
       "Подготовить PR #17 next cycle live smoke coverage post-approval closeout-rollover completion copy",
