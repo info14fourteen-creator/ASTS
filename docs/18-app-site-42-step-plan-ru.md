@@ -811,3 +811,5 @@
 492. [done 2026-06-26] Подготовить PR #17 next cycle review handoff post-approval stabilization copy: заменить седьмой visible next slot с review-handoff post-approval follow-up на review-handoff post-approval stabilization, связать owner-boundary post-approval stabilization с merge readiness receipts и CI evidence без review write, tracker mutation, owner action или main push.
 
 493. [done 2026-06-26] Подготовить PR #17 next cycle release receipt post-approval stabilization copy: заменить восьмой visible next slot с release-receipt post-approval follow-up на release-receipt post-approval stabilization, связать review-handoff post-approval stabilization с CI pass summary и PR readiness copy без receipt write, tracker mutation, owner action или main push.
+
+494. [done 2026-06-26] Подготовить PR #17 next cycle acceptance criteria post-approval stabilization copy: заменить девятый visible next slot с acceptance-criteria post-approval follow-up на acceptance-criteria post-approval stabilization, связать release-receipt post-approval stabilization с approval-ready wording и CI evidence summary без acceptance write, tracker mutation, owner action или main push.
