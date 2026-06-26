@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 next cycle route evidence post-approval stabilization copy",
-    "связать handoff-readiness post-approval follow-up с route evidence post-approval stabilization, approval checklist receipts и source surface anchors без tracker mutation или main push",
+    "Подготовить PR #17 next cycle route evidence post-approval finalization copy",
+    "связать handoff-readiness post-approval stabilization с route evidence post-approval finalization, approval checklist receipts и source surface anchors без tracker mutation или main push",
   ],
   [
     "2",
