@@ -106,7 +106,7 @@ const routeChecks = [
       "Подготовить PR #17 next cycle live smoke coverage post-approval closeout-rollover stabilization copy",
       "Подготовить PR #17 next cycle PR gate alignment post-approval closeout-rollover stabilization copy",
       "Подготовить PR #17 next cycle owner boundary post-approval closeout-rollover stabilization copy",
-      "Подготовить PR #17 next cycle review handoff post-approval closeout-rollover follow-up copy",
+      "Подготовить PR #17 next cycle review handoff post-approval closeout-rollover stabilization copy",
       "Подготовить PR #17 next cycle release receipt post-approval closeout-rollover follow-up copy",
       "Подготовить PR #17 next cycle acceptance criteria post-approval closeout-rollover follow-up copy",
       "Подготовить PR #17 next cycle handoff readiness post-approval closeout-rollover follow-up copy",
