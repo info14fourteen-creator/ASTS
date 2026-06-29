@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 next cycle route evidence post-approval closeout-rollover verification copy",
-    "начать verification проход после полной десятки closeout-rollover completion, связать handoff-readiness post-approval closeout-rollover completion с route evidence post-approval closeout-rollover verification, approval checklist receipts и source surface anchors без tracker mutation или main push",
+    "Подготовить PR #17 final handoff audit readiness copy",
+    "начать final readiness pass после закрытой visible verification-десятки, связать handoff readiness post-approval closeout-rollover verification с final handoff audit, CLEAN PR, SUCCESS checks и reviewThreads=0 без merge action, tracker mutation или main push",
   ],
   [
     "2",
