@@ -68,8 +68,8 @@ const nextIncrements = [
   ],
   [
     "9",
-    "Подготовить PR #17 acceptance criteria summary readiness copy",
-    "связать release summary receipt readiness с acceptance criteria summary readiness, CLEAN PR, SUCCESS checks, approval-ready wording, CI evidence summary, reviewThreads=0, unresolved=0, comments=0 и пустым reviewDecision без acceptance write, approval request, owner action, merge action или main push",
+    "Подготовить PR #17 acceptance criteria summary rollover copy",
+    "связать release summary receipt rollover с acceptance criteria summary rollover, CLEAN PR, SUCCESS checks, approval-ready wording, CI evidence summary, reviewThreads=0, unresolved=0, comments=0 и пустым reviewDecision без acceptance write, approval request, owner action, tracker mutation, merge action или main push",
   ],
   [
     "10",
