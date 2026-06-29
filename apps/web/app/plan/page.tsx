@@ -73,8 +73,8 @@ const nextIncrements = [
   ],
   [
     "10",
-    "Подготовить PR #17 final owner handoff readiness copy",
-    "связать acceptance criteria readiness с final owner handoff readiness, PR summary wording, CLEAN PR, SUCCESS checks, reviewThreads=0 и comments=0 без handoff action, merge action или main push",
+    "Подготовить PR #17 final owner handoff summary readiness copy",
+    "связать acceptance criteria summary readiness с final owner handoff summary readiness, PR summary wording, CLEAN PR, SUCCESS checks, reviewThreads=0, unresolved=0, comments=0 и пустым reviewDecision без handoff action, owner action, merge action или main push",
   ],
 ];
 
