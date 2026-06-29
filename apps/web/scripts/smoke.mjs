@@ -104,7 +104,7 @@ const routeChecks = [
       "Подготовить PR #17 merge readiness summary note rollover copy",
       "Подготовить PR #17 review threads summary rollover copy",
       "Подготовить PR #17 merge request summary rollover copy",
-      "Подготовить PR #17 final merge summary handoff readiness copy",
+      "Подготовить PR #17 final merge summary handoff rollover copy",
       "Подготовить PR #17 merge approval summary checklist readiness copy",
       "Подготовить PR #17 review summary handoff readiness copy",
       "Подготовить PR #17 release summary receipt readiness copy",
