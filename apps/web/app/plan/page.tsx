@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 final readiness summary copy",
-    "связать final owner handoff readiness с final readiness summary, CLEAN PR, SUCCESS checks, reviewThreads=0, comments=0 и пустым reviewDecision без owner action, merge action или main push",
+    "Подготовить PR #17 final readiness summary rollover copy",
+    "связать final owner handoff summary readiness с final readiness summary rollover, CLEAN PR, SUCCESS checks, reviewThreads=0, unresolved=0, comments=0 и пустым reviewDecision без owner action, tracker mutation, merge action или main push",
   ],
   [
     "2",
