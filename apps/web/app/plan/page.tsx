@@ -28,8 +28,8 @@ const planBlocks = [
 const nextIncrements = [
   [
     "1",
-    "Подготовить PR #17 final handoff audit readiness copy",
-    "начать final readiness pass после закрытой visible verification-десятки, связать handoff readiness post-approval closeout-rollover verification с final handoff audit, CLEAN PR, SUCCESS checks и reviewThreads=0 без merge action, tracker mutation или main push",
+    "Подготовить PR #17 final readiness summary copy",
+    "связать final owner handoff readiness с final readiness summary, CLEAN PR, SUCCESS checks, reviewThreads=0, comments=0 и пустым reviewDecision без owner action, merge action или main push",
   ],
   [
     "2",
