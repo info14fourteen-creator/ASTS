@@ -63,8 +63,8 @@ const nextIncrements = [
   ],
   [
     "8",
-    "Подготовить PR #17 release summary receipt readiness copy",
-    "связать review summary handoff readiness с release summary receipt readiness, CLEAN PR, SUCCESS checks, CI pass summary, reviewThreads=0, unresolved=0, comments=0 и пустым reviewDecision без receipt write, review write, owner action, merge action или main push",
+    "Подготовить PR #17 release summary receipt rollover copy",
+    "связать review summary handoff rollover с release summary receipt rollover, CLEAN PR, SUCCESS checks, CI pass summary, reviewThreads=0, unresolved=0, comments=0 и пустым reviewDecision без receipt write, review write, owner action, tracker mutation, merge action или main push",
   ],
   [
     "9",
