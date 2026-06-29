@@ -107,7 +107,7 @@ const routeChecks = [
       "Подготовить PR #17 final merge handoff readiness copy",
       "Подготовить PR #17 merge approval checklist readiness copy",
       "Подготовить PR #17 review handoff readiness copy",
-      "Подготовить PR #17 next cycle release receipt post-approval closeout-rollover verification copy",
+      "Подготовить PR #17 release receipt readiness copy",
       "Подготовить PR #17 next cycle acceptance criteria post-approval closeout-rollover verification copy",
       "Подготовить PR #17 next cycle handoff readiness post-approval closeout-rollover verification copy",
       "data-testid=\"pr-release-action-items-post-merge-decision-record-approval-receipt-review-handoff-final-report-distribution-receipt-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-review-handoff-final-report-path-review-handoff-final-report-path-review-handoff-post-merge-audit-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-acceptance-handoff-receipt-review-handoff-receipt-review-handoff-acceptance-handoff-receipt-copy\"",
