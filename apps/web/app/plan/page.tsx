@@ -133,6 +133,11 @@ const ownerMergeHandoffRefreshFinalOwnerHandoffReceipt = {
   copy: "связать owner merge handoff refresh closure merge note с final owner handoff receipt, CLEAN PR, SUCCESS checks, reviewThreads=0, unresolved=0, comments=0 и пустым reviewDecision без receipt write, merge action, approval request, review write, owner action, tracker mutation или main push.",
 };
 
+const ownerMergeHandoffRefreshOwnerMergeReadinessNote = {
+  title: "Подготовить PR #17 owner merge handoff refresh owner merge readiness note copy",
+  copy: "связать owner merge handoff refresh final owner handoff receipt с owner merge readiness note, CLEAN PR, SUCCESS checks, reviewThreads=0, unresolved=0, comments=0 и пустым reviewDecision без readiness write, merge action, approval request, review write, owner action, tracker mutation или main push.",
+};
+
 const cycleRules = [
   ["Check", "проверить ветку, PR, dirty tree"],
   ["Build", "запустить релевантную проверку"],
@@ -30609,6 +30614,15 @@ export default function PlanPage() {
               <span>10</span>
               <strong>{ownerMergeHandoffRefreshFinalOwnerHandoffReceipt.title}</strong>
               <p>{ownerMergeHandoffRefreshFinalOwnerHandoffReceipt.copy}</p>
+            </article>
+            <article
+              className="plan-next-row"
+              data-owner-merge-readiness-note-copy={ownerMergeHandoffRefreshOwnerMergeReadinessNote.copy}
+              data-testid="pr-owner-merge-handoff-refresh-owner-merge-readiness-note"
+            >
+              <span>11</span>
+              <strong>{ownerMergeHandoffRefreshOwnerMergeReadinessNote.title}</strong>
+              <p>{ownerMergeHandoffRefreshOwnerMergeReadinessNote.copy}</p>
             </article>
             {nextIncrements.map(([order, title, note]) => (
               <article className="plan-next-row" key={order}>
