@@ -118,6 +118,11 @@ const ownerMergeHandoffRefreshMergeReadyReceipt = {
   copy: "связать owner merge handoff refresh final owner approval handoff с merge-ready receipt, CLEAN PR, SUCCESS checks, reviewThreads=0, unresolved=0, comments=0 и пустым reviewDecision без merge-ready write, approval request, review write, owner action, tracker mutation, merge action или main push.",
 };
 
+const ownerMergeHandoffRefreshPostMergeAuditPrep = {
+  title: "Подготовить PR #17 owner merge handoff refresh post merge audit prep copy",
+  copy: "связать owner merge handoff refresh merge-ready receipt с post-merge audit prep, CLEAN PR, SUCCESS checks, reviewThreads=0, unresolved=0, comments=0 и пустым reviewDecision без audit write, merge action, approval request, owner action, tracker mutation или main push.",
+};
+
 const cycleRules = [
   ["Check", "проверить ветку, PR, dirty tree"],
   ["Build", "запустить релевантную проверку"],
@@ -30567,6 +30572,15 @@ export default function PlanPage() {
               <span>7</span>
               <strong>{ownerMergeHandoffRefreshMergeReadyReceipt.title}</strong>
               <p>{ownerMergeHandoffRefreshMergeReadyReceipt.copy}</p>
+            </article>
+            <article
+              className="plan-next-row"
+              data-audit-prep-copy={ownerMergeHandoffRefreshPostMergeAuditPrep.copy}
+              data-testid="pr-owner-merge-handoff-refresh-post-merge-audit-prep"
+            >
+              <span>8</span>
+              <strong>{ownerMergeHandoffRefreshPostMergeAuditPrep.title}</strong>
+              <p>{ownerMergeHandoffRefreshPostMergeAuditPrep.copy}</p>
             </article>
             {nextIncrements.map(([order, title, note]) => (
               <article className="plan-next-row" key={order}>
