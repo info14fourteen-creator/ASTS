@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">ASTS</title>
+  <desc id="desc">Tender operations app icon</desc>
+  <rect width="512" height="512" rx="96" fill="#142126"/>
+  <path fill="#f4f6f8" d="M120 144h272v48H120zM120 232h272v48H120zM120 320h176v48H120z"/>
+  <path fill="#42a46b" d="M336 309l34 34 70-82 32 28-99 116-69-68z"/>
+</svg>

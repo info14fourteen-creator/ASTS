@@ -1,0 +1,31 @@
+{
+  "schema_version": "2026-06-16",
+  "tender_id": "0373100042626000001",
+  "source_document_id": "doc-0373100042626000001-tz",
+  "positions": [
+    {
+      "position_id": "pos-001",
+      "name": "Сервер стоечного исполнения",
+      "quantity": 4,
+      "unit": "шт",
+      "okpd2": "26.20.14",
+      "requirements": [
+        "Не менее 2 процессоров",
+        "Оперативная память не менее 512 ГБ"
+      ],
+      "analog_allowed": true,
+      "analog_rules": "Допускается эквивалент при полном соответствии характеристикам",
+      "confidence": 0.82,
+      "source_refs": [
+        {
+          "document_id": "doc-0373100042626000001-tz",
+          "raw_artifact_id": "raw-eis-0373100042626000001",
+          "page_or_sheet": "page 12",
+          "quote": "Сервер стоечного исполнения, количество 4 шт."
+        }
+      ],
+      "review_status": "needs_review",
+      "review_reason": "Нужно подтвердить правило эквивалентности"
+    }
+  ]
+}

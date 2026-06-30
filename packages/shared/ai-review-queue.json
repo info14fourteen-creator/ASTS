@@ -1,0 +1,66 @@
+{
+  "version": "0.1.0",
+  "rule": "Low-confidence AI facts require source evidence and owner review before workflow decisions.",
+  "confidence_threshold": 0.85,
+  "blocked_below_confidence": 0.75,
+  "write_contract": {
+    "route": "/v1/ai/review-queue",
+    "method": "POST",
+    "status": "draft",
+    "owner": "AI workflow owner",
+    "idempotency_key_required": true,
+    "request_schema": [
+      "review_id",
+      "fact_id",
+      "owner_id",
+      "owner_role",
+      "action",
+      "decision",
+      "evidence_ref",
+      "confidence_at_review",
+      "source_checksum_sha256",
+      "audit_note",
+      "idempotency_key"
+    ],
+    "blocked_copy": "Write endpoint stays draft until auth, idempotency, owner role validation and immutable AI audit storage are implemented.",
+    "no_merge_copy": "Не мержить AI review receipt write endpoint, пока POST не проверяет owner role, decision, idempotency key, source evidence и immutable audit append."
+  },
+  "queue": [
+    {
+      "tender_id": "0373100042626000001",
+      "document_id": "doc-0373100042626000001-tz",
+      "fact_type": "requirement",
+      "title": "Требование к поставке серверов",
+      "extracted_value": "2 позиции требуют ручной проверки аналогов",
+      "confidence": 0.82,
+      "owner_role": "tender_manager",
+      "required_action": "confirm requirement interpretation before supplier request",
+      "reason": "Confidence is below automatic threshold and affects pre-win qualification.",
+      "source_host": "zakupki.gov.ru"
+    },
+    {
+      "tender_id": "322119845710000001",
+      "document_id": null,
+      "fact_type": "supplier_quote",
+      "title": "Логистика поставщика по двум регионам",
+      "extracted_value": "нет подтверждения логистики ЦФО",
+      "confidence": 0.64,
+      "owner_role": "supplier_manager",
+      "required_action": "request supplier clarification and keep economics blocked",
+      "reason": "Supplier quote has missing logistics evidence, so AI cannot calculate margin safely.",
+      "source_host": "zakupki.gov.ru"
+    },
+    {
+      "tender_id": "0173200001426000044",
+      "document_id": null,
+      "fact_type": "economics",
+      "title": "Маржинальность после обеспечения",
+      "extracted_value": "плановая маржа ниже внутреннего порога",
+      "confidence": 0.74,
+      "owner_role": "finance_owner",
+      "required_action": "finance owner must approve or keep outcome locked",
+      "reason": "Low-confidence economics already blocks submission until owner review.",
+      "source_host": "zakupki.gov.ru"
+    }
+  ]
+}

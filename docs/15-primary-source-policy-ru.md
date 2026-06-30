@@ -110,6 +110,30 @@ OfficialSourceProvider
 
 В бизнес-логике ASTS не должно быть кода, завязанного на HTML ЕИС, формат конкретной площадки или файл Excel. Все это живет в адаптерах источников.
 
+Первый backend-контракт этого правила:
+
+- `GET /v1/sources/connectors`;
+- `connector_id = eis-zakupki-gov-ru`;
+- `mode = contract_only`, пока нет утвержденных ключей, лимитов и тестов;
+- `network_enabled = false`, чтобы skeleton не делал сетевых запросов случайно.
+
+Второй backend-контракт:
+
+- `connector_id = fns-egrul-nalog-ru`;
+- `source_kind = fns`;
+- входные идентификаторы: `inn`, `ogrn`;
+- raw storage: `raw/fns/{inn}/{artifact_id}`;
+- обязательные доказательства: `source_url`, `raw_artifact_id`, `checksum_sha256`, `fetched_at`, `freshness`;
+- `network_enabled = false`, пока не утверждены условия доступа ФНС, лимиты, секреты и smoke-тесты ИНН/ОГРН.
+
+FNS smoke policy:
+
+- текущий CI-smoke проверяет только contract-only форму коннектора и не делает сетевой запрос;
+- обязательные секреты для будущего сетевого режима: `FNS_API_BASE_URL` и `FNS_API_TOKEN`;
+- лимиты запросов не угадываем и не хардкодим: owner фиксирует утвержденный объем в runbook/PR перед включением сети;
+- smoke для ИНН/ОГРН должен использовать безопасную тестовую пару, raw artifact, checksum и freshness receipt;
+- до утверждения условий доступа `network_enabled=false`, а AI по ФНС-данным остается в ручной проверке.
+
 ## Приоритет подключения
 
 1. ЕИС: закупки, карточки, документы, реестры контрактов.

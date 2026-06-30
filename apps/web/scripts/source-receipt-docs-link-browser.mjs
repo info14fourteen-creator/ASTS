@@ -1,0 +1,266 @@
+const defaultBaseUrl = "http://127.0.0.1:4177";
+const expectedDocsHref =
+  "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#source-owner-receipt-contract";
+const expectedWriteDocsHref =
+  "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#source-owner-receipt-write-api-draft";
+const expectedFreshnessWriteDocsHref =
+  "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#source-freshness-write-api-draft";
+const expectedConnectorsDocsHref =
+  "https://github.com/info14fourteen-creator/ASTS/blob/codex/app-site-shell/apps/api/README.md#source-connectors-contract";
+const expectedApiRoute = "/v1/sources/owner-receipts";
+const expectedFreshnessApiRoute = "/v1/sources/freshness";
+const expectedConnectorsApiRoute = "/v1/sources/connectors";
+const expectedWriteDeepLinkMarker = "source-owner-receipt-write-docs-deep-link";
+const expectedWriteDeepLinkAnchor = "source-owner-receipt-write-docs-deep-link-anchor";
+const expectedFreshnessWriteDeepLinkMarker = "source-freshness-write-docs-deep-link";
+const expectedFreshnessWriteDeepLinkAnchor = "source-freshness-write-docs-deep-link-anchor";
+const expectedConnectorsDeepLinkMarker = "source-connectors-docs-deep-link";
+const expectedConnectorsDeepLinkAnchor = "source-connectors-docs-deep-link-anchor";
+
+const baseUrl = getArgValue("--url") ?? defaultBaseUrl;
+const sourcesUrl = new URL("/sources", ensureTrailingSlash(baseUrl));
+const failures = [];
+
+const response = await fetch(sourcesUrl);
+
+if (!response.ok) {
+  fail(`/sources returned ${response.status}`);
+}
+
+const html = await response.text();
+const panel = findTag(html, "section", "source-owner-receipt-history-browser-loop");
+const link = findTagWithBody(html, "a", "source-owner-receipt-docs-link");
+const writePanel = findTag(html, "section", expectedWriteDeepLinkMarker);
+const writeLink = findTagWithBody(html, "a", expectedWriteDeepLinkAnchor);
+const freshnessWritePanel = findTag(html, "section", expectedFreshnessWriteDeepLinkMarker);
+const freshnessWriteLink = findTagWithBody(html, "a", expectedFreshnessWriteDeepLinkAnchor);
+const connectorsPanel = findTag(html, "section", expectedConnectorsDeepLinkMarker);
+const connectorsLink = findTagWithBody(html, "a", expectedConnectorsDeepLinkAnchor);
+
+assert(panel, "source owner receipt history browser loop panel must exist");
+assert(link, "source owner receipt docs link must exist");
+assert(writePanel, "source owner receipt write docs deep-link panel must exist");
+assert(writeLink, "source owner receipt write docs deep-link anchor must exist");
+assert(freshnessWritePanel, "source freshness write docs deep-link panel must exist");
+assert(freshnessWriteLink, "source freshness write docs deep-link anchor must exist");
+assert(connectorsPanel, "source connectors docs deep-link panel must exist");
+assert(connectorsLink, "source connectors docs deep-link anchor must exist");
+
+if (panel) {
+  assert(
+    getAttribute(panel.openingTag, "data-docs-href") === expectedDocsHref,
+    "browser loop panel must expose the source owner receipt docs href",
+  );
+  assert(
+    getAttribute(panel.openingTag, "data-api-route") === expectedApiRoute,
+    "browser loop panel must expose the source owner receipts API route",
+  );
+  assert(
+    getAttribute(panel.openingTag, "data-history-count") === "4",
+    "browser loop panel must expose all 4 owner receipt history rows",
+  );
+}
+
+if (link) {
+  assert(getAttribute(link.openingTag, "href") === expectedDocsHref, "docs link href must target API README contract");
+  assert(
+    getAttribute(link.openingTag, "data-api-route") === expectedApiRoute,
+    "docs link must keep data-api-route for backend traceability",
+  );
+  assert(normalizeText(link.body).includes("API README / owner receipts"), "docs link text must stay visible");
+}
+
+if (writePanel) {
+  assert(
+    getAttribute(writePanel.openingTag, "data-docs-href") === expectedWriteDocsHref,
+    "write docs deep-link panel must expose the source owner receipt write docs href",
+  );
+  assert(
+    getAttribute(writePanel.openingTag, "data-api-route") === expectedApiRoute,
+    "write docs deep-link panel must expose the source owner receipts API route",
+  );
+  assert(getAttribute(writePanel.openingTag, "data-method") === "POST", "write docs deep-link panel must pin POST method");
+  assert(getAttribute(writePanel.openingTag, "data-status") === "draft", "write docs deep-link panel must pin draft status");
+  assert(
+    getAttribute(writePanel.openingTag, "data-expected-request-field-count") === "10",
+    "write docs deep-link panel must expose all 10 request fields",
+  );
+  assert(
+    getAttribute(writePanel.openingTag, "data-source-marker-selector") ===
+      "[data-testid='source-owner-receipt-write-api-draft']",
+    "write docs deep-link panel must point back to the write draft marker",
+  );
+}
+
+if (writeLink) {
+  assert(
+    getAttribute(writeLink.openingTag, "href") === expectedWriteDocsHref,
+    "write docs deep-link href must target API README write draft anchor",
+  );
+  assert(
+    getAttribute(writeLink.openingTag, "data-api-route") === expectedApiRoute,
+    "write docs deep-link must keep data-api-route for backend traceability",
+  );
+  assert(getAttribute(writeLink.openingTag, "data-method") === "POST", "write docs deep-link must keep POST method");
+  assert(normalizeText(writeLink.body).includes("API README / write draft"), "write docs link text must stay visible");
+}
+
+if (freshnessWritePanel) {
+  assert(
+    getAttribute(freshnessWritePanel.openingTag, "data-docs-href") === expectedFreshnessWriteDocsHref,
+    "freshness write docs deep-link panel must expose the source freshness write docs href",
+  );
+  assert(
+    getAttribute(freshnessWritePanel.openingTag, "data-api-route") === expectedFreshnessApiRoute,
+    "freshness write docs deep-link panel must expose the source freshness API route",
+  );
+  assert(
+    getAttribute(freshnessWritePanel.openingTag, "data-method") === "POST",
+    "freshness write docs deep-link panel must pin POST method",
+  );
+  assert(
+    getAttribute(freshnessWritePanel.openingTag, "data-status") === "draft",
+    "freshness write docs deep-link panel must pin draft status",
+  );
+  assert(
+    getAttribute(freshnessWritePanel.openingTag, "data-expected-request-field-count") === "12",
+    "freshness write docs deep-link panel must expose all 12 request fields",
+  );
+  assert(
+    getAttribute(freshnessWritePanel.openingTag, "data-source-marker-selector") ===
+      "[data-testid='source-freshness-write-api-draft']",
+    "freshness write docs deep-link panel must point back to the write draft marker",
+  );
+}
+
+if (freshnessWriteLink) {
+  assert(
+    getAttribute(freshnessWriteLink.openingTag, "href") === expectedFreshnessWriteDocsHref,
+    "freshness write docs deep-link href must target API README freshness write draft anchor",
+  );
+  assert(
+    getAttribute(freshnessWriteLink.openingTag, "data-api-route") === expectedFreshnessApiRoute,
+    "freshness write docs deep-link must keep data-api-route for backend traceability",
+  );
+  assert(
+    getAttribute(freshnessWriteLink.openingTag, "data-method") === "POST",
+    "freshness write docs deep-link must keep POST method",
+  );
+  assert(
+    normalizeText(freshnessWriteLink.body).includes("API README / freshness write draft"),
+    "freshness write docs link text must stay visible",
+  );
+}
+
+if (connectorsPanel) {
+  assert(
+    getAttribute(connectorsPanel.openingTag, "data-docs-href") === expectedConnectorsDocsHref,
+    "source connectors docs deep-link panel must expose the connectors docs href",
+  );
+  assert(
+    getAttribute(connectorsPanel.openingTag, "data-api-route") === expectedConnectorsApiRoute,
+    "source connectors docs deep-link panel must expose the connectors API route",
+  );
+  assert(
+    getAttribute(connectorsPanel.openingTag, "data-expected-connector-count") === "2",
+    "source connectors docs panel must expose both connector contracts",
+  );
+  assert(
+    getAttribute(connectorsPanel.openingTag, "data-expected-network-disabled-count") === "2",
+    "source connectors docs panel must pin both network-disabled contracts",
+  );
+  assert(
+    getAttribute(connectorsPanel.openingTag, "data-connector-ids") === "eis-zakupki-gov-ru,fns-egrul-nalog-ru",
+    "source connectors docs panel must expose EIS and FNS connector ids",
+  );
+  assert(
+    getAttribute(connectorsPanel.openingTag, "data-mode") === "contract_only",
+    "source connectors docs panel must pin contract_only mode",
+  );
+  assert(
+    getAttribute(connectorsPanel.openingTag, "data-source-marker-selector") === "[data-testid='fns-connector-browser-loop']",
+    "source connectors docs panel must point back to the source connector browser loop marker",
+  );
+}
+
+if (connectorsLink) {
+  assert(
+    getAttribute(connectorsLink.openingTag, "href") === expectedConnectorsDocsHref,
+    "source connectors docs deep-link href must target API README connectors anchor",
+  );
+  assert(
+    getAttribute(connectorsLink.openingTag, "data-api-route") === expectedConnectorsApiRoute,
+    "source connectors docs deep-link must keep data-api-route for backend traceability",
+  );
+  assert(
+    normalizeText(connectorsLink.body).includes("API README / source connectors"),
+    "source connectors docs link text must stay visible",
+  );
+}
+
+if (failures.length > 0) {
+  console.error("FAIL source receipt docs link browser assertion");
+  for (const failure of failures) {
+    console.error(`  ${failure}`);
+  }
+  process.exit(1);
+}
+
+console.log(`PASS source receipt docs link browser assertion (${sourcesUrl.href})`);
+
+function findTag(html, tagName, testId) {
+  const pattern = new RegExp(`<${tagName}\\b(?=[^>]*data-testid="${escapeRegExp(testId)}")[^>]*>`, "i");
+  const match = html.match(pattern);
+  return match ? { openingTag: match[0] } : null;
+}
+
+function findTagWithBody(html, tagName, testId) {
+  const pattern = new RegExp(
+    `<${tagName}\\b(?=[^>]*data-testid="${escapeRegExp(testId)}")[^>]*>([\\s\\S]*?)<\\/${tagName}>`,
+    "i",
+  );
+  const match = html.match(pattern);
+  return match ? { openingTag: match[0].split(">")[0] + ">", body: match[1] } : null;
+}
+
+function getAttribute(tag, name) {
+  const pattern = new RegExp(`${escapeRegExp(name)}="([^"]*)"`, "i");
+  const match = tag.match(pattern);
+  return match ? decodeHtml(match[1]) : null;
+}
+
+function getArgValue(name) {
+  const index = process.argv.indexOf(name);
+  return index >= 0 ? process.argv[index + 1] : null;
+}
+
+function ensureTrailingSlash(value) {
+  return value.endsWith("/") ? value : `${value}/`;
+}
+
+function assert(condition, message) {
+  if (!condition) {
+    fail(message);
+  }
+}
+
+function fail(message) {
+  failures.push(message);
+}
+
+function normalizeText(value) {
+  return decodeHtml(value.replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ").trim();
+}
+
+function decodeHtml(value) {
+  return value
+    .replaceAll("&amp;", "&")
+    .replaceAll("&#x27;", "'")
+    .replaceAll("&quot;", '"')
+    .replaceAll("&lt;", "<")
+    .replaceAll("&gt;", ">");
+}
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}

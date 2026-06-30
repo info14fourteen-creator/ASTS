@@ -1,0 +1,362 @@
+name: Web build
+
+on:
+  pull_request:
+    paths:
+      - "apps/api/README.md"
+      - "apps/web/**"
+      - "packages/shared/ai-review-queue.json"
+      - "packages/shared/fns-connector-gate.json"
+      - "packages/shared/README.md"
+      - "packages/shared/source-owner-receipts.json"
+      - ".github/workflows/web-build.yml"
+  push:
+    branches:
+      - main
+      - "codex/**"
+    paths:
+      - "apps/api/README.md"
+      - "apps/web/**"
+      - "packages/shared/ai-review-queue.json"
+      - "packages/shared/fns-connector-gate.json"
+      - "packages/shared/README.md"
+      - "packages/shared/source-owner-receipts.json"
+      - ".github/workflows/web-build.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: web-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build app.site.ru shell
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/web
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Smoke owner receipt parity
+        run: npm run smoke:owner-receipts
+
+      - name: Smoke source owner receipts rendered routes failure copy
+        run: npm run smoke:source-owner-receipts-rendered-route-failure-copy
+
+      - name: Smoke owner receipt API rendered routes failure copy
+        run: npm run smoke:owner-receipt-api-rendered-route-failure-copy
+
+      - name: Smoke source owner receipt write API draft
+        run: npm run smoke:source-owner-receipt-write-api-draft
+
+      - name: Smoke source owner receipt write failure copy
+        run: npm run smoke:source-owner-receipt-write-smoke-failure-copy
+
+      - name: Smoke source owner receipt write docs failure copy
+        run: npm run smoke:source-owner-receipt-write-docs-failure-copy
+
+      - name: Smoke source owner receipt write rendered routes failure copy
+        run: npm run smoke:source-owner-receipt-write-rendered-route-failure-copy
+
+      - name: Smoke source owner receipt write live route gate
+        run: npm run smoke:source-owner-receipt-write-live-route
+
+      - name: Smoke source owner receipt write live route failure copy
+        run: npm run smoke:source-owner-receipt-write-live-route-failure-copy
+
+      - name: Smoke source owner receipt write live route rendered copy
+        run: npm run smoke:source-owner-receipt-write-live-route-rendered-copy
+
+      - name: Smoke source owner receipt write live route workflow copy
+        run: npm run smoke:source-owner-receipt-write-live-route-workflow-copy
+
+      - name: Smoke source owner receipt write live route docs copy
+        run: npm run smoke:source-owner-receipt-write-live-route-docs-copy
+
+      - name: Smoke source owner receipt write live route README trigger copy
+        run: npm run smoke:source-owner-receipt-write-live-route-readme-trigger-copy
+
+      - name: Smoke source owner receipt write live route README rendered copy
+        run: npm run smoke:source-owner-receipt-write-live-route-readme-rendered-copy
+
+      - name: Smoke source owner receipt write live route README workflow copy
+        run: npm run smoke:source-owner-receipt-write-live-route-readme-workflow-copy
+
+      - name: Smoke source owner receipt write live route README workflow failure copy
+        run: npm run smoke:source-owner-receipt-write-live-route-readme-workflow-failure-copy
+
+      - name: Smoke source owner receipt write workflow failure copy
+        run: npm run smoke:source-owner-receipt-write-workflow-failure-copy
+
+      - name: Smoke source freshness write API draft
+        run: npm run smoke:source-freshness-write-api-draft
+
+      - name: Smoke source freshness write failure copy
+        run: npm run smoke:source-freshness-write-smoke-failure-copy
+
+      - name: Smoke source freshness write docs failure copy
+        run: npm run smoke:source-freshness-write-docs-failure-copy
+
+      - name: Smoke source freshness write rendered routes failure copy
+        run: npm run smoke:source-freshness-write-rendered-route-failure-copy
+
+      - name: Smoke source freshness write live route gate
+        run: npm run smoke:source-freshness-write-live-route
+
+      - name: Smoke source freshness write live route failure copy
+        run: npm run smoke:source-freshness-write-live-route-failure-copy
+
+      - name: Smoke source freshness write live route rendered copy
+        run: npm run smoke:source-freshness-write-live-route-rendered-copy
+
+      - name: Smoke source freshness write live route workflow copy
+        run: npm run smoke:source-freshness-write-live-route-workflow-copy
+
+      - name: Smoke source freshness write live route docs copy
+        run: npm run smoke:source-freshness-write-live-route-docs-copy
+
+      - name: Smoke source freshness write live route README trigger copy
+        run: npm run smoke:source-freshness-write-live-route-readme-trigger-copy
+
+      - name: Smoke source freshness write live route README rendered copy
+        run: npm run smoke:source-freshness-write-live-route-readme-rendered-copy
+
+      - name: Smoke source freshness write live route README workflow copy
+        run: npm run smoke:source-freshness-write-live-route-readme-workflow-copy
+
+      - name: Smoke source freshness write live route README workflow failure copy
+        run: npm run smoke:source-freshness-write-live-route-readme-workflow-failure-copy
+
+      - name: Smoke source freshness write workflow failure copy
+        run: npm run smoke:source-freshness-write-workflow-failure-copy
+
+      - name: Smoke source freshness rendered routes failure copy
+        run: npm run smoke:source-freshness-rendered-route-failure-copy
+
+      - name: Smoke source freshness docs rendered routes failure copy
+        run: npm run smoke:source-freshness-docs-rendered-route-failure-copy
+
+      - name: Smoke owner receipt docs rendered routes failure copy
+        run: npm run smoke:owner-receipt-docs-rendered-route-failure-copy
+
+      - name: Smoke FNS approvals parity
+        run: npm run smoke:fns-approvals
+
+      - name: Smoke FNS approvals rendered routes failure copy
+        run: npm run smoke:fns-approvals-rendered-route-failure-copy
+
+      - name: Smoke FNS approvals docs rendered routes failure copy
+        run: npm run smoke:fns-approvals-docs-rendered-route-failure-copy
+
+      - name: Smoke FNS real-network approval API copy
+        run: npm run smoke:fns-real-network-approval-api-copy
+
+      - name: Smoke EIS real-network approval API copy
+        run: npm run smoke:eis-real-network-approval-api-copy
+
+      - name: Smoke EIS real-network approval failure copy
+        run: npm run smoke:eis-real-network-approval-smoke-failure-copy
+
+      - name: Smoke EIS real-network approval docs failure copy
+        run: npm run smoke:eis-real-network-approval-docs-failure-copy
+
+      - name: Smoke EIS real-network approval rendered routes failure copy
+        run: npm run smoke:eis-real-network-approval-rendered-route-failure-copy
+
+      - name: Smoke EIS real-network approval live route gate
+        run: npm run smoke:eis-real-network-approval-live-route
+
+      - name: Smoke EIS real-network approval live route failure copy
+        run: npm run smoke:eis-real-network-approval-live-route-failure-copy
+
+      - name: Smoke EIS real-network approval live route rendered copy
+        run: npm run smoke:eis-real-network-approval-live-route-rendered-copy
+
+      - name: Smoke EIS real-network approval live route workflow copy
+        run: npm run smoke:eis-real-network-approval-live-route-workflow-copy
+
+      - name: Smoke EIS real-network approval live route docs copy
+        run: npm run smoke:eis-real-network-approval-live-route-docs-copy
+
+      - name: Smoke EIS real-network approval live route README trigger copy
+        run: npm run smoke:eis-real-network-approval-live-route-readme-trigger-copy
+
+      - name: Smoke EIS real-network approval live route README rendered copy
+        run: npm run smoke:eis-real-network-approval-live-route-readme-rendered-copy
+
+      - name: Smoke EIS real-network approval live route README workflow copy
+        run: npm run smoke:eis-real-network-approval-live-route-readme-workflow-copy
+
+      - name: Smoke EIS real-network approval live route README workflow failure copy
+        run: npm run smoke:eis-real-network-approval-live-route-readme-workflow-failure-copy
+
+      - name: Smoke EIS real-network approval workflow failure copy
+        run: npm run smoke:eis-real-network-approval-workflow-failure-copy
+
+      - name: Smoke AI review action parity
+        run: npm run smoke:ai-review-actions
+
+      - name: Smoke AI review queue rendered routes failure copy
+        run: npm run smoke:ai-review-queue-rendered-route-failure-copy
+
+      - name: Smoke AI review receipt API rendered routes failure copy
+        run: npm run smoke:ai-review-receipt-api-rendered-route-failure-copy
+
+      - name: Smoke AI review receipt write API draft
+        run: npm run smoke:ai-review-receipt-write-api-draft
+
+      - name: Smoke AI review receipt write failure copy
+        run: npm run smoke:ai-review-receipt-write-smoke-failure-copy
+
+      - name: Smoke AI review receipt write docs failure copy
+        run: npm run smoke:ai-review-receipt-write-docs-failure-copy
+
+      - name: Smoke AI review receipt write rendered routes failure copy
+        run: npm run smoke:ai-review-receipt-write-rendered-route-failure-copy
+
+      - name: Smoke AI review receipt write live route gate
+        run: npm run smoke:ai-review-receipt-write-live-route
+
+      - name: Smoke AI review receipt write live route failure copy
+        run: npm run smoke:ai-review-receipt-write-live-route-failure-copy
+
+      - name: Smoke AI review receipt write live route rendered copy
+        run: npm run smoke:ai-review-receipt-write-live-route-rendered-copy
+
+      - name: Smoke AI review receipt write live route workflow copy
+        run: npm run smoke:ai-review-receipt-write-live-route-workflow-copy
+
+      - name: Smoke AI review receipt write live route docs copy
+        run: npm run smoke:ai-review-receipt-write-live-route-docs-copy
+
+      - name: Smoke AI review receipt write live route README trigger copy
+        run: npm run smoke:ai-review-receipt-write-live-route-readme-trigger-copy
+
+      - name: Smoke AI review receipt write live route README rendered copy
+        run: npm run smoke:ai-review-receipt-write-live-route-readme-rendered-copy
+
+      - name: Smoke AI review receipt write live route README workflow copy
+        run: npm run smoke:ai-review-receipt-write-live-route-readme-workflow-copy
+
+      - name: Smoke AI review receipt write live route README workflow failure copy
+        run: npm run smoke:ai-review-receipt-write-live-route-readme-workflow-failure-copy
+
+      - name: Smoke AI review receipt write workflow failure copy
+        run: npm run smoke:ai-review-receipt-write-workflow-failure-copy
+
+      - name: Smoke shared README command parity
+        run: npm run smoke:shared-readme-commands
+
+      - name: Smoke schema docs README existence
+        run: npm run smoke:schema-docs-readme
+
+      - name: Smoke schema docs README workflow
+        run: npm run smoke:schema-docs-workflow
+
+      - name: Smoke schema docs workflow failure copy
+        run: npm run smoke:schema-docs-workflow-failure-copy
+
+      - name: Smoke schema docs live route gate
+        run: npm run smoke:schema-docs-live-route
+
+      - name: Smoke schema docs live route failure copy
+        run: npm run smoke:schema-docs-live-route-failure-copy
+
+      - name: Smoke schema docs README failure copy
+        run: npm run smoke:schema-docs-readme-failure-copy
+
+      - name: Smoke schema docs rendered routes failure copy
+        run: npm run smoke:schema-docs-rendered-route-failure-copy
+
+      - name: Smoke shared validation workflow file
+        run: npm run smoke:shared-validation-workflow
+
+      - name: Smoke shared validation workflow step
+        run: npm run smoke:shared-validation-workflow-step
+
+      - name: Smoke shared validation workflow failure copy
+        run: npm run smoke:shared-validation-workflow-failure-copy
+
+      - name: Smoke shared validation live route gate
+        run: npm run smoke:shared-validation-live-route
+
+      - name: Smoke shared validation failure copy
+        run: npm run smoke:shared-validation-failure-copy
+
+      - name: Smoke shared validation rendered routes failure copy
+        run: npm run smoke:shared-validation-rendered-route-failure-copy
+
+      - name: Smoke web build workflow file
+        run: npm run smoke:web-build-workflow
+
+      - name: Smoke web build workflow self-check
+        run: npm run smoke:web-build-self-check
+
+      - name: Smoke web build live route gate
+        run: npm run smoke:web-build-live-route
+
+      - name: Smoke web build failure copy
+        run: npm run smoke:web-build-failure-copy
+
+      - name: Smoke API README trigger path
+        run: npm run smoke:api-readme-trigger
+
+      - name: Smoke API README trigger failure copy
+        run: npm run smoke:api-readme-trigger-failure-copy
+
+      - name: Smoke API README trigger rendered routes failure copy
+        run: npm run smoke:api-readme-trigger-rendered-route-failure-copy
+
+      - name: Smoke API README live route gate
+        run: npm run smoke:api-readme-live-route
+
+      - name: Smoke API README live route failure copy
+        run: npm run smoke:api-readme-live-route-failure-copy
+
+      - name: Smoke AI review API README failure copy
+        run: npm run smoke:ai-review-api-readme-failure-copy
+
+      - name: Smoke AI review API README rendered routes failure copy
+        run: npm run smoke:ai-review-api-readme-rendered-route-failure-copy
+
+      - name: Smoke Web build rendered routes failure copy
+        run: npm run smoke:web-build-rendered-route-failure-copy
+
+      - name: Smoke rendered routes
+        run: |
+          npm run start -- -H 127.0.0.1 -p 4177 > /tmp/asts-web.log 2>&1 &
+          server_pid=$!
+          trap 'kill $server_pid' EXIT
+
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:4177/ >/dev/null 2>&1; then
+              break
+            fi
+            if [ "$attempt" -eq 30 ]; then
+              cat /tmp/asts-web.log
+              exit 1
+            fi
+            sleep 1
+          done
+
+          npm run smoke -- --url http://127.0.0.1:4177/
+          npm run smoke:source-receipt-docs-link -- --url http://127.0.0.1:4177
+          npm run smoke:ai-review-api-readme -- --url http://127.0.0.1:4177

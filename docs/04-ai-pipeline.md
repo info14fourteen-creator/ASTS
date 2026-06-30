@@ -19,6 +19,7 @@ Input:
 Output:
 
 - Original file in object storage.
+- Raw artifact manifest with source URL, storage path, checksum, content type, collection time and custody status.
 - Extracted text.
 - Extracted tables.
 - Document metadata.
@@ -46,6 +47,11 @@ Extract into strict schemas:
 - Dates and deadlines.
 - Security deposits.
 - Required documents.
+
+Shared schema files:
+
+- `packages/shared/ai-schemas/tender-position-extraction.schema.json`
+- `packages/shared/ai-schemas/supplier-quote-normalization.schema.json`
 
 Every extracted item should include:
 
@@ -92,6 +98,12 @@ Supplier quotes may arrive through:
 - uploaded PDF/XLSX invoice
 
 AI can normalize uploaded files into quote lines, but the purchasing specialist must approve imported prices before profitability calculation.
+
+Normalized supplier quote output must follow:
+
+- `packages/shared/ai-schemas/supplier-quote-normalization.schema.json`
+- every quote line has `position_id`, price, VAT, delivery timing, analog flag, confidence and review status;
+- extracted prices cannot enter profitability until `review_status` is not `needs_review` or `blocked`.
 
 ### 7. Tender Q&A
 

@@ -1,0 +1,24 @@
+{
+  "connector_id": "fns-egrul-nalog-ru",
+  "source_kind": "fns",
+  "status": "contract_only",
+  "owner": "Legal",
+  "ci_policy": "CI must not call FNS until the real-network gate is explicitly approved.",
+  "safe_test_pair_required": true,
+  "required_approvals": [
+    "approved official access terms",
+    "approved request volume limits",
+    "GitHub secrets are present in protected environment",
+    "safe test INN and OGRN pair is recorded",
+    "raw artifact checksum and freshness receipt are asserted"
+  ],
+  "approval_api_copy": {
+    "route": "/v1/sources/connectors",
+    "status": "contract_only",
+    "owner": "Legal",
+    "request_copy": "Request Legal approval before enabling real FNS network smoke.",
+    "blocked_copy": "Do not enable FNS real-network smoke until all five approvals are recorded.",
+    "next_action": "Create protected environment secrets and record safe test INN/OGRN pair after Legal approval.",
+    "no_merge_copy": "Не мержить real-network FNS smoke, пока approval_api_copy подтверждает Legal owner, protected secrets, safe INN/OGRN и checksum freshness receipt."
+  }
+}

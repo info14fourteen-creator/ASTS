@@ -67,6 +67,261 @@ This is the first REST shape for the MVP. Exact schemas will be generated from b
 - `PATCH /tasks/{task_id}`
 - `POST /tasks/{task_id}/complete`
 
+## Source Connectors
+
+Prototype route: `GET /v1/sources/connectors`.
+
+FNS connector `fns-egrul-nalog-ru` stays `mode="contract_only"` and
+`network_enabled=false` until `network_smoke_gate` is approved.
+
+Required FNS network gate shape:
+
+- `network_smoke_gate.status="contract_only"`;
+- `network_smoke_gate.owner="Legal"`;
+- `network_smoke_gate.ci_policy="CI must not call FNS until the real-network gate is explicitly approved."`;
+- `safe_test_pair_required=true`;
+- `required_approvals` includes approved FNS access terms, request volume
+  limits, protected GitHub secrets, safe INN/OGRN pair, raw artifact checksum
+  and freshness receipt.
+
+CI smoke must fail if the gate is removed or if `network_enabled` becomes true
+before all owner-approved conditions are represented in the connector contract.
+
+## Source Freshness
+
+Prototype route: `GET /v1/sources/freshness`.
+
+Purpose: make primary-source freshness explicit before AI can score, summarize or move a deal. This endpoint is separate from `/v1/sources/health`: health says whether the source can be used at all, freshness says which evidence item is stale, missing, unparseable or checksum-broken.
+
+Required response shape:
+
+- `version` - API contract version.
+- `source_policy` - primary-source-only rule.
+- `sla` - human-readable freshness rule.
+- `summary.total` - number of queue rows.
+- `summary.stale`, `summary.missing`, `summary.parse_failed`, `summary.hash_mismatch` - blocker counts.
+- `summary.ai_blocked` - number of rows that must block AI.
+- `queue[].breach_type` - one of `stale`, `missing`, `parse_failed`, `hash_mismatch`.
+- `queue[].source_url`, `queue[].raw_artifact_id` - evidence link and immutable raw artifact.
+- `queue[].owner_role`, `queue[].required_action`, `queue[].reason` - owner handoff fields.
+- `queue[].ai_gate` - must be `blocked` while the breach is unresolved.
+
+Example:
+
+```json
+{
+  "version": "0.1.0",
+  "source_policy": "Primary-source freshness breaches block AI until raw evidence is restored.",
+  "sla": "Tender intake evidence must be fresh, stored and checksum-verified before AI decisions.",
+  "summary": {
+    "total": 4,
+    "stale": 1,
+    "missing": 1,
+    "parse_failed": 1,
+    "hash_mismatch": 1,
+    "ai_blocked": 4
+  },
+  "queue": [
+    {
+      "id": "freshness-stale-raw-eis-32211984571",
+      "tender_id": "322119845710000001",
+      "source_kind": "eis",
+      "display_name": "EIS / zakupki.gov.ru API",
+      "source_url": "https://zakupki.gov.ru/223/purchase/public/purchase/info/common-info.html?regNumber=32211984571",
+      "raw_artifact_id": "raw-eis-32211984571",
+      "breach_type": "stale",
+      "detected_at": "2026-06-16T08:25:00+05:00",
+      "last_success_at": "2026-06-16T07:45:00+05:00",
+      "sla_minutes": 15,
+      "age_minutes": 40,
+      "owner_role": "supplier_manager",
+      "ai_gate": "blocked",
+      "required_action": "refresh primary-source payload before AI scoring",
+      "reason": "EIS card is older than the 15 minute tender intake SLA."
+    }
+  ]
+}
+```
+
+UI contract: `/sources` renders the same four breach types in `data-testid="source-freshness-breach-queue"` and exposes `data-ai-blocked-count`, `data-breach-types`, `data-source-url`, `data-raw-artifact-id` and `data-ai-gate`. Route smoke must fail if these markers disappear.
+
+### Source Freshness Owner Actions
+
+Freshness breaches are removed only by an explicit owner action. A new source
+payload alone is not enough: the system must keep an audit receipt that explains
+which blocker was resolved, which raw artifact replaced or repaired the broken
+evidence, and who accepted the result.
+
+Owner action matrix:
+
+- `stale` - owner role `supplier_manager`; action `refresh_primary_payload`;
+  required evidence is a newer official payload with a new checksum and
+  `last_success_at` inside SLA.
+- `missing` - owner role `document_owner`; action `fetch_missing_artifact`;
+  required evidence is the missing raw artifact or official "not published"
+  source response.
+- `parse_failed` - owner role `data_steward`; action `manual_schema_review`;
+  required evidence is a normalized payload version plus the quarantined raw
+  payload kept unchanged.
+- `hash_mismatch` - owner role `security_owner`; action `refetch_and_compare`;
+  required evidence is a fresh official refetch, checksum comparison and a
+  quarantine note for the mismatched artifact.
+
+Every owner action receipt must include `breach_id`, `owner_id`,
+`owner_role`, `action`, `resolution_status`, `resolved_at`, `new_raw_artifact_id`,
+`new_checksum_sha256` and `audit_note`. `resolution_status` is one of
+`restored`, `accepted_with_note` or `still_blocked`. AI gates can move from
+`blocked` to `ready` only when `resolution_status="restored"` and the new raw
+artifact is linked to the affected procedure.
+
+### Source Owner Receipt Rules
+
+Prototype route: `GET /v1/sources/owner-receipts`.
+
+Purpose: expose the source-owner receipt rulebook as an API contract before we
+add write endpoints. Web, mobile and Telegram clients must use the same owner
+roles, required fields and unlock conditions when they show a freshness blocker
+to a human.
+
+Required response shape:
+
+- `version` - API contract version.
+- `rule` - human-readable rule for clearing freshness blockers.
+- `summary.total` - number of receipt rules.
+- `summary.restored_required` - rules that require `resolution_status="restored"` to unlock AI.
+- `summary.blocked_until_receipt` - breach classes that remain blocked until receipt evidence exists.
+- `summary.history_total` - number of read-only audit fixture rows.
+- `summary.history_blocked_until_restored` - history rows still blocking AI until a restored receipt exists.
+- `receipt_required_fields[]` - common audit fields every source owner receipt must carry.
+- `rules[].breach_type` - one of `stale`, `missing`, `parse_failed`, `hash_mismatch`.
+- `rules[].owner_role` - owner responsible for the manual decision.
+- `rules[].action` - required owner action for the breach type.
+- `rules[].allowed_resolution_statuses[]` - accepted receipt outcomes.
+- `rules[].required_fields[]` - common and breach-specific evidence fields.
+- `rules[].ai_gate_unlock_condition` - exact condition that allows AI to move from blocked to ready.
+- `rules[].evidence_rule` - source evidence needed for audit and future disputes.
+- `history[]` - read-only fixture of recorded owner receipt decisions with `resolution_status`, `raw_artifact_id`, `checksum_sha256`, `ai_gate` and `audit_note`.
+
+Action matrix:
+
+- `stale` - `supplier_manager`; action `refresh_primary_payload`; evidence is a newer official payload with checksum and `last_success_at` inside the freshness SLA.
+- `missing` - `document_owner`; action `fetch_missing_artifact`; evidence is the missing raw artifact or official source response proving the artifact is not published.
+- `parse_failed` - `data_steward`; action `manual_schema_review`; evidence is a normalized payload version plus the unchanged quarantined raw payload.
+- `hash_mismatch` - `security_owner`; action `refetch_and_compare`; evidence is a fresh official refetch, checksum comparison and quarantine note.
+
+AI gates can unlock only when `resolution_status="restored"` and verified raw
+artifact evidence is linked through `new_raw_artifact_id` and
+`new_checksum_sha256`.
+
+The first backend fixture mirrors the `/sources` UI history seed: four rows,
+three resolution statuses (`restored`, `accepted_with_note`, `still_blocked`)
+and two AI gates (`ready_after_receipt`, `blocked_until_restored`).
+
+## AI Review Queue
+
+Prototype route: `GET /v1/ai/review-queue`.
+
+Purpose: keep AI useful without letting it silently replace the proven tender
+logic. Any extracted fact below the automatic confidence threshold must carry
+primary-source evidence and wait for an owner review before it can move a deal,
+trigger a supplier request or open the execution funnel.
+
+Required response shape:
+
+- `version` - API contract version.
+- `rule` - human-readable owner-review rule.
+- `confidence_threshold` - minimum confidence for automatic flow decisions.
+- `summary.total` - number of low-confidence rows.
+- `summary.review_required` - rows that need owner confirmation.
+- `summary.blocked` - rows that cannot move forward without manual correction.
+- `summary.low_confidence` - rows below `confidence_threshold`.
+- `summary.source_evidence_present` - rows with embedded primary-source evidence.
+- `queue[].fact_type` - one of `requirement`, `supplier_quote`,
+  `economics` or another approved fact class.
+- `queue[].confidence`, `queue[].threshold`, `queue[].status` - confidence
+  decision fields. `status` is `review_required` for near-threshold facts and
+  `blocked` for facts too weak to use.
+- `queue[].owner_role`, `queue[].required_action`, `queue[].reason` - manual
+  handoff fields.
+- `queue[].source` - embedded `SourceEvidence` with `source_kind`,
+  `source_url`, `raw_artifact_id`, `checksum_sha256` and `freshness`.
+- `queue[].evidence_ref` - immutable raw artifact reference shown in UI.
+
+Example:
+
+```json
+{
+  "version": "0.1.0",
+  "rule": "Low-confidence AI facts require source evidence and owner review before workflow decisions.",
+  "confidence_threshold": 0.85,
+  "summary": {
+    "total": 3,
+    "review_required": 1,
+    "blocked": 2,
+    "low_confidence": 3,
+    "source_evidence_present": 3
+  },
+  "queue": [
+    {
+      "id": "ai-review-requirement-0373100042626000001",
+      "tender_id": "0373100042626000001",
+      "document_id": "doc-0373100042626000001-tz",
+      "fact_type": "requirement",
+      "title": "Требование к поставке серверов",
+      "extracted_value": "2 позиции требуют ручной проверки аналогов",
+      "confidence": 0.82,
+      "threshold": 0.85,
+      "status": "review_required",
+      "owner_role": "tender_manager",
+      "source": {
+        "source_kind": "eis",
+        "source_url": "https://zakupki.gov.ru/epz/order/notice/ea20/view/common-info.html?regNumber=0373100042626000001",
+        "raw_artifact_id": "raw-eis-0373100042626000001",
+        "checksum_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "freshness": "fresh"
+      },
+      "evidence_ref": "raw-eis-0373100042626000001",
+      "required_action": "confirm requirement interpretation before supplier request",
+      "reason": "Confidence is below automatic threshold and affects pre-win qualification."
+    }
+  ]
+}
+```
+
+UI contract: `/ai-review` renders this queue in
+`data-testid="ai-review-confidence-queue"` and exposes
+`data-total-count`, `data-review-required-count`, `data-blocked-count`,
+`data-source-evidence-count`, `data-threshold`, `data-status`,
+`data-evidence-ref` and `data-owner`. Route smoke also checks
+`data-testid="ai-review-confidence-browser-loop"` so the owner-review browser
+loop cannot disappear silently.
+
+### AI Review Owner Actions
+
+Low-confidence facts are resolved by an owner receipt, not by changing the
+confidence score after the fact. The original extraction stays in the audit
+trail and the owner records whether the fact was confirmed, corrected, rejected
+or kept blocked.
+
+Owner action matrix:
+
+- `requirement` - owner role `tender_manager`; actions
+  `confirm_requirement`, `correct_requirement`, `reject_requirement`; required
+  evidence is the source document page or raw artifact plus a short rationale.
+- `supplier_quote` - owner role `supplier_manager`; actions
+  `confirm_quote`, `request_supplier_clarification`, `reject_quote`; required
+  evidence is the supplier message, quote file hash or official clarification.
+- `economics` - owner role `finance_owner`; actions `confirm_margin`,
+  `correct_margin`, `keep_blocked`; required evidence is the pricing model,
+  VAT assumptions and source-backed cost line.
+
+Every AI review receipt must include `review_id`, `fact_id`, `owner_id`,
+`owner_role`, `action`, `decision`, `decided_at`, `evidence_ref`,
+`confidence_at_review`, `source_checksum_sha256` and `audit_note`. `decision`
+is one of `confirmed`, `corrected`, `rejected` or `still_blocked`. Workflow
+actions can continue only when `decision` is `confirmed` or `corrected` and the
+receipt keeps a valid `evidence_ref`.
+
 ## Reports and Export
 
 - `GET /tenders/{tender_id}/report`

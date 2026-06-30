@@ -1,0 +1,62 @@
+import { readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const expectedCheckedWorkflowPath = ".github/workflows/shared-validation.yml";
+const expectedFailingCommand = "npm run smoke:shared-validation-workflow-step";
+const expectedNoMergeCopy =
+  "Не мержить, пока .github/workflows/web-build.yml снова запускает shared validation workflow smoke и step smoke в правильном порядке";
+const expectedPlanMarker = 'data-testid="shared-validation-workflow-failure-copy"';
+const expectedRepairTargets =
+  ".github/workflows/web-build.yml,.github/workflows/shared-validation.yml,/plan,[data-testid='shared-validation-workflow-step-smoke']";
+const expectedSelfCommand = "npm run smoke:shared-validation-workflow-failure-copy";
+const expectedSourceMarker = 'data-testid="shared-validation-workflow-step-smoke"';
+const expectedWorkflowPath = ".github/workflows/web-build.yml";
+const expectedWorkflowName = "Web build";
+
+const webRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const repoRoot = resolve(webRoot, "../..");
+const planPagePath = resolve(webRoot, "app/plan/page.tsx");
+const workflowPath = resolve(repoRoot, expectedWorkflowPath);
+
+const planPage = readFileSync(planPagePath, "utf8");
+const workflow = readFileSync(workflowPath, "utf8");
+const failures = [];
+
+assert(workflow.includes(`name: ${expectedWorkflowName}`), "workflow must keep Web build name");
+assert(workflow.includes(`run: ${expectedSelfCommand}`), "Web build must run shared validation workflow failure copy smoke");
+assert(workflow.includes(`run: ${expectedFailingCommand}`), "Web build must keep shared validation workflow step smoke");
+assert(
+  workflow.indexOf(`run: ${expectedFailingCommand}`) < workflow.indexOf(`run: ${expectedSelfCommand}`),
+  "shared validation workflow failure copy smoke must run after shared validation workflow step smoke",
+);
+assert(
+  workflow.indexOf(`run: ${expectedSelfCommand}`) < workflow.indexOf("npm run smoke -- --url http://127.0.0.1:4177/"),
+  "shared validation workflow failure copy smoke must run before live rendered route smoke",
+);
+
+assert(planPage.includes(expectedSourceMarker), "/plan must keep shared validation workflow step smoke marker");
+assert(planPage.includes(expectedPlanMarker), "/plan must expose shared validation workflow failure copy marker");
+assert(planPage.includes("sharedValidationWorkflowFailureCopy"), "/plan must expose shared validation workflow failure copy data");
+assert(planPage.includes(expectedFailingCommand), "/plan must expose failing shared validation workflow command");
+assert(planPage.includes(expectedCheckedWorkflowPath), "/plan must expose checked Shared validation workflow path");
+assert(planPage.includes(expectedRepairTargets), "/plan must expose shared validation workflow repair targets");
+assert(planPage.includes("Schema owner + CI owner"), "/plan must expose shared validation workflow owner role");
+assert(planPage.includes(expectedNoMergeCopy), "/plan must show owner-friendly no-merge copy");
+assert(planPage.includes(`workflowPath: "${expectedWorkflowPath}"`), "/plan must expose Web build workflow path");
+
+if (failures.length > 0) {
+  console.error("FAIL shared validation workflow failure copy");
+  for (const failure of failures) {
+    console.error(`  ${failure}`);
+  }
+  process.exit(1);
+}
+
+console.log(`PASS shared validation workflow failure copy (${expectedCheckedWorkflowPath})`);
+
+function assert(condition, message) {
+  if (!condition) {
+    failures.push(message);
+  }
+}

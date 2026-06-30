@@ -8,6 +8,32 @@
 
 Этот документ является контрольной картой. Код, модели данных, API и интерфейсы должны сверяться с ним перед merge.
 
+## Статусы восстановления
+
+Используем эти статусы, чтобы не смешивать “мы это помним” и “это уже есть в продукте”:
+
+- `implemented` - есть в текущем PR как экран, API-контракт, route, документированный gate или demo endpoint.
+- `planned` - логика сохранена в документах и должна перейти в модель/API/UI без изменения смысла.
+- `needs owner` - старый сценарий понятен, но перед реализацией нужен владелец решения, формулы, роли или бизнес-правила.
+
+## Контрольная матрица PR #17
+
+| Блок старой карты | Статус | Где уже видно | Следующее действие |
+|---|---|---|---|
+| Две отдельные воронки | implemented | `/`, `/tenders`, `/execution`, `DealFunnel` | Не смешивать pre-win и execution при новых API |
+| Первоисточники вместо агрегаторов | implemented | `/sources`, `SourceEvidence`, `docs/15-primary-source-policy-ru.md` | Добавить ingestion service layer |
+| Входящие процедуры и первичная оценка | implemented | `/tenders`, `/v1/tenders`, `/ai-review` | Связать demo API с web mock data |
+| Документы и raw custody | implemented | `/documents`, `/v1/documents` | Добавить версии документов и manifest полей |
+| Задачи, владельцы и human approval | implemented | `/tasks`, `/v1/tasks`, approval gates | Привязать задачи к конкретным этапам |
+| AI вместо рутины фрилансеров | planned | `/ai-review`, confidence gates, review queue | Описать JSON-схемы извлечения позиций и КП |
+| Поставщики, RFQ, КП и top-3 | planned | roadmap + economics/tenders mock | Выделить модели SupplierRequest и SupplierQuote |
+| Экономика, коэффициенты и рентабельность | planned | `/economics`, coefficient receipt | Перенести формулы в настройки организации |
+| Подача документов | planned | stage enum, `/tenders/demo` | Описать task шаблоны и deadline gate |
+| Финалы и причины отказа | implemented | `/v1/outcomes`, docs registry, roadmap | Привязать outcome к карточке процедуры |
+| Роли старой системы | needs owner | `/settings`, role gates | Утвердить роли MVP и права доступа |
+| Вторая воронка исполнения | planned | `/execution`, demo execution tender | Описать handoff receipt как обязательный переход |
+| 1C/CRM/Telegram интеграции | planned | `/integrations`, platform delivery docs | Выбрать первую CRM для spike |
+
 ## Как объединяем работу, чтобы ничего не потерять
 
 ### Порядок merge

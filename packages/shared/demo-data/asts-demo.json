@@ -1,0 +1,402 @@
+{
+  "tenders": [
+    {
+      "tender_id": "0373100042626000001",
+      "title": "Поставка серверного оборудования для регионального центра",
+      "customer_name": "ГБУ Региональный центр цифровой инфраструктуры",
+      "source": {
+        "source_kind": "eis",
+        "source_url": "https://zakupki.gov.ru/epz/order/notice/ea20/view/common-info.html?regNumber=0373100042626000001",
+        "raw_artifact_id": "raw-eis-0373100042626000001",
+        "checksum_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "freshness": "fresh"
+      },
+      "nmck_rub": 18450000,
+      "nmck_label": "18.4 млн ₽",
+      "region": "Москва",
+      "deadline_at": "2026-06-24T10:00:00+03:00",
+      "deadline_label": "24 июня, 10:00",
+      "funnel": "pre_win",
+      "stage": "qualification",
+      "stage_label": "AI-разбор",
+      "ai_confidence": 0.82,
+      "outcome": {
+        "code": "manual_management",
+        "funnel": "pre_win",
+        "title": "Ручное управление",
+        "status": "suggested",
+        "requires_owner_approval": true,
+        "owner_role": "tender_manager",
+        "source_ref": "raw-eis-0373100042626000001",
+        "note": "AI предлагает оставить сделку живой до подтверждения аналогов и экономики."
+      },
+      "audit_events": [
+        {
+          "event_id": "audit-0373100042626000001-ai-suggested-manual",
+          "tender_id": "0373100042626000001",
+          "action": "outcome_suggested",
+          "actor_role": "ai_reviewer",
+          "created_at": "2026-06-16T08:00:00+05:00",
+          "evidence_ref": "raw-eis-0373100042626000001"
+        }
+      ],
+      "risk": "medium",
+      "match": 82
+    },
+    {
+      "tender_id": "322119845710000001",
+      "title": "Комплексное обслуживание инженерных систем",
+      "customer_name": "АО Теплосеть",
+      "source": {
+        "source_kind": "eis",
+        "source_url": "https://zakupki.gov.ru/223/purchase/public/purchase/info/common-info.html?regNumber=32211984571",
+        "raw_artifact_id": "raw-eis-32211984571",
+        "checksum_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "freshness": "fresh"
+      },
+      "nmck_rub": 42800000,
+      "nmck_label": "42.8 млн ₽",
+      "region": "Татарстан",
+      "deadline_at": "2026-06-21T09:00:00+03:00",
+      "deadline_label": "21 июня, 09:00",
+      "funnel": "pre_win",
+      "stage": "supplier_quotes",
+      "stage_label": "Поставщики",
+      "ai_confidence": 0.78,
+      "outcome": {
+        "code": "manual_management",
+        "funnel": "pre_win",
+        "title": "Ручное управление",
+        "status": "suggested",
+        "requires_owner_approval": true,
+        "owner_role": "supplier_manager",
+        "source_ref": "raw-eis-32211984571",
+        "note": "Нужны КП поставщиков до решения о подаче."
+      },
+      "audit_events": [
+        {
+          "event_id": "audit-32211984571-ai-suggested-manual",
+          "tender_id": "322119845710000001",
+          "action": "outcome_suggested",
+          "actor_role": "ai_reviewer",
+          "created_at": "2026-06-16T08:05:00+05:00",
+          "evidence_ref": "raw-eis-32211984571"
+        }
+      ],
+      "risk": "low",
+      "match": 78
+    },
+    {
+      "tender_id": "0173200001426000044",
+      "title": "Поставка сетевого оборудования с расширенной гарантией",
+      "customer_name": "Департамент информационных технологий города",
+      "source": {
+        "source_kind": "eis",
+        "source_url": "https://zakupki.gov.ru/epz/order/notice/ea20/view/common-info.html?regNumber=0173200001426000044",
+        "raw_artifact_id": "raw-eis-0173200001426000044",
+        "checksum_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "freshness": "fresh"
+      },
+      "nmck_rub": 12600000,
+      "nmck_label": "12.6 млн ₽",
+      "region": "Москва",
+      "deadline_at": "2026-06-20T11:00:00+03:00",
+      "deadline_label": "20 июня, 11:00",
+      "funnel": "pre_win",
+      "stage": "economics",
+      "stage_label": "Экономика",
+      "ai_confidence": 0.91,
+      "outcome": {
+        "code": "unprofitable",
+        "funnel": "pre_win",
+        "title": "Нерентабельная сделка",
+        "status": "locked",
+        "requires_owner_approval": true,
+        "owner_role": "finance_owner",
+        "source_ref": "raw-eis-0173200001426000044",
+        "note": "AI заблокировал подачу: минимальная закупочная цена и обеспечение съедают плановую маржу."
+      },
+      "audit_events": [
+        {
+          "event_id": "audit-0173200001426000044-ai-locked-unprofitable",
+          "tender_id": "0173200001426000044",
+          "action": "outcome_locked",
+          "actor_role": "ai_reviewer",
+          "created_at": "2026-06-16T08:15:00+05:00",
+          "evidence_ref": "raw-eis-0173200001426000044"
+        }
+      ],
+      "risk": "high",
+      "match": 91
+    },
+    {
+      "tender_id": "0373100099926000012",
+      "title": "Поставка рабочих станций для образовательных учреждений",
+      "customer_name": "ГКУ Центр закупок образования",
+      "source": {
+        "source_kind": "eis",
+        "source_url": "https://zakupki.gov.ru/epz/order/notice/ea20/view/common-info.html?regNumber=0373100099926000012",
+        "raw_artifact_id": "raw-eis-0373100099926000012",
+        "checksum_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "freshness": "fresh"
+      },
+      "nmck_rub": 23700000,
+      "nmck_label": "23.7 млн ₽",
+      "region": "Москва",
+      "deadline_at": "2026-06-27T12:00:00+03:00",
+      "deadline_label": "27 июня, 12:00",
+      "funnel": "pre_win",
+      "stage": "result",
+      "stage_label": "Результат",
+      "ai_confidence": 0.88,
+      "outcome": {
+        "code": "won",
+        "funnel": "pre_win",
+        "title": "Победа подтверждена",
+        "status": "approved",
+        "requires_owner_approval": true,
+        "owner_role": "tender_owner",
+        "source_ref": "raw-eis-0373100099926000012",
+        "note": "Протокол победы сохранен, экономика заморожена, карточка готова к handoff во вторую воронку."
+      },
+      "audit_events": [
+        {
+          "event_id": "audit-0373100099926000012-owner-approved-won",
+          "tender_id": "0373100099926000012",
+          "action": "outcome_approved",
+          "actor_role": "tender_owner",
+          "created_at": "2026-06-16T08:20:00+05:00",
+          "evidence_ref": "raw-eis-0373100099926000012"
+        }
+      ],
+      "risk": "low",
+      "match": 88
+    },
+    {
+      "tender_id": "exec-2026-0007",
+      "title": "Исполнение контракта: поставка и ввод в эксплуатацию",
+      "customer_name": "ГБУ Региональный центр цифровой инфраструктуры",
+      "source": {
+        "source_kind": "etp",
+        "source_url": "https://www.rts-tender.ru/",
+        "raw_artifact_id": "raw-etp-procedure-room-0373100042626000001",
+        "checksum_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "freshness": "fresh"
+      },
+      "nmck_rub": 18450000,
+      "nmck_label": "18.4 млн ₽",
+      "region": "Москва",
+      "deadline_at": "2026-07-15T18:00:00+03:00",
+      "deadline_label": "15 июля, 18:00",
+      "funnel": "execution",
+      "stage": "fulfillment",
+      "stage_label": "Исполнение",
+      "ai_confidence": 0.74,
+      "outcome": {
+        "code": "partial_payment",
+        "funnel": "execution",
+        "title": "Частичная оплата",
+        "status": "suggested",
+        "requires_owner_approval": true,
+        "owner_role": "execution_owner",
+        "source_ref": "raw-etp-procedure-room-0373100042626000001",
+        "note": "AI видит риск расхождения плановой и фактической оплаты, требуется подтверждение владельца исполнения."
+      },
+      "audit_events": [
+        {
+          "event_id": "audit-exec-2026-0007-ai-suggested-partial-payment",
+          "tender_id": "exec-2026-0007",
+          "action": "outcome_suggested",
+          "actor_role": "ai_reviewer",
+          "created_at": "2026-06-16T08:10:00+05:00",
+          "evidence_ref": "raw-etp-procedure-room-0373100042626000001"
+        }
+      ],
+      "risk": "medium",
+      "match": 74
+    }
+  ],
+  "documents": [
+    {
+      "document_id": "doc-0373100042626000001-tz",
+      "tender_id": "0373100042626000001",
+      "title": "Техническое задание",
+      "status": "parsed",
+      "source_ref": "0373100042626000001",
+      "raw_artifact": {
+        "artifact_id": "raw-eis-0373100042626000001",
+        "storage_path": "raw/eis/0373100042626000001/specification.pdf",
+        "source_url": "https://zakupki.gov.ru/epz/order/notice/ea20/view/common-info.html?regNumber=0373100042626000001",
+        "checksum_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "content_type": "application/pdf",
+        "collected_at": "2026-06-16T07:40:00+05:00",
+        "custody_status": "parsed"
+      },
+      "storage_path": "raw/eis/0373100042626000001/specification.pdf",
+      "mime_type": "application/pdf"
+    },
+    {
+      "document_id": "doc-0373100042626000001-customer",
+      "tender_id": "0373100042626000001",
+      "title": "Проверка заказчика по ФНС",
+      "status": "reviewed",
+      "source": {
+        "source_kind": "fns",
+        "source_url": "https://egrul.nalog.ru/",
+        "raw_artifact_id": "raw-fns-customer-profile-7700000000",
+        "checksum_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "freshness": "manual_review"
+      },
+      "raw_artifact": {
+        "artifact_id": "raw-fns-customer-profile-7700000000",
+        "storage_path": "raw/fns/7700000000/egrul.json",
+        "source_url": "https://egrul.nalog.ru/",
+        "checksum_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "content_type": "application/json",
+        "collected_at": "2026-06-16T07:42:00+05:00",
+        "custody_status": "checksum_verified"
+      },
+      "storage_path": "raw/fns/7700000000/egrul.json",
+      "mime_type": "application/json"
+    },
+    {
+      "document_id": "doc-exec-2026-0007-win-protocol",
+      "tender_id": "exec-2026-0007",
+      "title": "Протокол победы",
+      "status": "attached",
+      "source": {
+        "source_kind": "etp",
+        "source_url": "https://www.rts-tender.ru/",
+        "raw_artifact_id": "raw-etp-win-protocol-exec-2026-0007",
+        "checksum_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "freshness": "fresh"
+      },
+      "raw_artifact": {
+        "artifact_id": "raw-etp-win-protocol-exec-2026-0007",
+        "storage_path": "raw/etp/exec-2026-0007/win-protocol.pdf",
+        "source_url": "https://www.rts-tender.ru/",
+        "checksum_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "content_type": "application/pdf",
+        "collected_at": "2026-06-16T08:20:00+05:00",
+        "custody_status": "checksum_verified"
+      },
+      "storage_path": "raw/etp/exec-2026-0007/win-protocol.pdf",
+      "mime_type": "application/pdf"
+    },
+    {
+      "document_id": "doc-exec-2026-0007-contract",
+      "tender_id": "exec-2026-0007",
+      "title": "Подписанный контракт",
+      "status": "reviewed",
+      "source": {
+        "source_kind": "eis",
+        "source_url": "https://zakupki.gov.ru/",
+        "raw_artifact_id": "raw-eis-contract-exec-2026-0007",
+        "checksum_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "freshness": "fresh"
+      },
+      "raw_artifact": {
+        "artifact_id": "raw-eis-contract-exec-2026-0007",
+        "storage_path": "raw/eis/exec-2026-0007/signed-contract.pdf",
+        "source_url": "https://zakupki.gov.ru/",
+        "checksum_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "content_type": "application/pdf",
+        "collected_at": "2026-06-16T08:24:00+05:00",
+        "custody_status": "checksum_verified"
+      },
+      "storage_path": "raw/eis/exec-2026-0007/signed-contract.pdf",
+      "mime_type": "application/pdf"
+    },
+    {
+      "document_id": "doc-exec-2026-0007-advance-invoice",
+      "tender_id": "exec-2026-0007",
+      "title": "Счет на аванс",
+      "status": "parsed",
+      "source": {
+        "source_kind": "file_vault",
+        "source_url": "https://asts.local/file-vault",
+        "raw_artifact_id": "raw-file-vault-invoice-exec-2026-0007",
+        "checksum_sha256": "9999999999999999999999999999999999999999999999999999999999999999",
+        "freshness": "manual_review"
+      },
+      "raw_artifact": {
+        "artifact_id": "raw-file-vault-invoice-exec-2026-0007",
+        "storage_path": "raw/file-vault/exec-2026-0007/advance-invoice.pdf",
+        "source_url": "https://asts.local/file-vault",
+        "checksum_sha256": "9999999999999999999999999999999999999999999999999999999999999999",
+        "content_type": "application/pdf",
+        "collected_at": "2026-06-16T08:30:00+05:00",
+        "custody_status": "parsed"
+      },
+      "storage_path": "raw/file-vault/exec-2026-0007/advance-invoice.pdf",
+      "mime_type": "application/pdf"
+    }
+  ],
+  "tasks": [
+    {
+      "task_id": "task-qualification-001",
+      "tender_id": "0373100042626000001",
+      "title": "Подтвердить соответствие требованиям и допускам",
+      "owner_role": "tender_manager",
+      "owner_label": "B2G специалист",
+      "priority": "warning",
+      "status": "open",
+      "due_at": "2026-06-18T18:00:00+03:00",
+      "due_label": "18 июня, 18:00",
+      "tone": "warning",
+      "requires_human_approval": true
+    },
+    {
+      "task_id": "task-suppliers-002",
+      "tender_id": "322119845710000001",
+      "title": "Подтвердить список поставщиков",
+      "owner_role": "supplier_manager",
+      "owner_label": "Менеджер",
+      "priority": "normal",
+      "status": "open",
+      "due_at": "2026-06-18T18:00:00+03:00",
+      "due_label": "сегодня, 18:00",
+      "tone": "neutral",
+      "requires_human_approval": true
+    },
+    {
+      "task_id": "task-economics-locked-004",
+      "tender_id": "0173200001426000044",
+      "title": "Проверить блокировку по марже и обеспечению",
+      "owner_role": "finance_owner",
+      "owner_label": "Финансы",
+      "priority": "critical",
+      "status": "blocked",
+      "due_at": "2026-06-17T14:00:00+03:00",
+      "due_label": "завтра, 14:00",
+      "tone": "danger",
+      "requires_human_approval": true
+    },
+    {
+      "task_id": "task-handoff-approved-005",
+      "tender_id": "0373100099926000012",
+      "title": "Передать победу в воронку исполнения",
+      "owner_role": "execution_owner",
+      "owner_label": "Исполнение",
+      "priority": "normal",
+      "status": "open",
+      "due_at": "2026-06-19T12:00:00+03:00",
+      "due_label": "19 июня, 12:00",
+      "tone": "neutral",
+      "requires_human_approval": true
+    },
+    {
+      "task_id": "task-execution-007",
+      "tender_id": "exec-2026-0007",
+      "title": "Сверить график поставки с пост-победной воронкой",
+      "owner_role": "execution_owner",
+      "owner_label": "Исполнение",
+      "priority": "critical",
+      "status": "blocked",
+      "due_at": "2026-06-17T12:00:00+03:00",
+      "due_label": "срочно",
+      "tone": "danger",
+      "requires_human_approval": true
+    }
+  ]
+}

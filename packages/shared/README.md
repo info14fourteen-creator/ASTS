@@ -3,3 +3,77 @@
 Future home for generated API clients, shared TypeScript types, and cross-app schemas.
 
 MVP can generate TypeScript types from FastAPI OpenAPI once backend schemas stabilize.
+
+## Demo Data
+
+- `demo-data/asts-demo.json` is the temporary shared fixture for the web shell and FastAPI prototype endpoints.
+- Keep prototype tenders, documents and tasks here until PostgreSQL-backed seed data replaces it.
+- The fixture keeps API fields plus UI labels so the web dashboard and `/v1/*` demo endpoints stay aligned.
+- `source-owner-receipts.json` is the shared owner receipt fixture used by both
+  FastAPI `/v1/sources/owner-receipts` and the `/sources` web history/rules UI.
+  It keeps freshness blocker rules, required receipt fields and audit history in
+  one place until the data moves into PostgreSQL.
+- `fns-connector-gate.json` is the shared Legal approval gate for the FNS
+  connector. FastAPI `/v1/sources/connectors`, `/sources` UI and web parity smoke
+  read the same contract-only status, CI policy, safe INN/OGRN requirement and
+  approval list.
+- `ai-review-queue.json` is the shared low-confidence owner review queue. FastAPI
+  `/v1/ai/review-queue`, `/ai-review` UI and web parity smoke read the same
+  threshold, fact types, owner/action matrix and reasons.
+- `fixture-schemas/source-owner-receipts.schema.json` is the JSON Schema contract
+  for `source-owner-receipts.json`. It separates receipt rule fields from
+  read-only audit history rows and rejects drift in breach types, owner roles,
+  actions, resolution statuses and AI gates.
+- `fixture-schemas/fns-connector-gate.schema.json` is the JSON Schema contract
+  for `fns-connector-gate.json`. It locks the contract-only state, Legal owner,
+  safe test pair requirement, CI network policy and exact approval checklist.
+- `fixture-schemas/ai-review-queue.schema.json` is the JSON Schema contract for
+  `ai-review-queue.json`. It locks the confidence thresholds, three low-confidence
+  fact types, owner roles, nullable document links and official source host.
+
+## Shared Schema Index
+
+| Contract | Schema | Fixture / Example | Protected surface | Validation |
+| --- | --- | --- | --- | --- |
+| Tender position extraction | `ai-schemas/tender-position-extraction.schema.json` | `ai-schemas/examples/tender-position-extraction.example.json` | AI document extraction before workflow decisions | `npm run validate` |
+| Supplier quote normalization | `ai-schemas/supplier-quote-normalization.schema.json` | `ai-schemas/examples/supplier-quote-normalization.example.json` | AI supplier quote parsing before economics | `npm run validate` |
+| Source owner receipts | `fixture-schemas/source-owner-receipts.schema.json` | `source-owner-receipts.json` | FastAPI `/v1/sources/owner-receipts`, `/sources` receipt UI | `npm run validate`, `apps/web npm run smoke:owner-receipts` |
+| FNS connector gate | `fixture-schemas/fns-connector-gate.schema.json` | `fns-connector-gate.json` | FastAPI `/v1/sources/connectors`, `/sources` Legal gate | `npm run validate`, `apps/web npm run smoke:fns-approvals` |
+| AI review queue | `fixture-schemas/ai-review-queue.schema.json` | `ai-review-queue.json` | FastAPI `/v1/ai/review-queue`, `/ai-review` owner queue | `npm run validate`, `apps/web npm run smoke:ai-review-actions` |
+
+Local validation commands:
+
+```bash
+cd packages/shared && npm run validate
+cd apps/web && npm run smoke:owner-receipts
+cd apps/web && npm run smoke:fns-approvals
+cd apps/web && npm run smoke:ai-review-actions
+```
+
+CI path notes:
+
+- `packages/shared/**` changes run the `Shared validation` workflow.
+- `docs/19-continuation-70-step-plan-ru.md` changes also run `Shared validation`
+  because the continuation plan names the active schema/fixture milestones.
+- `.github/workflows/shared-validation.yml` changes run the same workflow so gate
+  edits prove they still execute `npm run validate`.
+- Web parity smoke still lives in `Web build`; fixture changes that affect web
+  screens should keep the relevant `apps/web npm run smoke:*` command green
+  before pushing.
+
+## AI Schemas
+
+- `ai-schemas/tender-position-extraction.schema.json` defines the AI output for tender positions, requirements, analog rules, confidence and source references.
+- `ai-schemas/supplier-quote-normalization.schema.json` defines the AI output for supplier quote lines, prices, VAT, delivery timing, analog flags and source references.
+- These schemas are source-evidence first: every extracted set must include document/raw artifact references before it can be used in workflow decisions.
+- Run `npm run validate` in `packages/shared` to check schema shape, fixture
+  schema examples, AI outputs, demo fixture references and raw artifact custody
+  links.
+- Shared validation also checks `source-owner-receipts.json` rule/history shape,
+  JSON Schema compatibility, owner/action matrix, restored unlock conditions and
+  blocked AI gate counts.
+- It also checks `fns-connector-gate.json` for the Legal owner, contract-only
+  status, JSON Schema compatibility, CI policy and exact five approval gates.
+- It checks `ai-review-queue.json` for the three low-confidence fact types,
+  JSON Schema compatibility, threshold, derived status and owner/action matrix.
+- GitHub Actions workflow `Shared validation` runs the same check for shared schema and fixture changes.

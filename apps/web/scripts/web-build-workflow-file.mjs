@@ -1,0 +1,261 @@
+import { readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const expectedNodeVersion = "22";
+const expectedWorkflowName = "Web build";
+const expectedWorkflowPath = ".github/workflows/web-build.yml";
+const expectedWorkingDirectory = "apps/web";
+const expectedPaths = [
+  "apps/api/README.md",
+  "apps/web/**",
+  "packages/shared/ai-review-queue.json",
+  "packages/shared/fns-connector-gate.json",
+  "packages/shared/README.md",
+  "packages/shared/source-owner-receipts.json",
+  ".github/workflows/web-build.yml",
+];
+const expectedCommands = [
+  "npm run build",
+  "npm run smoke:owner-receipts",
+  "npm run smoke:source-owner-receipts-rendered-route-failure-copy",
+  "npm run smoke:owner-receipt-api-rendered-route-failure-copy",
+  "npm run smoke:source-owner-receipt-write-api-draft",
+  "npm run smoke:source-owner-receipt-write-smoke-failure-copy",
+  "npm run smoke:source-owner-receipt-write-docs-failure-copy",
+  "npm run smoke:source-owner-receipt-write-rendered-route-failure-copy",
+  "npm run smoke:source-owner-receipt-write-live-route",
+  "npm run smoke:source-owner-receipt-write-live-route-failure-copy",
+  "npm run smoke:source-owner-receipt-write-live-route-rendered-copy",
+  "npm run smoke:source-owner-receipt-write-live-route-workflow-copy",
+  "npm run smoke:source-owner-receipt-write-live-route-docs-copy",
+  "npm run smoke:source-owner-receipt-write-live-route-readme-trigger-copy",
+  "npm run smoke:source-owner-receipt-write-live-route-readme-rendered-copy",
+  "npm run smoke:source-owner-receipt-write-live-route-readme-workflow-copy",
+  "npm run smoke:source-owner-receipt-write-live-route-readme-workflow-failure-copy",
+  "npm run smoke:source-owner-receipt-write-workflow-failure-copy",
+  "npm run smoke:source-freshness-write-api-draft",
+  "npm run smoke:source-freshness-write-smoke-failure-copy",
+  "npm run smoke:source-freshness-write-docs-failure-copy",
+  "npm run smoke:source-freshness-write-rendered-route-failure-copy",
+  "npm run smoke:source-freshness-write-live-route",
+  "npm run smoke:source-freshness-write-live-route-failure-copy",
+  "npm run smoke:source-freshness-write-live-route-rendered-copy",
+  "npm run smoke:source-freshness-write-live-route-workflow-copy",
+  "npm run smoke:source-freshness-write-live-route-docs-copy",
+  "npm run smoke:source-freshness-write-live-route-readme-trigger-copy",
+  "npm run smoke:source-freshness-write-live-route-readme-rendered-copy",
+  "npm run smoke:source-freshness-write-live-route-readme-workflow-copy",
+  "npm run smoke:source-freshness-write-live-route-readme-workflow-failure-copy",
+  "npm run smoke:source-freshness-write-workflow-failure-copy",
+  "npm run smoke:source-freshness-rendered-route-failure-copy",
+  "npm run smoke:source-freshness-docs-rendered-route-failure-copy",
+  "npm run smoke:owner-receipt-docs-rendered-route-failure-copy",
+  "npm run smoke:fns-approvals",
+  "npm run smoke:fns-approvals-rendered-route-failure-copy",
+  "npm run smoke:fns-approvals-docs-rendered-route-failure-copy",
+  "npm run smoke:fns-real-network-approval-api-copy",
+  "npm run smoke:eis-real-network-approval-api-copy",
+  "npm run smoke:eis-real-network-approval-smoke-failure-copy",
+  "npm run smoke:eis-real-network-approval-docs-failure-copy",
+  "npm run smoke:eis-real-network-approval-rendered-route-failure-copy",
+  "npm run smoke:eis-real-network-approval-live-route",
+  "npm run smoke:eis-real-network-approval-live-route-failure-copy",
+  "npm run smoke:eis-real-network-approval-live-route-rendered-copy",
+  "npm run smoke:eis-real-network-approval-live-route-workflow-copy",
+  "npm run smoke:eis-real-network-approval-live-route-docs-copy",
+  "npm run smoke:eis-real-network-approval-live-route-readme-trigger-copy",
+  "npm run smoke:eis-real-network-approval-live-route-readme-rendered-copy",
+  "npm run smoke:eis-real-network-approval-live-route-readme-workflow-copy",
+  "npm run smoke:eis-real-network-approval-live-route-readme-workflow-failure-copy",
+  "npm run smoke:eis-real-network-approval-workflow-failure-copy",
+  "npm run smoke:ai-review-actions",
+  "npm run smoke:ai-review-queue-rendered-route-failure-copy",
+  "npm run smoke:ai-review-receipt-api-rendered-route-failure-copy",
+  "npm run smoke:ai-review-receipt-write-api-draft",
+  "npm run smoke:ai-review-receipt-write-smoke-failure-copy",
+  "npm run smoke:ai-review-receipt-write-docs-failure-copy",
+  "npm run smoke:ai-review-receipt-write-rendered-route-failure-copy",
+  "npm run smoke:ai-review-receipt-write-live-route",
+  "npm run smoke:ai-review-receipt-write-live-route-failure-copy",
+  "npm run smoke:ai-review-receipt-write-live-route-rendered-copy",
+  "npm run smoke:ai-review-receipt-write-live-route-workflow-copy",
+  "npm run smoke:ai-review-receipt-write-live-route-docs-copy",
+  "npm run smoke:ai-review-receipt-write-live-route-readme-trigger-copy",
+  "npm run smoke:ai-review-receipt-write-live-route-readme-rendered-copy",
+  "npm run smoke:ai-review-receipt-write-live-route-readme-workflow-copy",
+  "npm run smoke:ai-review-receipt-write-live-route-readme-workflow-failure-copy",
+  "npm run smoke:ai-review-receipt-write-workflow-failure-copy",
+  "npm run smoke:shared-readme-commands",
+  "npm run smoke:schema-docs-readme",
+  "npm run smoke:schema-docs-workflow",
+  "npm run smoke:schema-docs-workflow-failure-copy",
+  "npm run smoke:schema-docs-live-route",
+  "npm run smoke:schema-docs-live-route-failure-copy",
+  "npm run smoke:schema-docs-readme-failure-copy",
+  "npm run smoke:schema-docs-rendered-route-failure-copy",
+  "npm run smoke:shared-validation-workflow",
+  "npm run smoke:shared-validation-workflow-step",
+  "npm run smoke:shared-validation-workflow-failure-copy",
+  "npm run smoke:shared-validation-live-route",
+  "npm run smoke:shared-validation-failure-copy",
+  "npm run smoke:shared-validation-rendered-route-failure-copy",
+  "npm run smoke:web-build-workflow",
+  "npm run smoke:web-build-self-check",
+  "npm run smoke:web-build-live-route",
+  "npm run smoke:web-build-failure-copy",
+  "npm run smoke:api-readme-trigger",
+  "npm run smoke:api-readme-trigger-failure-copy",
+  "npm run smoke:api-readme-trigger-rendered-route-failure-copy",
+  "npm run smoke:api-readme-live-route",
+  "npm run smoke:api-readme-live-route-failure-copy",
+  "npm run smoke:ai-review-api-readme-failure-copy",
+  "npm run smoke:ai-review-api-readme-rendered-route-failure-copy",
+  "npm run smoke:web-build-rendered-route-failure-copy",
+  "npm run smoke -- --url http://127.0.0.1:4177/",
+  "npm run smoke:source-receipt-docs-link -- --url http://127.0.0.1:4177",
+  "npm run smoke:ai-review-api-readme -- --url http://127.0.0.1:4177",
+];
+const expectedPlanMarkers = [
+  'data-testid="shared-readme-command-ci-note"',
+  'data-testid="ai-review-api-readme-ci-note"',
+  'data-testid="ai-review-queue-rendered-route-failure-copy"',
+  'data-testid="ai-review-receipt-api-rendered-route-failure-copy"',
+  'data-testid="ai-review-receipt-write-api-draft"',
+  'data-testid="ai-review-receipt-write-smoke-failure-copy"',
+  'data-testid="ai-review-receipt-write-docs-failure-copy"',
+  'data-testid="ai-review-receipt-write-rendered-route-failure-copy"',
+  'data-testid="ai-review-receipt-write-live-route-gate-note"',
+  'data-testid="ai-review-receipt-write-live-route-failure-copy"',
+  'data-testid="ai-review-receipt-write-live-route-rendered-copy"',
+  'data-testid="ai-review-receipt-write-live-route-workflow-copy"',
+  'data-testid="ai-review-receipt-write-live-route-docs-copy"',
+  'data-testid="ai-review-receipt-write-live-route-readme-trigger-copy"',
+  'data-testid="ai-review-receipt-write-live-route-readme-rendered-copy"',
+  'data-testid="ai-review-receipt-write-live-route-readme-workflow-copy"',
+  'data-testid="ai-review-receipt-write-live-route-readme-workflow-failure-copy"',
+  'data-testid="ai-review-receipt-write-workflow-failure-copy"',
+  'data-testid="api-readme-live-route-gate-note"',
+  'data-testid="api-readme-live-route-failure-copy"',
+  'data-testid="ai-review-api-readme-failure-copy"',
+  'data-testid="ai-review-api-readme-rendered-route-failure-copy"',
+  'data-testid="api-readme-trigger-smoke"',
+  'data-testid="api-readme-trigger-failure-copy"',
+  'data-testid="api-readme-trigger-rendered-route-failure-copy"',
+  'data-testid="schema-docs-readme-ci-note"',
+  'data-testid="schema-docs-readme-workflow-smoke"',
+  'data-testid="schema-docs-workflow-failure-copy"',
+  'data-testid="schema-docs-readme-live-route-gate-note"',
+  'data-testid="schema-docs-live-route-failure-copy"',
+  'data-testid="schema-docs-readme-failure-copy"',
+  'data-testid="schema-docs-rendered-route-failure-copy"',
+  'data-testid="source-owner-receipts-rendered-route-failure-copy"',
+  'data-testid="owner-receipt-api-rendered-route-failure-copy"',
+  'data-testid="source-owner-receipt-write-api-draft"',
+  'data-testid="source-owner-receipt-write-smoke-failure-copy"',
+  'data-testid="source-owner-receipt-write-docs-failure-copy"',
+  'data-testid="source-owner-receipt-write-rendered-route-failure-copy"',
+  'data-testid="source-owner-receipt-write-live-route-gate-note"',
+  'data-testid="source-owner-receipt-write-live-route-failure-copy"',
+  'data-testid="source-owner-receipt-write-live-route-rendered-copy"',
+  'data-testid="source-owner-receipt-write-live-route-workflow-copy"',
+  'data-testid="source-owner-receipt-write-live-route-docs-copy"',
+  'data-testid="source-owner-receipt-write-live-route-readme-trigger-copy"',
+  'data-testid="source-owner-receipt-write-live-route-readme-rendered-copy"',
+  'data-testid="source-owner-receipt-write-live-route-readme-workflow-copy"',
+  'data-testid="source-owner-receipt-write-live-route-readme-workflow-failure-copy"',
+  'data-testid="source-owner-receipt-write-workflow-failure-copy"',
+  'data-testid="source-freshness-write-api-draft"',
+  'data-testid="source-freshness-write-smoke-failure-copy"',
+  'data-testid="source-freshness-write-docs-failure-copy"',
+  'data-testid="source-freshness-write-rendered-route-failure-copy"',
+  'data-testid="source-freshness-write-live-route-gate-note"',
+  'data-testid="source-freshness-write-live-route-failure-copy"',
+  'data-testid="source-freshness-write-live-route-rendered-copy"',
+  'data-testid="source-freshness-write-live-route-workflow-copy"',
+  'data-testid="source-freshness-write-live-route-docs-copy"',
+  'data-testid="source-freshness-write-live-route-readme-trigger-copy"',
+  'data-testid="source-freshness-write-live-route-readme-rendered-copy"',
+  'data-testid="source-freshness-write-live-route-readme-workflow-copy"',
+  'data-testid="source-freshness-write-live-route-readme-workflow-failure-copy"',
+  'data-testid="source-freshness-write-workflow-failure-copy"',
+  'data-testid="source-freshness-rendered-route-failure-copy"',
+  'data-testid="source-freshness-docs-rendered-route-failure-copy"',
+  'data-testid="fns-approvals-rendered-route-failure-copy"',
+  'data-testid="fns-approvals-docs-rendered-route-failure-copy"',
+  'data-testid="fns-real-network-approval-api-copy"',
+  'data-testid="eis-real-network-approval-api-copy"',
+  'data-testid="eis-real-network-approval-smoke-failure-copy"',
+  'data-testid="eis-real-network-approval-docs-failure-copy"',
+  'data-testid="eis-real-network-approval-rendered-route-failure-copy"',
+  'data-testid="eis-real-network-approval-live-route-gate-note"',
+  'data-testid="eis-real-network-approval-live-route-failure-copy"',
+  'data-testid="eis-real-network-approval-live-route-rendered-copy"',
+  'data-testid="eis-real-network-approval-live-route-workflow-copy"',
+  'data-testid="eis-real-network-approval-live-route-docs-copy"',
+  'data-testid="eis-real-network-approval-live-route-readme-trigger-copy"',
+  'data-testid="eis-real-network-approval-live-route-readme-rendered-copy"',
+  'data-testid="eis-real-network-approval-live-route-readme-workflow-copy"',
+  'data-testid="eis-real-network-approval-live-route-readme-workflow-failure-copy"',
+  'data-testid="eis-real-network-approval-workflow-failure-copy"',
+  'data-testid="owner-receipt-docs-rendered-route-failure-copy"',
+  'data-testid="shared-validation-workflow-ci-note"',
+  'data-testid="shared-validation-workflow-step-smoke"',
+  'data-testid="shared-validation-workflow-failure-copy"',
+  'data-testid="shared-validation-live-route-gate-note"',
+  'data-testid="shared-validation-failure-copy"',
+  'data-testid="shared-validation-rendered-route-failure-copy"',
+  'data-testid="web-build-workflow-self-check-note"',
+  'data-testid="web-build-live-route-gate-note"',
+  'data-testid="web-build-failure-copy"',
+  'data-testid="web-build-rendered-route-failure-copy"',
+  'data-testid="web-build-workflow-file-smoke"',
+];
+
+const webRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const repoRoot = resolve(webRoot, "../..");
+const planPagePath = resolve(webRoot, "app/plan/page.tsx");
+const workflowPath = resolve(repoRoot, expectedWorkflowPath);
+
+const planPage = readFileSync(planPagePath, "utf8");
+const workflow = readFileSync(workflowPath, "utf8");
+const failures = [];
+
+assert(workflow.includes(`name: ${expectedWorkflowName}`), "workflow must keep Web build name");
+assert(workflow.includes("pull_request:"), "workflow must run on pull_request");
+assert(workflow.includes("push:"), "workflow must run on push");
+assert(workflow.includes("workflow_dispatch:"), "workflow must keep manual dispatch");
+assert(workflow.includes(`working-directory: ${expectedWorkingDirectory}`), "workflow must run in apps/web");
+assert(workflow.includes(`node-version: ${expectedNodeVersion}`), "workflow must pin Node 22");
+
+for (const path of expectedPaths) {
+  assert(workflow.includes(`- "${path}"`), `workflow paths must include ${path}`);
+}
+
+for (const command of expectedCommands) {
+  assert(workflow.includes(command), `workflow steps must include ${command}`);
+}
+
+for (const marker of expectedPlanMarkers) {
+  assert(planPage.includes(marker), `/plan must expose ${marker}`);
+}
+
+assert(planPage.includes(`workflowPath: "${expectedWorkflowPath}"`), "/plan must expose Web build workflow path");
+assert(planPage.includes(`workflowName: "${expectedWorkflowName}"`), "/plan must expose Web build workflow name");
+assert(planPage.includes("webBuildWorkflowFileSmoke"), "/plan must expose web build workflow file smoke data");
+
+if (failures.length > 0) {
+  console.error("FAIL web build workflow file smoke");
+  for (const failure of failures) {
+    console.error(`  ${failure}`);
+  }
+  process.exit(1);
+}
+
+console.log(`PASS web build workflow file smoke (${expectedCommands.length} commands, ${expectedPaths.length} paths)`);
+
+function assert(condition, message) {
+  if (!condition) {
+    failures.push(message);
+  }
+}
