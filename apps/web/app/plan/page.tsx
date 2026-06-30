@@ -83,6 +83,11 @@ const nextIncrementsCompletionReceipt = {
   copy: "10/10 visible next slots закрыты: final readiness, merge readiness, review threads, merge request, final merge handoff, merge approval checklist, review summary handoff, release summary receipt, acceptance criteria summary и final owner handoff closure подтверждены CLEAN PR, SUCCESS checks, reviewThreads=0, unresolved=0, comments=0 и пустым reviewDecision без owner action, tracker mutation, merge action или main push.",
 };
 
+const nextIncrementsRefreshSeed = {
+  title: "Подготовить PR #17 owner merge handoff refresh seed copy",
+  copy: "связать visible next slots completion receipt с новым owner/merge handoff visible slot seed, CLEAN PR, SUCCESS checks, reviewThreads=0, unresolved=0, comments=0 и пустым reviewDecision без owner action, approval request, tracker mutation, merge action или main push.",
+};
+
 const cycleRules = [
   ["Check", "проверить ветку, PR, dirty tree"],
   ["Build", "запустить релевантную проверку"],
@@ -30469,6 +30474,15 @@ export default function PlanPage() {
               <span>ok</span>
               <strong>{nextIncrementsCompletionReceipt.title}</strong>
               <p>{nextIncrementsCompletionReceipt.copy}</p>
+            </article>
+            <article
+              className="plan-next-row"
+              data-seed-copy={nextIncrementsRefreshSeed.copy}
+              data-testid="pr-owner-merge-handoff-refresh-seed"
+            >
+              <span>1</span>
+              <strong>{nextIncrementsRefreshSeed.title}</strong>
+              <p>{nextIncrementsRefreshSeed.copy}</p>
             </article>
             {nextIncrements.map(([order, title, note]) => (
               <article className="plan-next-row" key={order}>
