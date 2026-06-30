@@ -88,6 +88,11 @@ const nextIncrementsRefreshSeed = {
   copy: "связать visible next slots completion receipt с новым owner/merge handoff visible slot seed, CLEAN PR, SUCCESS checks, reviewThreads=0, unresolved=0, comments=0 и пустым reviewDecision без owner action, approval request, tracker mutation, merge action или main push.",
 };
 
+const ownerMergeHandoffRefreshReadiness = {
+  title: "Подготовить PR #17 owner merge handoff refresh readiness copy",
+  copy: "связать owner merge handoff refresh seed с owner merge handoff refresh readiness, CLEAN PR, SUCCESS checks, reviewThreads=0, unresolved=0, comments=0 и пустым reviewDecision без readiness write, owner action, approval request, tracker mutation, merge action или main push.",
+};
+
 const cycleRules = [
   ["Check", "проверить ветку, PR, dirty tree"],
   ["Build", "запустить релевантную проверку"],
@@ -30483,6 +30488,15 @@ export default function PlanPage() {
               <span>1</span>
               <strong>{nextIncrementsRefreshSeed.title}</strong>
               <p>{nextIncrementsRefreshSeed.copy}</p>
+            </article>
+            <article
+              className="plan-next-row"
+              data-readiness-copy={ownerMergeHandoffRefreshReadiness.copy}
+              data-testid="pr-owner-merge-handoff-refresh-readiness"
+            >
+              <span>2</span>
+              <strong>{ownerMergeHandoffRefreshReadiness.title}</strong>
+              <p>{ownerMergeHandoffRefreshReadiness.copy}</p>
             </article>
             {nextIncrements.map(([order, title, note]) => (
               <article className="plan-next-row" key={order}>
