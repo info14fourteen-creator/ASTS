@@ -78,6 +78,11 @@ const nextIncrements = [
   ],
 ];
 
+const nextIncrementsCompletionReceipt = {
+  title: "PR #17 visible next slots completion receipt",
+  copy: "10/10 visible next slots закрыты: final readiness, merge readiness, review threads, merge request, final merge handoff, merge approval checklist, review summary handoff, release summary receipt, acceptance criteria summary и final owner handoff closure подтверждены CLEAN PR, SUCCESS checks, reviewThreads=0, unresolved=0, comments=0 и пустым reviewDecision без owner action, tracker mutation, merge action или main push.",
+};
+
 const cycleRules = [
   ["Check", "проверить ветку, PR, dirty tree"],
   ["Build", "запустить релевантную проверку"],
@@ -30456,6 +30461,15 @@ export default function PlanPage() {
             <span className="status-pill green">one by one</span>
           </div>
           <div className="plan-next-list">
+            <article
+              className="plan-next-row"
+              data-receipt-copy={nextIncrementsCompletionReceipt.copy}
+              data-testid="pr-visible-next-slots-completion-receipt"
+            >
+              <span>ok</span>
+              <strong>{nextIncrementsCompletionReceipt.title}</strong>
+              <p>{nextIncrementsCompletionReceipt.copy}</p>
+            </article>
             {nextIncrements.map(([order, title, note]) => (
               <article className="plan-next-row" key={order}>
                 <span>{order}</span>
