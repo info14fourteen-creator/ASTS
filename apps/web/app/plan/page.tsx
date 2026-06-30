@@ -93,6 +93,11 @@ const ownerMergeHandoffRefreshReadiness = {
   copy: "связать owner merge handoff refresh seed с owner merge handoff refresh readiness, CLEAN PR, SUCCESS checks, reviewThreads=0, unresolved=0, comments=0 и пустым reviewDecision без readiness write, owner action, approval request, tracker mutation, merge action или main push.",
 };
 
+const ownerMergeHandoffRefreshBoundary = {
+  title: "Подготовить PR #17 owner merge handoff refresh review approval boundary copy",
+  copy: "связать owner merge handoff refresh readiness с review/approval boundary, CLEAN PR, SUCCESS checks, reviewThreads=0, unresolved=0, comments=0 и пустым reviewDecision без boundary write, review write, approval request, owner action, tracker mutation, merge action или main push.",
+};
+
 const cycleRules = [
   ["Check", "проверить ветку, PR, dirty tree"],
   ["Build", "запустить релевантную проверку"],
@@ -30497,6 +30502,15 @@ export default function PlanPage() {
               <span>2</span>
               <strong>{ownerMergeHandoffRefreshReadiness.title}</strong>
               <p>{ownerMergeHandoffRefreshReadiness.copy}</p>
+            </article>
+            <article
+              className="plan-next-row"
+              data-boundary-copy={ownerMergeHandoffRefreshBoundary.copy}
+              data-testid="pr-owner-merge-handoff-refresh-review-approval-boundary"
+            >
+              <span>3</span>
+              <strong>{ownerMergeHandoffRefreshBoundary.title}</strong>
+              <p>{ownerMergeHandoffRefreshBoundary.copy}</p>
             </article>
             {nextIncrements.map(([order, title, note]) => (
               <article className="plan-next-row" key={order}>
