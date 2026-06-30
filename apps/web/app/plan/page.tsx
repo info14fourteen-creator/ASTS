@@ -73,8 +73,8 @@ const nextIncrements = [
   ],
   [
     "10",
-    "Подготовить PR #17 final owner handoff summary rollover copy",
-    "связать acceptance criteria summary rollover с final owner handoff summary rollover, PR summary wording, CLEAN PR, SUCCESS checks, reviewThreads=0, unresolved=0, comments=0 и пустым reviewDecision без handoff action, owner action, tracker mutation, merge action или main push",
+    "Подготовить PR #17 final owner handoff summary closure copy",
+    "связать acceptance criteria summary closure с final owner handoff summary closure, PR summary wording, CLEAN PR, SUCCESS checks, reviewThreads=0, unresolved=0, comments=0 и пустым reviewDecision без closure write, handoff action, owner action, tracker mutation, merge action или main push",
   ],
 ];
 
