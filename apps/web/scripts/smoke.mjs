@@ -100,7 +100,7 @@ const routeChecks = [
       "План разработки ASTS",
       "80-point plan",
       "Next increments",
-      "Подготовить PR #17 final readiness summary rollover copy",
+      "Подготовить PR #17 final readiness summary closure copy",
       "Подготовить PR #17 merge readiness summary note rollover copy",
       "Подготовить PR #17 review threads summary rollover copy",
       "Подготовить PR #17 merge request summary rollover copy",
