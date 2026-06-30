@@ -33,8 +33,8 @@ const nextIncrements = [
   ],
   [
     "2",
-    "Подготовить PR #17 merge readiness summary note rollover copy",
-    "связать final readiness summary rollover с merge readiness summary note rollover, CLEAN PR, SUCCESS statusCheckRollup, reviewThreads=0, unresolved=0, comments=0 и пустым reviewDecision без merge request, owner action, tracker mutation, merge action или main push",
+    "Подготовить PR #17 merge readiness summary note closure copy",
+    "связать final readiness summary closure с merge readiness summary note closure, CLEAN PR, SUCCESS statusCheckRollup, reviewThreads=0, unresolved=0, comments=0 и пустым reviewDecision без closure write, merge request, owner action, tracker mutation, merge action или main push",
   ],
   [
     "3",
